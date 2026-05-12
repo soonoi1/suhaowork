@@ -157,6 +157,10 @@ function pad(number) {
   return String(number).padStart(2, "0");
 }
 
+function clampSlideIndex(index) {
+  return Math.max(0, Math.min(slides.length - 1, index));
+}
+
 function SplitTitle({ text }) {
   return (
     <h1 className="split-title">
@@ -242,9 +246,33 @@ export function App() {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion) return undefined;
-
     const spring = springRef.current;
+    let scrollFrame = 0;
+
+    const getSections = () => slideIds.map((id) => document.getElementById(id)).filter(Boolean);
+
+    const syncActiveFromScroll = () => {
+      scrollFrame = 0;
+      if (spring.locked) return;
+
+      const sections = getSections();
+      if (!sections.length) return;
+
+      const anchor = window.scrollY + window.innerHeight * 0.42;
+      const nearestIndex = sections.reduce((nearest, section, index) => {
+        const distance = Math.abs(section.offsetTop - anchor);
+        return distance < nearest.distance ? { distance, index } : nearest;
+      }, { distance: Number.POSITIVE_INFINITY, index: activeRef.current }).index;
+
+      if (nearestIndex !== activeRef.current) {
+        setActive(nearestIndex);
+      }
+    };
+
+    const requestActiveSync = () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(syncActiveFromScroll);
+    };
 
     const stopSpring = () => {
       if (spring.frame) {
@@ -255,12 +283,20 @@ export function App() {
     };
 
     const animateTo = (targetIndex) => {
-      const section = document.getElementById(slideIds[targetIndex]);
+      const nextIndex = clampSlideIndex(targetIndex);
+      const section = document.getElementById(slideIds[nextIndex]);
       if (!section) return;
+
+      if (prefersReducedMotion) {
+        stopSpring();
+        setActive(nextIndex);
+        window.scrollTo(0, section.offsetTop);
+        return;
+      }
 
       spring.target = section.offsetTop;
       spring.locked = true;
-      setActive(targetIndex);
+      setActive(nextIndex);
 
       let lastTime = performance.now();
       const stiffness = 0.044;
@@ -296,6 +332,18 @@ export function App() {
 
     animateToRef.current = animateTo;
 
+    window.addEventListener("scroll", requestActiveSync, { passive: true });
+
+    if (prefersReducedMotion) {
+      requestActiveSync();
+      return () => {
+        window.removeEventListener("scroll", requestActiveSync);
+        if (scrollFrame) cancelAnimationFrame(scrollFrame);
+        animateToRef.current = null;
+        stopSpring();
+      };
+    }
+
     const onWheel = (event) => {
       const isHorizontalGesture = Math.abs(event.deltaX) > Math.abs(event.deltaY);
       if (isHorizontalGesture || Math.abs(event.deltaY) < 8) return;
@@ -303,7 +351,7 @@ export function App() {
       if (spring.locked) return;
 
       const direction = event.deltaY > 0 ? 1 : -1;
-      const nextIndex = Math.max(0, Math.min(slides.length - 1, activeRef.current + direction));
+      const nextIndex = clampSlideIndex(activeRef.current + direction);
       if (nextIndex !== activeRef.current) animateTo(nextIndex);
     };
 
@@ -312,7 +360,7 @@ export function App() {
       const direction = directionMap[event.key];
       if (!direction || spring.locked) return;
       event.preventDefault();
-      const nextIndex = Math.max(0, Math.min(slides.length - 1, activeRef.current + direction));
+      const nextIndex = clampSlideIndex(activeRef.current + direction);
       if (nextIndex !== activeRef.current) animateTo(nextIndex);
     };
 
@@ -328,9 +376,11 @@ export function App() {
     window.addEventListener("pointermove", onPointerMove);
 
     return () => {
+      window.removeEventListener("scroll", requestActiveSync);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("pointermove", onPointerMove);
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
       animateToRef.current = null;
       stopSpring();
     };
