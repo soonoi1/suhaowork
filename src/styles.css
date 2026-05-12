@@ -1,27 +1,15 @@
 :root {
-  color-scheme: light;
-  --bg: #f4f1f2;
-  --paper: #fbf8f9;
-  --ink: #151113;
-  --muted: #766d71;
-  --line: rgba(21, 17, 19, 0.16);
-  --accent: #8b1e46;
-  --glow: rgba(139, 30, 70, 0.18);
-  --glass: rgba(255, 255, 255, 0.58);
-  --shadow: 0 34px 110px rgba(58, 31, 41, 0.14);
-}
-
-:root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #15130f;
-  --paper: #1d1a15;
+  --bg: #13110e;
+  --paper: #1c1914;
   --ink: #f3ead8;
   --muted: #a79d8a;
   --line: rgba(243, 234, 216, 0.16);
   --accent: #d8c58f;
-  --glow: rgba(216, 197, 143, 0.18);
-  --glass: rgba(42, 37, 30, 0.58);
+  --glow: rgba(216, 197, 143, 0.1);
+  --glass: rgba(42, 37, 30, 0.52);
   --shadow: 0 40px 120px rgba(0, 0, 0, 0.38);
+  --media-radius: 30px;
 }
 
 * {
@@ -30,7 +18,9 @@
 
 html {
   min-height: 100%;
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 0;
 }
 
 body {
@@ -63,13 +53,15 @@ button {
   position: fixed;
   inset: -20%;
   z-index: -1;
-  opacity: 0.32;
+  opacity: 0.1;
   pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 36%, var(--glow) 46%, transparent 55%),
-    radial-gradient(circle at calc(50% + var(--px, 0) * 18%) calc(50% + var(--py, 0) * 18%), var(--glow), transparent 28%);
-  filter: blur(20px);
-  transform: translate3d(calc(var(--px, 0) * 20px), calc(var(--py, 0) * 20px), 0);
+  background: radial-gradient(
+    circle at calc(50% + var(--px, 0) * 7%) calc(48% + var(--py, 0) * 7%),
+    var(--glow),
+    transparent 38%
+  );
+  filter: blur(88px);
+  transform: translate3d(calc(var(--px, 0) * 12px), calc(var(--py, 0) * 12px), 0);
   transition: opacity 600ms ease;
 }
 
@@ -152,6 +144,8 @@ button {
   min-height: 100vh;
   padding: 12vh 0;
   overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .story-section.dark {
@@ -164,7 +158,7 @@ button {
   right: 0;
   top: 11vh;
   height: 1px;
-  background: linear-gradient(90deg, var(--line), transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--line) 55%, transparent), transparent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -215,7 +209,7 @@ button {
 .reveal-visual {
   --reveal-y: 34px;
   --reveal-blur: 18px;
-  clip-path: inset(18% 0 18% 0 round 28px);
+  clip-path: inset(14% 0 14% 0 round var(--media-radius));
   transition:
     opacity 920ms cubic-bezier(0.22, 1, 0.36, 1),
     filter 980ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -224,7 +218,7 @@ button {
 }
 
 .reveal-visual.is-inview {
-  clip-path: inset(0 0 0 0 round 0);
+  clip-path: inset(0 0 0 0 round var(--media-radius));
 }
 
 .reveal-copy {
@@ -356,13 +350,13 @@ button {
   position: absolute;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: var(--media-radius);
   background: var(--glass);
   box-shadow: var(--shadow);
   backdrop-filter: blur(22px) saturate(1.4);
   transform:
-    rotateX(calc(var(--py, 0) * -4deg))
-    rotateY(calc(var(--px, 0) * 5deg));
+    rotateX(calc(var(--py, 0) * -2deg))
+    rotateY(calc(var(--px, 0) * 2.5deg));
   transition:
     transform 280ms ease-out,
     border-color 260ms ease,
@@ -396,9 +390,9 @@ button {
   inset: 12%;
   z-index: 4;
   pointer-events: none;
-  background: linear-gradient(100deg, transparent 22%, var(--glow) 43%, rgba(255, 255, 255, 0.38) 49%, transparent 62%);
+  background: linear-gradient(100deg, transparent 25%, var(--glow) 46%, rgba(255, 255, 255, 0.14) 50%, transparent 63%);
   mix-blend-mode: screen;
-  filter: blur(8px);
+  filter: blur(18px);
   opacity: 0;
   transform: translateX(calc(-20% + var(--px, 0) * 18%)) translateY(calc(var(--py, 0) * 8%)) rotate(-8deg);
   transition:
@@ -407,7 +401,7 @@ button {
 }
 
 .story-section.is-active .prism-light {
-  opacity: 0.72;
+  opacity: 0.42;
   transform: translateX(calc(12% + var(--px, 0) * 18%)) translateY(calc(var(--py, 0) * 8%)) rotate(-8deg);
 }
 
@@ -415,7 +409,7 @@ button {
   position: absolute;
   border: 1px solid color-mix(in srgb, var(--accent) 62%, transparent);
   border-radius: 50%;
-  opacity: 0.45;
+  opacity: 0.18;
   pointer-events: none;
 }
 
@@ -453,7 +447,7 @@ button {
 .rail a {
   width: 18px;
   height: 1px;
-  background: var(--line);
+  background: color-mix(in srgb, var(--line) 55%, transparent);
   transition:
     width 420ms cubic-bezier(0.18, 0.89, 0.32, 1.28),
     background 260ms ease,
@@ -471,7 +465,7 @@ button {
   align-self: center;
   padding: clamp(28px, 5vw, 72px);
   border: 1px solid var(--line);
-  border-radius: 32px;
+  border-radius: var(--media-radius);
   background: color-mix(in srgb, var(--paper) 72%, transparent);
   backdrop-filter: blur(28px) saturate(1.25);
 }
@@ -484,7 +478,7 @@ button {
 .hero-mask .visual-image {
   inset: 0 0 0 -8%;
   border: 0;
-  border-radius: 46px;
+  border-radius: var(--media-radius);
   box-shadow: none;
   background: var(--paper);
 }
@@ -527,13 +521,13 @@ button {
 
 .manifesto .visual-image {
   inset: 0;
-  border-radius: 999px;
+  border-radius: var(--media-radius);
   transform: rotate(-3deg);
 }
 
 .split-race .visual-image {
   inset: 8% 0 8% 0;
-  border-radius: 34px;
+  border-radius: var(--media-radius);
 }
 
 .split-race .micro-index {
@@ -566,7 +560,7 @@ button {
   width: min(500px, 40vw);
   height: min(600px, 70vh);
   border: 0;
-  border-radius: 48% 48% 0 0;
+  border-radius: var(--media-radius);
   box-shadow: none;
   transform: translate(-50%, -50%) scale(0.94);
 }
@@ -578,11 +572,11 @@ button {
   font-size: clamp(58px, 9.4vw, 138px);
   line-height: 0.9;
   color: color-mix(in srgb, var(--ink) 78%, transparent);
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
 }
 
 :root[data-theme="dark"] .cyber-portrait .split-title {
-  mix-blend-mode: screen;
+  mix-blend-mode: normal;
 }
 
 .cyber-portrait .subtitle {
@@ -613,7 +607,7 @@ button {
 
 .giant-index .visual-image {
   inset: 0 0 0 0;
-  border-radius: 0;
+  border-radius: var(--media-radius);
 }
 
 .kinetic-band .split-title {
@@ -625,7 +619,7 @@ button {
   right: -4%;
   top: 20%;
   height: 46%;
-  border-radius: 999px;
+  border-radius: var(--media-radius);
 }
 
 .kinetic-band .orbital-line {
@@ -647,7 +641,7 @@ button {
 .stack-cards .visual::after {
   position: absolute;
   border: 1px solid var(--line);
-  border-radius: 28px;
+  border-radius: var(--media-radius);
   content: "";
 }
 
@@ -661,7 +655,7 @@ button {
 
 .prism-stage .visual-image {
   inset: 18% -10% 18% -2%;
-  border-radius: 999px;
+  border-radius: var(--media-radius);
 }
 
 .workflow-grid .visual {
@@ -680,14 +674,14 @@ button {
   position: relative;
   min-height: 210px;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: var(--media-radius);
   background: linear-gradient(135deg, var(--glass), transparent);
   content: "";
 }
 
 .studio-lab .visual-image {
   inset: 0 8% 0 10%;
-  border-radius: 32px;
+  border-radius: var(--media-radius);
 }
 
 .line-system {
@@ -725,7 +719,7 @@ button {
 
 .editorial .visual-image {
   inset: 4% 0 4% 8%;
-  border-radius: 50%;
+  border-radius: var(--media-radius);
 }
 
 .results {
@@ -749,13 +743,13 @@ button {
 
 .results .visual-image {
   inset: 0;
-  border-radius: 30px;
+  border-radius: var(--media-radius);
 }
 
 .capability-map .visual-image {
   inset: 10% 4% 10% 0;
-  clip-path: polygon(8% 0, 100% 12%, 86% 100%, 0 86%);
-  border-radius: 24px;
+  clip-path: none;
+  border-radius: var(--media-radius);
 }
 
 .finale {
@@ -778,7 +772,7 @@ button {
   top: 50%;
   width: min(440px, 38vw);
   height: min(440px, 52vh);
-  border-radius: 50%;
+  border-radius: var(--media-radius);
   transform: translate(-50%, -50%);
 }
 
@@ -840,7 +834,7 @@ button {
     inset: 0;
     width: auto;
     height: auto;
-    border-radius: 28px;
+    border-radius: var(--media-radius);
     clip-path: none;
     transform: none;
   }

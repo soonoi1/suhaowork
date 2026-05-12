@@ -1,4 +1,3 @@
-import { Moon, Sun } from "lucide-react";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 const assets = {
@@ -252,11 +251,9 @@ function StorySection({ index, slide, active }) {
 }
 
 export function App() {
-  const [themeOverride, setThemeOverride] = useState(null);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const animateToRef = useRef(null);
-  const springRef = useRef({ frame: 0, target: 0, velocity: 0, locked: false });
   const slideIds = useMemo(() => slides.map((_, index) => `slide-${index + 1}`), []);
 
   useLayoutEffect(() => {
@@ -266,11 +263,9 @@ export function App() {
     window.scrollTo(0, 0);
   }, []);
 
-  const currentTheme = themeOverride || slides[active]?.tone || "light";
-
   useEffect(() => {
-    document.documentElement.dataset.theme = currentTheme;
-  }, [currentTheme]);
+    document.documentElement.dataset.theme = "dark";
+  }, []);
 
   useEffect(() => {
     activeRef.current = active;
@@ -279,15 +274,12 @@ export function App() {
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const spring = springRef.current;
     let scrollFrame = 0;
 
     const getSections = () => slideIds.map((id) => document.getElementById(id)).filter(Boolean);
 
     const syncActiveFromScroll = () => {
       scrollFrame = 0;
-      if (spring.locked) return;
-
       const sections = getSections();
       if (!sections.length) return;
 
@@ -307,60 +299,13 @@ export function App() {
       scrollFrame = requestAnimationFrame(syncActiveFromScroll);
     };
 
-    const stopSpring = () => {
-      if (spring.frame) {
-        cancelAnimationFrame(spring.frame);
-        spring.frame = 0;
-      }
-      spring.locked = false;
-    };
-
     const animateTo = (targetIndex) => {
       const nextIndex = clampSlideIndex(targetIndex);
       const section = document.getElementById(slideIds[nextIndex]);
       if (!section) return;
 
-      if (prefersReducedMotion) {
-        stopSpring();
-        setActive(nextIndex);
-        window.scrollTo(0, section.offsetTop);
-        return;
-      }
-
-      spring.target = section.offsetTop;
-      spring.locked = true;
       setActive(nextIndex);
-
-      let lastTime = performance.now();
-      const stiffness = 0.044;
-      const damping = 0.865;
-
-      const tick = (now) => {
-        const delta = Math.min((now - lastTime) / 16.67, 2.4);
-        lastTime = now;
-
-        const current = window.scrollY;
-        const distance = spring.target - current;
-        spring.velocity = (spring.velocity + distance * stiffness * delta) * damping;
-
-        window.scrollTo(0, current + spring.velocity * delta);
-
-        if (Math.abs(distance) < 0.55 && Math.abs(spring.velocity) < 0.5) {
-          window.scrollTo(0, spring.target);
-          spring.velocity = 0;
-          spring.frame = 0;
-          window.setTimeout(() => {
-            spring.locked = false;
-          }, 120);
-          return;
-        }
-
-        spring.frame = requestAnimationFrame(tick);
-      };
-
-      if (!spring.frame) {
-        spring.frame = requestAnimationFrame(tick);
-      }
+      section.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
     };
 
     animateToRef.current = animateTo;
@@ -373,25 +318,13 @@ export function App() {
         window.removeEventListener("scroll", requestActiveSync);
         if (scrollFrame) cancelAnimationFrame(scrollFrame);
         animateToRef.current = null;
-        stopSpring();
       };
     }
-
-    const onWheel = (event) => {
-      const isHorizontalGesture = Math.abs(event.deltaX) > Math.abs(event.deltaY);
-      if (isHorizontalGesture || Math.abs(event.deltaY) < 8) return;
-      event.preventDefault();
-      if (spring.locked) return;
-
-      const direction = event.deltaY > 0 ? 1 : -1;
-      const nextIndex = clampSlideIndex(activeRef.current + direction);
-      if (nextIndex !== activeRef.current) animateTo(nextIndex);
-    };
 
     const onKeyDown = (event) => {
       const directionMap = { ArrowDown: 1, PageDown: 1, " ": 1, ArrowUp: -1, PageUp: -1 };
       const direction = directionMap[event.key];
-      if (!direction || spring.locked) return;
+      if (!direction) return;
       event.preventDefault();
       const nextIndex = clampSlideIndex(activeRef.current + direction);
       if (nextIndex !== activeRef.current) animateTo(nextIndex);
@@ -404,18 +337,15 @@ export function App() {
       document.documentElement.style.setProperty("--py", y.toFixed(3));
     };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("pointermove", onPointerMove);
 
     return () => {
       window.removeEventListener("scroll", requestActiveSync);
-      window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("pointermove", onPointerMove);
       if (scrollFrame) cancelAnimationFrame(scrollFrame);
       animateToRef.current = null;
-      stopSpring();
     };
   }, [slideIds]);
 
@@ -435,18 +365,6 @@ export function App() {
           <span className="brand-mark" />
           <span>理想同学</span>
         </a>
-        <button
-          className="icon-button"
-          type="button"
-          aria-label="切换黑白模式"
-          title="切换黑白模式"
-          onClick={() => setThemeOverride((value) => {
-            const base = value || currentTheme;
-            return base === "dark" ? "light" : "dark";
-          })}
-        >
-          {currentTheme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-        </button>
       </header>
 
       <main className="story">
