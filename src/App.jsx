@@ -161,33 +161,62 @@ function clampSlideIndex(index) {
   return Math.max(0, Math.min(slides.length - 1, index));
 }
 
+function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...props }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          node.classList.add("is-inview");
+        } else {
+          node.classList.remove("is-inview");
+        }
+      },
+      { threshold: 0.28, rootMargin: "-8% 0px -8% 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <Tag ref={ref} className={`reveal ${className}`} style={{ "--reveal-delay": `${delay}ms` }} {...props}>
+      {children}
+    </Tag>
+  );
+}
+
 function SplitTitle({ text }) {
   return (
-    <h1 className="split-title">
+    <Reveal as="h1" className="split-title reveal-title">
       {text.split("").map((char, index) => (
         <span style={{ "--i": index }} key={`${char}-${index}`}>
           {char === " " ? "\u00A0" : char}
         </span>
       ))}
-    </h1>
+    </Reveal>
   );
 }
 
 function KeywordLine({ words }) {
   return (
-    <ul className="keyword-line">
+    <Reveal as="ul" className="keyword-line reveal-keywords" delay={220}>
       {words.map((word, index) => (
         <li style={{ "--i": index }} key={word}>
           {word}
         </li>
       ))}
-    </ul>
+    </Reveal>
   );
 }
 
 function Visual({ slide, index }) {
   return (
-    <div className="visual" data-layout={slide.layout}>
+    <Reveal className="visual reveal-visual" data-layout={slide.layout} delay={140}>
       <div className="visual-image depth-card">
         <img src={slide.image} alt="" />
       </div>
@@ -196,7 +225,7 @@ function Visual({ slide, index }) {
       <span className="micro-index" aria-hidden="true">
         {pad(index + 1)}
       </span>
-    </div>
+    </Reveal>
   );
 }
 
@@ -205,9 +234,13 @@ function StorySection({ index, slide, active }) {
     <section className={`story-section ${slide.tone} ${slide.layout} ${active ? "is-active" : ""}`} id={`slide-${index + 1}`}>
       <div className="section-rule" aria-hidden="true" />
       <div className="copy-block">
-        <p className="kicker">{slide.kicker}</p>
+        <Reveal as="p" className="kicker reveal-kicker">
+          {slide.kicker}
+        </Reveal>
         <SplitTitle text={slide.title} />
-        <p className="subtitle">{slide.subtitle}</p>
+        <Reveal as="p" className="subtitle reveal-copy" delay={160}>
+          {slide.subtitle}
+        </Reveal>
         <KeywordLine words={slide.words} />
       </div>
       <Visual slide={slide} index={index} />
