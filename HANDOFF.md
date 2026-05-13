@@ -109,18 +109,35 @@ www.suhaowork.art
 
 ## DNS 配置
 
-DNS 当前托管在腾讯云 DNSPod。
+DNS 当前托管在外部 DNS 服务，不使用 Vercel Nameserver。
 
-记录配置：
+Vercel 当前建议记录配置：
 
 ```text
-@      A       76.76.21.21
-www    CNAME   cname.vercel-dns.com
+@      A       216.198.79.1
+www    CNAME   1463312ecb76e427.vercel-dns-017.com
 ```
 
 说明：
 
-Vercel 后台可能提示 nameserver 不是 Vercel DNS，这是正常的，因为当前使用 DNSPod 管理解析，不需要切换 nameserver。
+Vercel 因 IP range expansion 可能推荐项目专属新记录。旧记录 `76.76.21.21` 和 `cname.vercel-dns.com` 仍可能可用，但后台会显示 `DNS Change Recommended`。以后优先以 Vercel Domains 页面当前提示为准。
+
+## 访问保护
+
+站点包含 Vercel Middleware Basic Auth：
+
+```text
+middleware.js
+```
+
+Vercel 环境变量：
+
+```text
+SITE_AUTH_USER
+SITE_AUTH_PASSWORD
+```
+
+只要 Production 环境中设置了这两个变量，访问站点会先出现浏览器用户名 / 密码验证。不要把真实密码写入代码或文档。修改环境变量后需要重新部署才会生效。
 
 ## 目录说明
 
@@ -129,34 +146,39 @@ src/App.jsx        页面结构、内容数据、滚动叙事逻辑
 src/styles.css     全站视觉样式、响应式、动效
 public/assets/     站点图片素材
 vercel.json        Vercel 部署配置
+middleware.js      Vercel Basic Auth 访问保护
 ```
 
 ## 当前已完成功能
 
 - React + Vite 项目搭建
-- 作品集视觉方向重设计
-- 使用「理想同学」图片作为展示素材
-- 滚动叙事页面结构
-- 物理阻尼滚动
-- 图像视差与棱镜光效
-- 文字入场动效
-- 黑白主题切换
-- 移动端响应式基础适配
+- 作品集式业绩展示方向
+- 16 屏案例滚动叙事结构
+- 每屏不同 layout 版式
+- 视频 / 图片背景铺底
+- 悬浮媒体卡片和 hover 聚焦
+- 文字入场动效和侧边导航
+- 底部渐变模糊滤镜
+- 移动端响应式适配
+- Alphaplayer 左 alpha / 右 RGB 透明视频播放器组件
+- Basic Auth 访问密码保护
 - Vercel 自动部署
 - 自定义域名接入
 
 ## 最近一次关键修改
 
-已修复滚动状态同步问题：
+2026-05-14：
 
 ```text
-186c78c fix scroll state sync
+将站点扩展为 16 屏晋升能力案例展示，并同步维护记录。
 ```
 
 作用：
 
-- 手动滚动、触控板滚动、导航点击后，当前 active slide 能正确同步
-- 减少动态效果模式下，导航点击仍可正常跳转
+- 从 8 屏扩展到 16 屏，覆盖决断力、执行力、协作力、自驱力
+- 每屏保留「背景问题 / 解决策略 / 结果」的有序叙事
+- 收紧文字排版、卡片高度、侧边导航密度
+- 明确后续每次修改都需要同步 GitHub 记录
 
 ## 注意事项
 
@@ -184,3 +206,28 @@ texture
 - 高斯渲染与引擎落地
 - 角色体系、世界观、资产规范
 - 审美判断、方向把控、复杂项目推进能力
+
+## 事件日志
+
+### 2026-05-14
+
+- 用户确认站点内容属于公司内部材料，不适合公开。
+- 新增 `middleware.js`，通过 Vercel 环境变量 `SITE_AUTH_USER` / `SITE_AUTH_PASSWORD` 启用 Basic Auth。
+- 用户确认实际域名为 `suhaowork.art`，不是 `suhaowork.com`。
+- Vercel Domains 页面显示 `suhaowork.art` / `www.suhaowork.art` 已绑定，但推荐更新 DNS：
+  - `@ A 216.198.79.1`
+  - `www CNAME 1463312ecb76e427.vercel-dns-017.com`
+- 已将作品集重构版本推送到 GitHub：
+  - `6e9c431 update portfolio case pages`
+- 用户要求后续每次修改后，同步变化和备注到 GitHub。
+- 当前继续扩展站点页数，从 8 页扩展到 16 页，并调整文字排版秩序。
+
+### 2026-05-13
+
+- 从 GitHub 仓库熟悉项目并克隆到本地 `C:\suhaowork-site`。
+- 确认原始 `C:\suhaowork` 是素材整理工作区，不是网站 Git 仓库。
+- 新增 `AlphaVideoPlayer`，支持左右拼接透明视频：
+  - 左侧黑白 alpha
+  - 右侧 RGB
+  - WebGL 合成为透明 canvas
+- 从 `C:\suhaowork\理想素材_手动整理框架` 中挑选并压缩站点素材到 `public/assets/cases/`。
