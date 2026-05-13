@@ -1,154 +1,181 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 
-const assets = {
-  hero: "/assets/li-light.png",
-  heroDark: "/assets/li-dark.png",
-  prism: "/assets/li-prism-web.jpg",
-  board: "/assets/li-board-web.jpg",
-  ui: "/assets/li-ui.jpg",
-  wide: "/assets/li-01.jpg",
-  avatar: "/assets/li-avatar-01.jpg",
-  character: "/assets/li-character.jpg",
-  human: "/assets/li-human.jpg",
-  student: "/assets/li-student.jpg",
-  frame: "/assets/li-frame-web.jpg",
+const media = {
+  homeCenter: "/assets/cases/home-center.mp4",
+  homeAlarm: "/assets/cases/home-alarm.mp4",
+  homeDraw: "/assets/cases/home-draw.mp4",
+  homeFestival: "/assets/cases/home-festival.mp4",
+  gaussMain: "/assets/cases/gauss-main.mp4",
+  gaussEngine: "/assets/cases/gauss-engine.mp4",
+  ocAttention: "/assets/cases/oc-attention.mp4",
+  ocPickup: "/assets/cases/oc-pickup.mp4",
+  ocParking: "/assets/cases/oc-parking.mp4",
+  otaUpdate: "/assets/cases/ota-update.mp4",
+  otaDesk: "/assets/cases/ota-desk.mp4",
+  otaTheater: "/assets/cases/ota-theater.mp4",
+  appFlow: "/assets/cases/app-flow.mp4",
+  appCoffee: "/assets/cases/app-coffee.mp4",
+  appMusic: "/assets/cases/app-music.mp4",
+  radiantAttention: "/assets/cases/radiant-attention.mp4",
+  radiantColor: "/assets/cases/radiant-color.mp4",
+  radiantSpeak: "/assets/cases/radiant-speak.mp4",
+  entityDark: "/assets/cases/entity-dark.png",
+  entityDefault: "/assets/cases/entity-default.png",
+  workflowComfy: "/assets/cases/workflow-comfyui.png",
+  workflowChat: "/assets/cases/workflow-chatgpt.png",
+  workflowLamp: "/assets/cases/workflow-ai-lamp.jpg",
+  workflowOptions: "/assets/cases/workflow-ai-options.jpg",
+  otaScene: "/assets/cases/ota-scene-dark.png",
+  otaCharacters: "/assets/cases/ota-characters.png",
 };
 
-const slides = [
+const cases = [
   {
-    tone: "light",
-    layout: "hero-mask",
-    kicker: "00 / LI AUTO AI",
-    title: "理想同学",
-    subtitle: "从形象探索到产品上线",
-    words: ["0 TO 1", "ENTITY", "MOTION", "SYSTEM"],
-    image: assets.hero,
+    layout: "home-orbit",
+    dimension: "决断力",
+    principle: "创造用户价值",
+    eyebrow: "01 / HOME CENTER",
+    title: "理想同学中心首页设计",
+    summary: "把首页从视觉承载页推进为能力理解入口，让用户看得懂、愿意用，也能承接后续活动与新能力。",
+    problem: "首页需要同时承担能力传达、内容组织和长期运营入口。如果只追求炫目动效，用户会很快疲劳；如果只做静态陈列，又无法建立理想同学新能力的感知。",
+    strategy: "重新组织信息层级，判断不同动效的露出频率：轻量、低打扰动效提高出现频次，高反馈、长时长动效降低重复露出，并在结构上预留新活动和新能力的接入空间。",
+    result: "首页既满足当前能力表达，也顺畅接入春节活动，形成可持续扩展的产品入口。",
+    background: { type: "video", src: media.homeCenter },
+    gallery: [
+      { type: "video", src: media.homeAlarm, label: "轻量状态" },
+      { type: "video", src: media.homeDraw, label: "能力场景" },
+      { type: "video", src: media.homeFestival, label: "活动接入" },
+    ],
+    metrics: ["长期使用体验", "扩展空间", "低打扰动效"],
   },
   {
-    tone: "dark",
-    layout: "manifesto",
-    kicker: "01 / NARRATIVE",
-    title: "不是做一张图，是把一个角色推向可用",
-    subtitle: "探索、判断、交付、复用，在同一条业务线上收束。",
-    words: ["探索", "推进", "判断", "落地"],
-    image: assets.prism,
+    layout: "route-compare",
+    dimension: "决断力",
+    principle: "创造用户价值",
+    eyebrow: "02 / GAUSS ROUTE",
+    title: "理想同学语搜形象技术路线判断",
+    summary: "在版本安全和体验上限之间做判断：用 Spine 保交付，用 Gauss 争取更好的毛发质感和三维记忆点。",
+    problem: "毛绒实体化形象在车端展示中，传统 3D 方案难以同时满足毛发质感、三维体积和稳定落地，直接上线表现一般的方案会稀释用户记忆点。",
+    strategy: "推动 Spine、3D Multipass、Gauss 三条技术路线并行验证。后期基于最终体验效果，选择 Spine 保障版本交付，同时保留 Gauss 方案攻坚空间。",
+    result: "业务节点没有被创新探索拖垮，同时为更优体验方案保留继续收敛的路径。",
+    background: { type: "video", src: media.gaussMain },
+    gallery: [
+      { type: "video", src: media.gaussEngine, label: "引擎验证" },
+      { type: "image", src: media.entityDark, label: "毛绒质感" },
+      { type: "image", src: media.entityDefault, label: "默认形象" },
+    ],
+    metrics: ["业务安全", "体验上限", "技术判断"],
   },
   {
-    tone: "light",
-    layout: "split-race",
-    kicker: "02 / CONTEXT",
-    title: "从多端业务语境进入",
-    subtitle: "APP、HMI、眼镜、AI 场景，先建立对载体和协作方式的理解。",
-    words: ["APP", "HMI", "GLASS", "AI"],
-    image: assets.ui,
+    layout: "focus-eye",
+    dimension: "决断力",
+    principle: "创造用户价值",
+    eyebrow: "03 / OC EYES",
+    title: "OC 眼睛动效",
+    summary: "在车端注意力变化很小的场景里，让眼睛不是机械跟随，而是持续有生命感。",
+    problem: "车辆注意力变化幅度很小，如果眼睛只绑定状态跟随，会显得机械、僵硬，用户很难感受到角色存在。",
+    strategy: "把真实物理世界中的不确定性引入动效：加入仿真人眼微抖、眨眼和低幅度随机变化，让常驻状态也保留灵动感。",
+    result: "OC 眼睛的精致度和生动度明显增强，在低动态幅度下依然能保持角色感。",
+    background: { type: "video", src: media.ocAttention },
+    gallery: [
+      { type: "video", src: media.ocPickup, label: "接人场景" },
+      { type: "video", src: media.ocParking, label: "临停请求" },
+      { type: "video", src: media.ocAttention, label: "注意力变化" },
+    ],
+    metrics: ["生命感", "低幅动态", "角色精致度"],
   },
   {
-    tone: "light",
-    layout: "cyber-portrait",
-    kicker: "03 / CHARACTER",
-    title: "实体化形象升级",
-    subtitle: "外形、材质、默认形象，从概念收敛到可交付资产。",
-    words: ["毛绒", "牛仔帽", "默认形象"],
-    image: assets.character,
+    layout: "delivery-board",
+    dimension: "执行力",
+    principle: "责任担当",
+    eyebrow: "04 / OTA 7.4",
+    title: "OTA 7.4 理想同学 4o 项目交付",
+    summary: "两周内完成多端、多形象、黑白模式资源交付，用优先级策略控制成本和风险。",
+    problem: "新形象与小同桌需要车端和手机端同期上线，涉及 9 个形象、黑白两套模式，动画制作到交付测试只有 2 周。",
+    strategy: "按成员擅长方向拆分任务，把主要精力投向曝光高、点击频次高的核心出现状态，低频状态采用复用策略，保证关键体验优先。",
+    result: "关键节点前顺利完成交付，同时控制了资源制作成本和版本风险。",
+    background: { type: "video", src: media.otaUpdate },
+    gallery: [
+      { type: "video", src: media.otaDesk, label: "小同桌" },
+      { type: "video", src: media.otaTheater, label: "小剧场" },
+      { type: "image", src: media.otaScene, label: "黑色模式" },
+      { type: "image", src: media.otaCharacters, label: "角色矩阵" },
+    ],
+    metrics: ["2 周交付", "9 个形象", "黑白双模式"],
   },
   {
-    tone: "dark",
-    layout: "giant-index",
-    kicker: "04 / OTA 7.4",
-    title: "多端升级交付",
-    subtitle: "APP / 车机 / PC 三端 CUI 交互工程设计。",
-    words: ["APP", "CAR", "PC"],
-    image: assets.board,
+    layout: "timeline-flow",
+    dimension: "执行力",
+    principle: "责任担当",
+    eyebrow: "05 / APP 24H",
+    title: "APP 首页理想同学 24 小时动画资源产出策略调整",
+    summary: "从纯 3D 转向 AI 批量生产工作流，用更高密度的探索换取更稳定的交付节奏。",
+    problem: "24 小时动画资源需求快速增加，纯 3D 制作方式无法支撑高密度交付；AI 视频生成又存在随机性，难以直接稳定产出。",
+    strategy: "调整为先批量生图、生视频扩大探索范围，再从优质结果中筛选和收敛概念方向。进一步用 VS Code 搭建批量工作流，提高生成、筛选、复用效率。",
+    result: "资源产出效率和可控性提升，项目能按节奏推进，也沉淀出后续可复用的生产方法。",
+    background: { type: "video", src: media.appFlow },
+    gallery: [
+      { type: "video", src: media.appCoffee, label: "午后状态" },
+      { type: "video", src: media.appMusic, label: "音乐状态" },
+      { type: "image", src: media.workflowLamp, label: "批量概念" },
+      { type: "image", src: media.workflowOptions, label: "方向筛选" },
+    ],
+    metrics: ["批量生成", "筛选收敛", "节奏保障"],
   },
   {
-    tone: "light",
-    layout: "kinetic-band",
-    kicker: "05 / CONSTRAINT",
-    title: "在限制里找更优解",
-    subtitle: "性能、包体、内存、画质、帧率，体验不是只靠理想方案成立。",
-    words: ["性能", "包体", "画质", "帧率"],
-    image: assets.wide,
+    layout: "wide-stage",
+    dimension: "协作力",
+    principle: "建立高效团队",
+    eyebrow: "06 / RADIANT LIGHT",
+    title: "放空桌面放射光效果方案共享与协同推进",
+    summary: "把个人探索及时沉淀成团队可继续推进的方案，让共享成果比个人完成更重要。",
+    problem: "放射光方案具备进一步打磨价值，但单人精力不足以覆盖后续细化、验证和交付。",
+    strategy: "基于 AI Studio 和 React 动效源码形成初版方向后，主动整理设计经验、实现思路和方案判断，交给团队成员在已有基础上继续推进。",
+    result: "团队成员进一步完善方案并完成交付，个人探索转化为团队共享资产。",
+    background: { type: "video", src: media.radiantAttention },
+    gallery: [
+      { type: "video", src: media.radiantColor, label: "冷暖色" },
+      { type: "video", src: media.radiantSpeak, label: "说话态" },
+      { type: "video", src: media.radiantAttention, label: "注意力" },
+    ],
+    metrics: ["方案沉淀", "共享推进", "团队交付"],
   },
   {
-    tone: "dark",
-    layout: "stack-cards",
-    kicker: "06 / SYSTEM",
-    title: "从单个形象到角色体系",
-    subtitle: "世界观、视觉语言、资产库和复用规范，让工作变成系统能力。",
-    words: ["世界观", "资产库", "规范"],
-    image: assets.student,
+    layout: "system-stack",
+    dimension: "协作力",
+    principle: "建立高效团队",
+    eyebrow: "07 / CROSS ROLE",
+    title: "理想同学车端语音形象跨角色协同",
+    summary: "在设计、Spine、Gauss、引擎之间建立共同目标，把探索方案继续推向落地。",
+    problem: "车端语音形象涉及基础资源、动画设计、高斯模型动作结构和引擎效果整合，需要多角色持续对齐。",
+    strategy: "线上交付阶段提供完整基础资源并协同 Spine 动画落地；Gauss 阶段设计骨骼动作层级，协同动作设计与引擎资源优化。",
+    result: "基础方案稳定上线，高斯方向从设计探索继续向可落地方案收敛。",
+    background: { type: "image", src: media.entityDark },
+    gallery: [
+      { type: "video", src: media.gaussMain, label: "高斯方向" },
+      { type: "image", src: media.entityDefault, label: "基础资源" },
+      { type: "video", src: media.gaussEngine, label: "引擎整合" },
+    ],
+    metrics: ["跨角色对齐", "动作层级", "方案收敛"],
   },
   {
-    tone: "light",
-    layout: "prism-stage",
-    kicker: "07 / RENDER",
-    title: "高斯渲染与引擎落地",
-    subtitle: "主线突破与兜底方案并行，目标是让效果真正进入产品。",
-    words: ["高斯", "引擎", "还原", "兜底"],
-    image: assets.prism,
-  },
-  {
-    tone: "dark",
-    layout: "workflow-grid",
-    kicker: "08 / AI WORKFLOW",
-    title: "AI 不只是出图工具",
-    subtitle: "在探索、验证、交付阶段选择不同方法，提高效率和成本结构。",
-    words: ["探索提效", "验证提速", "流程替代"],
-    image: assets.human,
-  },
-  {
-    tone: "light",
-    layout: "studio-lab",
-    kicker: "09 / PROTOTYPE",
-    title: "新工具进入业务验证",
-    subtitle: "AI Studio、vibe coding、React 原型，把想法快速推到可讨论状态。",
-    words: ["AI Studio", "React", "SS4 光效"],
-    image: assets.frame,
-  },
-  {
-    tone: "dark",
-    layout: "line-system",
-    kicker: "10 / COLLAB",
-    title: "把设计变成可交付方案",
-    subtitle: "研发、引擎、供应商、业务方之间反复对齐，方案才有落地的形状。",
-    words: ["研发", "引擎", "供应商", "业务方"],
-    image: assets.ui,
-  },
-  {
-    tone: "light",
-    layout: "editorial",
-    kicker: "11 / TASTE",
-    title: "审美方向与体验把控",
-    subtitle: "判断什么方向适合业务，也判断什么方案可以继续投入。",
-    words: ["方向", "风格", "品质", "兜底"],
-    image: assets.avatar,
-  },
-  {
-    tone: "dark",
-    layout: "results",
-    kicker: "12 / VALUE",
-    title: "效率、质量、复用",
-    subtitle: "批量交付不是堆资源，而是让资产体系降低下一次启动成本。",
-    words: ["效率", "质量", "复用"],
-    image: assets.board,
-  },
-  {
-    tone: "light",
-    layout: "capability-map",
-    kicker: "13 / GROWTH",
-    title: "从执行者到方向贡献者",
-    subtitle: "探索力、推进力、创新力和体系化能力，在同一个项目里被验证。",
-    words: ["探索力", "推进力", "创新力", "体系化"],
-    image: assets.student,
-  },
-  {
-    tone: "dark",
-    layout: "finale",
-    kicker: "14 / NEXT",
-    title: "继续创造更大的设计价值",
-    subtitle: "承担更核心的 AI 角色体系、工作流和复杂创新项目。",
-    words: ["核心探索", "AI 方法", "复杂落地"],
-    image: assets.heroDark,
+    layout: "tool-wall",
+    dimension: "自驱力",
+    principle: "自我发展",
+    eyebrow: "08 / AI TOOLING",
+    title: "AI 工作流与设计辅助工具探索",
+    summary: "从 Gemini API、批量生成到 vibe coding 插件，把新能力转化为实际产出和团队方法。",
+    problem: "AI 生成和图片处理如果停留在单次尝试，无法支撑项目节奏；色调不一致、手动校色等重复操作会打断设计流程。",
+    strategy: "早期用脚本接入 Gemini API 探索批量生成图片到视频的流程；后续结合 Codex、Antigravity、Claude Code 等工具开发白平衡和校色插件，让图片处理留在工作流内部完成。",
+    result: "个人提效转化为团队可复用方法，也为春节活动和后续 AI 设计资源快速产出积累经验。",
+    background: { type: "image", src: media.workflowComfy },
+    gallery: [
+      { type: "image", src: media.workflowChat, label: "提示词协作" },
+      { type: "image", src: media.workflowComfy, label: "批量工作流" },
+      { type: "image", src: media.workflowLamp, label: "生成结果" },
+      { type: "video", src: media.appFlow, label: "资源应用" },
+    ],
+    metrics: ["主动学习", "插件提效", "团队复用"],
   },
 ];
 
@@ -156,8 +183,8 @@ function pad(number) {
   return String(number).padStart(2, "0");
 }
 
-function clampSlideIndex(index) {
-  return Math.max(0, Math.min(slides.length - 1, index));
+function clampCaseIndex(index) {
+  return Math.max(0, Math.min(cases.length - 1, index));
 }
 
 function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...props }) {
@@ -169,13 +196,9 @@ function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...props
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          node.classList.add("is-inview");
-        } else {
-          node.classList.remove("is-inview");
-        }
+        node.classList.toggle("is-inview", entry.isIntersecting);
       },
-      { threshold: 0.28, rootMargin: "-8% 0px -8% 0px" },
+      { threshold: 0.2, rootMargin: "-8% 0px -8% 0px" },
     );
 
     observer.observe(node);
@@ -189,63 +212,95 @@ function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...props
   );
 }
 
-function SplitTitle({ text }) {
+function Media({ item, className = "", background = false }) {
+  const commonClass = `${className} ${background ? "background-media" : ""}`;
+
+  if (item.type === "video") {
+    return <video className={commonClass} src={item.src} autoPlay muted loop playsInline preload="metadata" />;
+  }
+
+  return <img className={commonClass} src={item.src} alt="" />;
+}
+
+function FloatingGallery({ items }) {
   return (
-    <Reveal as="h1" className="split-title reveal-title">
-      {text.split("").map((char, index) => (
-        <span style={{ "--i": index }} key={`${char}-${index}`}>
-          {char === " " ? "\u00A0" : char}
-        </span>
+    <Reveal className="floating-gallery" delay={160}>
+      {items.map((item, index) => (
+        <figure className="media-card" style={{ "--i": index }} key={`${item.src}-${item.label}`}>
+          <Media item={item} />
+          <figcaption>{item.label}</figcaption>
+        </figure>
       ))}
     </Reveal>
   );
 }
 
-function KeywordLine({ words }) {
+function CaseIntro({ item }) {
   return (
-    <Reveal as="ul" className="keyword-line reveal-keywords" delay={220}>
-      {words.map((word, index) => (
-        <li style={{ "--i": index }} key={word}>
-          {word}
-        </li>
-      ))}
-    </Reveal>
-  );
-}
-
-function Visual({ slide, index }) {
-  return (
-    <Reveal className="visual reveal-visual" data-layout={slide.layout} delay={140}>
-      <div className="visual-image depth-card">
-        <img src={slide.image} alt="" />
+    <>
+      <p className="eyebrow">{item.eyebrow}</p>
+      <div className="dimension-row">
+        <span>{item.dimension}</span>
+        <span>{item.principle}</span>
       </div>
-      <div className="prism-light" aria-hidden="true" />
-      <span className="orbital-line" aria-hidden="true" />
-      <span className="micro-index" aria-hidden="true">
+      <h1>{item.title}</h1>
+      <p className="summary">{item.summary}</p>
+    </>
+  );
+}
+
+function CaseTextGrid({ item }) {
+  return (
+    <div className="case-grid">
+      <article>
+        <h2>背景问题</h2>
+        <p>{item.problem}</p>
+      </article>
+      <article>
+        <h2>解决策略</h2>
+        <p>{item.strategy}</p>
+      </article>
+      <article>
+        <h2>结果</h2>
+        <p>{item.result}</p>
+      </article>
+    </div>
+  );
+}
+
+function Metrics({ items }) {
+  return (
+    <ul className="metrics">
+      {items.map((metric) => (
+        <li key={metric}>{metric}</li>
+      ))}
+    </ul>
+  );
+}
+
+function CapabilityCase({ item, index, active }) {
+  return (
+    <section
+      className={`case-section ${active ? "is-active" : ""}`}
+      data-dimension={item.dimension}
+      data-layout={item.layout}
+      id={`case-${index + 1}`}
+    >
+      <div className="case-background" aria-hidden="true">
+        <Media item={item.background} background />
+      </div>
+      <div className="case-shade" aria-hidden="true" />
+      <div className="case-shell">
+        <Reveal className="case-copy">
+          <CaseIntro item={item} />
+          <CaseTextGrid item={item} />
+          <Metrics items={item.metrics} />
+        </Reveal>
+        <FloatingGallery items={item.gallery} />
+      </div>
+      <span className="case-index" aria-hidden="true">
         {pad(index + 1)}
       </span>
-    </Reveal>
-  );
-}
-
-function StorySection({ index, slide, active }) {
-  return (
-    <section className={`story-section ${slide.tone} ${slide.layout} ${active ? "is-active" : ""}`} id={`slide-${index + 1}`}>
-      <div className="section-rule" aria-hidden="true" />
-      <div className="copy-block">
-        <Reveal as="p" className="kicker reveal-kicker">
-          {slide.kicker}
-        </Reveal>
-        <SplitTitle text={slide.title} />
-        <Reveal as="p" className="subtitle reveal-copy" delay={160}>
-          {slide.subtitle}
-        </Reveal>
-        <KeywordLine words={slide.words} />
-      </div>
-      <Visual slide={slide} index={index} />
-      <div className="section-number" aria-hidden="true">
-        {pad(index + 1)}
-      </div>
     </section>
   );
 }
@@ -254,17 +309,13 @@ export function App() {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const animateToRef = useRef(null);
-  const slideIds = useMemo(() => slides.map((_, index) => `slide-${index + 1}`), []);
+  const caseIds = useMemo(() => cases.map((_, index) => `case-${index + 1}`), []);
 
   useLayoutEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
     window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = "dark";
   }, []);
 
   useEffect(() => {
@@ -276,18 +327,21 @@ export function App() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let scrollFrame = 0;
 
-    const getSections = () => slideIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const getSections = () => caseIds.map((id) => document.getElementById(id)).filter(Boolean);
 
     const syncActiveFromScroll = () => {
       scrollFrame = 0;
       const sections = getSections();
       if (!sections.length) return;
 
-      const anchor = window.scrollY + window.innerHeight * 0.42;
-      const nearestIndex = sections.reduce((nearest, section, index) => {
-        const distance = Math.abs(section.offsetTop - anchor);
-        return distance < nearest.distance ? { distance, index } : nearest;
-      }, { distance: Number.POSITIVE_INFINITY, index: activeRef.current }).index;
+      const anchor = window.scrollY + window.innerHeight * 0.48;
+      const nearestIndex = sections.reduce(
+        (nearest, section, index) => {
+          const distance = Math.abs(section.offsetTop - anchor);
+          return distance < nearest.distance ? { distance, index } : nearest;
+        },
+        { distance: Number.POSITIVE_INFINITY, index: activeRef.current },
+      ).index;
 
       if (nearestIndex !== activeRef.current) {
         setActive(nearestIndex);
@@ -300,8 +354,8 @@ export function App() {
     };
 
     const animateTo = (targetIndex) => {
-      const nextIndex = clampSlideIndex(targetIndex);
-      const section = document.getElementById(slideIds[nextIndex]);
+      const nextIndex = clampCaseIndex(targetIndex);
+      const section = document.getElementById(caseIds[nextIndex]);
       if (!section) return;
 
       setActive(nextIndex);
@@ -309,24 +363,15 @@ export function App() {
     };
 
     animateToRef.current = animateTo;
-
     window.addEventListener("scroll", requestActiveSync, { passive: true });
-
-    if (prefersReducedMotion) {
-      requestActiveSync();
-      return () => {
-        window.removeEventListener("scroll", requestActiveSync);
-        if (scrollFrame) cancelAnimationFrame(scrollFrame);
-        animateToRef.current = null;
-      };
-    }
+    requestActiveSync();
 
     const onKeyDown = (event) => {
       const directionMap = { ArrowDown: 1, PageDown: 1, " ": 1, ArrowUp: -1, PageUp: -1 };
       const direction = directionMap[event.key];
       if (!direction) return;
       event.preventDefault();
-      const nextIndex = clampSlideIndex(activeRef.current + direction);
+      const nextIndex = clampCaseIndex(activeRef.current + direction);
       if (nextIndex !== activeRef.current) animateTo(nextIndex);
     };
 
@@ -347,15 +392,14 @@ export function App() {
       if (scrollFrame) cancelAnimationFrame(scrollFrame);
       animateToRef.current = null;
     };
-  }, [slideIds]);
+  }, [caseIds]);
 
   return (
     <>
-      <div className="ambient-prism" aria-hidden="true" />
       <header className="topbar">
         <a
           className="brand"
-          href="#slide-1"
+          href="#case-1"
           aria-label="回到开场"
           onClick={(event) => {
             event.preventDefault();
@@ -363,30 +407,37 @@ export function App() {
           }}
         >
           <span className="brand-mark" />
-          <span>理想同学</span>
+          <span>理想同学 / 能力自荐</span>
         </a>
+        <p className="progress-label">
+          {cases[active].dimension} · {pad(active + 1)} / {pad(cases.length)}
+        </p>
       </header>
 
       <main className="story">
-        {slides.map((slide, index) => (
-          <StorySection active={active === index} index={index} slide={slide} key={slide.kicker} />
+        {cases.map((item, index) => (
+          <CapabilityCase item={item} index={index} active={active === index} key={item.eyebrow} />
         ))}
       </main>
 
-      <nav className="rail" aria-label="页面导航">
-        {slides.map((_, index) => (
+      <nav className="rail" aria-label="案例导航">
+        {cases.map((item, index) => (
           <a
             className={active === index ? "is-active" : ""}
-            href={`#slide-${index + 1}`}
-            aria-label={`跳转到第 ${index + 1} 屏`}
-            key={index}
+            href={`#case-${index + 1}`}
+            aria-label={`跳转到${item.title}`}
+            key={item.eyebrow}
             onClick={(event) => {
               event.preventDefault();
               animateToRef.current?.(index);
             }}
-          />
+          >
+            <span>{pad(index + 1)}</span>
+          </a>
         ))}
       </nav>
+
+      <div className="bottom-blur" aria-hidden="true" />
     </>
   );
 }
