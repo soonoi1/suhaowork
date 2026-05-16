@@ -328,6 +328,7 @@ const pages = [
   {
     eyebrow: "13 / Case 06",
     title: "OC 眼睛",
+    demo: "ocVideos",
     conclusion:
       "基于生物感知和注意力系统，完成无人驾驶汽车车外眼睛的视觉与动效方案设计。",
     intro:
@@ -517,6 +518,19 @@ const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
   title: `AI Workflow ${pad(index + 1)}`,
   description: "AI 角色形象筛选",
 }));
+
+const ocShowcaseVideos = [
+  {
+    title: "OC 最终眼睛方案",
+    meta: "注意力与眼睛形态方案",
+    src: "/assets/oc/oc-eye-scheme.mp4",
+  },
+  {
+    title: "OC 最终效果",
+    meta: "车外交互视觉效果",
+    src: "/assets/oc/oc-final-effect.mp4",
+  },
+];
 
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
@@ -915,6 +929,30 @@ function LiCenterScrollStackDemo() {
   );
 }
 
+function OCVideoShowcase({ points }) {
+  return (
+    <div className="oc-video-showcase">
+      <div className="oc-video-grid">
+        {ocShowcaseVideos.map((item, index) => (
+          <article className="oc-video-card" key={item.src}>
+            <video src={item.src} autoPlay muted loop playsInline preload="auto" />
+            <div className="oc-video-copy">
+              <span>{pad(index + 1)}</span>
+              <h3>{item.title}</h3>
+              <p>{item.meta}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="oc-points-grid">
+        {points.map((item, index) => (
+          <PointCard item={item} index={index} key={item.label} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
@@ -946,6 +984,10 @@ function CaseSection({ page, index, note, onOpenNote }) {
     sectionClasses.push("has-scroll-stack");
   }
 
+  if (page.demo === "ocVideos") {
+    sectionClasses.push("has-oc-videos");
+  }
+
   if (pageNumber === 9) {
     sectionClasses.push("has-infinite-menu");
   }
@@ -973,6 +1015,8 @@ function CaseSection({ page, index, note, onOpenNote }) {
         <GaussianSplatDemo />
       ) : page.demo === "scrollStack" ? (
         <LiCenterScrollStackDemo />
+      ) : page.demo === "ocVideos" ? (
+        <OCVideoShowcase points={page.points} />
       ) : (
         <div className="points-grid">
           <div>

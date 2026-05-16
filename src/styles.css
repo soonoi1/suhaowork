@@ -268,7 +268,8 @@ button {
 .radiance-demo,
 .fluid-glass-demo,
 .gaussian-splat-demo,
-.li-center-scroll-demo {
+.li-center-scroll-demo,
+.oc-video-showcase {
   opacity: 0;
   transform: translateY(18px);
   transition:
@@ -283,7 +284,8 @@ button {
 .case-section.is-active .radiance-demo,
 .case-section.is-active .fluid-glass-demo,
 .case-section.is-active .gaussian-splat-demo,
-.case-section.is-active .li-center-scroll-demo {
+.case-section.is-active .li-center-scroll-demo,
+.case-section.is-active .oc-video-showcase {
   opacity: 1;
   transform: translateY(0);
 }
@@ -694,6 +696,112 @@ button {
   color: rgba(245, 245, 240, 0.72);
   font-size: 13px;
   line-height: 1.5;
+}
+
+.oc-video-showcase {
+  grid-column: 2;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  height: calc(100svh - 184px);
+  min-height: 520px;
+}
+
+.oc-video-grid {
+  display: grid;
+  grid-template-columns: 1.16fr 0.84fr;
+  gap: 12px;
+}
+
+.oc-video-card {
+  position: relative;
+  height: min(28svh, 214px);
+  min-height: 184px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 10px;
+  background: #050505;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+}
+
+.oc-video-card video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.95) contrast(1.08) brightness(0.86);
+}
+
+.oc-video-card:first-child video {
+  object-fit: contain;
+  background: #050505;
+}
+
+.oc-video-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.24), transparent 38%, rgba(0, 0, 0, 0.74)),
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.28) 100%);
+}
+
+.oc-video-copy {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  z-index: 2;
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.oc-video-copy span {
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 840;
+}
+
+.oc-video-copy h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 840;
+  line-height: 1.22;
+}
+
+.oc-video-copy p {
+  margin: 0;
+  color: rgba(245, 245, 240, 0.68);
+  font-size: 12px;
+}
+
+.oc-points-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  min-height: 0;
+}
+
+.oc-points-grid .point-card {
+  min-height: 0;
+  padding: 14px;
+}
+
+.oc-points-grid .point-card h3 {
+  margin-top: 8px;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.oc-points-grid .point-card p {
+  font-size: 13px;
+  line-height: 1.58;
 }
 
 .gaussian-splat-demo {
@@ -1226,7 +1334,8 @@ button {
   .radiance-demo,
   .fluid-glass-demo,
   .gaussian-splat-demo,
-  .li-center-scroll-demo {
+  .li-center-scroll-demo,
+  .oc-video-showcase {
     grid-column: auto;
   }
 }
@@ -1300,6 +1409,21 @@ button {
   .li-center-stack-card {
     height: 320px;
     min-height: 320px;
+  }
+
+  .oc-video-showcase {
+    height: auto;
+    min-height: 0;
+  }
+
+  .oc-video-grid,
+  .oc-points-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .oc-video-card,
+  .oc-video-card video {
+    min-height: 220px;
   }
 
   .fluid-glass-demo {
