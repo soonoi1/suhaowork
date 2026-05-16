@@ -81,34 +81,6 @@ button {
   --warm: #aeb3b5;
 }
 
-.theme-signal {
-  --bg: #151515;
-  --panel: rgba(255, 200, 20, 0.09);
-  --panel-strong: rgba(255, 200, 20, 0.2);
-  --ink: #ffc914;
-  --muted: rgba(255, 201, 20, 0.72);
-  --soft: rgba(255, 201, 20, 0.42);
-  --line: rgba(255, 201, 20, 0.28);
-  --line-strong: rgba(255, 201, 20, 0.7);
-  --accent: #ffc914;
-  --accent-contrast: #050505;
-  --warm: #ffc914;
-}
-
-.theme-gallery {
-  --bg: #000;
-  --panel: rgba(255, 255, 255, 0.045);
-  --panel-strong: rgba(198, 139, 86, 0.18);
-  --ink: #f6f1ea;
-  --muted: rgba(246, 241, 234, 0.66);
-  --soft: rgba(246, 241, 234, 0.42);
-  --line: rgba(246, 241, 234, 0.16);
-  --line-strong: rgba(198, 139, 86, 0.68);
-  --accent: #f6f1ea;
-  --accent-contrast: #050505;
-  --warm: #c68b56;
-}
-
 .site-header {
   position: fixed;
   top: 0;
@@ -116,7 +88,7 @@ button {
   right: 0;
   z-index: 60;
   display: grid;
-  grid-template-columns: auto minmax(360px, 1fr) auto auto auto;
+  grid-template-columns: auto minmax(180px, 1fr) auto auto auto;
   gap: 14px;
   align-items: center;
   padding: 14px 28px;
@@ -147,42 +119,27 @@ button {
   color: var(--accent);
 }
 
-.variant-tabs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  width: min(720px, 100%);
+.active-tag {
   justify-self: center;
-}
-
-.variant-tabs button {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: auto auto 1fr;
   gap: 8px;
   align-items: center;
   min-height: 38px;
+  width: min(280px, 100%);
   padding: 0 12px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.035);
-  color: var(--muted);
-  cursor: pointer;
-  text-align: left;
-}
-
-.variant-tabs button:hover,
-.variant-tabs button.is-active {
-  border-color: var(--line-strong);
   background: var(--accent);
   color: var(--accent-contrast);
 }
 
-.variant-tabs button span {
+.active-tag span {
   font-size: 12px;
   font-weight: 760;
 }
 
-.variant-tabs button strong {
+.active-tag strong {
   overflow: hidden;
   font-size: 13px;
   font-weight: 780;
@@ -304,48 +261,6 @@ button {
   color: var(--warm);
   font-size: 12px;
   font-weight: 800;
-}
-
-.mode-caption {
-  position: fixed;
-  left: 28px;
-  bottom: 24px;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  max-width: calc(100vw - 56px);
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(5, 5, 5, 0.72);
-  color: var(--muted);
-  backdrop-filter: blur(16px);
-  box-shadow: var(--shadow);
-}
-
-.mode-caption span,
-.mode-caption strong,
-.mode-caption em {
-  font-size: 12px;
-  line-height: 1.2;
-}
-
-.mode-caption span {
-  color: var(--warm);
-  font-weight: 820;
-}
-
-.mode-caption strong {
-  color: var(--ink);
-}
-
-.mode-caption em {
-  overflow: hidden;
-  max-width: 260px;
-  font-style: normal;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .visual-deck {
@@ -701,15 +616,32 @@ button {
 .deck-space .hero-section::before {
   content: "";
   position: absolute;
-  left: 6%;
-  right: 6%;
-  top: 46%;
+  inset: 0;
   z-index: -1;
-  height: 130px;
-  border-top: 1px solid rgba(255, 255, 255, 0.32);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  filter: blur(0.2px);
-  transform: skewY(-7deg);
+  height: auto;
+  border: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.42) 38%, rgba(0, 0, 0, 0.08) 74%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.02) 48%, rgba(0, 0, 0, 0.92) 100%),
+    url("/assets/hero-fur-hat.png") center / cover no-repeat;
+  filter: saturate(0.88) contrast(1.08);
+  transform: none;
+}
+
+.deck-space .hero-section::after {
+  content: "";
+  position: absolute;
+  inset: 0 -8vw;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0.82) 0%, rgba(5, 5, 5, 0.18) 18%, rgba(5, 5, 5, 0) 36%, rgba(5, 5, 5, 0) 62%, rgba(5, 5, 5, 0.2) 78%, rgba(5, 5, 5, 0.88) 100%);
+  backdrop-filter: blur(18px) saturate(0.72);
+  -webkit-backdrop-filter: blur(18px) saturate(0.72);
+  mask-image:
+    linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.88) 12%, transparent 34%, transparent 66%, rgba(0, 0, 0, 0.88) 88%, #000 100%);
+  -webkit-mask-image:
+    linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.88) 12%, transparent 34%, transparent 66%, rgba(0, 0, 0, 0.88) 88%, #000 100%);
 }
 
 .deck-space .hero-copy h1 {
@@ -725,186 +657,6 @@ button {
   border-style: dashed;
 }
 
-/* 图二：黄黑海报 */
-.deck-signal {
-  background: #171717;
-}
-
-.deck-signal .hero-section,
-.deck-signal .case-section {
-  width: 100vw;
-  max-width: none;
-}
-
-.deck-signal .hero-section {
-  grid-template-columns: 1fr;
-  align-items: start;
-  padding: clamp(90px, 10vh, 118px) clamp(34px, 7vw, 96px) clamp(28px, 5vh, 56px);
-  background:
-    linear-gradient(#ffc914 0 0) top / 100% 42% no-repeat,
-    linear-gradient(#050505 0 0) bottom / 100% 58% no-repeat;
-}
-
-.deck-signal .hero-section::after,
-.deck-signal .case-section::after {
-  content: "*";
-  position: absolute;
-  right: 24px;
-  top: 240px;
-  z-index: -1;
-  color: rgba(255, 201, 20, 0.95);
-  font-size: 260px;
-  font-weight: 900;
-  line-height: 0.7;
-  transform: rotate(18deg);
-}
-
-.deck-signal .hero-copy {
-  max-width: 940px;
-  padding: clamp(24px, 4vh, 48px) 0 0;
-  color: #050505;
-}
-
-.deck-signal .hero-copy .eyebrow,
-.deck-signal .hero-copy .hero-line,
-.deck-signal .hero-copy .hero-intro {
-  color: #050505;
-}
-
-.deck-signal .hero-copy h1 {
-  color: #050505;
-  font-size: clamp(66px, 10vw, 152px);
-  line-height: 0.9;
-}
-
-.deck-signal .hero-line {
-  max-width: 720px;
-}
-
-.deck-signal .cover-cards {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  width: min(1180px, 100%);
-  margin-left: 0;
-  align-self: end;
-}
-
-.deck-signal .cover-card,
-.deck-signal .point-card {
-  border-color: rgba(255, 201, 20, 0.5);
-  background: #050505;
-}
-
-.deck-signal .case-section {
-  grid-template-columns: minmax(320px, 0.66fr) minmax(0, 1fr);
-  padding: clamp(92px, 10vh, 118px) clamp(34px, 7vw, 96px) clamp(28px, 5vh, 56px);
-  border-top: 0;
-  background: #050505;
-}
-
-.deck-signal .case-section:nth-of-type(odd) {
-  background:
-    linear-gradient(90deg, transparent 0 62%, rgba(255, 201, 20, 0.07) 62% 100%),
-    #050505;
-}
-
-.deck-signal .case-copy {
-  position: relative;
-  top: auto;
-  max-width: 760px;
-}
-
-.deck-signal .case-copy h2 {
-  font-size: clamp(44px, 6.8vw, 104px);
-  line-height: 0.94;
-}
-
-.deck-signal .case-index {
-  right: 36px;
-  top: 58px;
-  z-index: 0;
-  color: rgba(255, 201, 20, 0.16);
-  font-size: 210px;
-}
-
-.deck-signal .points-grid {
-  grid-column: 2;
-  margin-top: 0;
-}
-
-.deck-signal .point-card h3,
-.deck-signal .cover-card h3 {
-  color: #ffc914;
-}
-
-/* 图三：暗场策展 */
-.deck-gallery {
-  background:
-    linear-gradient(180deg, #000 0%, #050403 48%, #000 100%);
-}
-
-.deck-gallery .hero-section {
-  grid-template-columns: 1fr;
-  width: min(1080px, calc(100vw - 44px));
-  padding-top: 92px;
-}
-
-.deck-gallery .hero-copy {
-  max-width: 760px;
-  margin: 96px auto 0;
-  text-align: center;
-  text-shadow: 0 16px 48px #000;
-}
-
-.deck-gallery .hero-copy h1 {
-  font-size: 76px;
-  line-height: 0.98;
-}
-
-.deck-gallery .hero-line,
-.deck-gallery .hero-intro {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.deck-gallery .cover-cards {
-  width: min(820px, 100%);
-  margin: 190px auto 0;
-}
-
-.deck-gallery .cover-card,
-.deck-gallery .point-card {
-  background: rgba(0, 0, 0, 0.52);
-}
-
-.deck-gallery .case-section {
-  grid-template-columns: minmax(300px, 0.7fr) minmax(0, 1fr);
-  width: min(1080px, calc(100vw - 44px));
-  border-top: 0;
-}
-
-.deck-gallery .case-section:nth-of-type(even) {
-  grid-template-columns: minmax(300px, 0.7fr) minmax(0, 1fr);
-}
-
-.deck-gallery .case-copy {
-  position: relative;
-  top: auto;
-}
-
-.deck-gallery .case-copy h2 {
-  font-size: 52px;
-  line-height: 1;
-}
-
-.deck-gallery .points-grid {
-  grid-column: 2;
-  margin-top: 26px;
-}
-
-.deck-gallery .case-index {
-  color: rgba(198, 139, 86, 0.12);
-}
-
 @media (max-width: 1100px) {
   html {
     scroll-snap-type: y proximity;
@@ -914,21 +666,12 @@ button {
     grid-template-columns: 1fr auto auto;
   }
 
-  .variant-tabs {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: stretch;
-    width: 100%;
-  }
-
   .header-meta {
     display: none;
   }
 
   .hero-section,
-  .case-section,
-  .deck-gallery .case-section,
-  .deck-gallery .case-section:nth-of-type(even) {
+  .case-section {
     grid-template-columns: 1fr;
   }
 
@@ -937,8 +680,7 @@ button {
     top: auto;
   }
 
-  .points-grid,
-  .deck-gallery .points-grid {
+  .points-grid {
     grid-column: auto;
     grid-row: auto;
   }
@@ -958,14 +700,6 @@ button {
     font-size: 13px;
   }
 
-  .variant-tabs {
-    grid-template-columns: 1fr;
-  }
-
-  .variant-tabs button {
-    min-height: 34px;
-  }
-
   .copy-all-button {
     width: 36px;
     padding: 0;
@@ -982,22 +716,9 @@ button {
     right: 12px;
   }
 
-  .mode-caption {
-    display: none;
-  }
-
   .hero-section,
-  .case-section,
-  .deck-signal .hero-section,
-  .deck-signal .case-section,
-  .deck-gallery .hero-section,
-  .deck-gallery .case-section {
+  .case-section {
     width: calc(100vw - 24px);
-  }
-
-  .deck-signal .hero-section,
-  .deck-signal .case-section {
-    width: 100vw;
   }
 
   .hero-section {
@@ -1006,9 +727,7 @@ button {
     padding: 174px 0 54px;
   }
 
-  .hero-copy h1,
-  .deck-signal .hero-copy h1,
-  .deck-gallery .hero-copy h1 {
+  .hero-copy h1 {
     font-size: 48px;
     line-height: 1;
   }
@@ -1018,44 +737,25 @@ button {
   }
 
   .cover-cards,
-  .points-grid,
-  .deck-signal .cover-cards {
+  .points-grid {
     grid-template-columns: 1fr;
     width: 100%;
     margin-left: 0;
   }
 
-  .case-section,
-  .deck-signal .case-section {
+  .case-section {
     height: auto;
     min-height: 100vh;
     padding: 62px 0;
   }
 
-  .deck-signal .hero-copy,
-  .deck-signal .case-section {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .case-copy h2,
-  .deck-signal .case-copy h2,
-  .deck-gallery .case-copy h2 {
+  .case-copy h2 {
     font-size: 34px;
     line-height: 1.08;
   }
 
   .conclusion {
     font-size: 17px;
-  }
-
-  .deck-gallery .hero-copy {
-    margin-top: 0;
-    text-align: left;
-  }
-
-  .deck-gallery .cover-cards {
-    margin-top: 24px;
   }
 
   .note-float-button {

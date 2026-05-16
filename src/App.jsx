@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowUpRight,
   ClipboardCheck,
   ClipboardList,
-  GalleryHorizontalEnd,
   Menu,
   MessageSquareText,
   Orbit,
-  Sparkles,
   X,
 } from "lucide-react";
 
@@ -411,29 +408,13 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 
-const visualModes = [
-  {
-    id: "space",
-    label: "图一",
-    name: "银黑宇宙",
-    desc: "巨型标题 / 黑白空间 / 科技卡片",
-    Icon: Orbit,
-  },
-  {
-    id: "signal",
-    label: "图二",
-    name: "黄黑海报",
-    desc: "高对比色块 / 垂直海报 / 图形符号",
-    Icon: Sparkles,
-  },
-  {
-    id: "gallery",
-    label: "图三",
-    name: "暗场策展",
-    desc: "展陈叙事 / 浮动图像 / 留白排版",
-    Icon: GalleryHorizontalEnd,
-  },
-];
+const activeVisualMode = {
+  id: "space",
+  label: "Tag 1",
+  name: "银黑宇宙",
+  desc: "巨型标题 / 黑白空间 / 科技卡片",
+  Icon: Orbit,
+};
 
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
@@ -640,7 +621,6 @@ function NavDrawer({ open, onClose }) {
 }
 
 export function App() {
-  const [activeModeId, setActiveModeId] = useState("space");
   const [navOpen, setNavOpen] = useState(false);
   const [notes, setNotes] = useState(loadStoredNotes);
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
@@ -650,10 +630,7 @@ export function App() {
     () => Object.values(notes).filter((value) => value?.trim()).length,
     [notes],
   );
-  const activeMode = useMemo(
-    () => visualModes.find((mode) => mode.id === activeModeId) || visualModes[0],
-    [activeModeId],
-  );
+  const activeMode = activeVisualMode;
 
   useEffect(() => {
     window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
@@ -763,7 +740,7 @@ export function App() {
       window.removeEventListener("keydown", handleKeyDown);
       window.clearTimeout(resetTimer);
     };
-  }, [activeNoteIndex, activeModeId]);
+  }, [activeNoteIndex]);
 
   const updateNote = (index, value) => {
     setNotes((current) => ({ ...current, [index]: value }));
@@ -799,15 +776,6 @@ export function App() {
     copyText(formatPageNote(pages[index], index, notes[index] || ""), `page-${index}`);
   };
 
-  const switchMode = (modeId) => {
-    setActiveModeId(modeId);
-    setNavOpen(false);
-    setActiveNoteIndex(null);
-    window.requestAnimationFrame(() => {
-      document.querySelector(".hero-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  };
-
   const ModeIcon = activeMode.Icon;
 
   return (
@@ -819,25 +787,10 @@ export function App() {
           </span>
           <span>Suhao Work</span>
         </a>
-        <div className="variant-tabs" role="tablist" aria-label="视觉版本">
-          {visualModes.map((mode) => {
-            const Icon = mode.Icon;
-            const selected = mode.id === activeMode.id;
-            return (
-              <button
-                className={selected ? "is-active" : ""}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                key={mode.id}
-                onClick={() => switchMode(mode.id)}
-              >
-                <Icon size={15} aria-hidden="true" />
-                <span>{mode.label}</span>
-                <strong>{mode.name}</strong>
-              </button>
-            );
-          })}
+        <div className="active-tag" aria-label="当前视觉版本">
+          <ModeIcon size={15} aria-hidden="true" />
+          <span>{activeMode.label}</span>
+          <strong>{activeMode.name}</strong>
         </div>
         <div className="header-meta">
           <span>{pageCount} pages</span>
@@ -859,13 +812,6 @@ export function App() {
       </header>
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
-
-      <div className="mode-caption">
-        <span>{activeMode.label}</span>
-        <strong>{activeMode.name}</strong>
-        <em>{activeMode.desc}</em>
-        <ArrowUpRight size={15} aria-hidden="true" />
-      </div>
 
       <VisualDeck
         mode={activeMode}
