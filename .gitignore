@@ -2,6 +2,10 @@ node_modules
 dist
 .vercel
 texture
+promotion_ppt_output
+promotion_ppt_work
+*.pptx
+~$*
 .DS_Store
 *.local
 npm-debug.log*

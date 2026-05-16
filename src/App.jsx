@@ -1,590 +1,532 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import {
+  ArrowUpRight,
+  ChevronDown,
+  CircleDot,
+  Layers3,
+  Menu,
+  X,
+} from "lucide-react";
 
-const media = {
-  homeCenter: "/assets/cases/home-center.mp4",
-  homeAlarm: "/assets/cases/home-alarm.mp4",
-  homeDraw: "/assets/cases/home-draw.mp4",
-  homeFestival: "/assets/cases/home-festival.mp4",
-  gaussMain: "/assets/cases/gauss-main.mp4",
-  gaussEngine: "/assets/cases/gauss-engine.mp4",
-  ocAttention: "/assets/cases/oc-attention.mp4",
-  ocPickup: "/assets/cases/oc-pickup.mp4",
-  ocParking: "/assets/cases/oc-parking.mp4",
-  otaUpdate: "/assets/cases/ota-update.mp4",
-  otaDesk: "/assets/cases/ota-desk.mp4",
-  otaTheater: "/assets/cases/ota-theater.mp4",
-  appFlow: "/assets/cases/app-flow.mp4",
-  appCoffee: "/assets/cases/app-coffee.mp4",
-  appMusic: "/assets/cases/app-music.mp4",
-  radiantAttention: "/assets/cases/radiant-attention.mp4",
-  radiantColor: "/assets/cases/radiant-color.mp4",
-  radiantSpeak: "/assets/cases/radiant-speak.mp4",
-  entityDark: "/assets/cases/entity-dark.png",
-  entityDefault: "/assets/cases/entity-default.png",
-  workflowComfy: "/assets/cases/workflow-comfyui.png",
-  workflowChat: "/assets/cases/workflow-chatgpt.png",
-  workflowLamp: "/assets/cases/workflow-ai-lamp.jpg",
-  workflowOptions: "/assets/cases/workflow-ai-options.jpg",
-  otaScene: "/assets/cases/ota-scene-dark.png",
-  otaCharacters: "/assets/cases/ota-characters.png",
-};
-
-const cases = [
+const pages = [
   {
-    layout: "home-orbit",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "01 / HOME CENTER",
-    title: "理想同学中心首页设计",
-    summary: "把首页从视觉承载页推进为能力理解入口，让用户看得懂、愿意用，也能承接后续活动与新能力。",
-    problem: "首页需要同时承担能力传达、内容组织和长期运营入口。如果只追求炫目动效，用户会很快疲劳；如果只做静态陈列，又无法建立理想同学新能力的感知。",
-    strategy: "重新组织信息层级，判断不同动效的露出频率：轻量、低打扰动效提高出现频次，高反馈、长时长动效降低重复露出，并在结构上预留新活动和新能力的接入空间。",
-    result: "首页既满足当前能力表达，也顺畅接入春节活动，形成可持续扩展的产品入口。",
-    background: { type: "video", src: media.homeCenter },
-    gallery: [
-      { type: "video", src: media.homeAlarm, label: "轻量状态" },
-      { type: "video", src: media.homeDraw, label: "能力场景" },
-      { type: "video", src: media.homeFestival, label: "活动接入" },
+    eyebrow: "01 / Intro",
+    title: "宿浩｜个人项目与能力材料",
+    conclusion:
+      "3D 动画 / 产品动效 / 视觉交互 / AI 工作流 / 多端体验落地",
+    intro:
+      "本人长期负责 3D 动画、产品动效、视觉交互及相关技术落地工作。围绕理想同学相关项目，主要参与形象设计、材质研究、交互动效、多端资源交付、研发还原、AI 工作流搭建及体验原型验证等工作。",
+    points: [
+      {
+        label: "材料定位",
+        text: "以项目事实和解决问题过程为主，呈现专业能力、技术理解、资源落地和业务交付结果。",
+      },
+      {
+        label: "内容范围",
+        text: "覆盖理想同学毛绒形象、理想同学中心、4o 小同桌、AI 资源工作流、Standby 放射光和 OC 前脸眼睛等项目。",
+      },
+      {
+        label: "阅读方式",
+        text: "每页优先呈现核心结论，详细内容通过要点和展开说明承接，方便快速扫读和深入查看。",
+      },
     ],
-    metrics: ["长期使用体验", "扩展空间", "低打扰动效"],
   },
   {
-    layout: "wide-stage",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "02 / HOME MOTION",
-    title: "首页动效露出策略",
-    summary: "不是把所有动效都做满，而是判断哪些应该常驻、哪些应该克制，保护用户的长期新鲜感。",
-    problem: "首页动效如果高频重复，会快速消耗用户兴趣；但如果弱化太多，又无法让新能力被用户感知。",
-    strategy: "把动效分为轻量陪伴、能力反馈和活动强提醒三类，轻量动效承担日常陪伴，高反馈动效只在关键场景出现。",
-    result: "首页保持活跃但不打扰，后续春节活动也能自然接入，不需要重新推翻首页结构。",
-    background: { type: "video", src: media.homeFestival },
-    gallery: [
-      { type: "video", src: media.homeAlarm, label: "低打扰提醒" },
-      { type: "video", src: media.homeDraw, label: "能力表达" },
-      { type: "video", src: media.homeCenter, label: "首页承载" },
+    eyebrow: "02 / Capability",
+    title: "专业能力背景",
+    conclusion:
+      "能力覆盖 3D 与动画、产品动效与交互、多端资源适配、AI 工作流和从 0 到 1 的创新探索。",
+    intro:
+      "我的专业能力不是单一工具能力，而是围绕视觉体验从定义、制作到落地形成的一套综合能力。",
+    points: [
+      {
+        label: "3D 与动画能力",
+        text: "关注真实世界中的形体、材质、光照和运动规律如何被转译到数字环境中。核心是用结构化方式理解体积、空间、质感和动态关系，并通过动画让虚拟形象具备可信的重量、节奏、情绪和生命感。",
+      },
+      {
+        label: "产品动效与交互能力",
+        text: "产品动效不是装饰，而是交互信息的一部分。动效需要表达状态变化、引导注意力、建立层级关系、降低理解成本，并通过节奏、缓动曲线、状态切换和连续性原则服务于交互理解。",
+      },
+      {
+        label: "多端资源适配落地能力",
+        text: "多端落地的核心是理解不同端侧对格式、尺寸、编码、透明通道、性能、版本兼容和显示效果的要求。设计阶段需要提前判断资源类型、压缩方式、导入方式和异常显示风险，减少后期反复调整。",
+      },
+      {
+        label: "AI 工作流能力",
+        text: "AI 工作流的核心价值是解决效率问题。重点不在于使用某个工具，而在于识别新工具的能力边界，并将其转化为批量生成、结果筛选、脚本自动化和原型验证等可复用流程。",
+      },
+      {
+        label: "创新探索能力",
+        text: "工作中包含较多从 0 到 1 的探索任务，重点在于定义新的视觉表现和交互形式。以理想同学为例，项目早期即围绕原生形象、视觉语言和交互表达进行持续探索，并将探索结果转化为可验证、可延展的产品方案。",
+      },
     ],
-    metrics: ["露出频率", "审美疲劳控制", "运营扩展"],
   },
   {
-    layout: "route-compare",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "03 / GAUSS ROUTE",
-    title: "理想同学语搜形象技术路线判断",
-    summary: "在版本安全和体验上限之间做判断：用 Spine 保交付，用 Gauss 争取更好的毛发质感和三维记忆点。",
-    problem: "毛绒实体化形象在车端展示中，传统 3D 方案难以同时满足毛发质感、三维体积和稳定落地，直接上线表现一般的方案会稀释用户记忆点。",
-    strategy: "推动 Spine、3D Multipass、Gauss 三条技术路线并行验证。后期基于最终体验效果，选择 Spine 保障版本交付，同时保留 Gauss 方案攻坚空间。",
-    result: "业务节点没有被创新探索拖垮，同时为更优体验方案保留继续收敛的路径。",
-    background: { type: "video", src: media.gaussMain },
-    gallery: [
-      { type: "video", src: media.gaussEngine, label: "引擎验证" },
-      { type: "image", src: media.entityDark, label: "毛绒质感" },
-      { type: "image", src: media.entityDefault, label: "默认形象" },
+    eyebrow: "03 / Case 01",
+    title: "理想同学毛绒形象的 3D 视觉实现",
+    conclusion:
+      "通过毛发材质研究和 3D 渲染表达，完成理想同学毛绒形象的核心视觉效果。",
+    intro:
+      "理想同学需要从概念形象进入更真实、更亲和、更具产品延展性的 3D 表达。项目核心难点集中在帽子和身体的毛发效果：既要接近真实物理规律，又要符合品牌气质和用户感受。",
+    points: [
+      {
+        label: "关键难点",
+        text: "传统 3D 材质容易出现塑料感、僵硬感或装饰感；毛绒不是单一材质，而是多层、随机、成簇分布的复杂结构；线上效果需要同时兼顾真实感、亲和感、审美和落地稳定性。",
+      },
+      {
+        label: "观察物理规律",
+        text: "通过观察真实世界中毛发的层级、随机性和柔软结构，研究毛绒质感如何由多种、多层、非均匀的毛发结构共同形成。",
+      },
+      {
+        label: "模拟制作工艺",
+        text: "参考毛绒玩具的制作方式，将一簇一簇的丝状分布转译到 3D 材质和渲染表达中，避免毛发表现过于均匀或僵硬。",
+      },
+      {
+        label: "材质结构还原",
+        text: "从微观材质结构出发，控制毛发层次、反光、柔软感和随机分布，将真实物理规律转译为可上线的 3D 视觉效果。",
+      },
     ],
-    metrics: ["业务安全", "体验上限", "技术判断"],
   },
   {
-    layout: "system-stack",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "04 / ENTITY",
-    title: "实体化形象升级",
-    summary: "从单张形象图推进到可交付资产，持续收敛外形、材质和默认状态的产品表达。",
-    problem: "毛绒角色既要有亲和力，也要能在 APP、车机、PC 等不同载体上稳定呈现，单次视觉探索无法支撑长期复用。",
-    strategy: "围绕默认形象、唤醒状态和材质质感做多轮收敛，把概念探索转化为能进入交付链路的规范化资源。",
-    result: "角色形象从概念走向体系，后续多端资源和高斯方向都能基于同一套资产判断继续推进。",
-    background: { type: "image", src: media.entityDark },
-    gallery: [
-      { type: "image", src: media.entityDefault, label: "默认形象" },
-      { type: "image", src: media.entityDark, label: "深色质感" },
-      { type: "video", src: media.gaussMain, label: "动效验证" },
+    eyebrow: "04 / Case 01 Extension",
+    title: "理想同学毛绒视觉语言设定",
+    conclusion: "围绕毛绒形象，建立统一的材质语言和场景视觉规则。",
+    intro:
+      "在理想同学中心及相关视觉设计中，如果只有角色本身是毛绒，而周围元素使用其他材质，会削弱整体沉浸感和形象一致性。因此需要建立完整的毛绒视觉语言。",
+    points: [
+      {
+        label: "视觉判断",
+        text: "既然理想同学本身是毛绒形象，其所在环境也应该使用同一套毛绒世界观表达，而不是让角色和场景使用割裂的材质体系。",
+      },
+      {
+        label: "材质语言",
+        text: "以毛绒、毛毡、仿毛皮、手工缝纫等材质作为核心语言，统一角色、场景、界面元素和整体视觉氛围。",
+      },
+      {
+        label: "规则设定",
+        text: "设定材质颗粒度和元素使用边界，控制毛绒世界观的构成方式，避免视觉元素只停留在装饰层面。",
+      },
+      {
+        label: "项目价值",
+        text: "理想同学不再只是单一角色，而是具备了统一、温暖、可延展的产品视觉系统，支撑 App、车机和更多场景中的形象延展。",
+      },
     ],
-    metrics: ["形象收敛", "材质判断", "资产复用"],
   },
   {
-    layout: "focus-eye",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "05 / OC EYES",
-    title: "OC 眼睛动效",
-    summary: "在车端注意力变化很小的场景里，让眼睛不是机械跟随，而是持续有生命感。",
-    problem: "车辆注意力变化幅度很小，如果眼睛只绑定状态跟随，会显得机械、僵硬，用户很难感受到角色存在。",
-    strategy: "把真实物理世界中的不确定性引入动效：加入仿真人眼微抖、眨眼和低幅度随机变化，让常驻状态也保留灵动感。",
-    result: "OC 眼睛的精致度和生动度明显增强，在低动态幅度下依然能保持角色感。",
-    background: { type: "video", src: media.ocAttention },
-    gallery: [
-      { type: "video", src: media.ocPickup, label: "接人场景" },
-      { type: "video", src: media.ocParking, label: "临停请求" },
-      { type: "video", src: media.ocAttention, label: "注意力变化" },
+    eyebrow: "05 / Case 02",
+    title: "理想同学中心：多素材综合交互场景落地",
+    conclusion:
+      "完成理想同学中心交互模式、视觉素材和研发还原相关工作。",
+    intro:
+      "理想同学中心是毛绒视觉语言的重要落地场景。它不是单一页面，而是由图片、视频、透明素材、页面属性动画和多种状态共同构成的综合交互体验。",
+    points: [
+      {
+        label: "交互复杂度",
+        text: "页面同时包含图片、视频、透明素材和页面属性动画，不同资源形态需要在同一交互场景中稳定运行，对性能和还原要求较高。",
+      },
+      {
+        label: "并行推进",
+        text: "项目中需要一边进行交互设计，一边同步制作关键视觉素材，保证设计方案、素材产出和研发接入能够持续对齐。",
+      },
+      {
+        label: "研发协同",
+        text: "研发阶段深入参与 debug，通过不断调试资源、性能和显示细节，逐步磨出最终上线效果。",
+      },
+      {
+        label: "用户感知",
+        text: "复杂技术实现最终服务于页面的沉浸感和亲和感，让用户在完整的毛绒世界中理解理想同学的形象与能力。",
+      },
     ],
-    metrics: ["生命感", "低幅动态", "角色精致度"],
   },
   {
-    layout: "route-compare",
-    dimension: "决断力",
-    principle: "创造用户价值",
-    eyebrow: "06 / OC SCENE",
-    title: "OC 车端场景表达",
-    summary: "围绕接人、临停、注意力变化等真实车端场景，让角色反馈从状态绑定变成可感知的情绪表达。",
-    problem: "车端场景里信息密度和注意力成本都很高，角色动效既要可见，又不能抢占驾驶相关信息。",
-    strategy: "用场景分层控制动效强度：日常关注保持轻微生命感，临停和接人等任务场景加强反馈节奏。",
-    result: "角色在不同车端场景中保持一致性，同时让用户更容易理解车辆当前状态和意图。",
-    background: { type: "video", src: media.ocPickup },
-    gallery: [
-      { type: "video", src: media.ocParking, label: "临停请求" },
-      { type: "video", src: media.ocPickup, label: "接人反馈" },
-      { type: "video", src: media.ocAttention, label: "注意力状态" },
+    eyebrow: "06 / Case 02 Extension",
+    title: "Alpha Player 透明视频边缘问题处理",
+    conclusion:
+      "通过资源压缩和背景虚化处理，解决特殊透明视频的显示瑕疵。",
+    intro:
+      "项目中使用的 Alpha Player 技术资源来自外部，中途出现透明视频边缘黑白边问题，影响最终视觉效果。该问题如果不处理，会破坏毛绒世界观的整体质感，也会影响页面精致度和沉浸感。",
+    points: [
+      {
+        label: "问题来源",
+        text: "特殊透明视频在播放和叠加过程中出现边缘黑白边，属于设计资源、播放技术和实际显示环境共同作用下的落地问题。",
+      },
+      {
+        label: "资源处理",
+        text: "通过压缩图片尺寸和控制资源大小，降低资源负担，减少显示异常概率。",
+      },
+      {
+        label: "视觉补偿",
+        text: "增加背景边缘虚化层，弱化透明视频边缘瑕疵，使问题在真实页面中不破坏整体视觉效果。",
+      },
+      {
+        label: "项目价值",
+        text: "该方案保障复杂多素材页面的上线还原效果，降低透明视频资源在特殊场景下的视觉风险。",
+      },
     ],
-    metrics: ["场景分层", "低干扰反馈", "状态理解"],
   },
   {
-    layout: "delivery-board",
-    dimension: "执行力",
-    principle: "责任担当",
-    eyebrow: "07 / OTA 7.4",
-    title: "OTA 7.4 理想同学 4o 项目交付",
-    summary: "两周内完成多端、多形象、黑白模式资源交付，用优先级策略控制成本和风险。",
-    problem: "新形象与小同桌需要车端和手机端同期上线，涉及 9 个形象、黑白两套模式，动画制作到交付测试只有 2 周。",
-    strategy: "按成员擅长方向拆分任务，把主要精力投向曝光高、点击频次高的核心出现状态，低频状态采用复用策略，保证关键体验优先。",
-    result: "关键节点前顺利完成交付，同时控制了资源制作成本和版本风险。",
-    background: { type: "video", src: media.otaUpdate },
-    gallery: [
-      { type: "video", src: media.otaDesk, label: "小同桌" },
-      { type: "video", src: media.otaTheater, label: "小剧场" },
-      { type: "image", src: media.otaScene, label: "黑色模式" },
-      { type: "image", src: media.otaCharacters, label: "角色矩阵" },
+    eyebrow: "07 / Case 03",
+    title: "4o 小同桌：8 个角色，200 多组视频素材，多端同步交付",
+    conclusion:
+      "完成 4o 小同桌多角色、多状态、多端动效资源设计与交付。",
+    intro:
+      "4o 小同桌基于理想同学，通过不同帽子衍生出 8 个角色。作为车载长时对话形象，每个角色都需要具备完整的听、想、说状态，以及状态之间的过渡动画。",
+    points: [
+      {
+        label: "多端协同",
+        text: "手机 App 端和车机端需要同步更新能力，车机端还涉及黑白两种模式，导致整体素材量显著增加。",
+      },
+      {
+        label: "资源规模",
+        text: "最终设计制作 200 多组视频素材，每组资源都涉及渲染检查、合成、分层打包、压缩、上传和研发导入。",
+      },
+      {
+        label: "流程要求",
+        text: "为确保质量和顺利交接，项目中需要梳理详细交付文档，使资源状态、命名、导入方式和验证方式可追踪。",
+      },
+      {
+        label: "并行压力",
+        text: "该项目与理想同学中心、全新毛绒形象等项目同期推进，对时间预判、资源管理和协同效率要求较高。",
+      },
     ],
-    metrics: ["2 周交付", "9 个形象", "黑白双模式"],
   },
   {
-    layout: "tool-wall",
-    dimension: "执行力",
-    principle: "责任担当",
-    eyebrow: "08 / MULTI-END",
-    title: "多端 CUI 资源一致性",
-    summary: "在 APP、车机和 PC 的不同展示条件下，统一角色资产的识别度、节奏和模式适配。",
-    problem: "多端上线不是简单复制资源。不同屏幕尺寸、黑白模式和交互频次都会影响角色展示效果。",
-    strategy: "优先保障核心出现状态和高频点击状态，在黑白模式和小同桌资源上建立复用规则，减少临近上线时的返工。",
-    result: "关键状态体验稳定，多端资源交付压力被拆解到可管理范围内。",
-    background: { type: "image", src: media.otaScene },
-    gallery: [
-      { type: "video", src: media.otaDesk, label: "小同桌状态" },
-      { type: "video", src: media.otaUpdate, label: "OTA 更新" },
-      { type: "image", src: media.otaCharacters, label: "角色集合" },
-      { type: "video", src: media.otaTheater, label: "小剧场" },
+    eyebrow: "08 / Case 03 Extension",
+    title: "高压周期下的资源组织与优先级拆解",
+    conclusion: "通过任务拆解、人员分工和资源复用，保障 7.4 OTA 相关资源交付。",
+    intro:
+      "面对极限周期和高强度任务，项目采用明确分工和资源优先级策略，在有限时间内平衡体验质量与整体制作成本。",
+    points: [
+      {
+        label: "人员分工",
+        text: "一位同事负责后期资源整理、压缩、文档上传和研发对接；一位同事负责 K 帧动画制作；本人负责资源判断、任务拆解、质量把控和跨线协调。",
+      },
+      {
+        label: "核心资源预判",
+        text: "基于 3D 项目经验，对项目所需人力和时间进行提前预判，识别资源生产、研发导入和版本节奏中可能出现的问题。",
+      },
+      {
+        label: "优先级策略",
+        text: "高频触达的切换形象出场动画重点打磨，确保用户最容易感知的部分有足够质量；低频状态采用模板化动作复用，避免资源被低频场景过度消耗。",
+      },
+      {
+        label: "项目结果",
+        text: "在有限周期内完成多端资源交付，兼顾核心体验质量、制作成本和版本节点。",
+      },
     ],
-    metrics: ["多端一致", "状态优先级", "复用策略"],
   },
   {
-    layout: "timeline-flow",
-    dimension: "执行力",
-    principle: "责任担当",
-    eyebrow: "09 / APP 24H",
-    title: "APP 首页理想同学 24 小时动画资源产出策略调整",
-    summary: "从纯 3D 转向 AI 批量生产工作流，用更高密度的探索换取更稳定的交付节奏。",
-    problem: "24 小时动画资源需求快速增加，纯 3D 制作方式无法支撑高密度交付；AI 视频生成又存在随机性，难以直接稳定产出。",
-    strategy: "调整为先批量生图、生视频扩大探索范围，再从优质结果中筛选和收敛概念方向。进一步用 VS Code 搭建批量工作流，提高生成、筛选、复用效率。",
-    result: "资源产出效率和可控性提升，项目能按节奏推进，也沉淀出后续可复用的生产方法。",
-    background: { type: "video", src: media.appFlow },
-    gallery: [
-      { type: "video", src: media.appCoffee, label: "午后状态" },
-      { type: "video", src: media.appMusic, label: "音乐状态" },
-      { type: "image", src: media.workflowLamp, label: "批量概念" },
-      { type: "image", src: media.workflowOptions, label: "方向筛选" },
+    eyebrow: "09 / Case 04",
+    title: "AI 批量生成与资源筛选流程",
+    conclusion: "通过脚本、API 和批量生成流程，提升形象与动画资源探索效率。",
+    intro:
+      "在理想同学自定义形象和 24 小时动画资源项目中，需要探索大量角色、帽子、场景和动画方案。传统人工构思、找参考、逐个生成的方式效率较低，难以满足项目需求。",
+    points: [
+      {
+        label: "效率问题",
+        text: "高质量形象和动画方案需要大量探索。如果完全依赖人工正向构思，再逐个寻找参考、生成和筛选，时间成本过高。",
+      },
+      {
+        label: "方法转换",
+        text: "AI 生成结果具有不确定性，本质上更接近抽卡。与其按正向方式逐个推导，不如通过批量生成建立结果池，再从结果池中筛选高质量内容。",
+      },
+      {
+        label: "工作方法",
+        text: "通过脚本调用 AI API，批量生成提示词、图片和视频，再从海量结果中筛选高质量方案，并将结果反向匹配到具体业务场景。",
+      },
+      {
+        label: "流程复用",
+        text: "该流程策略同步给协作同事使用，使更多人可以沿用同一套方法解决类似资源探索需求。",
+      },
     ],
-    metrics: ["批量生成", "筛选收敛", "节奏保障"],
   },
   {
-    layout: "delivery-board",
-    dimension: "执行力",
-    principle: "责任担当",
-    eyebrow: "10 / AI PIPELINE",
-    title: "AI 批量生产流程调整",
-    summary: "从先定概念再还原，转向大规模生成后筛选收敛，用方法变化解决交付密度问题。",
-    problem: "AI 视频生成结果随机，按照传统“先想清楚再制作”的方式推进，仍然无法稳定覆盖大量动画需求。",
-    strategy: "先扩大生成样本，再从高质量结果中反向筛选概念方向，并用 VS Code 工作流把批量生成、命名和筛选串起来。",
-    result: "资源探索从线性制作变成批量筛选，效率和方向命中率都更适合高密度项目节奏。",
-    background: { type: "image", src: media.workflowLamp },
-    gallery: [
-      { type: "image", src: media.workflowOptions, label: "方向筛选" },
-      { type: "video", src: media.appCoffee, label: "状态样本" },
-      { type: "video", src: media.appMusic, label: "动效样本" },
-      { type: "image", src: media.workflowLamp, label: "批量概念" },
+    eyebrow: "10 / Case 04 Application",
+    title: "理想同学自定义形象批量探索",
+    conclusion: "通过批量生成和逆向筛选，提升不同帽子角色方案的探索效率。",
+    intro:
+      "自定义形象项目中，团队希望探索理想同学不同帽子和不同风格的角色形象。如果完全依赖人工构思和找参考，时间成本较高，方案覆盖面也有限。",
+    points: [
+      {
+        label: "需求背景",
+        text: "围绕理想同学是否必须佩戴牛仔帽，团队希望探索更多形象可能性，包括不同帽子、不同气质和不同角色方向。",
+      },
+      {
+        label: "批量生成",
+        text: "建立 AI 批量生成流程，大量生成不同帽子、不同风格的角色结果，扩大前期探索范围。",
+      },
+      {
+        label: "专业筛选",
+        text: "从结果池中筛选完整度高、视觉效果好、符合理想同学气质的方案，将生成结果用于后续设计判断和方案推进。",
+      },
+      {
+        label: "项目价值",
+        text: "降低前期创意探索成本，提高形象方案的数量、覆盖面和筛选效率，也让设计师把精力集中在判断和决策上。",
+      },
     ],
-    metrics: ["批量样本", "反向筛选", "流程自动化"],
   },
   {
-    layout: "wide-stage",
-    dimension: "协作力",
-    principle: "建立高效团队",
-    eyebrow: "11 / RADIANT LIGHT",
-    title: "放空桌面放射光效果方案共享与协同推进",
-    summary: "把个人探索及时沉淀成团队可继续推进的方案，让共享成果比个人完成更重要。",
-    problem: "放射光方案具备进一步打磨价值，但单人精力不足以覆盖后续细化、验证和交付。",
-    strategy: "基于 AI Studio 和 React 动效源码形成初版方向后，主动整理设计经验、实现思路和方案判断，交给团队成员在已有基础上继续推进。",
-    result: "团队成员进一步完善方案并完成交付，个人探索转化为团队共享资产。",
-    background: { type: "video", src: media.radiantAttention },
-    gallery: [
-      { type: "video", src: media.radiantColor, label: "冷暖色" },
-      { type: "video", src: media.radiantSpeak, label: "说话态" },
-      { type: "video", src: media.radiantAttention, label: "注意力" },
+    eyebrow: "11 / Case 04 Application",
+    title: "理想同学 App 4 楼首页 24 小时动画资源",
+    conclusion:
+      "通过先生成、再筛选、后匹配的方式，完成 24 小时场景动画资源探索。",
+    intro:
+      "理想同学 App 4 楼首页需要表达 24 小时中的不同行为状态。若逐小时构思行为，再针对每个时间点生成图片和视频，效率较低，且容易陷入反复试错。",
+    points: [
+      {
+        label: "传统路径问题",
+        text: "如果先设想 1 点、2 点、6 点分别应该发生什么，再逐个生成素材，需要同时验证行为合理性、画面质量和场景匹配度，效率很低。",
+      },
+      {
+        label: "逆向工作流",
+        text: "先让 AI 大量生成理想同学的场景素材、视频和动画，再从生成结果中筛选质量较高、画面完整、情绪合适的素材。",
+      },
+      {
+        label: "反向匹配",
+        text: "将筛选出的高质量素材反向匹配到不同时间节点，以结果质量为基础完成 24 小时动画资源组合。",
+      },
+      {
+        label: "项目价值",
+        text: "降低逐小时构思的试错成本，提高资源完成率，也为协作同事提供可复用的流程策略。",
+      },
     ],
-    metrics: ["方案沉淀", "共享推进", "团队交付"],
   },
   {
-    layout: "focus-eye",
-    dimension: "协作力",
-    principle: "建立高效团队",
-    eyebrow: "12 / REACT PROTOTYPE",
-    title: "React 动效方案转译",
-    summary: "把 AI Studio 和 React 动效源码中的可行片段转译成设计方案，让团队能继续接力。",
-    problem: "创新动效早期往往停在灵感层，如果没有把实现方式和设计判断讲清楚，团队很难继续推进。",
-    strategy: "先把源码动效和交互目标对齐，再沉淀关键参数、节奏判断和可交付边界，降低后续协作成本。",
-    result: "放射光方案从个人探索变成团队可以继续打磨的半成品，而不是一次性灵感展示。",
-    background: { type: "video", src: media.radiantColor },
-    gallery: [
-      { type: "video", src: media.radiantSpeak, label: "说话态" },
-      { type: "video", src: media.radiantColor, label: "冷暖色" },
-      { type: "video", src: media.radiantAttention, label: "注意力" },
+    eyebrow: "12 / Case 05",
+    title: "Standby 放射光：AI + 代码方式验证可交互光效原型",
+    conclusion:
+      "通过 AI Studio 和参数调整，完成 Standby 放空桌面放射光初版 demo。",
+    intro:
+      "Standby 放空桌面希望实现一种可感知、可调用、可设置参数的放射光效果。传统三维建模或呼吸灯效较难表达这种可交互、可绑定状态的光效。",
+    points: [
+      {
+        label: "关键难点",
+        text: "光效需要被感知、被调用，并支持参数设置，还需要绑定不同模态进行输出。团队当时缺少图形化代码经验，初期 demo 效果不理想。",
+      },
+      {
+        label: "寻找参考",
+        text: "先寻找外部参考和开源代码文档，确认视觉方向和技术可能性。虽然代码不容易直接理解，但可以作为 AI 辅助沟通和原型生成的输入。",
+      },
+      {
+        label: "AI 原型",
+        text: "通过 AI Studio 用自然语言描述视觉目标和交互需求，生成可交互原型，并通过调整代码参数完成初版放射光 demo。",
+      },
+      {
+        label: "协同推进",
+        text: "初版方向得到认可后，将方法分享给合作团队，后续由同事继续完善功能、提升效果并推进落地。",
+      },
     ],
-    metrics: ["源码转译", "参数沉淀", "协作接力"],
   },
   {
-    layout: "system-stack",
-    dimension: "协作力",
-    principle: "建立高效团队",
-    eyebrow: "13 / CROSS ROLE",
-    title: "理想同学车端语音形象跨角色协同",
-    summary: "在设计、Spine、Gauss、引擎之间建立共同目标，把探索方案继续推向落地。",
-    problem: "车端语音形象涉及基础资源、动画设计、高斯模型动作结构和引擎效果整合，需要多角色持续对齐。",
-    strategy: "线上交付阶段提供完整基础资源并协同 Spine 动画落地；Gauss 阶段设计骨骼动作层级，协同动作设计与引擎资源优化。",
-    result: "基础方案稳定上线，高斯方向从设计探索继续向可落地方案收敛。",
-    background: { type: "image", src: media.entityDark },
-    gallery: [
-      { type: "video", src: media.gaussMain, label: "高斯方向" },
-      { type: "image", src: media.entityDefault, label: "基础资源" },
-      { type: "video", src: media.gaussEngine, label: "引擎整合" },
+    eyebrow: "13 / Case 06",
+    title: "OC 前脸眼睛：基于生物感知规律的车外交互视觉方案",
+    conclusion:
+      "通过人眼注意力系统研究，完成 OC 前脸眼睛的交互模态与视觉方案设计。",
+    intro:
+      "OC 项目中，前脸眼睛需要表达车辆的注意力、情绪和交互状态。该项目不是简单制作固定动画，而是研究人眼注意力系统如何转译到汽车风格中。",
+    points: [
+      {
+        label: "核心灵感",
+        text: "最初希望获得类似《赛车总动员》中闪电麦昆眼睛的神韵，但不能直接照搬，需要适配真实汽车场景和理想同学的形象特征。",
+      },
+      {
+        label: "造型结合",
+        text: "瞳孔部分由于是圆形，变化空间有限，因此将圆形瞳孔与理想同学椭圆 / 半椭圆眼睛特征结合，保留品牌识别。",
+      },
+      {
+        label: "液态眼白",
+        text: "眼白对应现实中的眉头、眉弓和眼皮，是传递情绪与真实感的核心。采用液体状外轮廓塑造五官，使眼睛可以柔软变形。",
+      },
+      {
+        label: "信息承接",
+        text: "液态眼睛在变小时可以自然承接文字信息。真实使用场景中，声音不一定是最佳传达手段，车外云交互中的文字表达更有效。",
+      },
     ],
-    metrics: ["跨角色对齐", "动作层级", "方案收敛"],
   },
   {
-    layout: "route-compare",
-    dimension: "协作力",
-    principle: "建立高效团队",
-    eyebrow: "14 / ENGINE",
-    title: "高斯模型引擎协同",
-    summary: "在动作设计、骨骼层级和引擎效果之间持续对齐，把视觉目标压进可实现边界。",
-    problem: "高斯模型进入引擎后，视觉效果、动作结构和性能边界会互相影响，单点设计判断不足以完成落地。",
-    strategy: "设计高斯模型的骨骼动作层级，与动作设计和引擎资源优化同步推进，持续校准效果还原和落地成本。",
-    result: "探索方案不止停留在视觉演示，而是继续向可进入产品链路的资源形态收敛。",
-    background: { type: "video", src: media.gaussEngine },
-    gallery: [
-      { type: "video", src: media.gaussMain, label: "视觉目标" },
-      { type: "video", src: media.gaussEngine, label: "引擎验证" },
-      { type: "image", src: media.entityDark, label: "形象基础" },
+    eyebrow: "14 / Case 06 Extension",
+    title: "让汽车前脸具备更自然的注意力表达",
+    conclusion: "基于人眼自然运动规律，设计注意力转移和状态切换机制。",
+    intro:
+      "OC 前脸眼睛的底层逻辑，是将人类对生命感、注意力和情绪的感知方式转译为汽车前脸的交互表达。",
+    points: [
+      {
+        label: "生物属性模拟",
+        text: "项目不是设计一个固定状态，而是将眼睛视为可交互的生命体，通过注意力机制、状态机和生物属性动态，使其呈现更自然的状态。",
+      },
+      {
+        label: "注意力机制",
+        text: "通过绑定注意力并设计状态切换机制，使眼睛能针对不同条件和场景做出准确的情绪表达。",
+      },
+      {
+        label: "动态曲线",
+        text: "人眼在注意力转移时通常不是匀速移动，而是快速跳转到目标位置。动效曲线采用加速度非常快的缓出方式，使运动符合人类认知直觉。",
+      },
+      {
+        label: "项目价值",
+        text: "该方案从用户对生命感、注意力和情绪的感知方式出发，探索汽车前脸在车外交互中的视觉表达方式。",
+      },
     ],
-    metrics: ["骨骼层级", "引擎优化", "落地边界"],
   },
   {
-    layout: "tool-wall",
-    dimension: "自驱力",
-    principle: "自我发展",
-    eyebrow: "15 / AI TOOLING",
-    title: "AI 工作流与设计辅助工具探索",
-    summary: "从 Gemini API、批量生成到 vibe coding 插件，把新能力转化为实际产出和团队方法。",
-    problem: "AI 生成和图片处理如果停留在单次尝试，无法支撑项目节奏；色调不一致、手动校色等重复操作会打断设计流程。",
-    strategy: "早期用脚本接入 Gemini API 探索批量生成图片到视频的流程；后续结合 Codex、Antigravity、Claude Code 等工具开发白平衡和校色插件，让图片处理留在工作流内部完成。",
-    result: "个人提效转化为团队可复用方法，也为春节活动和后续 AI 设计资源快速产出积累经验。",
-    background: { type: "image", src: media.workflowComfy },
-    gallery: [
-      { type: "image", src: media.workflowChat, label: "提示词协作" },
-      { type: "image", src: media.workflowComfy, label: "批量工作流" },
-      { type: "image", src: media.workflowLamp, label: "生成结果" },
-      { type: "video", src: media.appFlow, label: "资源应用" },
+    eyebrow: "15 / Summary",
+    title: "能力与项目结果总结",
+    conclusion:
+      "相关项目体现了专业深度、复杂落地、项目协同、AI 实战和交互方法沉淀等能力。",
+    intro:
+      "上述项目围绕产品体验、技术实现和业务交付展开，重点体现稳定、可复用的设计结果与流程方法。",
+    points: [
+      {
+        label: "专业深度",
+        text: "完成高难度 3D 材质、毛绒形象和动效表达设计，能够从真实物理规律、材质结构和动画规律出发定义视觉效果。",
+      },
+      {
+        label: "复杂落地",
+        text: "参与多素材、多端、多技术约束下的体验上线，能够在设计、资源、研发还原和显示问题之间持续校准结果。",
+      },
+      {
+        label: "项目协同",
+        text: "在高压周期中进行任务拆解、资源分配和研发对接，通过优先级判断和资源复用保障关键体验与版本交付。",
+      },
+      {
+        label: "AI 实战",
+        text: "将 AI 生成、脚本、API 和代码原型应用到真实业务项目，把新工具转化为批量生成、筛选决策和原型验证流程。",
+      },
+      {
+        label: "方法沉淀",
+        text: "形成毛绒视觉体系、资源交付方法、AI 批量生成流程和交互原型验证方式，支持后续项目继续复用。",
+      },
     ],
-    metrics: ["主动学习", "插件提效", "团队复用"],
-  },
-  {
-    layout: "timeline-flow",
-    dimension: "自驱力",
-    principle: "自我发展",
-    eyebrow: "16 / SELF GROWTH",
-    title: "从个人提效到团队方法",
-    summary: "把新工具体验转化为可复用工作流，再把工作流分享给团队，形成持续增长的能力闭环。",
-    problem: "如果 AI 工具只停留在个人试用层面，很难真正改变项目效率，也无法形成团队共同方法。",
-    strategy: "围绕真实工作中的重复环节开发白平衡、校色和批量处理插件，并把工具用法和适用边界同步给团队。",
-    result: "新能力从个人探索扩散为团队方法，减少重复手工操作，也让后续活动资源生产更快启动。",
-    background: { type: "image", src: media.workflowChat },
-    gallery: [
-      { type: "image", src: media.workflowComfy, label: "流程节点" },
-      { type: "image", src: media.workflowChat, label: "提示词协作" },
-      { type: "image", src: media.workflowOptions, label: "结果筛选" },
-      { type: "video", src: media.appFlow, label: "应用场景" },
-    ],
-    metrics: ["工具沉淀", "方法分享", "持续增长"],
   },
 ];
 
-function pad(number) {
-  return String(number).padStart(2, "0");
+function pad(value) {
+  return String(value).padStart(2, "0");
 }
 
-function clampCaseIndex(index) {
-  return Math.max(0, Math.min(cases.length - 1, index));
-}
-
-function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...props }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        node.classList.toggle("is-inview", entry.isIntersecting);
-      },
-      { threshold: 0.2, rootMargin: "-8% 0px -8% 0px" },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+function DetailCard({ item, index }) {
+  const [open, setOpen] = useState(index < 2);
 
   return (
-    <Tag ref={ref} className={`reveal ${className}`} style={{ "--reveal-delay": `${delay}ms` }} {...props}>
-      {children}
-    </Tag>
-  );
-}
-
-function Media({ item, className = "", background = false }) {
-  const commonClass = `${className} ${background ? "background-media" : ""}`;
-
-  if (item.type === "video") {
-    return <video className={commonClass} src={item.src} autoPlay muted loop playsInline preload="metadata" />;
-  }
-
-  return <img className={commonClass} src={item.src} alt="" />;
-}
-
-function FloatingGallery({ items }) {
-  return (
-    <Reveal className="floating-gallery" delay={160}>
-      {items.map((item, index) => (
-        <figure className="media-card" style={{ "--i": index }} key={`${item.src}-${item.label}`}>
-          <Media item={item} />
-          <figcaption>{item.label}</figcaption>
-        </figure>
-      ))}
-    </Reveal>
-  );
-}
-
-function CaseIntro({ item }) {
-  return (
-    <>
-      <p className="eyebrow">{item.eyebrow}</p>
-      <div className="dimension-row">
-        <span>{item.dimension}</span>
-        <span>{item.principle}</span>
+    <article className={`detail-card ${open ? "is-open" : ""}`}>
+      <button className="detail-trigger" type="button" onClick={() => setOpen((value) => !value)}>
+        <span>
+          <strong>{pad(index + 1)}</strong>
+          {item.label}
+        </span>
+        <ChevronDown size={18} aria-hidden="true" />
+      </button>
+      <div className="detail-body">
+        <p>{item.text}</p>
       </div>
-      <h1>{item.title}</h1>
-      <p className="summary">{item.summary}</p>
-    </>
+    </article>
   );
 }
 
-function CaseTextGrid({ item }) {
-  return (
-    <div className="case-grid">
-      <article>
-        <h2>背景问题</h2>
-        <p>{item.problem}</p>
-      </article>
-      <article>
-        <h2>解决策略</h2>
-        <p>{item.strategy}</p>
-      </article>
-      <article>
-        <h2>结果</h2>
-        <p>{item.result}</p>
-      </article>
-    </div>
-  );
-}
+function PageSection({ page, index }) {
+  const firstColumn = page.points.slice(0, Math.ceil(page.points.length / 2));
+  const secondColumn = page.points.slice(Math.ceil(page.points.length / 2));
 
-function Metrics({ items }) {
   return (
-    <ul className="metrics">
-      {items.map((metric) => (
-        <li key={metric}>{metric}</li>
-      ))}
-    </ul>
-  );
-}
-
-function CapabilityCase({ item, index, active }) {
-  return (
-    <section
-      className={`case-section ${active ? "is-active" : ""}`}
-      data-dimension={item.dimension}
-      data-layout={item.layout}
-      id={`case-${index + 1}`}
-    >
-      <div className="case-background" aria-hidden="true">
-        <Media item={item.background} background />
-      </div>
-      <div className="case-shade" aria-hidden="true" />
-      <div className="case-shell">
-        <Reveal className="case-copy">
-          <CaseIntro item={item} />
-          <CaseTextGrid item={item} />
-          <Metrics items={item.metrics} />
-        </Reveal>
-        <FloatingGallery items={item.gallery} />
-      </div>
-      <span className="case-index" aria-hidden="true">
+    <section className="page-section" id={`page-${index + 1}`}>
+      <div className="section-number" aria-hidden="true">
         {pad(index + 1)}
-      </span>
+      </div>
+      <div className="page-shell">
+        <div className="page-header">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h2>{page.title}</h2>
+          <p className="conclusion">{page.conclusion}</p>
+          <p className="intro">{page.intro}</p>
+        </div>
+        <div className="details-grid">
+          <div>
+            {firstColumn.map((item, pointIndex) => (
+              <DetailCard item={item} index={pointIndex} key={item.label} />
+            ))}
+          </div>
+          <div>
+            {secondColumn.map((item, pointIndex) => (
+              <DetailCard
+                item={item}
+                index={pointIndex + firstColumn.length}
+                key={item.label}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
 
 export function App() {
-  const [active, setActive] = useState(0);
-  const activeRef = useRef(0);
-  const animateToRef = useRef(null);
-  const caseIds = useMemo(() => cases.map((_, index) => `case-${index + 1}`), []);
-
-  useLayoutEffect(() => {
-    if ("scrollRestoration" in window.history) {
-      window.history.scrollRestoration = "manual";
-    }
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    activeRef.current = active;
-    document.documentElement.style.setProperty("--active", active);
-  }, [active]);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let scrollFrame = 0;
-
-    const getSections = () => caseIds.map((id) => document.getElementById(id)).filter(Boolean);
-
-    const syncActiveFromScroll = () => {
-      scrollFrame = 0;
-      const sections = getSections();
-      if (!sections.length) return;
-
-      const anchor = window.scrollY + window.innerHeight * 0.48;
-      const nearestIndex = sections.reduce(
-        (nearest, section, index) => {
-          const distance = Math.abs(section.offsetTop - anchor);
-          return distance < nearest.distance ? { distance, index } : nearest;
-        },
-        { distance: Number.POSITIVE_INFINITY, index: activeRef.current },
-      ).index;
-
-      if (nearestIndex !== activeRef.current) {
-        setActive(nearestIndex);
-      }
-    };
-
-    const requestActiveSync = () => {
-      if (scrollFrame) return;
-      scrollFrame = requestAnimationFrame(syncActiveFromScroll);
-    };
-
-    const animateTo = (targetIndex) => {
-      const nextIndex = clampCaseIndex(targetIndex);
-      const section = document.getElementById(caseIds[nextIndex]);
-      if (!section) return;
-
-      setActive(nextIndex);
-      section.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
-    };
-
-    animateToRef.current = animateTo;
-    window.addEventListener("scroll", requestActiveSync, { passive: true });
-    requestActiveSync();
-
-    const onKeyDown = (event) => {
-      const directionMap = { ArrowDown: 1, PageDown: 1, " ": 1, ArrowUp: -1, PageUp: -1 };
-      const direction = directionMap[event.key];
-      if (!direction) return;
-      event.preventDefault();
-      const nextIndex = clampCaseIndex(activeRef.current + direction);
-      if (nextIndex !== activeRef.current) animateTo(nextIndex);
-    };
-
-    const onPointerMove = (event) => {
-      const x = event.clientX / window.innerWidth - 0.5;
-      const y = event.clientY / window.innerHeight - 0.5;
-      document.documentElement.style.setProperty("--px", x.toFixed(3));
-      document.documentElement.style.setProperty("--py", y.toFixed(3));
-    };
-
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("pointermove", onPointerMove);
-
-    return () => {
-      window.removeEventListener("scroll", requestActiveSync);
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("pointermove", onPointerMove);
-      if (scrollFrame) cancelAnimationFrame(scrollFrame);
-      animateToRef.current = null;
-    };
-  }, [caseIds]);
+  const [navOpen, setNavOpen] = useState(false);
+  const pageCount = useMemo(() => pages.length, []);
 
   return (
     <>
-      <header className="topbar">
-        <a
-          className="brand"
-          href="#case-1"
-          aria-label="回到开场"
-          onClick={(event) => {
-            event.preventDefault();
-            animateToRef.current?.(0);
-          }}
-        >
-          <span className="brand-mark" />
-          <span>理想同学 / 能力自荐</span>
+      <header className="site-header">
+        <a className="brand" href="#page-1" onClick={() => setNavOpen(false)}>
+          <span className="brand-mark" aria-hidden="true">
+            <Layers3 size={16} />
+          </span>
+          <span>Suhao Work</span>
         </a>
-        <p className="progress-label">
-          {cases[active].dimension} · {pad(active + 1)} / {pad(cases.length)}
-        </p>
+        <div className="header-meta">
+          <span>Text Deck</span>
+          <span>{pageCount} pages</span>
+        </div>
+        <button
+          className="menu-button"
+          type="button"
+          aria-expanded={navOpen}
+          aria-label={navOpen ? "关闭目录" : "打开目录"}
+          onClick={() => setNavOpen((value) => !value)}
+        >
+          {navOpen ? <X size={18} /> : <Menu size={18} />}
+        </button>
       </header>
 
-      <main className="story">
-        {cases.map((item, index) => (
-          <CapabilityCase item={item} index={index} active={active === index} key={item.eyebrow} />
+      <aside className={`toc ${navOpen ? "is-open" : ""}`}>
+        <p className="toc-title">目录</p>
+        <nav aria-label="页面目录">
+          {pages.map((page, index) => (
+            <a href={`#page-${index + 1}`} key={page.eyebrow} onClick={() => setNavOpen(false)}>
+              <span>{pad(index + 1)}</span>
+              {page.title}
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <main>
+        <section className="hero" id="top">
+          <div className="hero-content">
+            <p className="eyebrow">Portfolio Text Draft</p>
+            <h1>个人项目与能力材料</h1>
+            <p>
+              纯文字版先聚焦信息结构、核心结论和案例证据。图片与视频暂不加入，后续可按每页内容逐步补充视觉素材。
+            </p>
+            <a className="hero-link" href="#page-1">
+              开始阅读
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          </div>
+          <div className="hero-index" aria-label="材料摘要">
+            {["专业能力", "毛绒形象", "复杂落地", "AI 工作流", "交互探索"].map((item) => (
+              <span key={item}>
+                <CircleDot size={14} aria-hidden="true" />
+                {item}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {pages.map((page, index) => (
+          <PageSection page={page} index={index} key={page.eyebrow} />
         ))}
       </main>
-
-      <nav className="rail" aria-label="案例导航">
-        {cases.map((item, index) => (
-          <a
-            className={active === index ? "is-active" : ""}
-            href={`#case-${index + 1}`}
-            aria-label={`跳转到${item.title}`}
-            key={item.eyebrow}
-            onClick={(event) => {
-              event.preventDefault();
-              animateToRef.current?.(index);
-            }}
-          >
-            <span>{pad(index + 1)}</span>
-          </a>
-        ))}
-      </nav>
-
-      <div className="bottom-blur" aria-hidden="true" />
     </>
   );
 }
