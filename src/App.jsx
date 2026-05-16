@@ -7,6 +7,7 @@ import {
   Orbit,
   X,
 } from "lucide-react";
+import GradualBlur from "./components/GradualBlur";
 import { PrismaticBurst } from "./components/PrismaticBurst";
 
 const pages = [
@@ -418,6 +419,24 @@ const activeVisualMode = {
   Icon: Orbit,
 };
 
+const pageBackdrops = {
+  3: {
+    type: "video",
+    src: "/assets/li-ota74-bg.mp4",
+    className: "backdrop-ota74",
+  },
+  4: {
+    type: "image",
+    src: "/assets/fur-material-close-bg.jpg",
+    className: "backdrop-fur-close",
+  },
+  6: {
+    type: "image",
+    src: "/assets/fur-characters-bg.png",
+    className: "backdrop-fur-lineup",
+  },
+};
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -468,6 +487,45 @@ function NoteButton({ index, hasNote, onOpen }) {
       <MessageSquareText size={16} aria-hidden="true" />
       <span>备注</span>
     </button>
+  );
+}
+
+function PageBackdrop({ backdrop }) {
+  if (!backdrop) return null;
+
+  return (
+    <div className={`page-backdrop ${backdrop.className}`} aria-hidden="true">
+      {backdrop.type === "video" ? (
+        <video src={backdrop.src} autoPlay muted loop playsInline preload="auto" />
+      ) : (
+        <img src={backdrop.src} alt="" />
+      )}
+    </div>
+  );
+}
+
+function SectionGradualBlur() {
+  return (
+    <>
+      <GradualBlur
+        className="section-gradual-blur section-gradual-blur-top"
+        position="top"
+        height="12svh"
+        strength={2.4}
+        divCount={10}
+        curve="bezier"
+        zIndex={8}
+      />
+      <GradualBlur
+        className="section-gradual-blur section-gradual-blur-bottom"
+        position="bottom"
+        height="15svh"
+        strength={3.2}
+        divCount={10}
+        curve="bezier"
+        zIndex={8}
+      />
+    </>
   );
 }
 
@@ -620,22 +678,20 @@ function StandbyRadianceDemo() {
   return (
     <div className="radiance-demo">
       <div className="radiance-stage">
-        <div className="radiance-screen-mask" aria-hidden="true">
-          <div className="radiance-webgl">
-            <PrismaticBurst
-              intensity={light.intensity}
-              distort={light.distort}
-              rayCount={light.rayCount}
-              speed={light.speed}
-              colors={burstColors}
-              animationType="rotate3d"
-              mixBlendMode="screen"
-              focus={{ x: 0, y: 0 }}
-              pulse={{ strength: 0, x: 0, y: 0, scale: 0 }}
-              shockwave={0}
-              shockwaveCenter={{ x: 0.5, y: 0.5 }}
-            />
-          </div>
+        <div className="radiance-webgl" aria-hidden="true">
+          <PrismaticBurst
+            intensity={light.intensity}
+            distort={light.distort}
+            rayCount={light.rayCount}
+            speed={light.speed}
+            colors={burstColors}
+            animationType="rotate3d"
+            mixBlendMode="screen"
+            focus={{ x: 0, y: 0 }}
+            pulse={{ strength: 0, x: 0, y: 0, scale: 0 }}
+            shockwave={0}
+            shockwaveCenter={{ x: 0.5, y: 0.5 }}
+          />
         </div>
       </div>
       <div className="radiance-panel">
@@ -695,6 +751,7 @@ function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
       <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
+      <SectionGradualBlur />
       <div className="hero-orbit" aria-hidden="true" />
       <div className="hero-copy">
         <p className="eyebrow">{mode.label} / {mode.name}</p>
@@ -709,12 +766,19 @@ function HeroSection({ page, mode, note, onOpenNote }) {
 
 function CaseSection({ page, index, note, onOpenNote }) {
   const [firstColumn, secondColumn] = splitPoints(page.points);
+  const pageNumber = index + 1;
+  const backdrop = pageBackdrops[pageNumber];
 
   return (
-    <section className="case-section" id={`page-${index + 1}`}>
+    <section
+      className={`case-section ${backdrop ? `has-backdrop ${backdrop.className}` : ""}`}
+      id={`page-${pageNumber}`}
+    >
+      <PageBackdrop backdrop={backdrop} />
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
+      <SectionGradualBlur />
       <div className="case-index" aria-hidden="true">
-        {pad(index + 1)}
+        {pad(pageNumber)}
       </div>
       <div className="case-copy">
         <p className="eyebrow">{page.eyebrow}</p>
