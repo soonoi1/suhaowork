@@ -530,26 +530,104 @@ function PointCard({ item, index }) {
   );
 }
 
-const standbyLight = {
-  intensity: 1.45,
-  distort: 0.55,
-  rayCount: 14,
-  speed: 0.46,
-  colors: ["#fff0c2", "#d5851f", "#fff4d6"],
+const radiancePresets = {
+  standby: {
+    label: "Standby",
+    helper: "低打扰待机",
+    intensity: 1.45,
+    distort: 0.55,
+    rayCount: 14,
+    speed: 0.46,
+    base: "#d5851f",
+    highlight: "#fff0c2",
+  },
+  listening: {
+    label: "Listening",
+    helper: "轻响应感知",
+    intensity: 1.8,
+    distort: 0.72,
+    rayCount: 18,
+    speed: 0.72,
+    base: "#ff9b26",
+    highlight: "#fff4d6",
+  },
+  thinking: {
+    label: "Thinking",
+    helper: "慢节奏波动",
+    intensity: 1.55,
+    distort: 1.1,
+    rayCount: 24,
+    speed: 0.95,
+    base: "#be7b1a",
+    highlight: "#fff1ba",
+  },
 };
 
+function RadianceSlider({ label, value, onChange, min, max, step = 1 }) {
+  const displayValue = Number.isInteger(value) ? value : value.toFixed(2);
+
+  return (
+    <label className="radiance-control">
+      <span>
+        {label}
+        <strong>{displayValue}</strong>
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => onChange(Number(event.target.value))}
+      />
+    </label>
+  );
+}
+
 function StandbyRadianceDemo() {
+  const [light, setLight] = useState({
+    mode: "standby",
+    intensity: radiancePresets.standby.intensity,
+    distort: radiancePresets.standby.distort,
+    rayCount: radiancePresets.standby.rayCount,
+    speed: radiancePresets.standby.speed,
+    base: radiancePresets.standby.base,
+    highlight: radiancePresets.standby.highlight,
+  });
+
+  const setLightValue = (key, value) => {
+    setLight((current) => ({ ...current, [key]: value }));
+  };
+
+  const applyPreset = (mode) => {
+    const preset = radiancePresets[mode];
+    setLight({
+      mode,
+      intensity: preset.intensity,
+      distort: preset.distort,
+      rayCount: preset.rayCount,
+      speed: preset.speed,
+      base: preset.base,
+      highlight: preset.highlight,
+    });
+  };
+
+  const burstColors = useMemo(
+    () => [light.highlight, light.base, light.highlight],
+    [light.base, light.highlight],
+  );
+
   return (
     <div className="radiance-demo">
       <div className="radiance-stage">
         <div className="radiance-screen-mask" aria-hidden="true">
           <div className="radiance-webgl">
             <PrismaticBurst
-              intensity={standbyLight.intensity}
-              distort={standbyLight.distort}
-              rayCount={standbyLight.rayCount}
-              speed={standbyLight.speed}
-              colors={standbyLight.colors}
+              intensity={light.intensity}
+              distort={light.distort}
+              rayCount={light.rayCount}
+              speed={light.speed}
+              colors={burstColors}
               animationType="rotate3d"
               mixBlendMode="screen"
               focus={{ x: 0, y: 0 }}
@@ -558,6 +636,55 @@ function StandbyRadianceDemo() {
               shockwaveCenter={{ x: 0.5, y: 0.5 }}
             />
           </div>
+        </div>
+      </div>
+      <div className="radiance-panel">
+        <div className="radiance-modes" aria-label="放射光状态">
+          {Object.entries(radiancePresets).map(([key, preset]) => (
+            <button
+              className={light.mode === key ? "is-selected" : ""}
+              type="button"
+              onClick={() => applyPreset(key)}
+              key={key}
+            >
+              <span>{preset.label}</span>
+              <small>{preset.helper}</small>
+            </button>
+          ))}
+        </div>
+        <div className="radiance-controls">
+          <RadianceSlider
+            label="Intensity"
+            value={light.intensity}
+            min={0.1}
+            max={3}
+            step={0.05}
+            onChange={(value) => setLightValue("intensity", value)}
+          />
+          <RadianceSlider
+            label="Distortion"
+            value={light.distort}
+            min={0}
+            max={2}
+            step={0.05}
+            onChange={(value) => setLightValue("distort", value)}
+          />
+          <RadianceSlider
+            label="Ray Count"
+            value={light.rayCount}
+            min={4}
+            max={42}
+            step={1}
+            onChange={(value) => setLightValue("rayCount", value)}
+          />
+          <RadianceSlider
+            label="Speed"
+            value={light.speed}
+            min={0.05}
+            max={1.8}
+            step={0.05}
+            onChange={(value) => setLightValue("speed", value)}
+          />
         </div>
       </div>
     </div>
@@ -675,172 +802,6 @@ export function App() {
   useEffect(() => {
     window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
   }, [notes]);
-
-  useEffect(() => {
-    const sectionSelector = ".hero-section, .case-section";
-    let wheelStartIndex = null;
-    let locked = false;
-    let resetTimer = 0;
-    let animationFrame = 0;
-    const snapDuration = 600;
-
-    const getSections = () => Array.from(document.querySelectorAll(sectionSelector));
-
-    const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
-
-    const currentIndex = () => {
-      const sections = getSections();
-      if (!sections.length) return 0;
-
-      const viewportCenter = window.scrollY + window.innerHeight / 2;
-      return sections.reduce((closestIndex, section, index) => {
-        const closest = sections[closestIndex];
-        const closestCenter = closest.offsetTop + closest.offsetHeight / 2;
-        const sectionCenter = section.offsetTop + section.offsetHeight / 2;
-        return Math.abs(sectionCenter - viewportCenter) < Math.abs(closestCenter - viewportCenter)
-          ? index
-          : closestIndex;
-      }, 0);
-    };
-
-    const nearestTopIndex = () => {
-      const sections = getSections();
-      if (!sections.length) return 0;
-
-      return sections.reduce((closestIndex, section, index) => {
-        const closest = sections[closestIndex];
-        return Math.abs(section.offsetTop - window.scrollY) <
-          Math.abs(closest.offsetTop - window.scrollY)
-          ? index
-          : closestIndex;
-      }, 0);
-    };
-
-    const goToSection = (targetIndex) => {
-      const sections = getSections();
-      const nextIndex = Math.max(0, Math.min(targetIndex, sections.length - 1));
-      const section = sections[nextIndex];
-      if (!section) return;
-
-      locked = true;
-      wheelStartIndex = null;
-      window.cancelAnimationFrame(animationFrame);
-
-      const startY = window.scrollY;
-      const targetY = section.offsetTop;
-      const distance = targetY - startY;
-      const startTime = window.performance.now();
-
-      if (Math.abs(distance) < 1) {
-        window.scrollTo(0, targetY);
-        locked = false;
-        return;
-      }
-
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / snapDuration, 1);
-        window.scrollTo(0, startY + distance * easeOutCubic(progress));
-
-        if (progress < 1) {
-          animationFrame = window.requestAnimationFrame(step);
-          return;
-        }
-
-        window.scrollTo(0, targetY);
-        animationFrame = 0;
-        locked = false;
-      };
-
-      animationFrame = window.requestAnimationFrame(step);
-    };
-
-    const handleWheel = (event) => {
-      if (activeNoteIndex !== null) return;
-
-      const target = event.target;
-      if (target instanceof Element && target.closest(".toc, .notes-modal")) return;
-
-      if (locked) {
-        window.cancelAnimationFrame(animationFrame);
-        animationFrame = 0;
-        locked = false;
-        wheelStartIndex = nearestTopIndex();
-      }
-
-      if (wheelStartIndex === null) {
-        wheelStartIndex = nearestTopIndex();
-      }
-
-      window.clearTimeout(resetTimer);
-      resetTimer = window.setTimeout(() => {
-        const sections = getSections();
-        const startIndex = wheelStartIndex ?? nearestTopIndex();
-        const startSection = sections[startIndex];
-
-        if (!startSection) return;
-
-        const threshold = window.innerHeight * 0.4;
-        const distance = window.scrollY - startSection.offsetTop;
-
-        if (distance > threshold) {
-          goToSection(startIndex + 1);
-        } else if (distance < -threshold) {
-          goToSection(startIndex - 1);
-        } else {
-          goToSection(startIndex);
-        }
-
-        wheelStartIndex = null;
-      }, 150);
-    };
-
-    const handleKeyDown = (event) => {
-      if (activeNoteIndex !== null) return;
-
-      const target = event.target;
-      const isEditable =
-        target instanceof HTMLElement &&
-        (target.tagName === "TEXTAREA" ||
-          target.tagName === "INPUT" ||
-          target.isContentEditable);
-      if (isEditable) return;
-
-      if (event.code === "Space") {
-        event.preventDefault();
-        goToSection(currentIndex() + (event.shiftKey ? -1 : 1));
-      }
-
-      if (event.code === "ArrowDown" || event.code === "PageDown") {
-        event.preventDefault();
-        goToSection(currentIndex() + 1);
-      }
-
-      if (event.code === "ArrowUp" || event.code === "PageUp") {
-        event.preventDefault();
-        goToSection(currentIndex() - 1);
-      }
-
-      if (event.code === "Home") {
-        event.preventDefault();
-        goToSection(0);
-      }
-
-      if (event.code === "End") {
-        event.preventDefault();
-        goToSection(getSections().length - 1);
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: true });
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.clearTimeout(resetTimer);
-      window.cancelAnimationFrame(animationFrame);
-    };
-  }, [activeNoteIndex]);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
