@@ -36,35 +36,35 @@ const pages = [
     eyebrow: "02 / Capability",
     title: "专业能力背景",
     conclusion:
-      "能力覆盖 3D 与动画、产品动效与交互、多端资源适配、AI 应用工作流和创新探索。",
+      "能力覆盖 3D 与动画、产品动效与交互、AI 应用工作流和创新探索。",
     intro:
       "这部分不是工具清单，而是我在相关项目中形成的能力基础和可对应的项目成果。",
     points: [
       {
         label: "3D 与动画能力",
-        text: "熟悉 3D 全流程制作和技术路径，能够从形体、材质、灯光、渲染到动画节奏判断方案是否可实现、是否适合上线。动画经验覆盖 3D 角色动画、UI 动效和体验型交互动态，能够把重量、节奏、情绪和状态反馈做成用户能感知的动态表达。",
+        text: "我熟悉 3D 全流程制作与技术路径，能够从形体、材质、灯光、渲染到动画节奏判断方案的可实现性与上线稳定性。动画能力覆盖 3D 角色动画、UI 动效和体验型交互动态，能够将重量、节奏、情绪和状态反馈转化为用户可感知的动态表达。",
       },
       {
         label: "产品动效与交互能力",
-        text: "理解动效在产品中的作用：不是让页面更热闹，而是帮助用户理解状态、注意力、层级和反馈。实际项目中会结合缓动曲线、状态切换、动效频率、停留时长和交互连续性，控制动效是否打扰、是否清楚、是否能长期使用。",
+        text: "我对产品动效的理解侧重于状态表达、注意力引导、层级关系和操作反馈。实际项目中，会结合缓动曲线、状态切换、动效频率、停留时长和交互连续性，判断动效是否清晰、是否克制，以及是否适合长期使用场景。",
       },
       {
         label: "多端资源适配落地能力",
-        text: "有多端资源交付经验，熟悉不同端侧对格式、尺寸、编码、透明通道、压缩方式、性能和版本兼容的要求。设计阶段会提前判断资源如何拆分、如何导出、如何压缩、如何交给研发接入，减少后期反复返工。",
+        text: "我具备多端资源交付经验，熟悉不同端侧对格式、尺寸、编码、透明通道、压缩方式、性能和版本兼容的要求。在设计阶段会提前判断资源拆分、导出、压缩和研发接入方式，降低后期返工和端侧适配成本。",
       },
       {
         label: "AI 应用工作流",
-        text: "关注 AI 工具的能力边界，并把它转化为具体提效流程：例如批量生成、结果筛选、视频裁切压缩、脚本自动化和可交互原型验证。重点不是单次使用某个工具，而是把 AI 放进真实项目流程里解决效率问题。",
+        text: "我持续关注 AI 工具的能力边界，并将其转化为具体提效流程，包括批量生成、结果筛选、视频裁切压缩、脚本自动化和可交互原型验证。重点不在于单次使用某个工具，而在于将 AI 嵌入真实项目流程，用于解决效率、验证和交付问题。",
       },
       {
         label: "创新探索能力",
-        text: "在理想同学相关项目中，承担过较多早期探索工作，包括原生形象、视觉语言、交互动效和未来体验方向。探索结果需要能被验证、能被讨论，也能进一步转化为可落地方案。",
+        text: "我在理想同学相关项目中承担过多项早期探索工作，包括原生形象、视觉语言、交互动效和未来体验方向。探索过程强调可验证、可讨论和可转化，目标是将前期概念逐步推进为可落地的产品方案。",
       },
     ],
   },
   {
     eyebrow: "03 / Case 01",
-    title: "理想同学实体化形象",
+    title: "理想同学实体化",
     conclusion:
       "从平面符号探索出一个可被感知、可被记住，并与原始形象保持关联的 3D 实体化形象。",
     intro:
@@ -638,7 +638,7 @@ export function App() {
 
   useEffect(() => {
     const sectionSelector = ".hero-section, .case-section";
-    let wheelDelta = 0;
+    let wheelStartIndex = null;
     let locked = false;
     let resetTimer = 0;
 
@@ -659,6 +659,19 @@ export function App() {
       }, 0);
     };
 
+    const nearestTopIndex = () => {
+      const sections = getSections();
+      if (!sections.length) return 0;
+
+      return sections.reduce((closestIndex, section, index) => {
+        const closest = sections[closestIndex];
+        return Math.abs(section.offsetTop - window.scrollY) <
+          Math.abs(closest.offsetTop - window.scrollY)
+          ? index
+          : closestIndex;
+      }, 0);
+    };
+
     const goToSection = (targetIndex) => {
       const sections = getSections();
       const nextIndex = Math.max(0, Math.min(targetIndex, sections.length - 1));
@@ -666,7 +679,7 @@ export function App() {
       if (!section) return;
 
       locked = true;
-      wheelDelta = 0;
+      wheelStartIndex = null;
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       window.setTimeout(() => {
         locked = false;
@@ -679,20 +692,36 @@ export function App() {
       const target = event.target;
       if (target instanceof Element && target.closest(".toc, .notes-modal")) return;
 
-      event.preventDefault();
-      if (locked) return;
+      if (locked) {
+        event.preventDefault();
+        return;
+      }
 
-      wheelDelta += event.deltaY;
+      if (wheelStartIndex === null) {
+        wheelStartIndex = nearestTopIndex();
+      }
+
       window.clearTimeout(resetTimer);
       resetTimer = window.setTimeout(() => {
-        const threshold = 52;
-        if (Math.abs(wheelDelta) >= threshold) {
-          goToSection(currentIndex() + (wheelDelta > 0 ? 1 : -1));
+        const sections = getSections();
+        const startIndex = wheelStartIndex ?? nearestTopIndex();
+        const startSection = sections[startIndex];
+
+        if (!startSection) return;
+
+        const threshold = window.innerHeight * 0.3;
+        const distance = window.scrollY - startSection.offsetTop;
+
+        if (distance > threshold) {
+          goToSection(startIndex + 1);
+        } else if (distance < -threshold) {
+          goToSection(startIndex - 1);
         } else {
-          goToSection(currentIndex());
+          goToSection(startIndex);
         }
-        wheelDelta = 0;
-      }, 96);
+
+        wheelStartIndex = null;
+      }, 150);
     };
 
     const handleKeyDown = (event) => {
@@ -741,6 +770,24 @@ export function App() {
       window.clearTimeout(resetTimer);
     };
   }, [activeNoteIndex]);
+
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
+    if (!sections.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-active", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.58 },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
 
   const updateNote = (index, value) => {
     setNotes((current) => ({ ...current, [index]: value }));
