@@ -471,6 +471,65 @@ button {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+.ai-infinite-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 62% 48%, rgba(255, 255, 255, 0.08), transparent 34%),
+    #050505;
+}
+
+.ai-infinite-backdrop::before,
+.ai-infinite-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.ai-infinite-backdrop::before {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.66) 33%, rgba(0, 0, 0, 0.36) 68%, rgba(0, 0, 0, 0.76) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.24) 28%, rgba(0, 0, 0, 0.22) 66%, rgba(0, 0, 0, 0.96) 100%);
+}
+
+.ai-infinite-backdrop::after {
+  background:
+    radial-gradient(circle at 70% 50%, transparent 0%, rgba(0, 0, 0, 0.42) 60%, rgba(0, 0, 0, 0.88) 100%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 7px);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+
+.ai-infinite-menu {
+  position: absolute;
+  inset: -15%;
+  width: 130%;
+  height: 130%;
+  opacity: 0.78;
+  filter: saturate(0.88) contrast(1.12) brightness(0.86);
+  transform: translateX(10%);
+}
+
+.case-section.has-infinite-menu {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.case-section.has-infinite-menu .case-copy,
+.case-section.has-infinite-menu .points-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.case-section.has-infinite-menu .point-card {
+  background: rgba(5, 5, 5, 0.62);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
 .section-gradual-blur {
   pointer-events: none;
 }

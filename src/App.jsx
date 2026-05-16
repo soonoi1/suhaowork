@@ -14,6 +14,7 @@ import ScrollStack, { ScrollStackItem } from "./components/ScrollStack";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
 const GaussianSplatViewer = lazy(() => import("./components/GaussianSplatViewer"));
+const InfiniteMenu = lazy(() => import("./components/InfiniteMenu"));
 
 const pages = [
   {
@@ -505,6 +506,13 @@ const liCenterStackVideos = [
   },
 ];
 
+const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
+  image: `/assets/ai-workflow/people/ai-person-${pad(index + 1)}.jpg`,
+  link: "",
+  title: `AI Workflow ${pad(index + 1)}`,
+  description: "AI 角色形象筛选",
+}));
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -594,6 +602,22 @@ function SectionGradualBlur() {
         zIndex={8}
       />
     </>
+  );
+}
+
+function AIWorkflowInfiniteBackdrop() {
+  return (
+    <div className="ai-infinite-backdrop" aria-hidden="true">
+      <Suspense fallback={null}>
+        <InfiniteMenu
+          className="ai-infinite-menu"
+          items={aiWorkflowPeopleItems}
+          scale={1.5}
+          autoRotate
+          showDetails={false}
+        />
+      </Suspense>
+    </div>
   );
 }
 
@@ -917,9 +941,14 @@ function CaseSection({ page, index, note, onOpenNote }) {
     sectionClasses.push("has-scroll-stack");
   }
 
+  if (pageNumber === 9) {
+    sectionClasses.push("has-infinite-menu");
+  }
+
   return (
     <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
+      {pageNumber === 9 ? <AIWorkflowInfiniteBackdrop /> : null}
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <SectionGradualBlur />
       <div className="case-index" aria-hidden="true">
