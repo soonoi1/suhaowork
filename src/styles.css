@@ -394,21 +394,6 @@ button {
   backdrop-filter: blur(16px);
 }
 
-.cover-card::after,
-.point-card::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.16) 42%, transparent 64%);
-  opacity: 0;
-  transform: translateX(-110%);
-}
-
-.hero-section.is-active .cover-card::after,
-.case-section.is-active .point-card::after {
-  animation: cardSweep 1100ms ease 260ms both;
-}
-
 .cover-card {
   min-height: 160px;
   padding: 18px;
@@ -722,22 +707,6 @@ button {
 .deck-space .cover-card,
 .deck-space .point-card {
   border-style: dashed;
-}
-
-@keyframes cardSweep {
-  0% {
-    opacity: 0;
-    transform: translateX(-110%);
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-    transform: translateX(110%);
-  }
 }
 
 @media (max-width: 1100px) {
