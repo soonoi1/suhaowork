@@ -1,10 +1,13 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
   CircleDot,
+  ClipboardCheck,
+  ClipboardList,
   Layers3,
   Menu,
+  MessageSquareText,
   X,
 } from "lucide-react";
 
@@ -404,6 +407,42 @@ function pad(value) {
   return String(value).padStart(2, "0");
 }
 
+const NOTES_STORAGE_KEY = "suhaowork-review-notes-v1";
+
+function loadStoredNotes() {
+  if (typeof window === "undefined") return {};
+
+  try {
+    const saved = window.localStorage.getItem(NOTES_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : {};
+  } catch {
+    return {};
+  }
+}
+
+function formatAllNotes(notes) {
+  const filledNotes = pages
+    .map((page, index) => ({
+      index,
+      title: page.title,
+      note: (notes[index] || "").trim(),
+    }))
+    .filter((item) => item.note);
+
+  if (!filledNotes.length) {
+    return "当前没有填写任何页面备注。";
+  }
+
+  return filledNotes
+    .map((item) => `第 ${pad(item.index + 1)} 页｜${item.title}\n${item.note}`)
+    .join("\n\n---\n\n");
+}
+
+function formatPageNote(page, index, note) {
+  const value = note.trim() || "当前页尚未填写备注。";
+  return `第 ${pad(index + 1)} 页｜${page.title}\n${value}`;
+}
+
 function DetailCard({ item, index }) {
   const [open, setOpen] = useState(index < 2);
 
@@ -423,7 +462,33 @@ function DetailCard({ item, index }) {
   );
 }
 
-function PageSection({ page, index }) {
+function NotesPanel({ page, index, note, onNoteChange, onCopyNote, copied }) {
+  return (
+    <aside className="notes-panel" aria-label={`第 ${pad(index + 1)} 页备注`}>
+      <div className="notes-head">
+        <div>
+          <p className="notes-kicker">页面备注</p>
+          <h3>第 {pad(index + 1)} 页修改意见</h3>
+        </div>
+        <button className="note-copy-button" type="button" onClick={() => onCopyNote(index)}>
+          {copied ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
+          {copied ? "已复制" : "复制本页"}
+        </button>
+      </div>
+      <textarea
+        value={note}
+        onChange={(event) => onNoteChange(index, event.target.value)}
+        placeholder="在这里写这一页的修改意见。备注会自动保存在当前浏览器；写完后点顶部「复制全部备注」，发给 Codex 继续改网页。"
+      />
+      <p className="notes-helper">
+        <MessageSquareText size={14} aria-hidden="true" />
+        自动保存到本机浏览器。静态站点不会把备注上传到服务器。
+      </p>
+    </aside>
+  );
+}
+
+function PageSection({ page, index, note, onNoteChange, onCopyNote, copied }) {
   const firstColumn = page.points.slice(0, Math.ceil(page.points.length / 2));
   const secondColumn = page.points.slice(Math.ceil(page.points.length / 2));
 
@@ -455,6 +520,14 @@ function PageSection({ page, index }) {
             ))}
           </div>
         </div>
+        <NotesPanel
+          page={page}
+          index={index}
+          note={note}
+          onNoteChange={onNoteChange}
+          onCopyNote={onCopyNote}
+          copied={copied}
+        />
       </div>
     </section>
   );
@@ -462,7 +535,51 @@ function PageSection({ page, index }) {
 
 export function App() {
   const [navOpen, setNavOpen] = useState(false);
+  const [notes, setNotes] = useState(loadStoredNotes);
+  const [copiedTarget, setCopiedTarget] = useState("");
   const pageCount = useMemo(() => pages.length, []);
+  const notesCount = useMemo(
+    () => Object.values(notes).filter((value) => value?.trim()).length,
+    [notes],
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+  }, [notes]);
+
+  const updateNote = (index, value) => {
+    setNotes((current) => ({ ...current, [index]: value }));
+  };
+
+  const copyText = async (text, target) => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        throw new Error("Clipboard API unavailable");
+      }
+    } catch {
+      const fallback = document.createElement("textarea");
+      fallback.value = text;
+      fallback.setAttribute("readonly", "");
+      fallback.className = "clipboard-fallback";
+      document.body.appendChild(fallback);
+      fallback.select();
+      document.execCommand("copy");
+      document.body.removeChild(fallback);
+    }
+
+    setCopiedTarget(target);
+    window.setTimeout(() => setCopiedTarget(""), 1600);
+  };
+
+  const copyAllNotes = () => {
+    copyText(formatAllNotes(notes), "all");
+  };
+
+  const copyPageNote = (index) => {
+    copyText(formatPageNote(pages[index], index, notes[index] || ""), `page-${index}`);
+  };
 
   return (
     <>
@@ -476,7 +593,12 @@ export function App() {
         <div className="header-meta">
           <span>Text Deck</span>
           <span>{pageCount} pages</span>
+          <span>{notesCount} notes</span>
         </div>
+        <button className="copy-all-button" type="button" onClick={copyAllNotes}>
+          {copiedTarget === "all" ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
+          {copiedTarget === "all" ? "已复制备注" : "复制全部备注"}
+        </button>
         <button
           className="menu-button"
           type="button"
@@ -524,7 +646,15 @@ export function App() {
         </section>
 
         {pages.map((page, index) => (
-          <PageSection page={page} index={index} key={page.eyebrow} />
+          <PageSection
+            page={page}
+            index={index}
+            key={page.eyebrow}
+            note={notes[index] || ""}
+            onNoteChange={updateNote}
+            onCopyNote={copyPageNote}
+            copied={copiedTarget === `page-${index}`}
+          />
         ))}
       </main>
     </>
