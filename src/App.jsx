@@ -7,6 +7,7 @@ import {
   Orbit,
   X,
 } from "lucide-react";
+import { PrismaticBurst } from "./components/PrismaticBurst";
 
 const pages = [
   {
@@ -273,6 +274,7 @@ const pages = [
   {
     eyebrow: "11 / Case 05",
     title: "Standby 放射光",
+    demo: "radiance",
     conclusion:
       "针对放空小同桌的桌面场景，设计一种可感知、可调用、可调参数的交互光效方案。",
     intro:
@@ -528,6 +530,279 @@ function PointCard({ item, index }) {
   );
 }
 
+const radiancePresets = {
+  idle: {
+    label: "Idle",
+    helper: "静默待机",
+    intensity: 0.9,
+    distort: 0.25,
+    rayCount: 10,
+    speed: 0.18,
+    blur: 6,
+    base: "#c8dcff",
+    highlight: "#ffffff",
+  },
+  listening: {
+    label: "Listen",
+    helper: "低打扰感知",
+    intensity: 1.5,
+    distort: 0.5,
+    rayCount: 12,
+    speed: 0.5,
+    blur: 0,
+    base: "#ff9500",
+    highlight: "#fff1e0",
+  },
+  speaking: {
+    label: "Speak",
+    helper: "高亮响应",
+    intensity: 2.2,
+    distort: 0.9,
+    rayCount: 18,
+    speed: 1.5,
+    blur: 1,
+    base: "#ffffff",
+    highlight: "#ffffff",
+  },
+  thinking: {
+    label: "Think",
+    helper: "慢节奏波动",
+    intensity: 1.75,
+    distort: 1.2,
+    rayCount: 22,
+    speed: 1.05,
+    blur: 2,
+    base: "#32ff64",
+    highlight: "#96ff96",
+  },
+  alert: {
+    label: "Alert",
+    helper: "强状态提示",
+    intensity: 2.6,
+    distort: 1.4,
+    rayCount: 30,
+    speed: 0.85,
+    blur: 0,
+    base: "#ff3232",
+    highlight: "#ff6400",
+  },
+};
+
+const clampNumber = (value, min, max) => Math.min(max, Math.max(min, value));
+
+function RadianceSlider({ label, value, onChange, min = 0, max = 100, step = 1, suffix = "" }) {
+  const displayValue = Number.isInteger(value) ? value : value.toFixed(2);
+
+  return (
+    <label className="radiance-control">
+      <span>
+        {label}
+        <strong>
+          {displayValue}
+          {suffix}
+        </strong>
+      </span>
+      <input
+        type="range"
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={(event) => onChange(Number(event.target.value))}
+      />
+    </label>
+  );
+}
+
+function StandbyRadianceDemo() {
+  const initialPreset = radiancePresets.listening;
+  const [light, setLight] = useState({
+    mode: "listening",
+    intensity: initialPreset.intensity,
+    distort: initialPreset.distort,
+    rayCount: initialPreset.rayCount,
+    speed: initialPreset.speed,
+    blur: initialPreset.blur,
+    base: initialPreset.base,
+    highlight: initialPreset.highlight,
+  });
+  const [focus, setFocus] = useState({ x: 0, y: 0 });
+  const [pulse, setPulse] = useState({ strength: 0, x: 0, y: 0, scale: 0 });
+  const [shockwave, setShockwave] = useState(0);
+  const [shockwaveCenter, setShockwaveCenter] = useState({ x: 0.5, y: 0.5 });
+
+  useEffect(() => {
+    const isSettled = pulse.strength < 0.001 && pulse.scale < 0.001 && shockwave <= 0;
+    if (isSettled) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      setPulse((current) => ({
+        strength: current.strength < 0.001 ? 0 : current.strength * 0.9,
+        x: current.x,
+        y: current.y,
+        scale: current.scale < 0.001 ? 0 : current.scale * 0.88,
+      }));
+      setShockwave((current) => {
+        if (current <= 0) return 0;
+        const next = current + 0.024;
+        return next > 1.35 ? 0 : next;
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pulse, shockwave]);
+
+  const activePreset = radiancePresets[light.mode];
+  const burstColors = useMemo(() => [light.highlight, light.base, light.highlight], [light]);
+  const shaderStyle = {
+    filter: light.blur > 0 ? `blur(${light.blur}px)` : "none",
+  };
+
+  const updateLight = (key, value) => {
+    setLight((current) => ({ ...current, [key]: value }));
+  };
+
+  const applyPreset = (mode) => {
+    const preset = radiancePresets[mode];
+    setLight({
+      mode,
+      intensity: preset.intensity,
+      distort: preset.distort,
+      rayCount: preset.rayCount,
+      speed: preset.speed,
+      blur: preset.blur,
+      base: preset.base,
+      highlight: preset.highlight,
+    });
+    setFocus({ x: 0, y: 0 });
+    setPulse({ strength: 0.72, x: 0, y: 0, scale: 1.1 });
+    setShockwave(0.01);
+    setShockwaveCenter({ x: 0.5, y: 0.5 });
+  };
+
+  const triggerLight = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = clampNumber((event.clientX - rect.left) / rect.width, 0, 1);
+    const y = clampNumber((event.clientY - rect.top) / rect.height, 0, 1);
+    const vector = { x: x * 2 - 1, y: -(y * 2 - 1) };
+
+    setFocus(vector);
+    setPulse({ strength: 0.75, x: vector.x, y: vector.y, scale: 1.2 });
+    setShockwave(0.01);
+    setShockwaveCenter({ x, y });
+  };
+
+  return (
+    <div className="radiance-demo">
+      <div
+        className="radiance-stage"
+        onPointerDown={triggerLight}
+        onPointerMove={(event) => {
+          if (event.buttons === 1) triggerLight(event);
+        }}
+      >
+        <div className="radiance-webgl" style={shaderStyle}>
+          <PrismaticBurst
+            intensity={light.intensity}
+            distort={light.distort}
+            rayCount={light.rayCount}
+            speed={light.speed}
+            colors={burstColors}
+            animationType="rotate3d"
+            mixBlendMode="screen"
+            focus={focus}
+            pulse={pulse}
+            shockwave={shockwave}
+            shockwaveCenter={shockwaveCenter}
+          />
+        </div>
+        <div className="radiance-caption">
+          <span>{activePreset.label}</span>
+          <strong>{activePreset.helper}</strong>
+        </div>
+        <p>点击或拖动画面触发光心、脉冲和冲击波</p>
+      </div>
+
+      <div className="radiance-panel">
+        <div className="radiance-modes" aria-label="放射光状态">
+          {Object.entries(radiancePresets).map(([key, preset]) => (
+            <button
+              className={light.mode === key ? "is-selected" : ""}
+              type="button"
+              onClick={() => applyPreset(key)}
+              key={key}
+            >
+              <span>{preset.label}</span>
+              <small>{preset.helper}</small>
+            </button>
+          ))}
+        </div>
+        <div className="radiance-controls">
+          <RadianceSlider
+            label="Intensity"
+            value={light.intensity}
+            min={0.1}
+            max={5}
+            step={0.1}
+            onChange={(value) => updateLight("intensity", value)}
+          />
+          <RadianceSlider
+            label="Distortion"
+            value={light.distort}
+            min={0}
+            max={3}
+            step={0.1}
+            onChange={(value) => updateLight("distort", value)}
+          />
+          <RadianceSlider
+            label="Ray Count"
+            value={light.rayCount}
+            min={0}
+            max={64}
+            step={1}
+            onChange={(value) => updateLight("rayCount", value)}
+          />
+          <RadianceSlider
+            label="Speed"
+            value={light.speed}
+            min={0}
+            max={3}
+            step={0.05}
+            onChange={(value) => updateLight("speed", value)}
+          />
+          <RadianceSlider
+            label="Gaussian Blur"
+            value={light.blur}
+            min={0}
+            max={24}
+            step={1}
+            suffix="px"
+            onChange={(value) => updateLight("blur", value)}
+          />
+        </div>
+        <div className="radiance-color-row">
+          <label>
+            <span>Base</span>
+            <input
+              type="color"
+              value={light.base}
+              onChange={(event) => updateLight("base", event.target.value)}
+            />
+          </label>
+          <label>
+            <span>Highlight</span>
+            <input
+              type="color"
+              value={light.highlight}
+              onChange={(event) => updateLight("highlight", event.target.value)}
+            />
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
@@ -559,22 +834,26 @@ function CaseSection({ page, index, note, onOpenNote }) {
         <p className="conclusion">{page.conclusion}</p>
         <p className="intro">{page.intro}</p>
       </div>
-      <div className="points-grid">
-        <div>
-          {firstColumn.map((item, pointIndex) => (
-            <PointCard item={item} index={pointIndex} key={item.label} />
-          ))}
+      {page.demo === "radiance" ? (
+        <StandbyRadianceDemo />
+      ) : (
+        <div className="points-grid">
+          <div>
+            {firstColumn.map((item, pointIndex) => (
+              <PointCard item={item} index={pointIndex} key={item.label} />
+            ))}
+          </div>
+          <div>
+            {secondColumn.map((item, pointIndex) => (
+              <PointCard
+                item={item}
+                index={pointIndex + firstColumn.length}
+                key={item.label}
+              />
+            ))}
+          </div>
         </div>
-        <div>
-          {secondColumn.map((item, pointIndex) => (
-            <PointCard
-              item={item}
-              index={pointIndex + firstColumn.length}
-              key={item.label}
-            />
-          ))}
-        </div>
-      </div>
+      )}
     </section>
   );
 }
@@ -642,11 +921,11 @@ export function App() {
     let locked = false;
     let resetTimer = 0;
     let animationFrame = 0;
-    const snapDuration = 1000;
+    const snapDuration = 600;
 
     const getSections = () => Array.from(document.querySelectorAll(sectionSelector));
 
-    const easeOutQuart = (progress) => 1 - Math.pow(1 - progress, 4);
+    const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
 
     const currentIndex = () => {
       const sections = getSections();
@@ -699,7 +978,7 @@ export function App() {
 
       const step = (now) => {
         const progress = Math.min((now - startTime) / snapDuration, 1);
-        window.scrollTo(0, startY + distance * easeOutQuart(progress));
+        window.scrollTo(0, startY + distance * easeOutCubic(progress));
 
         if (progress < 1) {
           animationFrame = window.requestAnimationFrame(step);
@@ -737,7 +1016,7 @@ export function App() {
 
         if (!startSection) return;
 
-        const threshold = window.innerHeight * 0.5;
+        const threshold = window.innerHeight * 0.4;
         const distance = window.scrollY - startSection.offsetTop;
 
         if (distance > threshold) {

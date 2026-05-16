@@ -304,7 +304,8 @@ button {
 .hero-copy,
 .case-copy,
 .cover-card,
-.point-card {
+.point-card,
+.radiance-demo {
   opacity: 0;
   transform: translateY(18px);
   transition:
@@ -315,7 +316,8 @@ button {
 .hero-section.is-active .hero-copy,
 .case-section.is-active .case-copy,
 .hero-section.is-active .cover-card,
-.case-section.is-active .point-card {
+.case-section.is-active .point-card,
+.case-section.is-active .radiance-demo {
   opacity: 1;
   transform: translateY(0);
 }
@@ -490,6 +492,207 @@ button {
 .point-card {
   min-height: 0;
   padding: 16px;
+}
+
+.radiance-demo {
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: minmax(300px, 1fr) auto;
+  gap: 12px;
+  height: calc(100svh - 184px);
+  min-height: 560px;
+}
+
+.radiance-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06), transparent 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    #010101;
+  cursor: crosshair;
+}
+
+.radiance-stage::before,
+.radiance-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.radiance-stage::before {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 52px 52px,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 52px 52px;
+  mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 0%, transparent 72%);
+}
+
+.radiance-stage::after {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.18) 58%, rgba(0, 0, 0, 0.92) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.82), transparent 22%, transparent 74%, rgba(0, 0, 0, 0.9));
+}
+
+.radiance-webgl,
+.prismatic-burst {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.radiance-webgl {
+  z-index: 1;
+  transition: filter 220ms ease;
+}
+
+.radiance-caption {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  z-index: 3;
+  display: grid;
+  gap: 4px;
+}
+
+.radiance-caption span {
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 820;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.radiance-caption strong {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 760;
+}
+
+.radiance-stage p {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  z-index: 3;
+  margin: 0;
+  color: var(--soft);
+  font-size: 12px;
+}
+
+.radiance-panel {
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(16px);
+}
+
+.radiance-modes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.radiance-modes button {
+  min-height: 46px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.radiance-modes button:hover,
+.radiance-modes button.is-selected {
+  border-color: var(--line-strong);
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.radiance-modes span,
+.radiance-modes small {
+  display: block;
+}
+
+.radiance-modes span {
+  font-size: 12px;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.radiance-modes small {
+  margin-top: 3px;
+  font-size: 10px;
+  opacity: 0.68;
+}
+
+.radiance-controls {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.radiance-control {
+  display: grid;
+  gap: 7px;
+}
+
+.radiance-control span,
+.radiance-color-row span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--soft);
+  font-size: 10px;
+  font-weight: 760;
+  text-transform: uppercase;
+}
+
+.radiance-control strong {
+  color: var(--ink);
+  font-size: 10px;
+}
+
+.radiance-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.radiance-color-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.radiance-color-row label {
+  display: grid;
+  grid-template-columns: 1fr 34px;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.24);
+}
+
+.radiance-color-row input {
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .note-float-button {
