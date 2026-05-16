@@ -471,6 +471,11 @@ const pageBackdrops = {
     src: "/assets/fur-characters-bg.png",
     className: "backdrop-fur-lineup",
   },
+  10: {
+    type: "video",
+    src: "/assets/ss4/ss4-ui-bg.mp4",
+    className: "backdrop-ss4-ui",
+  },
 };
 
 const liCenterStackVideos = [

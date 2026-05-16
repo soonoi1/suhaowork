@@ -453,6 +453,18 @@ button {
   filter: saturate(0.9) contrast(1.06) brightness(0.88);
 }
 
+.backdrop-ss4-ui video {
+  opacity: 0.5;
+  object-position: center;
+  filter: saturate(1.05) contrast(1.1) brightness(0.74);
+}
+
+.page-backdrop.backdrop-ss4-ui::after {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.42) 42%, rgba(0, 0, 0, 0.74) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.76) 0%, rgba(0, 0, 0, 0.12) 30%, rgba(0, 0, 0, 0.24) 66%, rgba(0, 0, 0, 0.92) 100%);
+}
+
 .case-section.has-backdrop {
   border-top-color: rgba(255, 255, 255, 0.1);
 }
@@ -460,6 +472,7 @@ button {
 .case-section.has-backdrop .case-copy,
 .case-section.has-backdrop .points-grid,
 .case-section.has-backdrop .radiance-demo,
+.case-section.has-backdrop .fluid-glass-demo,
 .case-section.has-backdrop .gaussian-splat-demo,
 .case-section.has-backdrop .li-center-scroll-demo {
   position: relative;
