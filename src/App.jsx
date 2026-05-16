@@ -641,8 +641,12 @@ export function App() {
     let wheelStartIndex = null;
     let locked = false;
     let resetTimer = 0;
+    let animationFrame = 0;
+    const snapDuration = 1000;
 
     const getSections = () => Array.from(document.querySelectorAll(sectionSelector));
+
+    const easeOutQuart = (progress) => 1 - Math.pow(1 - progress, 4);
 
     const currentIndex = () => {
       const sections = getSections();
@@ -680,10 +684,34 @@ export function App() {
 
       locked = true;
       wheelStartIndex = null;
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      window.setTimeout(() => {
+      window.cancelAnimationFrame(animationFrame);
+
+      const startY = window.scrollY;
+      const targetY = section.offsetTop;
+      const distance = targetY - startY;
+      const startTime = window.performance.now();
+
+      if (Math.abs(distance) < 1) {
+        window.scrollTo(0, targetY);
         locked = false;
-      }, 760);
+        return;
+      }
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / snapDuration, 1);
+        window.scrollTo(0, startY + distance * easeOutQuart(progress));
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(step);
+          return;
+        }
+
+        window.scrollTo(0, targetY);
+        animationFrame = 0;
+        locked = false;
+      };
+
+      animationFrame = window.requestAnimationFrame(step);
     };
 
     const handleWheel = (event) => {
@@ -709,7 +737,7 @@ export function App() {
 
         if (!startSection) return;
 
-        const threshold = window.innerHeight * 0.3;
+        const threshold = window.innerHeight * 0.5;
         const distance = window.scrollY - startSection.offsetTop;
 
         if (distance > threshold) {
@@ -768,6 +796,7 @@ export function App() {
       window.removeEventListener("wheel", handleWheel);
       window.removeEventListener("keydown", handleKeyDown);
       window.clearTimeout(resetTimer);
+      window.cancelAnimationFrame(animationFrame);
     };
   }, [activeNoteIndex]);
 
