@@ -304,7 +304,8 @@ button {
 .case-copy,
 .cover-card,
 .point-card,
-.radiance-demo {
+.radiance-demo,
+.fluid-glass-demo {
   opacity: 0;
   transform: translateY(18px);
   transition:
@@ -316,7 +317,8 @@ button {
 .case-section.is-active .case-copy,
 .hero-section.is-active .cover-card,
 .case-section.is-active .point-card,
-.case-section.is-active .radiance-demo {
+.case-section.is-active .radiance-demo,
+.case-section.is-active .fluid-glass-demo {
   opacity: 1;
   transform: translateY(0);
 }
@@ -696,6 +698,81 @@ button {
   accent-color: var(--accent);
 }
 
+.fluid-glass-demo {
+  position: relative;
+  grid-column: 2;
+  height: calc(100svh - 184px);
+  min-height: 520px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.09), transparent 34%),
+    radial-gradient(circle at 18% 78%, rgba(201, 144, 94, 0.2), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.005)),
+    #050505;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
+}
+
+.fluid-glass-demo canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.fluid-glass-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--soft);
+  font-size: 13px;
+  font-weight: 780;
+}
+
+.fluid-glass-demo::before,
+.fluid-glass-demo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.fluid-glass-demo::before {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.52), transparent 22%, transparent 76%, rgba(0, 0, 0, 0.64)),
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.42) 100%);
+}
+
+.fluid-glass-demo::after {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: inherit;
+}
+
+.fluid-glass-meta {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 3;
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.fluid-glass-meta span {
+  color: var(--warm);
+}
+
+.fluid-glass-meta strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
 .note-float-button {
   position: absolute;
   left: 0;
@@ -923,7 +1000,8 @@ button {
     grid-row: auto;
   }
 
-  .radiance-demo {
+  .radiance-demo,
+  .fluid-glass-demo {
     grid-column: auto;
   }
 }
@@ -984,6 +1062,11 @@ button {
     height: auto;
     min-height: 100vh;
     padding: 62px 12px;
+  }
+
+  .fluid-glass-demo {
+    height: 62vh;
+    min-height: 380px;
   }
 
   .radiance-demo {

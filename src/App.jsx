@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import {
   ClipboardCheck,
   ClipboardList,
@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import GradualBlur from "./components/GradualBlur";
 import { PrismaticBurst } from "./components/PrismaticBurst";
+
+const FluidGlass = lazy(() => import("./components/FluidGlass"));
 
 const pages = [
   {
@@ -207,8 +209,12 @@ const pages = [
         text: "在理想同学实体化形象阶段，持续利用 AI 进行形象方向探索，用大量过程图辅助判断什么样的形体、材质和气质更适合理想同学，再结合 3D 专业判断进行收敛。",
       },
       {
-        label: "数字实践",
-        text: "在理想同学中心和 4o 小同桌项目中，使用 AI 辅助编写视频压缩、裁切和批处理脚本，支撑大批量资源导出和交付。",
+        label: "自定义形象与 24 小时动画",
+        text: "自定义形象和 App 4 楼首页 24 小时动画都属于大量资源探索需求。我不是逐个构思后单点生成，而是先扩大生成结果池，再从高质量结果中反向筛选帽子、形象、场景和动作方向。",
+      },
+      {
+        label: "数字实践与脚本处理",
+        text: "在理想同学中心和 4o 小同桌项目中，使用 AI 辅助编写视频压缩、裁切和批处理脚本，并在 VS Code 中编写生成工作流脚本，支撑大批量资源导出、命名、压缩和交付。",
       },
       {
         label: "视频与素材生成",
@@ -217,6 +223,10 @@ const pages = [
       {
         label: "性能优化",
         text: "利用 Claude Code 等工具对视频资源进行裁剪和批量压缩，优化交付资源体积和端侧性能，使 AI 应用真正服务于上线效率。",
+      },
+      {
+        label: "流程价值",
+        text: "将 AI 现有能力和项目流程结合起来，不只是给 AI 一个需求等待结果，而是系统化设计需求、生成、筛选、压缩、交付之间的路径，提高完成率和可控性。",
       },
     ],
   },
@@ -247,30 +257,14 @@ const pages = [
     ],
   },
   {
-    eyebrow: "10 / AI Workflow",
-    title: "AI 自动化交付",
+    eyebrow: "10 / Material Study",
+    title: "SS4 质感探索",
+    demo: "fluidGlass",
     conclusion:
-      "通过自动化脚本和批量工作流，将 AI 生成能力转化为可支撑项目交付的生产方式。",
+      "通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
     intro:
-      "自定义形象和 App 4 楼首页 24 小时动画都属于大量资源探索需求。单靠人工构思和单点生成，很难覆盖足够多的可能性，也难以满足项目节奏。",
-    points: [
-      {
-        label: "自定义形象",
-        text: "先通过 AI 大量生成不同帽子、不同气质和不同角色方向的图片，再从高质量结果中倒筛，快速判断哪些方向更符合理想同学气质和业务需求。",
-      },
-      {
-        label: "24 小时动画",
-        text: "不是逐小时先想场景再生成，而是先生成大量理想同学场景素材、视频和动画，再把质量较高、情绪合适的素材反向匹配到不同时间节点。",
-      },
-      {
-        label: "自动化工作流",
-        text: "制作批量、快速的生图和生视频流程，并在 VS Code 中编写生成工作流脚本（基于 AnyGraph），把生成、命名、筛选和复用尽量串成稳定流程。",
-      },
-      {
-        label: "项目价值",
-        text: "将 AI 现有能力和项目流程结合起来，不只是给 AI 一个需求等结果，而是系统化设计需求、生成、筛选、压缩、交付之间的路径，提高完成率和可控性。",
-      },
-    ],
+      "这一页先作为质感交互原型，用 ReactBits Fluid Glass 的方式呈现可被鼠标扰动的玻璃折射效果。后续可以继续替换为 SS4 的具体素材、界面控件和材质参数，用来说明质感方案如何从静态视觉进入可交互验证。",
+    points: [],
   },
   {
     eyebrow: "11 / Case 05",
@@ -747,6 +741,31 @@ function StandbyRadianceDemo() {
   );
 }
 
+function SS4FluidGlassDemo() {
+  return (
+    <div className="fluid-glass-demo">
+      <Suspense fallback={<div className="fluid-glass-loading">SS4 MATERIAL</div>}>
+        <FluidGlass
+          mode="lens"
+          lensProps={{
+            scale: 0.27,
+            ior: 1.18,
+            thickness: 5,
+            transmission: 1,
+            roughness: 0,
+            chromaticAberration: 0.12,
+            anisotropy: 0.02,
+          }}
+        />
+      </Suspense>
+      <div className="fluid-glass-meta" aria-hidden="true">
+        <span>SS4 MATERIAL</span>
+        <strong>GLASS RESPONSE</strong>
+      </div>
+    </div>
+  );
+}
+
 function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
@@ -788,6 +807,8 @@ function CaseSection({ page, index, note, onOpenNote }) {
       </div>
       {page.demo === "radiance" ? (
         <StandbyRadianceDemo />
+      ) : page.demo === "fluidGlass" ? (
+        <SS4FluidGlassDemo />
       ) : (
         <div className="points-grid">
           <div>
