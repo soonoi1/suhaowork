@@ -10,6 +10,7 @@ import {
 import GradualBlur from "./components/GradualBlur";
 import PillNav from "./components/PillNav";
 import { PrismaticBurst } from "./components/PrismaticBurst";
+import ScrollStack, { ScrollStackItem } from "./components/ScrollStack";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
 
@@ -122,6 +123,7 @@ const pages = [
   {
     eyebrow: "05 / Case 02",
     title: "理想同学中心",
+    demo: "scrollStack",
     conclusion:
       "通过交互设计、3D 动画和资源落地，将理想同学中心做成可上线、可交互、可作为屏保使用的产品场景。",
     intro:
@@ -456,12 +458,50 @@ const pageBackdrops = {
     src: "/assets/fur-material-close-bg.jpg",
     className: "backdrop-fur-close",
   },
+  5: {
+    type: "video",
+    src: "/assets/li-center/cua-black-bg.mp4",
+    className: "backdrop-li-center",
+  },
   6: {
     type: "image",
     src: "/assets/fur-characters-bg.png",
     className: "backdrop-fur-lineup",
   },
 };
+
+const liCenterStackVideos = [
+  {
+    title: "CUA",
+    meta: "中心场景动态素材",
+    src: "/assets/li-center/stack-cua.mp4",
+  },
+  {
+    title: "年夜饭",
+    meta: "节日氛围与能力场景",
+    src: "/assets/li-center/stack-dinner.mp4",
+  },
+  {
+    title: "放烟花",
+    meta: "情绪化瞬间与场景表达",
+    src: "/assets/li-center/stack-fireworks.mp4",
+  },
+  {
+    title: "游戏",
+    meta: "轻娱乐状态演示",
+    src: "/assets/li-center/stack-game.mp4",
+  },
+  {
+    title: "绘画",
+    meta: "创作型状态演示",
+    src: "/assets/li-center/stack-painting.mp4",
+  },
+  {
+    title: "记事",
+    meta: "工具型能力场景",
+    src: "/assets/li-center/stack-notes.mp4",
+  },
+];
 
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
@@ -798,6 +838,42 @@ function SS4FluidGlassDemo() {
   );
 }
 
+function LiCenterScrollStackDemo() {
+  return (
+    <div className="li-center-scroll-demo">
+      <ScrollStack
+        className="li-center-scroll-stack"
+        itemDistance={76}
+        itemStackDistance={18}
+        stackPosition="20%"
+        scaleEndPosition="10%"
+        baseScale={0.86}
+        itemScale={0.022}
+        blurAmount={0.55}
+      >
+        {liCenterStackVideos.map((item, index) => (
+          <ScrollStackItem itemClassName="li-center-stack-card" key={item.src}>
+            <video
+              className="li-center-stack-video"
+              src={item.src}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload={index < 2 ? "auto" : "metadata"}
+            />
+            <div className="li-center-stack-copy">
+              <span>{pad(index + 1)}</span>
+              <h3>{item.title}</h3>
+              <p>{item.meta}</p>
+            </div>
+          </ScrollStackItem>
+        ))}
+      </ScrollStack>
+    </div>
+  );
+}
+
 function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
@@ -819,12 +895,18 @@ function CaseSection({ page, index, note, onOpenNote }) {
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
+  const sectionClasses = ["case-section"];
+
+  if (backdrop) {
+    sectionClasses.push("has-backdrop", backdrop.className);
+  }
+
+  if (page.demo === "scrollStack") {
+    sectionClasses.push("has-scroll-stack");
+  }
 
   return (
-    <section
-      className={`case-section ${backdrop ? `has-backdrop ${backdrop.className}` : ""}`}
-      id={`page-${pageNumber}`}
-    >
+    <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <SectionGradualBlur />
@@ -841,6 +923,8 @@ function CaseSection({ page, index, note, onOpenNote }) {
         <StandbyRadianceDemo />
       ) : page.demo === "fluidGlass" ? (
         <SS4FluidGlassDemo />
+      ) : page.demo === "scrollStack" ? (
+        <LiCenterScrollStackDemo />
       ) : (
         <div className="points-grid">
           <div>
@@ -938,7 +1022,7 @@ export function App() {
           }
         });
       },
-      { threshold: 0.58 },
+      { threshold: 0.18 },
     );
 
     sections.forEach((section) => observer.observe(section));
