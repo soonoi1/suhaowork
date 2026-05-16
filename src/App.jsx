@@ -8,6 +8,7 @@ import {
   X,
 } from "lucide-react";
 import GradualBlur from "./components/GradualBlur";
+import PillNav from "./components/PillNav";
 import { PrismaticBurst } from "./components/PrismaticBurst";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
@@ -412,6 +413,37 @@ const activeVisualMode = {
   desc: "巨型标题 / 黑白空间 / 科技卡片",
   Icon: Orbit,
 };
+
+const pillLogo = `data:image/svg+xml,${encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="18" fill="#050505"/>
+  <path d="M18 35.5c4.8 9.5 18.4 9.5 27.9 0 6.3-6.3 6.3-16.5 0-22.8-4.2-4.2-11-4.2-15.2 0-2.8 2.8-2.8 7.3 0 10.1 1.9 1.9 5 1.9 6.9 0" fill="none" stroke="#f5f5f0" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="22" cy="42" r="4" fill="#c9905e"/>
+</svg>
+`)}`;
+
+const pillNavItems = [
+  { label: "Intro", href: "#page-1" },
+  { label: "Skill", href: "#page-2" },
+  { label: "Case", href: "#page-3" },
+  { label: "AI", href: "#page-8" },
+  { label: "SS4", href: "#page-10" },
+  { label: "Light", href: "#page-11" },
+  { label: "OC", href: "#page-13" },
+  { label: "Sum", href: "#page-15" },
+];
+
+function getActivePillHref(activePageIndex) {
+  const pageNumber = activePageIndex + 1;
+
+  if (pageNumber <= 2) return `#page-${pageNumber}`;
+  if (pageNumber <= 7) return "#page-3";
+  if (pageNumber <= 9) return "#page-8";
+  if (pageNumber === 10) return "#page-10";
+  if (pageNumber <= 12) return "#page-11";
+  if (pageNumber <= 14) return "#page-13";
+  return "#page-15";
+}
 
 const pageBackdrops = {
   3: {
@@ -876,6 +908,7 @@ export function App() {
   const [navOpen, setNavOpen] = useState(false);
   const [notes, setNotes] = useState(loadStoredNotes);
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
+  const [activePageIndex, setActivePageIndex] = useState(0);
   const [copiedTarget, setCopiedTarget] = useState("");
   const pageCount = useMemo(() => pages.length, []);
   const notesCount = useMemo(
@@ -896,6 +929,13 @@ export function App() {
       (entries) => {
         entries.forEach((entry) => {
           entry.target.classList.toggle("is-active", entry.isIntersecting);
+
+          if (entry.isIntersecting) {
+            const pageIndex = Number(entry.target.id.replace("page-", "")) - 1;
+            if (!Number.isNaN(pageIndex)) {
+              setActivePageIndex(pageIndex);
+            }
+          }
         });
       },
       { threshold: 0.58 },
@@ -940,39 +980,40 @@ export function App() {
     copyText(formatPageNote(pages[index], index, notes[index] || ""), `page-${index}`);
   };
 
-  const ModeIcon = activeMode.Icon;
-
   return (
     <div className={`app-shell theme-${activeMode.id}`}>
       <header className="site-header">
-        <a className="brand" href="#page-1" onClick={() => setNavOpen(false)}>
-          <span className="brand-mark" aria-hidden="true">
-            <ModeIcon size={17} />
-          </span>
-          <span>Suhao Work</span>
-        </a>
-        <div className="active-tag" aria-label="当前视觉版本">
-          <ModeIcon size={15} aria-hidden="true" />
-          <span>{activeMode.label}</span>
-          <strong>{activeMode.name}</strong>
+        <PillNav
+          logo={pillLogo}
+          logoAlt="Suhao Work"
+          items={pillNavItems}
+          activeHref={getActivePillHref(activePageIndex)}
+          baseColor="#f5f5f0"
+          pillColor="#08080a"
+          hoveredPillTextColor="#08080a"
+          pillTextColor="#f5f5f0"
+          initialLoadAnimation
+          onNavigate={() => setNavOpen(false)}
+        />
+        <div className="header-actions">
+          <div className="header-meta">
+            <span>{pageCount} pages</span>
+            <span>{notesCount} notes</span>
+          </div>
+          <button className="copy-all-button" type="button" onClick={copyAllNotes}>
+            {copiedTarget === "all" ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
+            {copiedTarget === "all" ? "已复制备注" : "复制备注"}
+          </button>
+          <button
+            className="menu-button"
+            type="button"
+            aria-expanded={navOpen}
+            aria-label={navOpen ? "关闭目录" : "打开目录"}
+            onClick={() => setNavOpen((value) => !value)}
+          >
+            {navOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
-        <div className="header-meta">
-          <span>{pageCount} pages</span>
-          <span>{notesCount} notes</span>
-        </div>
-        <button className="copy-all-button" type="button" onClick={copyAllNotes}>
-          {copiedTarget === "all" ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
-          {copiedTarget === "all" ? "已复制备注" : "复制备注"}
-        </button>
-        <button
-          className="menu-button"
-          type="button"
-          aria-expanded={navOpen}
-          aria-label={navOpen ? "关闭目录" : "打开目录"}
-          onClick={() => setNavOpen((value) => !value)}
-        >
-          {navOpen ? <X size={18} /> : <Menu size={18} />}
-        </button>
       </header>
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
