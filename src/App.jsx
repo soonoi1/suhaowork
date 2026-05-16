@@ -13,6 +13,7 @@ import { PrismaticBurst } from "./components/PrismaticBurst";
 import ScrollStack, { ScrollStackItem } from "./components/ScrollStack";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
+const GaussianSplatViewer = lazy(() => import("./components/GaussianSplatViewer"));
 
 const pages = [
   {
@@ -97,6 +98,7 @@ const pages = [
   {
     eyebrow: "04 / Case 01 Detail",
     title: "毛绒材质实现",
+    demo: "gaussianSplat",
     conclusion:
       "通过 3D 材质和动画判断，把毛绒的真实感、亲和感和线上稳定性结合起来。",
     intro:
@@ -838,6 +840,16 @@ function SS4FluidGlassDemo() {
   );
 }
 
+function GaussianSplatDemo() {
+  return (
+    <div className="gaussian-splat-demo">
+      <Suspense fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT</div>}>
+        <GaussianSplatViewer src="/assets/gaussian-li-fur.splat" />
+      </Suspense>
+    </div>
+  );
+}
+
 function LiCenterScrollStackDemo() {
   return (
     <div className="li-center-scroll-demo">
@@ -923,6 +935,8 @@ function CaseSection({ page, index, note, onOpenNote }) {
         <StandbyRadianceDemo />
       ) : page.demo === "fluidGlass" ? (
         <SS4FluidGlassDemo />
+      ) : page.demo === "gaussianSplat" ? (
+        <GaussianSplatDemo />
       ) : page.demo === "scrollStack" ? (
         <LiCenterScrollStackDemo />
       ) : (
