@@ -4,7 +4,6 @@ import {
   ClipboardCheck,
   ClipboardList,
   GalleryHorizontalEnd,
-  Image as ImageIcon,
   Menu,
   MessageSquareText,
   Orbit,
@@ -436,66 +435,6 @@ const visualModes = [
   },
 ];
 
-const pageMedia = [
-  [
-    { type: "image", src: "/assets/li-dark.png", alt: "理想同学暗色形象" },
-    { type: "image", src: "/assets/li-light.png", alt: "理想同学光效形象" },
-  ],
-  [{ type: "image", src: "/assets/li-ui.jpg", alt: "产品动效与交互界面" }],
-  [
-    { type: "image", src: "/assets/cases/entity-default.png", alt: "理想同学实体化形象" },
-    { type: "image", src: "/assets/cases/entity-dark.png", alt: "理想同学实体化暗色形象" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/entity-dark.png", alt: "毛绒材质细节" },
-    { type: "image", src: "/assets/li-student.jpg", alt: "理想同学角色视觉" },
-  ],
-  [
-    { type: "video", src: "/assets/cases/home-center.mp4", alt: "理想同学中心动效" },
-    { type: "image", src: "/assets/li-board-web.jpg", alt: "理想同学中心界面" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/ota-characters.png", alt: "4o 小同桌角色资源" },
-    { type: "video", src: "/assets/cases/ota-theater.mp4", alt: "小同桌动效资源" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/ota-scene-dark.png", alt: "7.4 OTA 暗色场景" },
-    { type: "video", src: "/assets/cases/ota-update.mp4", alt: "OTA 更新动效" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/workflow-ai-options.jpg", alt: "AI 形象探索结果" },
-    { type: "image", src: "/assets/cases/workflow-chatgpt.png", alt: "AI 工作流过程" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/workflow-comfyui.png", alt: "逆向生产工作流" },
-    { type: "image", src: "/assets/cases/workflow-ai-lamp.jpg", alt: "AI 生成探索" },
-  ],
-  [
-    { type: "image", src: "/assets/cases/workflow-chatgpt.png", alt: "自动化脚本与交付流程" },
-    { type: "video", src: "/assets/cases/app-flow.mp4", alt: "App 资源流程动效" },
-  ],
-  [
-    { type: "video", src: "/assets/cases/radiant-color.mp4", alt: "Standby 放射光色彩效果" },
-    { type: "video", src: "/assets/cases/radiant-attention.mp4", alt: "Standby 放射光注意力效果" },
-  ],
-  [
-    { type: "video", src: "/assets/cases/radiant-speak.mp4", alt: "Standby 原型响应效果" },
-    { type: "image", src: "/assets/li-light.png", alt: "放射光原型视觉" },
-  ],
-  [
-    { type: "video", src: "/assets/cases/oc-attention.mp4", alt: "OC 眼睛注意力动效" },
-    { type: "video", src: "/assets/cases/oc-parking.mp4", alt: "OC 眼睛车外交互" },
-  ],
-  [
-    { type: "video", src: "/assets/cases/oc-pickup.mp4", alt: "OC 交互视觉结果" },
-    { type: "image", src: "/assets/li-frame-web.jpg", alt: "项目方法沉淀画面" },
-  ],
-  [
-    { type: "image", src: "/assets/li-character.jpg", alt: "理想同学项目结果" },
-    { type: "image", src: "/assets/li-prism-web.jpg", alt: "方法沉淀视觉" },
-  ],
-];
-
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -535,68 +474,52 @@ function splitPoints(points) {
   return [points.slice(0, middle), points.slice(middle)];
 }
 
-function MediaItem({ item }) {
-  if (item.type === "video") {
-    return (
-      <video
-        src={item.src}
-        title={item.alt}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-      />
-    );
-  }
-
-  return <img src={item.src} alt={item.alt} loading="lazy" />;
-}
-
-function MediaStack({ media, variant }) {
-  if (!media?.length) {
-    return (
-      <div className="media-empty">
-        <ImageIcon size={20} aria-hidden="true" />
-        <span>visual asset</span>
-      </div>
-    );
-  }
-
+function NoteButton({ index, hasNote, onOpen }) {
   return (
-    <div className={`media-stack media-stack-${variant}`}>
-      {media.slice(0, 2).map((item, index) => (
-        <figure className={`media-frame media-${index + 1}`} key={`${item.src}-${index}`}>
-          <MediaItem item={item} />
-        </figure>
-      ))}
-    </div>
+    <button
+      className={`note-float-button ${hasNote ? "has-note" : ""}`}
+      type="button"
+      onClick={() => onOpen(index)}
+      aria-label={`打开第 ${pad(index + 1)} 页修改意见`}
+    >
+      <MessageSquareText size={16} aria-hidden="true" />
+      <span>备注</span>
+    </button>
   );
 }
 
-function NotesPanel({ page, index, note, onNoteChange, onCopyNote, copied }) {
+function NotesModal({ page, index, note, onNoteChange, onCopyNote, copied, onClose }) {
   return (
-    <aside className="notes-panel" aria-label={`第 ${pad(index + 1)} 页备注`}>
-      <div className="notes-head">
-        <div>
-          <p className="notes-kicker">页面备注</p>
-          <h3>第 {pad(index + 1)} 页修改意见</h3>
+    <div className="notes-modal" role="dialog" aria-modal="true" aria-label={`第 ${pad(index + 1)} 页修改意见`}>
+      <button className="notes-backdrop" type="button" aria-label="关闭修改意见" onClick={onClose} />
+      <section className="notes-dialog">
+        <div className="notes-head">
+          <div>
+            <p className="notes-kicker">页面备注</p>
+            <h3>第 {pad(index + 1)} 页｜{page.title}</h3>
+          </div>
+          <button className="notes-close-button" type="button" aria-label="关闭修改意见" onClick={onClose}>
+            <X size={18} aria-hidden="true" />
+          </button>
         </div>
-        <button className="note-copy-button" type="button" onClick={() => onCopyNote(index)}>
-          {copied ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
-          {copied ? "已复制" : "复制本页"}
-        </button>
-      </div>
-      <textarea
-        value={note}
-        onChange={(event) => onNoteChange(index, event.target.value)}
-        placeholder="在这里写这一页的修改意见。备注会自动保存在当前浏览器；写完后点顶部「复制全部备注」，发给 Codex 继续改网页。"
-      />
-      <p className="notes-helper">
-        <MessageSquareText size={14} aria-hidden="true" />
-        自动保存到本机浏览器。静态站点不会把备注上传到服务器。
-      </p>
-    </aside>
+        <textarea
+          value={note}
+          onChange={(event) => onNoteChange(index, event.target.value)}
+          autoFocus
+          placeholder="在这里写这一页的修改意见。备注会自动保存在当前浏览器；写完后点顶部「复制备注」或弹窗内「复制本页」，发给 Codex 继续改网页。"
+        />
+        <div className="notes-actions">
+          <p className="notes-helper">
+            <MessageSquareText size={14} aria-hidden="true" />
+            自动保存到本机浏览器，不占正文排版。
+          </p>
+          <button className="note-copy-button" type="button" onClick={() => onCopyNote(index)}>
+            {copied ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
+            {copied ? "已复制" : "复制本页"}
+          </button>
+        </div>
+      </section>
+    </div>
   );
 }
 
@@ -624,9 +547,10 @@ function PointCard({ item, index }) {
   );
 }
 
-function HeroSection({ page, mode, note, onNoteChange, onCopyNote, copied }) {
+function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
+      <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="hero-orbit" aria-hidden="true" />
       <div className="hero-copy">
         <p className="eyebrow">{mode.label} / {mode.name}</p>
@@ -634,25 +558,17 @@ function HeroSection({ page, mode, note, onNoteChange, onCopyNote, copied }) {
         <p className="hero-line">{page.conclusion}</p>
         <p className="hero-intro">{page.intro}</p>
       </div>
-      <MediaStack media={pageMedia[0]} variant={mode.id} />
       <CoverCards items={page.coverItems || []} />
-      <NotesPanel
-        page={page}
-        index={0}
-        note={note}
-        onNoteChange={onNoteChange}
-        onCopyNote={onCopyNote}
-        copied={copied}
-      />
     </section>
   );
 }
 
-function CaseSection({ page, index, mode, note, onNoteChange, onCopyNote, copied }) {
+function CaseSection({ page, index, note, onOpenNote }) {
   const [firstColumn, secondColumn] = splitPoints(page.points);
 
   return (
     <section className="case-section" id={`page-${index + 1}`}>
+      <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="case-index" aria-hidden="true">
         {pad(index + 1)}
       </div>
@@ -662,7 +578,6 @@ function CaseSection({ page, index, mode, note, onNoteChange, onCopyNote, copied
         <p className="conclusion">{page.conclusion}</p>
         <p className="intro">{page.intro}</p>
       </div>
-      <MediaStack media={pageMedia[index]} variant={mode.id} />
       <div className="points-grid">
         <div>
           {firstColumn.map((item, pointIndex) => (
@@ -679,28 +594,18 @@ function CaseSection({ page, index, mode, note, onNoteChange, onCopyNote, copied
           ))}
         </div>
       </div>
-      <NotesPanel
-        page={page}
-        index={index}
-        note={note}
-        onNoteChange={onNoteChange}
-        onCopyNote={onCopyNote}
-        copied={copied}
-      />
     </section>
   );
 }
 
-function VisualDeck({ mode, notes, onNoteChange, onCopyNote, copiedTarget }) {
+function VisualDeck({ mode, notes, onOpenNote }) {
   return (
     <main className={`visual-deck deck-${mode.id}`}>
       <HeroSection
         page={pages[0]}
         mode={mode}
         note={notes[0] || ""}
-        onNoteChange={onNoteChange}
-        onCopyNote={onCopyNote}
-        copied={copiedTarget === "page-0"}
+        onOpenNote={onOpenNote}
       />
       {pages.slice(1).map((page, offset) => {
         const index = offset + 1;
@@ -708,12 +613,9 @@ function VisualDeck({ mode, notes, onNoteChange, onCopyNote, copiedTarget }) {
           <CaseSection
             page={page}
             index={index}
-            mode={mode}
             key={`${mode.id}-${page.eyebrow}`}
             note={notes[index] || ""}
-            onNoteChange={onNoteChange}
-            onCopyNote={onCopyNote}
-            copied={copiedTarget === `page-${index}`}
+            onOpenNote={onOpenNote}
           />
         );
       })}
@@ -741,6 +643,7 @@ export function App() {
   const [activeModeId, setActiveModeId] = useState("space");
   const [navOpen, setNavOpen] = useState(false);
   const [notes, setNotes] = useState(loadStoredNotes);
+  const [activeNoteIndex, setActiveNoteIndex] = useState(null);
   const [copiedTarget, setCopiedTarget] = useState("");
   const pageCount = useMemo(() => pages.length, []);
   const notesCount = useMemo(
@@ -793,6 +696,7 @@ export function App() {
   const switchMode = (modeId) => {
     setActiveModeId(modeId);
     setNavOpen(false);
+    setActiveNoteIndex(null);
     window.requestAnimationFrame(() => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
@@ -860,10 +764,20 @@ export function App() {
       <VisualDeck
         mode={activeMode}
         notes={notes}
-        onNoteChange={updateNote}
-        onCopyNote={copyPageNote}
-        copiedTarget={copiedTarget}
+        onOpenNote={setActiveNoteIndex}
       />
+
+      {activeNoteIndex !== null ? (
+        <NotesModal
+          page={pages[activeNoteIndex]}
+          index={activeNoteIndex}
+          note={notes[activeNoteIndex] || ""}
+          onNoteChange={updateNote}
+          onCopyNote={copyPageNote}
+          copied={copiedTarget === `page-${activeNoteIndex}`}
+          onClose={() => setActiveNoteIndex(null)}
+        />
+      ) : null}
     </div>
   );
 }
