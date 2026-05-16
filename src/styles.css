@@ -21,6 +21,8 @@
 html {
   background: #050505;
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 0;
 }
 
 body {
@@ -34,6 +36,7 @@ body {
   letter-spacing: 0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
 }
 
 body::selection {
@@ -364,6 +367,9 @@ button {
   isolation: isolate;
   width: min(1240px, calc(100vw - 48px));
   margin: 0 auto;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
 }
 
 .hero-section {
@@ -371,8 +377,8 @@ button {
   grid-template-columns: minmax(0, 1fr);
   gap: 30px;
   align-items: end;
-  min-height: 100vh;
-  padding: 126px 0 72px;
+  height: 100svh;
+  padding: clamp(96px, 10vh, 132px) 0 clamp(34px, 6vh, 64px);
 }
 
 .hero-copy {
@@ -383,7 +389,7 @@ button {
 .hero-copy h1 {
   margin: 0;
   max-width: 920px;
-  font-size: 92px;
+  font-size: clamp(58px, 7.4vw, 118px);
   font-weight: 860;
   line-height: 0.94;
 }
@@ -450,7 +456,7 @@ button {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
-  line-height: 1.82;
+  line-height: 1.72;
 }
 
 .case-section {
@@ -458,8 +464,8 @@ button {
   grid-template-columns: minmax(280px, 0.58fr) minmax(0, 1fr);
   gap: 28px;
   align-items: start;
-  min-height: 100vh;
-  padding: 108px 0;
+  height: 100svh;
+  padding: clamp(92px, 10vh, 118px) 0 clamp(30px, 5vh, 58px);
   border-top: 1px solid var(--line);
 }
 
@@ -483,7 +489,7 @@ button {
   margin: 0;
   max-width: 520px;
   color: var(--ink);
-  font-size: 48px;
+  font-size: clamp(34px, 3.65vw, 58px);
   font-weight: 840;
   line-height: 1.06;
 }
@@ -491,7 +497,7 @@ button {
 .conclusion {
   margin: 22px 0 0;
   color: var(--ink);
-  font-size: 20px;
+  font-size: clamp(17px, 1.45vw, 22px);
   font-weight: 760;
   line-height: 1.55;
 }
@@ -499,8 +505,8 @@ button {
 .intro {
   margin: 18px 0 0;
   color: var(--muted);
-  font-size: 15px;
-  line-height: 1.86;
+  font-size: 14px;
+  line-height: 1.78;
 }
 
 .points-grid {
@@ -517,8 +523,8 @@ button {
 }
 
 .point-card {
-  min-height: 194px;
-  padding: 18px;
+  min-height: 0;
+  padding: 16px;
 }
 
 .note-float-button {
@@ -726,17 +732,17 @@ button {
 
 .deck-signal .hero-section,
 .deck-signal .case-section {
-  width: min(900px, calc(100vw - 44px));
+  width: 100vw;
+  max-width: none;
 }
 
 .deck-signal .hero-section {
   grid-template-columns: 1fr;
   align-items: start;
-  min-height: 118vh;
-  padding-top: 104px;
+  padding: clamp(90px, 10vh, 118px) clamp(34px, 7vw, 96px) clamp(28px, 5vh, 56px);
   background:
-    linear-gradient(#ffc914 0 0) top / 100% 37% no-repeat,
-    linear-gradient(#050505 0 0) bottom / 100% 63% no-repeat;
+    linear-gradient(#ffc914 0 0) top / 100% 42% no-repeat,
+    linear-gradient(#050505 0 0) bottom / 100% 58% no-repeat;
 }
 
 .deck-signal .hero-section::after,
@@ -754,8 +760,8 @@ button {
 }
 
 .deck-signal .hero-copy {
-  max-width: 690px;
-  padding: 56px 56px 30px;
+  max-width: 940px;
+  padding: clamp(24px, 4vh, 48px) 0 0;
   color: #050505;
 }
 
@@ -767,18 +773,19 @@ button {
 
 .deck-signal .hero-copy h1 {
   color: #050505;
-  font-size: 104px;
+  font-size: clamp(66px, 10vw, 152px);
   line-height: 0.9;
 }
 
 .deck-signal .hero-line {
-  max-width: 540px;
+  max-width: 720px;
 }
 
 .deck-signal .cover-cards {
-  grid-template-columns: 1fr;
-  width: 72%;
-  margin-left: 56px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(1180px, 100%);
+  margin-left: 0;
+  align-self: end;
 }
 
 .deck-signal .cover-card,
@@ -788,8 +795,8 @@ button {
 }
 
 .deck-signal .case-section {
-  grid-template-columns: 1fr;
-  padding: 110px 56px;
+  grid-template-columns: minmax(320px, 0.66fr) minmax(0, 1fr);
+  padding: clamp(92px, 10vh, 118px) clamp(34px, 7vw, 96px) clamp(28px, 5vh, 56px);
   border-top: 0;
   background: #050505;
 }
@@ -803,11 +810,11 @@ button {
 .deck-signal .case-copy {
   position: relative;
   top: auto;
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .deck-signal .case-copy h2 {
-  font-size: 68px;
+  font-size: clamp(44px, 6.8vw, 104px);
   line-height: 0.94;
 }
 
@@ -820,8 +827,8 @@ button {
 }
 
 .deck-signal .points-grid {
-  grid-column: auto;
-  margin-top: 28px;
+  grid-column: 2;
+  margin-top: 0;
 }
 
 .deck-signal .point-card h3,
@@ -899,6 +906,10 @@ button {
 }
 
 @media (max-width: 1100px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
   .site-header {
     grid-template-columns: 1fr auto auto;
   }
@@ -934,6 +945,10 @@ button {
 }
 
 @media (max-width: 760px) {
+  html {
+    scroll-snap-type: none;
+  }
+
   .site-header {
     gap: 8px;
     padding: 10px 12px;
@@ -980,8 +995,14 @@ button {
     width: calc(100vw - 24px);
   }
 
+  .deck-signal .hero-section,
+  .deck-signal .case-section {
+    width: 100vw;
+  }
+
   .hero-section {
-    min-height: auto;
+    height: auto;
+    min-height: 100vh;
     padding: 174px 0 54px;
   }
 
@@ -1006,7 +1027,8 @@ button {
 
   .case-section,
   .deck-signal .case-section {
-    min-height: auto;
+    height: auto;
+    min-height: 100vh;
     padding: 62px 0;
   }
 

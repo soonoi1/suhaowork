@@ -659,6 +659,112 @@ export function App() {
     window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
   }, [notes]);
 
+  useEffect(() => {
+    const sectionSelector = ".hero-section, .case-section";
+    let wheelDelta = 0;
+    let locked = false;
+    let resetTimer = 0;
+
+    const getSections = () => Array.from(document.querySelectorAll(sectionSelector));
+
+    const currentIndex = () => {
+      const sections = getSections();
+      if (!sections.length) return 0;
+
+      const viewportCenter = window.scrollY + window.innerHeight / 2;
+      return sections.reduce((closestIndex, section, index) => {
+        const closest = sections[closestIndex];
+        const closestCenter = closest.offsetTop + closest.offsetHeight / 2;
+        const sectionCenter = section.offsetTop + section.offsetHeight / 2;
+        return Math.abs(sectionCenter - viewportCenter) < Math.abs(closestCenter - viewportCenter)
+          ? index
+          : closestIndex;
+      }, 0);
+    };
+
+    const goToSection = (targetIndex) => {
+      const sections = getSections();
+      const nextIndex = Math.max(0, Math.min(targetIndex, sections.length - 1));
+      const section = sections[nextIndex];
+      if (!section) return;
+
+      locked = true;
+      wheelDelta = 0;
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      window.setTimeout(() => {
+        locked = false;
+      }, 760);
+    };
+
+    const handleWheel = (event) => {
+      if (activeNoteIndex !== null) return;
+
+      const target = event.target;
+      if (target instanceof Element && target.closest(".toc, .notes-modal")) return;
+
+      event.preventDefault();
+      if (locked) return;
+
+      wheelDelta += event.deltaY;
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        const threshold = 52;
+        if (Math.abs(wheelDelta) >= threshold) {
+          goToSection(currentIndex() + (wheelDelta > 0 ? 1 : -1));
+        } else {
+          goToSection(currentIndex());
+        }
+        wheelDelta = 0;
+      }, 96);
+    };
+
+    const handleKeyDown = (event) => {
+      if (activeNoteIndex !== null) return;
+
+      const target = event.target;
+      const isEditable =
+        target instanceof HTMLElement &&
+        (target.tagName === "TEXTAREA" ||
+          target.tagName === "INPUT" ||
+          target.isContentEditable);
+      if (isEditable) return;
+
+      if (event.code === "Space") {
+        event.preventDefault();
+        goToSection(currentIndex() + (event.shiftKey ? -1 : 1));
+      }
+
+      if (event.code === "ArrowDown" || event.code === "PageDown") {
+        event.preventDefault();
+        goToSection(currentIndex() + 1);
+      }
+
+      if (event.code === "ArrowUp" || event.code === "PageUp") {
+        event.preventDefault();
+        goToSection(currentIndex() - 1);
+      }
+
+      if (event.code === "Home") {
+        event.preventDefault();
+        goToSection(0);
+      }
+
+      if (event.code === "End") {
+        event.preventDefault();
+        goToSection(getSections().length - 1);
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
+      window.clearTimeout(resetTimer);
+    };
+  }, [activeNoteIndex, activeModeId]);
+
   const updateNote = (index, value) => {
     setNotes((current) => ({ ...current, [index]: value }));
   };
@@ -698,7 +804,7 @@ export function App() {
     setNavOpen(false);
     setActiveNoteIndex(null);
     window.requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      document.querySelector(".hero-section")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   };
 
