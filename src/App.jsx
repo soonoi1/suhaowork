@@ -1,11 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  ChevronDown,
+  ArrowUpRight,
   ClipboardCheck,
   ClipboardList,
-  Layers3,
+  GalleryHorizontalEnd,
+  Image as ImageIcon,
   Menu,
   MessageSquareText,
+  Orbit,
+  Sparkles,
   X,
 } from "lucide-react";
 
@@ -409,6 +412,90 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 
+const visualModes = [
+  {
+    id: "space",
+    label: "图一",
+    name: "银黑宇宙",
+    desc: "巨型标题 / 黑白空间 / 科技卡片",
+    Icon: Orbit,
+  },
+  {
+    id: "signal",
+    label: "图二",
+    name: "黄黑海报",
+    desc: "高对比色块 / 垂直海报 / 图形符号",
+    Icon: Sparkles,
+  },
+  {
+    id: "gallery",
+    label: "图三",
+    name: "暗场策展",
+    desc: "展陈叙事 / 浮动图像 / 留白排版",
+    Icon: GalleryHorizontalEnd,
+  },
+];
+
+const pageMedia = [
+  [
+    { type: "image", src: "/assets/li-dark.png", alt: "理想同学暗色形象" },
+    { type: "image", src: "/assets/li-light.png", alt: "理想同学光效形象" },
+  ],
+  [{ type: "image", src: "/assets/li-ui.jpg", alt: "产品动效与交互界面" }],
+  [
+    { type: "image", src: "/assets/cases/entity-default.png", alt: "理想同学实体化形象" },
+    { type: "image", src: "/assets/cases/entity-dark.png", alt: "理想同学实体化暗色形象" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/entity-dark.png", alt: "毛绒材质细节" },
+    { type: "image", src: "/assets/li-student.jpg", alt: "理想同学角色视觉" },
+  ],
+  [
+    { type: "video", src: "/assets/cases/home-center.mp4", alt: "理想同学中心动效" },
+    { type: "image", src: "/assets/li-board-web.jpg", alt: "理想同学中心界面" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/ota-characters.png", alt: "4o 小同桌角色资源" },
+    { type: "video", src: "/assets/cases/ota-theater.mp4", alt: "小同桌动效资源" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/ota-scene-dark.png", alt: "7.4 OTA 暗色场景" },
+    { type: "video", src: "/assets/cases/ota-update.mp4", alt: "OTA 更新动效" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/workflow-ai-options.jpg", alt: "AI 形象探索结果" },
+    { type: "image", src: "/assets/cases/workflow-chatgpt.png", alt: "AI 工作流过程" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/workflow-comfyui.png", alt: "逆向生产工作流" },
+    { type: "image", src: "/assets/cases/workflow-ai-lamp.jpg", alt: "AI 生成探索" },
+  ],
+  [
+    { type: "image", src: "/assets/cases/workflow-chatgpt.png", alt: "自动化脚本与交付流程" },
+    { type: "video", src: "/assets/cases/app-flow.mp4", alt: "App 资源流程动效" },
+  ],
+  [
+    { type: "video", src: "/assets/cases/radiant-color.mp4", alt: "Standby 放射光色彩效果" },
+    { type: "video", src: "/assets/cases/radiant-attention.mp4", alt: "Standby 放射光注意力效果" },
+  ],
+  [
+    { type: "video", src: "/assets/cases/radiant-speak.mp4", alt: "Standby 原型响应效果" },
+    { type: "image", src: "/assets/li-light.png", alt: "放射光原型视觉" },
+  ],
+  [
+    { type: "video", src: "/assets/cases/oc-attention.mp4", alt: "OC 眼睛注意力动效" },
+    { type: "video", src: "/assets/cases/oc-parking.mp4", alt: "OC 眼睛车外交互" },
+  ],
+  [
+    { type: "video", src: "/assets/cases/oc-pickup.mp4", alt: "OC 交互视觉结果" },
+    { type: "image", src: "/assets/li-frame-web.jpg", alt: "项目方法沉淀画面" },
+  ],
+  [
+    { type: "image", src: "/assets/li-character.jpg", alt: "理想同学项目结果" },
+    { type: "image", src: "/assets/li-prism-web.jpg", alt: "方法沉淀视觉" },
+  ],
+];
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -443,22 +530,47 @@ function formatPageNote(page, index, note) {
   return `第 ${pad(index + 1)} 页｜${page.title}\n${value}`;
 }
 
-function DetailCard({ item, index }) {
-  const [open, setOpen] = useState(index < 2);
+function splitPoints(points) {
+  const middle = Math.ceil(points.length / 2);
+  return [points.slice(0, middle), points.slice(middle)];
+}
+
+function MediaItem({ item }) {
+  if (item.type === "video") {
+    return (
+      <video
+        src={item.src}
+        title={item.alt}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    );
+  }
+
+  return <img src={item.src} alt={item.alt} loading="lazy" />;
+}
+
+function MediaStack({ media, variant }) {
+  if (!media?.length) {
+    return (
+      <div className="media-empty">
+        <ImageIcon size={20} aria-hidden="true" />
+        <span>visual asset</span>
+      </div>
+    );
+  }
 
   return (
-    <article className={`detail-card ${open ? "is-open" : ""}`}>
-      <button className="detail-trigger" type="button" onClick={() => setOpen((value) => !value)}>
-        <span>
-          <strong>{pad(index + 1)}</strong>
-          {item.label}
-        </span>
-        <ChevronDown size={18} aria-hidden="true" />
-      </button>
-      <div className="detail-body">
-        <p>{item.text}</p>
-      </div>
-    </article>
+    <div className={`media-stack media-stack-${variant}`}>
+      {media.slice(0, 2).map((item, index) => (
+        <figure className={`media-frame media-${index + 1}`} key={`${item.src}-${index}`}>
+          <MediaItem item={item} />
+        </figure>
+      ))}
+    </div>
   );
 }
 
@@ -488,11 +600,12 @@ function NotesPanel({ page, index, note, onNoteChange, onCopyNote, copied }) {
   );
 }
 
-function CoverItems({ items }) {
+function CoverCards({ items }) {
   return (
-    <div className="cover-items">
-      {items.map((item) => (
-        <article className="cover-item" key={item.label}>
+    <div className="cover-cards">
+      {items.map((item, index) => (
+        <article className="cover-card" key={item.label}>
+          <span>{pad(index + 1)}</span>
           <h3>{item.label}</h3>
           <p>{item.text}</p>
         </article>
@@ -501,56 +614,131 @@ function CoverItems({ items }) {
   );
 }
 
-function PageSection({ page, index, note, onNoteChange, onCopyNote, copied }) {
-  const firstColumn = page.points.slice(0, Math.ceil(page.points.length / 2));
-  const secondColumn = page.points.slice(Math.ceil(page.points.length / 2));
-  const hasDetails = page.points.length > 0;
-
+function PointCard({ item, index }) {
   return (
-    <section className={`page-section ${page.layout === "cover" ? "is-cover" : ""}`} id={`page-${index + 1}`}>
-      <div className="section-number" aria-hidden="true">
-        {pad(index + 1)}
+    <article className="point-card">
+      <span>{pad(index + 1)}</span>
+      <h3>{item.label}</h3>
+      <p>{item.text}</p>
+    </article>
+  );
+}
+
+function HeroSection({ page, mode, note, onNoteChange, onCopyNote, copied }) {
+  return (
+    <section className="hero-section" id="page-1">
+      <div className="hero-orbit" aria-hidden="true" />
+      <div className="hero-copy">
+        <p className="eyebrow">{mode.label} / {mode.name}</p>
+        <h1>{page.title}</h1>
+        <p className="hero-line">{page.conclusion}</p>
+        <p className="hero-intro">{page.intro}</p>
       </div>
-      <div className="page-shell">
-        <div className="page-header">
-          <p className="eyebrow">{page.eyebrow}</p>
-          <h2>{page.title}</h2>
-          <p className="conclusion">{page.conclusion}</p>
-          <p className="intro">{page.intro}</p>
-          {page.coverItems ? <CoverItems items={page.coverItems} /> : null}
-        </div>
-        {hasDetails ? (
-          <div className="details-grid">
-            <div>
-              {firstColumn.map((item, pointIndex) => (
-                <DetailCard item={item} index={pointIndex} key={item.label} />
-              ))}
-            </div>
-            <div>
-              {secondColumn.map((item, pointIndex) => (
-                <DetailCard
-                  item={item}
-                  index={pointIndex + firstColumn.length}
-                  key={item.label}
-                />
-              ))}
-            </div>
-          </div>
-        ) : null}
-        <NotesPanel
-          page={page}
-          index={index}
-          note={note}
-          onNoteChange={onNoteChange}
-          onCopyNote={onCopyNote}
-          copied={copied}
-        />
-      </div>
+      <MediaStack media={pageMedia[0]} variant={mode.id} />
+      <CoverCards items={page.coverItems || []} />
+      <NotesPanel
+        page={page}
+        index={0}
+        note={note}
+        onNoteChange={onNoteChange}
+        onCopyNote={onCopyNote}
+        copied={copied}
+      />
     </section>
   );
 }
 
+function CaseSection({ page, index, mode, note, onNoteChange, onCopyNote, copied }) {
+  const [firstColumn, secondColumn] = splitPoints(page.points);
+
+  return (
+    <section className="case-section" id={`page-${index + 1}`}>
+      <div className="case-index" aria-hidden="true">
+        {pad(index + 1)}
+      </div>
+      <div className="case-copy">
+        <p className="eyebrow">{page.eyebrow}</p>
+        <h2>{page.title}</h2>
+        <p className="conclusion">{page.conclusion}</p>
+        <p className="intro">{page.intro}</p>
+      </div>
+      <MediaStack media={pageMedia[index]} variant={mode.id} />
+      <div className="points-grid">
+        <div>
+          {firstColumn.map((item, pointIndex) => (
+            <PointCard item={item} index={pointIndex} key={item.label} />
+          ))}
+        </div>
+        <div>
+          {secondColumn.map((item, pointIndex) => (
+            <PointCard
+              item={item}
+              index={pointIndex + firstColumn.length}
+              key={item.label}
+            />
+          ))}
+        </div>
+      </div>
+      <NotesPanel
+        page={page}
+        index={index}
+        note={note}
+        onNoteChange={onNoteChange}
+        onCopyNote={onCopyNote}
+        copied={copied}
+      />
+    </section>
+  );
+}
+
+function VisualDeck({ mode, notes, onNoteChange, onCopyNote, copiedTarget }) {
+  return (
+    <main className={`visual-deck deck-${mode.id}`}>
+      <HeroSection
+        page={pages[0]}
+        mode={mode}
+        note={notes[0] || ""}
+        onNoteChange={onNoteChange}
+        onCopyNote={onCopyNote}
+        copied={copiedTarget === "page-0"}
+      />
+      {pages.slice(1).map((page, offset) => {
+        const index = offset + 1;
+        return (
+          <CaseSection
+            page={page}
+            index={index}
+            mode={mode}
+            key={`${mode.id}-${page.eyebrow}`}
+            note={notes[index] || ""}
+            onNoteChange={onNoteChange}
+            onCopyNote={onCopyNote}
+            copied={copiedTarget === `page-${index}`}
+          />
+        );
+      })}
+    </main>
+  );
+}
+
+function NavDrawer({ open, onClose }) {
+  return (
+    <aside className={`toc ${open ? "is-open" : ""}`}>
+      <p className="toc-title">目录</p>
+      <nav aria-label="页面目录">
+        {pages.map((page, index) => (
+          <a href={`#page-${index + 1}`} key={page.eyebrow} onClick={onClose}>
+            <span>{pad(index + 1)}</span>
+            {page.title}
+          </a>
+        ))}
+      </nav>
+    </aside>
+  );
+}
+
 export function App() {
+  const [activeModeId, setActiveModeId] = useState("space");
   const [navOpen, setNavOpen] = useState(false);
   const [notes, setNotes] = useState(loadStoredNotes);
   const [copiedTarget, setCopiedTarget] = useState("");
@@ -558,6 +746,10 @@ export function App() {
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
     [notes],
+  );
+  const activeMode = useMemo(
+    () => visualModes.find((mode) => mode.id === activeModeId) || visualModes[0],
+    [activeModeId],
   );
 
   useEffect(() => {
@@ -598,23 +790,52 @@ export function App() {
     copyText(formatPageNote(pages[index], index, notes[index] || ""), `page-${index}`);
   };
 
+  const switchMode = (modeId) => {
+    setActiveModeId(modeId);
+    setNavOpen(false);
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  };
+
+  const ModeIcon = activeMode.Icon;
+
   return (
-    <>
+    <div className={`app-shell theme-${activeMode.id}`}>
       <header className="site-header">
         <a className="brand" href="#page-1" onClick={() => setNavOpen(false)}>
           <span className="brand-mark" aria-hidden="true">
-            <Layers3 size={16} />
+            <ModeIcon size={17} />
           </span>
           <span>Suhao Work</span>
         </a>
+        <div className="variant-tabs" role="tablist" aria-label="视觉版本">
+          {visualModes.map((mode) => {
+            const Icon = mode.Icon;
+            const selected = mode.id === activeMode.id;
+            return (
+              <button
+                className={selected ? "is-active" : ""}
+                type="button"
+                role="tab"
+                aria-selected={selected}
+                key={mode.id}
+                onClick={() => switchMode(mode.id)}
+              >
+                <Icon size={15} aria-hidden="true" />
+                <span>{mode.label}</span>
+                <strong>{mode.name}</strong>
+              </button>
+            );
+          })}
+        </div>
         <div className="header-meta">
-          <span>Text Deck</span>
           <span>{pageCount} pages</span>
           <span>{notesCount} notes</span>
         </div>
         <button className="copy-all-button" type="button" onClick={copyAllNotes}>
           {copiedTarget === "all" ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
-          {copiedTarget === "all" ? "已复制备注" : "复制全部备注"}
+          {copiedTarget === "all" ? "已复制备注" : "复制备注"}
         </button>
         <button
           className="menu-button"
@@ -627,31 +848,22 @@ export function App() {
         </button>
       </header>
 
-      <aside className={`toc ${navOpen ? "is-open" : ""}`}>
-        <p className="toc-title">目录</p>
-        <nav aria-label="页面目录">
-          {pages.map((page, index) => (
-            <a href={`#page-${index + 1}`} key={page.eyebrow} onClick={() => setNavOpen(false)}>
-              <span>{pad(index + 1)}</span>
-              {page.title}
-            </a>
-          ))}
-        </nav>
-      </aside>
+      <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
 
-      <main>
-        {pages.map((page, index) => (
-          <PageSection
-            page={page}
-            index={index}
-            key={page.eyebrow}
-            note={notes[index] || ""}
-            onNoteChange={updateNote}
-            onCopyNote={copyPageNote}
-            copied={copiedTarget === `page-${index}`}
-          />
-        ))}
-      </main>
-    </>
+      <div className="mode-caption">
+        <span>{activeMode.label}</span>
+        <strong>{activeMode.name}</strong>
+        <em>{activeMode.desc}</em>
+        <ArrowUpRight size={15} aria-hidden="true" />
+      </div>
+
+      <VisualDeck
+        mode={activeMode}
+        notes={notes}
+        onNoteChange={updateNote}
+        onCopyNote={copyPageNote}
+        copiedTarget={copiedTarget}
+      />
+    </div>
   );
 }
