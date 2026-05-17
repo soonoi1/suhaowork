@@ -222,12 +222,13 @@ void main(){
     if (uClickGlow > 0.01) {
        float aspect = uResolution.x / uResolution.y;
        vec2 uvCentered = (frag - 0.5 * uResolution) / min(uResolution.x, uResolution.y);
-       vec2 clickCenter = vec2(uClickCenter.x, 1.0 - uClickCenter.y) * 2.0 - 1.0;
-       clickCenter.x *= aspect;
-       float clickDist = distance(uvCentered, clickCenter * 0.5);
-       float clickMask = exp(-clickDist * clickDist * 18.0) * uClickGlow;
+       vec2 clickDirection = vec2(uClickCenter.x, 1.0 - uClickCenter.y) * 2.0 - 1.0;
+       clickDirection.x *= aspect;
+       float rayAlignment = dot(normalize(uvCentered), normalize(clickDirection));
+       float radialPresence = smoothstep(0.02, 0.18, length(uvCentered));
+       float clickMask = smoothstep(0.64, 0.96, rayAlignment) * radialPresence * uClickGlow;
        vec3 warmGlow = sampleGradient(0.62);
-       col += col * clickMask * 1.1 + warmGlow * clickMask * 0.34;
+       col += col * clickMask * 1.35 + warmGlow * clickMask * 0.18;
     }
 
     float focusLen = length(uFocus);
