@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
+import { Component, Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import {
   ClipboardCheck,
   ClipboardList,
@@ -14,6 +14,29 @@ import { PrismaticBurst } from "./components/PrismaticBurst";
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
 const GaussianSplatViewer = lazy(() => import("./components/GaussianSplatViewer"));
 const InfiniteMenu = lazy(() => import("./components/InfiniteMenu"));
+
+class DemoErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {
+    // Keep experimental demos isolated so one asset failure cannot blank the deck.
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
 
 const pages = [
   {
@@ -905,9 +928,11 @@ function SS4FluidGlassDemo() {
 function GaussianSplatDemo() {
   return (
     <div className="gaussian-splat-demo">
-      <Suspense fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT</div>}>
-        <GaussianSplatViewer src="/assets/gaussian-li-fur.splat" />
-      </Suspense>
+      <DemoErrorBoundary fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT PREVIEW</div>}>
+        <Suspense fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT</div>}>
+          <GaussianSplatViewer src="/assets/gaussian-li-fur.splat" />
+        </Suspense>
+      </DemoErrorBoundary>
     </div>
   );
 }
@@ -1186,7 +1211,11 @@ export function App() {
   const activeMode = activeVisualMode;
 
   useEffect(() => {
-    window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+    try {
+      window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
+    } catch {
+      // Notes are a convenience layer; storage failures must not affect page rendering.
+    }
   }, [notes]);
 
   useEffect(() => {
@@ -1218,27 +1247,36 @@ export function App() {
 
     const updateActiveSection = () => {
       rafId = 0;
-      const viewportCenter = window.innerHeight / 2;
-      let nextActiveIndex = 0;
-      let nearestDistance = Number.POSITIVE_INFINITY;
 
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
-        if (distance < nearestDistance) {
-          nearestDistance = distance;
-          nextActiveIndex = Number(section.id.replace("page-", "")) - 1;
+      try {
+        const viewportCenter = window.innerHeight / 2;
+        let nextActiveIndex = 0;
+        let nearestDistance = Number.POSITIVE_INFINITY;
+
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nextActiveIndex = Number(section.id.replace("page-", "")) - 1;
+          }
+        });
+
+        if (!Number.isNaN(nextActiveIndex)) {
+          setActivePageIndex(nextActiveIndex);
         }
-      });
-
-      if (!Number.isNaN(nextActiveIndex)) {
-        setActivePageIndex(nextActiveIndex);
+      } catch {
+        setActivePageIndex(0);
       }
     };
 
     const scheduleUpdate = () => {
       if (rafId) return;
-      rafId = window.requestAnimationFrame(updateActiveSection);
+      if (typeof window.requestAnimationFrame === "function") {
+        rafId = window.requestAnimationFrame(updateActiveSection);
+      } else {
+        rafId = window.setTimeout(updateActiveSection, 16);
+      }
     };
 
     updateActiveSection();
@@ -1247,7 +1285,11 @@ export function App() {
 
     return () => {
       if (rafId) {
-        window.cancelAnimationFrame(rafId);
+        if (typeof window.cancelAnimationFrame === "function") {
+          window.cancelAnimationFrame(rafId);
+        } else {
+          window.clearTimeout(rafId);
+        }
       }
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
