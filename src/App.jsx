@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from "react";
 import {
   ClipboardCheck,
   ClipboardList,
@@ -10,7 +10,6 @@ import {
 import GradualBlur from "./components/GradualBlur";
 import PillNav from "./components/PillNav";
 import { PrismaticBurst } from "./components/PrismaticBurst";
-import ScrollStack, { ScrollStackItem } from "./components/ScrollStack";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
 const GaussianSplatViewer = lazy(() => import("./components/GaussianSplatViewer"));
@@ -914,37 +913,102 @@ function GaussianSplatDemo() {
 }
 
 function LiCenterScrollStackDemo() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const rootRef = useRef(null);
+  const wheelLockRef = useRef(false);
+  const lastIndex = liCenterStackVideos.length - 1;
+
+  const moveActiveVideo = (direction) => {
+    setActiveIndex((current) => Math.min(lastIndex, Math.max(0, current + direction)));
+  };
+
+  useEffect(() => {
+    const handleWheel = (event) => {
+      const root = rootRef.current;
+      const section = root?.closest(".case-section");
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const isPrimaryPage = rect.top < window.innerHeight * 0.55 && rect.bottom > window.innerHeight * 0.45;
+      if (!isPrimaryPage) return;
+
+      const direction = Math.sign(event.deltaY);
+      if (!direction || Math.abs(event.deltaY) < 18) return;
+
+      const canMoveInside =
+        (direction > 0 && activeIndex < lastIndex) || (direction < 0 && activeIndex > 0);
+
+      if (!canMoveInside) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (wheelLockRef.current) return;
+      wheelLockRef.current = true;
+      moveActiveVideo(direction);
+      window.setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 520);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [activeIndex, lastIndex]);
+
   return (
-    <div className="li-center-scroll-demo">
-      <ScrollStack
-        className="li-center-scroll-stack"
-        itemDistance={76}
-        itemStackDistance={18}
-        stackPosition="20%"
-        scaleEndPosition="10%"
-        baseScale={0.86}
-        itemScale={0.022}
-        blurAmount={0.55}
-      >
+    <div
+      className="li-center-scroll-demo"
+      ref={rootRef}
+      role="region"
+      aria-label="理想同学中心视频堆叠展示"
+    >
+      <div className="li-center-stack-stage">
+        {liCenterStackVideos.map((item, index) => {
+          const offset = index - activeIndex;
+          const isActive = offset === 0;
+
+          return (
+            <article
+              className={`li-center-stack-card ${isActive ? "is-active" : ""}`}
+              data-stack-state={offset < 0 ? "past" : offset > 0 ? "future" : "active"}
+              style={{
+                "--stack-offset": offset,
+                "--stack-depth": Math.abs(offset),
+                zIndex: liCenterStackVideos.length - Math.abs(offset),
+              }}
+              key={item.src}
+            >
+              <video
+                className="li-center-stack-video"
+                src={item.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload={Math.abs(offset) < 2 ? "auto" : "metadata"}
+              />
+              <div className="li-center-stack-copy">
+                <span>{pad(index + 1)}</span>
+                <h3>{item.title}</h3>
+                <p>{item.meta}</p>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <div className="li-center-stack-rail">
         {liCenterStackVideos.map((item, index) => (
-          <ScrollStackItem itemClassName="li-center-stack-card" key={item.src}>
-            <video
-              className="li-center-stack-video"
-              src={item.src}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload={index < 2 ? "auto" : "metadata"}
-            />
-            <div className="li-center-stack-copy">
-              <span>{pad(index + 1)}</span>
-              <h3>{item.title}</h3>
-              <p>{item.meta}</p>
-            </div>
-          </ScrollStackItem>
+          <button
+            className={index === activeIndex ? "is-active" : ""}
+            type="button"
+            aria-label={`Switch to video ${index + 1}`}
+            onClick={() => setActiveIndex(index)}
+            key={item.src}
+          >
+            {pad(index + 1)}
+          </button>
         ))}
-      </ScrollStack>
+      </div>
     </div>
   );
 }
