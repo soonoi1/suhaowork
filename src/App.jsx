@@ -1070,6 +1070,7 @@ function StandbyRadianceDemo() {
   const keysRef = useRef({ up: false, down: false, left: false, right: false });
   const targetFocusRef = useRef({ x: 0, y: 0 });
   const clickGlowRef = useRef({ strength: 0, x: 0.5, y: 0.5 });
+  const clickHoldRef = useRef(false);
   const [focus, setFocus] = useState({ x: 0, y: 0 });
   const [clickGlow, setClickGlow] = useState({ strength: 0, x: 0.5, y: 0.5 });
 
@@ -1100,7 +1101,7 @@ function StandbyRadianceDemo() {
 
       targetFocusRef.current.x += (nextTarget.x - targetFocusRef.current.x) * 0.08;
       targetFocusRef.current.y += (nextTarget.y - targetFocusRef.current.y) * 0.08;
-      clickGlowRef.current.strength *= 0.9;
+      clickGlowRef.current.strength += ((clickHoldRef.current ? 0.95 : 0) - clickGlowRef.current.strength) * 0.12;
 
       setFocus({ ...targetFocusRef.current });
       setClickGlow({ ...clickGlowRef.current });
@@ -1146,14 +1147,16 @@ function StandbyRadianceDemo() {
     };
   }, []);
 
-  const triggerClickGlow = (event) => {
+  const updateClickGlowPosition = (event, hold = true) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    clickGlowRef.current = {
-      strength: 0.85,
-      x: (event.clientX - rect.left) / Math.max(rect.width, 1),
-      y: (event.clientY - rect.top) / Math.max(rect.height, 1),
-    };
+    clickHoldRef.current = hold;
+    clickGlowRef.current.x = (event.clientX - rect.left) / Math.max(rect.width, 1);
+    clickGlowRef.current.y = (event.clientY - rect.top) / Math.max(rect.height, 1);
     setClickGlow({ ...clickGlowRef.current });
+  };
+
+  const releaseClickGlow = () => {
+    clickHoldRef.current = false;
   };
 
   const holdDirection = (direction, pressed) => {
@@ -1162,7 +1165,17 @@ function StandbyRadianceDemo() {
 
   return (
     <div className="radiance-demo">
-      <div className="radiance-stage" ref={stageRef} onPointerDown={triggerClickGlow}>
+      <div
+        className="radiance-stage"
+        ref={stageRef}
+        onPointerDown={(event) => updateClickGlowPosition(event, true)}
+        onPointerMove={(event) => {
+          if (clickHoldRef.current) updateClickGlowPosition(event, true);
+        }}
+        onPointerUp={releaseClickGlow}
+        onPointerLeave={releaseClickGlow}
+        onPointerCancel={releaseClickGlow}
+      >
         <div className="radiance-webgl" aria-hidden="true">
           <PrismaticBurst
             intensity={light.intensity}
