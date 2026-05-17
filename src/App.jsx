@@ -1037,9 +1037,9 @@ function OCVideoShowcase({ points }) {
   );
 }
 
-function HeroSection({ page, mode, note, onOpenNote }) {
+function HeroSection({ page, mode, note, onOpenNote, isActive }) {
   return (
-    <section className="hero-section" id="page-1">
+    <section className={`hero-section ${isActive ? "is-active" : ""}`} id="page-1">
       <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="hero-orbit" aria-hidden="true" />
       <div className="hero-copy">
@@ -1053,11 +1053,14 @@ function HeroSection({ page, mode, note, onOpenNote }) {
   );
 }
 
-function CaseSection({ page, index, note, onOpenNote }) {
+function CaseSection({ page, index, note, onOpenNote, isActive }) {
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
   const sectionClasses = ["case-section"];
+  if (isActive) {
+    sectionClasses.push("is-active");
+  }
 
   if (backdrop) {
     sectionClasses.push("has-backdrop", backdrop.className);
@@ -1125,7 +1128,7 @@ function CaseSection({ page, index, note, onOpenNote }) {
   );
 }
 
-function VisualDeck({ mode, notes, onOpenNote }) {
+function VisualDeck({ mode, notes, onOpenNote, activePageIndex }) {
   return (
     <main className={`visual-deck deck-${mode.id}`}>
       <HeroSection
@@ -1133,6 +1136,7 @@ function VisualDeck({ mode, notes, onOpenNote }) {
         mode={mode}
         note={notes[0] || ""}
         onOpenNote={onOpenNote}
+        isActive={activePageIndex === 0}
       />
       {pages.slice(1).map((page, offset) => {
         const index = offset + 1;
@@ -1143,6 +1147,7 @@ function VisualDeck({ mode, notes, onOpenNote }) {
             key={`${mode.id}-${page.eyebrow}`}
             note={notes[index] || ""}
             onOpenNote={onOpenNote}
+            isActive={activePageIndex === index}
           />
         );
       })}
@@ -1209,25 +1214,44 @@ export function App() {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
     if (!sections.length) return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          entry.target.classList.toggle("is-active", entry.isIntersecting);
+    let rafId = 0;
 
-          if (entry.isIntersecting) {
-            const pageIndex = Number(entry.target.id.replace("page-", "")) - 1;
-            if (!Number.isNaN(pageIndex)) {
-              setActivePageIndex(pageIndex);
-            }
-          }
-        });
-      },
-      { threshold: 0.18 },
-    );
+    const updateActiveSection = () => {
+      rafId = 0;
+      const viewportCenter = window.innerHeight / 2;
+      let nextActiveIndex = 0;
+      let nearestDistance = Number.POSITIVE_INFINITY;
 
-    sections.forEach((section) => observer.observe(section));
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nextActiveIndex = Number(section.id.replace("page-", "")) - 1;
+        }
+      });
 
-    return () => observer.disconnect();
+      if (!Number.isNaN(nextActiveIndex)) {
+        setActivePageIndex(nextActiveIndex);
+      }
+    };
+
+    const scheduleUpdate = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(updateActiveSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   const updateNote = (index, value) => {
@@ -1307,6 +1331,7 @@ export function App() {
         mode={activeMode}
         notes={notes}
         onOpenNote={setActiveNoteIndex}
+        activePageIndex={activePageIndex}
       />
 
       {activeNoteIndex !== null ? (
