@@ -578,14 +578,14 @@ const gaussianModelOptions = [
   {
     key: "splat",
     label: "SPLAT",
-    src: "/assets/gaussian-model-1.splat",
-    meta: "2.3 MB / 73760 points",
+    src: "/assets/bodyhand.splat",
+    meta: "2.5 MB / body hand",
   },
   {
     key: "ply",
     label: "PLY",
-    src: "/assets/gaussian-model-2.ply",
-    meta: "18.3 MB / 73760 points",
+    src: "/assets/bodyhand.ply",
+    meta: "20 MB / body hand",
   },
 ];
 

@@ -1378,8 +1378,11 @@ button {
 .gaussian-splat-demo {
   position: relative;
   grid-column: 2;
-  height: calc(100svh - 184px);
-  min-height: 520px;
+  align-self: center;
+  width: min(100%, 520px);
+  height: min(62svh, 560px);
+  min-height: 420px;
+  justify-self: end;
 }
 
 .gaussian-copy-points {
@@ -2196,8 +2199,9 @@ button {
   }
 
   .gaussian-splat-demo {
-    height: 62vh;
-    min-height: 380px;
+    width: 100%;
+    height: 58vh;
+    min-height: 360px;
   }
 
   .gaussian-splat-loading {

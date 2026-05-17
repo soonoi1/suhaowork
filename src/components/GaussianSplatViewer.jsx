@@ -11,14 +11,14 @@ function fitSplatToView(mesh, camera, controls) {
   box.getCenter(center);
 
   const maxAxis = Math.max(size.x, size.y, size.z, 0.0001);
-  const scale = 2.65 / maxAxis;
+  const scale = 2.22 / maxAxis;
 
   mesh.position.sub(center.multiplyScalar(scale));
   mesh.scale.setScalar(scale);
   mesh.updateMatrixWorld(true);
 
-  const distance = 4.25;
-  camera.position.set(0, 0.15, distance);
+  const distance = 4.85;
+  camera.position.set(0, 0.08, distance);
   camera.near = 0.01;
   camera.far = Math.max(100, distance * 8);
   camera.updateProjectionMatrix();
@@ -153,7 +153,7 @@ export default function GaussianSplatViewer({
       if (disposed) return;
 
       if (autoRotate && status !== "error") {
-        splat.rotation.y += 0.003;
+        splat.rotation.y += 0.0012;
         spark.setDirty();
       }
 
