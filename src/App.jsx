@@ -56,7 +56,7 @@ const pages = [
         text: "理想同学实体化、理想同学中心、4o 小同桌、7.4 OTA 设计交付、AI 实战工作流、Standby 放射光、OC 眼睛。",
       },
       {
-        label: "简单简介",
+        label: "能力简介",
         text: "具备 3D 与动画的专业基础，也有产品动效、交互动态、多端资源适配和 AI 工具探索经验。工作重点不是单点视觉输出，而是把偏技术的体验方案转化为可被研发还原、可被用户感知的产品结果。",
       },
     ],
@@ -115,7 +115,7 @@ const pages = [
       },
       {
         label: "结果",
-        text: "形成了理想同学毛绒实体化形象的核心方向，也为后续理想同学中心、4o 小同桌、多端形象和更多 AI 角色探索提供了基础资产。毛绒世界观的设定在这里作为补充方向被纳入：相关场景尽量沿用毛绒、毛毡和手工缝纫等材质语言。",
+        text: "形成了理想同学毛绒实体化形象的核心方向，也为后续理想同学中心、4o 小同桌、多端形象和更多 AI 角色探索提供了基础资产。",
       },
     ],
   },
@@ -129,20 +129,16 @@ const pages = [
       "理想同学实体化中，帽子和身体的毛发效果是关键转折点。它决定角色是否真实、是否亲和，也决定最终视觉是否能在线上稳定呈现。",
     points: [
       {
-        label: "项目背景",
-        text: "毛绒形象需要让用户感受到柔软、温暖和真实触感，但传统 3D 材质容易出现塑料感、僵硬感或过度装饰感。",
+        label: "线上落地方案",
+        text: "最初上线采用 Spline 平面方案，优先保证版本稳定、资源可控和视觉还原，确保毛绒形象可以在当前产品条件下顺利交付。",
       },
       {
-        label: "关键难题",
-        text: "毛绒不是单一材质，而是多层、随机、成簇分布的复杂结构。线上效果还要兼顾审美、性能、渲染稳定性和多场景复用。",
+        label: "持续攻克方向",
+        text: "核心问题是毛绒在 3D 中的质量与性能关系。毛发由多层、随机、成簇的结构构成，需要在真实质感、体积感、边缘细节和运行稳定性之间找到平衡。",
       },
       {
-        label: "我的动作",
-        text: "将真实毛发的层级、随机性、柔软结构和毛绒玩具的制作工艺转译进 3D 材质表达中，用一套可控的材质和渲染方式还原毛绒层次、反光和柔软感。",
-      },
-      {
-        label: "结果",
-        text: "最终让理想同学的帽子和身体具备更接近真实毛绒玩具的视觉质感，使实体化形象从概念探索进入可上线、可复用的产品资产阶段。",
+        label: "阶段性方案",
+        text: "目前找到的更优解是 Gaussian Splatting 高斯模型方案。它能更好保留毛绒的真实空间质感和细节层次，同时具备继续优化性能与展示效果的空间。右侧图示用于展示这一方向的模型预览效果。",
       },
     ],
   },
@@ -571,6 +567,21 @@ const ocShowcaseVideos = [
     title: "OC 最终效果",
     meta: "车外交互视觉效果",
     src: "/assets/oc/oc-final-effect.mp4",
+  },
+];
+
+const gaussianModelOptions = [
+  {
+    key: "splat",
+    label: "SPLAT",
+    src: "/assets/gaussian-model-1.splat",
+    meta: "2.3 MB / 73760 points",
+  },
+  {
+    key: "ply",
+    label: "PLY",
+    src: "/assets/gaussian-model-2.ply",
+    meta: "18.3 MB / 73760 points",
   },
 ];
 
@@ -1110,11 +1121,27 @@ function SS4FluidGlassDemo() {
 }
 
 function GaussianSplatDemo() {
+  const [activeModel, setActiveModel] = useState(gaussianModelOptions[0].key);
+  const model = gaussianModelOptions.find((item) => item.key === activeModel) || gaussianModelOptions[0];
+
   return (
     <div className="gaussian-splat-demo">
+      <div className="gaussian-model-switch" aria-label="Gaussian model source">
+        {gaussianModelOptions.map((item) => (
+          <button
+            className={item.key === activeModel ? "is-active" : ""}
+            type="button"
+            onClick={() => setActiveModel(item.key)}
+            key={item.key}
+          >
+            <span>{item.label}</span>
+            <small>{item.meta}</small>
+          </button>
+        ))}
+      </div>
       <DemoErrorBoundary fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT PREVIEW</div>}>
-        <Suspense fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT</div>}>
-          <GaussianSplatViewer src="/assets/gaussian-li-fur.splat" />
+        <Suspense fallback={<div className="gaussian-splat-loading">GAUSSIAN SPLAT</div>} key={model.src}>
+          <GaussianSplatViewer src={model.src} />
         </Suspense>
       </DemoErrorBoundary>
     </div>
@@ -1342,6 +1369,19 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
         <h2>{page.title}</h2>
         <p className="conclusion">{page.conclusion}</p>
         <p className="intro">{page.intro}</p>
+        {page.demo === "gaussianSplat" ? (
+          <div className="gaussian-copy-points">
+            {page.points.map((item, pointIndex) => (
+              <article key={item.label}>
+                <span>{pad(pointIndex + 1)}</span>
+                <div>
+                  <h3>{item.label}</h3>
+                  <p>{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : null}
       </div>
       {page.demo === "radiance" ? (
         <StandbyRadianceDemo />

@@ -1333,9 +1333,97 @@ button {
 }
 
 .gaussian-splat-demo {
+  position: relative;
   grid-column: 2;
   height: calc(100svh - 184px);
   min-height: 520px;
+}
+
+.gaussian-copy-points {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+  max-width: 560px;
+}
+
+.gaussian-copy-points article {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-top: 1px solid rgba(245, 245, 240, 0.18);
+}
+
+.gaussian-copy-points span {
+  color: var(--warm);
+  font-size: 12px;
+  font-weight: 820;
+  letter-spacing: 0;
+}
+
+.gaussian-copy-points h3 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 840;
+  letter-spacing: 0;
+}
+
+.gaussian-copy-points p {
+  margin: 0;
+  color: rgba(245, 245, 240, 0.68);
+  font-size: 12px;
+  line-height: 1.72;
+}
+
+.gaussian-model-switch {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 8;
+  display: inline-flex;
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(5, 5, 5, 0.58);
+  backdrop-filter: blur(16px);
+}
+
+.gaussian-model-switch button {
+  display: grid;
+  gap: 1px;
+  min-width: 92px;
+  min-height: 36px;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(245, 245, 240, 0.62);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background 220ms ease,
+    color 220ms ease;
+}
+
+.gaussian-model-switch button.is-active {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.gaussian-model-switch span {
+  font-size: 11px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.gaussian-model-switch small {
+  font-size: 9px;
+  font-weight: 650;
+  opacity: 0.68;
+  line-height: 1.1;
 }
 
 .gaussian-splat-viewer {
