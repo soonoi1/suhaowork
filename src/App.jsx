@@ -497,8 +497,8 @@ const pageBackdrops = {
     className: "backdrop-fur-lineup",
   },
   10: {
-    type: "video",
-    src: "/assets/ss4/ss4-ui-bg.mp4",
+    type: "image",
+    src: "/assets/ss4/ss4-glass-bg.png",
     className: "backdrop-ss4-ui",
   },
 };
@@ -1276,20 +1276,27 @@ function StandbyRadianceDemo() {
 function SS4FluidGlassDemo() {
   return (
     <div className="fluid-glass-demo">
+      <video className="fluid-glass-source-video" src="/assets/ss4/ss4-ui-bg.mp4" autoPlay muted loop playsInline />
       <Suspense fallback={<div className="fluid-glass-loading">SS4 MATERIAL</div>}>
         <FluidGlass
           mode="lens"
+          showSceneImages={false}
           lensProps={{
-            scale: 0.27,
-            ior: 1.18,
-            thickness: 5,
+            scale: 0.3,
+            ior: 1.2,
+            thickness: 5.6,
             transmission: 1,
-            roughness: 0,
-            chromaticAberration: 0.12,
-            anisotropy: 0.02,
+            roughness: 0.045,
+            chromaticAberration: 0.1,
+            anisotropy: 0.035,
+            color: "#ffffff",
+            attenuationColor: "#fff5e8",
+            attenuationDistance: 0.42,
+            highlightOpacity: 0.3,
           }}
         />
       </Suspense>
+      <div className="fluid-glass-lens-glow" aria-hidden="true" />
       <div className="fluid-glass-meta" aria-hidden="true">
         <span>SS4 MATERIAL</span>
         <strong>GLASS RESPONSE</strong>

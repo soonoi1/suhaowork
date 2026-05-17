@@ -12,7 +12,14 @@ import {
 } from "@react-three/drei";
 import { easing } from "maath";
 
-export default function FluidGlass({ mode = "lens", lensProps = {}, barProps = {}, cubeProps = {} }) {
+export default function FluidGlass({
+  mode = "lens",
+  lensProps = {},
+  barProps = {},
+  cubeProps = {},
+  showSceneImages = true,
+  showTypography = true,
+}) {
   const Wrapper = mode === "bar" ? Bar : mode === "cube" ? Cube : Lens;
   const modeProps = mode === "bar" ? barProps : mode === "cube" ? cubeProps : lensProps;
 
@@ -20,8 +27,8 @@ export default function FluidGlass({ mode = "lens", lensProps = {}, barProps = {
     <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true, antialias: true }} dpr={[1, 1.7]}>
       <Suspense fallback={null}>
         <Wrapper modeProps={modeProps}>
-          <Typography />
-          <SceneImages />
+          {showTypography ? <Typography /> : null}
+          {showSceneImages ? <SceneImages /> : null}
           <Preload />
         </Wrapper>
       </Suspense>
@@ -72,10 +79,10 @@ const ModeWrapper = memo(function ModeWrapper({
     gl.setRenderTarget(buffer);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
-    gl.setClearColor(0x050505, 1);
+    gl.setClearColor(0x000000, 0);
   });
 
-  const { scale, ior, thickness, anisotropy, chromaticAberration, ...extraMat } = modeProps;
+  const { scale, ior, thickness, anisotropy, chromaticAberration, highlightOpacity, ...extraMat } = modeProps;
   const geometry = nodes[geometryKey]?.geometry;
 
   return (
@@ -100,6 +107,16 @@ const ModeWrapper = memo(function ModeWrapper({
           chromaticAberration={chromaticAberration ?? 0.1}
           {...extraMat}
         />
+        <lineSegments scale={1.012}>
+          <edgesGeometry args={[geometry, 18]} />
+          <lineBasicMaterial
+            color="#fff8ec"
+            transparent
+            opacity={highlightOpacity ?? 0.22}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
+        </lineSegments>
       </mesh>
     </>
   );
