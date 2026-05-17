@@ -1728,6 +1728,51 @@ export function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const isEditingTarget = (target) => {
+      if (!(target instanceof HTMLElement)) return false;
+      return Boolean(
+        target.closest(
+          'input, textarea, select, button, a, [contenteditable="true"], [role="textbox"]',
+        ),
+      );
+    };
+
+    const getCurrentPageIndex = (sections) => {
+      const viewportCenter = window.innerHeight / 2;
+      return sections.reduce(
+        (nearest, section, index) => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+          return distance < nearest.distance ? { distance, index } : nearest;
+        },
+        { distance: Number.POSITIVE_INFINITY, index: activePageIndex },
+      ).index;
+    };
+
+    const handleKeyDown = (event) => {
+      const isSpaceKey = event.key === " " || event.key === "Spacebar" || event.code === "Space";
+      if (!isSpaceKey || event.metaKey || event.ctrlKey || event.altKey) return;
+      if (isEditingTarget(event.target)) return;
+
+      const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
+      if (!sections.length) return;
+
+      event.preventDefault();
+      const currentIndex = getCurrentPageIndex(sections);
+      const direction = event.shiftKey ? -1 : 1;
+      const nextIndex = Math.max(0, Math.min(sections.length - 1, currentIndex + direction));
+      const nextSection = sections[nextIndex];
+      if (!nextSection || nextIndex === currentIndex) return;
+
+      setActivePageIndex(nextIndex);
+      window.scrollTo({ top: nextSection.offsetTop, behavior: "smooth" });
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePageIndex]);
+
   const updateNote = (index, value) => {
     setNotes((current) => ({ ...current, [index]: value }));
   };
