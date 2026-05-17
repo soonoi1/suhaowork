@@ -129,6 +129,9 @@ button {
 }
 
 .copy-all-button,
+.edit-content-button,
+.save-content-button,
+.reset-content-button,
 .note-copy-button,
 .menu-button {
   display: inline-flex;
@@ -151,15 +154,52 @@ button {
   padding: 0 12px;
 }
 
+.edit-content-button,
+.save-content-button,
+.reset-content-button {
+  padding: 0 12px;
+}
+
+.edit-content-button.is-active,
+.save-content-button {
+  background: #08080a;
+  color: #f5f5f0;
+  outline: 1px solid rgba(245, 245, 240, 0.42);
+}
+
+.reset-content-button {
+  background: rgba(245, 245, 240, 0.14);
+  color: #f5f5f0;
+  outline: 1px solid rgba(245, 245, 240, 0.24);
+}
+
 .menu-button {
   width: 42px;
 }
 
 .copy-all-button:hover,
+.edit-content-button:hover,
+.save-content-button:hover,
+.reset-content-button:hover,
 .note-copy-button:hover,
 .menu-button:hover {
   background: #08080a;
   color: #f5f5f0;
+}
+
+.editable-text {
+  outline: 1px dashed rgba(245, 245, 240, 0.36);
+  outline-offset: 5px;
+  border-radius: 4px;
+  cursor: text;
+  background: rgba(245, 245, 240, 0.055);
+  box-shadow: 0 0 0 7px rgba(5, 5, 5, 0.12);
+}
+
+.editable-text:focus {
+  outline-style: solid;
+  outline-color: rgba(245, 245, 240, 0.82);
+  background: rgba(245, 245, 240, 0.1);
 }
 
 .toc {

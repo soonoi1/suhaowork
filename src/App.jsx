@@ -2,9 +2,12 @@ import { Component, Suspense, lazy, useEffect, useMemo, useRef, useState } from 
 import {
   ClipboardCheck,
   ClipboardList,
+  PencilLine,
   Menu,
   MessageSquareText,
   Orbit,
+  RotateCcw,
+  Save,
   X,
 } from "lucide-react";
 import GradualBlur from "./components/GradualBlur";
@@ -431,6 +434,7 @@ function pad(value) {
 }
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
+const CONTENT_STORAGE_KEY = "suhaowork-page-content-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -596,8 +600,23 @@ function loadStoredNotes() {
   }
 }
 
-function formatAllNotes(notes) {
-  const filledNotes = pages
+function clonePages(sourcePages = pages) {
+  return JSON.parse(JSON.stringify(sourcePages));
+}
+
+function loadStoredPages() {
+  if (typeof window === "undefined") return clonePages();
+
+  try {
+    const saved = window.localStorage.getItem(CONTENT_STORAGE_KEY);
+    return saved ? JSON.parse(saved) : clonePages();
+  } catch {
+    return clonePages();
+  }
+}
+
+function formatAllNotes(notes, sourcePages = pages) {
+  const filledNotes = sourcePages
     .map((page, index) => ({
       index,
       title: page.title,
@@ -619,6 +638,18 @@ function formatPageNote(page, index, note) {
   return `第 ${pad(index + 1)} 页｜${page.title}\n${value}`;
 }
 
+function updateContentValue(sourcePages, pageIndex, path, value) {
+  const nextPages = clonePages(sourcePages);
+  let target = nextPages[pageIndex];
+
+  for (let index = 0; index < path.length - 1; index += 1) {
+    target = target[path[index]];
+  }
+
+  target[path[path.length - 1]] = value;
+  return nextPages;
+}
+
 function splitPoints(points) {
   const middle = Math.ceil(points.length / 2);
   return [points.slice(0, middle), points.slice(middle)];
@@ -635,6 +666,24 @@ function NoteButton({ index, hasNote, onOpen }) {
       <MessageSquareText size={16} aria-hidden="true" />
       <span>备注</span>
     </button>
+  );
+}
+
+function EditableText({ as: Tag = "p", className = "", value, editing, onChange }) {
+  if (!editing) {
+    return <Tag className={className}>{value}</Tag>;
+  }
+
+  return (
+    <Tag
+      className={`${className} editable-text`.trim()}
+      contentEditable
+      suppressContentEditableWarning
+      spellCheck={false}
+      onBlur={(event) => onChange(event.currentTarget.innerText.trim())}
+    >
+      {value}
+    </Tag>
   );
 }
 
@@ -698,7 +747,7 @@ function getGalleryImages(group) {
   }));
 }
 
-function AIStreamGallery({ points }) {
+function AIStreamGallery({ points, editing, onChange }) {
   const [activeGroup, setActiveGroup] = useState(aiGalleryGroups[0].key);
   const viewportRef = useRef(null);
   const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
@@ -771,7 +820,12 @@ function AIStreamGallery({ points }) {
         {points.slice(0, 3).map((item, index) => (
           <article key={item.label}>
             <span>{pad(index + 1)}</span>
-            <strong>{item.label}</strong>
+            <EditableText
+              as="strong"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "label"], value)}
+            />
           </article>
         ))}
       </div>
@@ -779,7 +833,7 @@ function AIStreamGallery({ points }) {
   );
 }
 
-function AIMethodInteractive({ points }) {
+function AIMethodInteractive({ points, editing, onChange }) {
   return (
     <div className="ai-method-panel">
       <div className="ai-method-visual" aria-label="AI 工作流生成结果池">
@@ -797,8 +851,17 @@ function AIMethodInteractive({ points }) {
         {points.map((item, index) => (
           <article className="ai-method-card" tabIndex={0} key={item.label}>
             <span>{pad(index + 1)}</span>
-            <h3>{item.label}</h3>
-            <p>{item.text}</p>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "text"], value)}
+            />
           </article>
         ))}
       </div>
@@ -841,31 +904,49 @@ function NotesModal({ page, index, note, onNoteChange, onCopyNote, copied, onClo
   );
 }
 
-function CoverCards({ items }) {
+function CoverCards({ items, editing, onChange }) {
   return (
     <div className="cover-cards">
       {items.map((item, index) => (
         <article className="cover-card" key={item.label}>
           <span>{pad(index + 1)}</span>
-          <h3>{item.label}</h3>
-          <p>{item.text}</p>
+          <EditableText
+            as="h3"
+            value={item.label}
+            editing={editing}
+            onChange={(value) => onChange(["coverItems", index, "label"], value)}
+          />
+          <EditableText
+            value={item.text}
+            editing={editing}
+            onChange={(value) => onChange(["coverItems", index, "text"], value)}
+          />
         </article>
       ))}
     </div>
   );
 }
 
-function PointCard({ item, index }) {
+function PointCard({ item, index, editing, onChange }) {
   return (
     <article className="point-card">
       <span>{pad(index + 1)}</span>
-      <h3>{item.label}</h3>
-      <p>{item.text}</p>
+      <EditableText
+        as="h3"
+        value={item.label}
+        editing={editing}
+        onChange={(value) => onChange(["points", index, "label"], value)}
+      />
+      <EditableText
+        value={item.text}
+        editing={editing}
+        onChange={(value) => onChange(["points", index, "text"], value)}
+      />
     </article>
   );
 }
 
-function CapabilityDock({ points }) {
+function CapabilityDock({ points, editing, onChange }) {
   const [openItems, setOpenItems] = useState(() => new Set([0]));
 
   const openItem = (index) => {
@@ -893,6 +974,31 @@ function CapabilityDock({ points }) {
     <div className="capability-dock" aria-label="专业能力背景">
       {points.map((item, index) => {
         const isOpen = openItems.has(index);
+        const content = (
+          <>
+            <span className="capability-count">{pad(index + 1)}</span>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "text"], value)}
+            />
+          </>
+        );
+
+        if (editing) {
+          return (
+            <article className={`capability-panel ${isOpen ? "is-open" : ""}`} key={item.label}>
+              {content}
+            </article>
+          );
+        }
+
         return (
           <button
             className={`capability-panel ${isOpen ? "is-open" : ""}`}
@@ -903,9 +1009,7 @@ function CapabilityDock({ points }) {
             aria-expanded={isOpen}
             key={item.label}
           >
-            <span className="capability-count">{pad(index + 1)}</span>
-            <h3>{item.label}</h3>
-            <p>{item.text}</p>
+            {content}
           </button>
         );
       })}
@@ -1278,7 +1382,7 @@ function LiCenterScrollStackDemo() {
   );
 }
 
-function OCVideoShowcase({ points }) {
+function OCVideoShowcase({ points, editing, onChange }) {
   return (
     <div className="oc-video-showcase">
       <div className="oc-video-grid">
@@ -1298,8 +1402,17 @@ function OCVideoShowcase({ points }) {
           <article className="oc-strategy-item" key={item.label}>
             <span>{pad(index + 1)}</span>
             <div>
-              <h3>{item.label}</h3>
-              <p>{item.text}</p>
+              <EditableText
+                as="h3"
+                value={item.label}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "label"], value)}
+              />
+              <EditableText
+                value={item.text}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "text"], value)}
+              />
             </div>
           </article>
         ))}
@@ -1308,23 +1421,42 @@ function OCVideoShowcase({ points }) {
   );
 }
 
-function HeroSection({ page, mode, note, onOpenNote, isActive }) {
+function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange }) {
   return (
     <section className={`hero-section ${isActive ? "is-active" : ""}`} id="page-1">
       <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="hero-orbit" aria-hidden="true" />
       <div className="hero-copy">
         <p className="eyebrow">{mode.label} / {mode.name}</p>
-        <h1>{page.title}</h1>
-        <p className="hero-line">{page.conclusion}</p>
-        <p className="hero-intro">{page.intro}</p>
+        <EditableText
+          as="h1"
+          value={page.title}
+          editing={editing}
+          onChange={(value) => onChange(0, ["title"], value)}
+        />
+        <EditableText
+          className="hero-line"
+          value={page.conclusion}
+          editing={editing}
+          onChange={(value) => onChange(0, ["conclusion"], value)}
+        />
+        <EditableText
+          className="hero-intro"
+          value={page.intro}
+          editing={editing}
+          onChange={(value) => onChange(0, ["intro"], value)}
+        />
       </div>
-      <CoverCards items={page.coverItems || []} />
+      <CoverCards
+        items={page.coverItems || []}
+        editing={editing}
+        onChange={(path, value) => onChange(0, path, value)}
+      />
     </section>
   );
 }
 
-function CaseSection({ page, index, note, onOpenNote, isActive }) {
+function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
@@ -1365,17 +1497,41 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
       </div>
       <div className="case-copy">
         <p className="eyebrow">{page.eyebrow}</p>
-        <h2>{page.title}</h2>
-        <p className="conclusion">{page.conclusion}</p>
-        <p className="intro">{page.intro}</p>
+        <EditableText
+          as="h2"
+          value={page.title}
+          editing={editing}
+          onChange={(value) => onChange(index, ["title"], value)}
+        />
+        <EditableText
+          className="conclusion"
+          value={page.conclusion}
+          editing={editing}
+          onChange={(value) => onChange(index, ["conclusion"], value)}
+        />
+        <EditableText
+          className="intro"
+          value={page.intro}
+          editing={editing}
+          onChange={(value) => onChange(index, ["intro"], value)}
+        />
         {page.demo === "gaussianSplat" ? (
           <div className="gaussian-copy-points">
             {page.points.map((item, pointIndex) => (
               <article key={item.label}>
                 <span>{pad(pointIndex + 1)}</span>
                 <div>
-                  <h3>{item.label}</h3>
-                  <p>{item.text}</p>
+                  <EditableText
+                    as="h3"
+                    value={item.label}
+                    editing={editing}
+                    onChange={(value) => onChange(index, ["points", pointIndex, "label"], value)}
+                  />
+                  <EditableText
+                    value={item.text}
+                    editing={editing}
+                    onChange={(value) => onChange(index, ["points", pointIndex, "text"], value)}
+                  />
                 </div>
               </article>
             ))}
@@ -1391,18 +1547,40 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
       ) : page.demo === "scrollStack" ? (
         <LiCenterScrollStackDemo />
       ) : page.demo === "aiMethod" ? (
-        <AIMethodInteractive points={page.points} />
+        <AIMethodInteractive
+          points={page.points}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
       ) : page.demo === "aiGallery" ? (
-        <AIStreamGallery points={page.points} />
+        <AIStreamGallery
+          points={page.points}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
       ) : page.demo === "capabilityDock" ? (
-        <CapabilityDock points={page.points} />
+        <CapabilityDock
+          points={page.points}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
       ) : page.demo === "ocVideos" ? (
-        <OCVideoShowcase points={page.points} />
+        <OCVideoShowcase
+          points={page.points}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
       ) : (
         <div className="points-grid">
           <div>
             {firstColumn.map((item, pointIndex) => (
-              <PointCard item={item} index={pointIndex} key={item.label} />
+              <PointCard
+                item={item}
+                index={pointIndex}
+                editing={editing}
+                onChange={(path, value) => onChange(index, path, value)}
+                key={item.label}
+              />
             ))}
           </div>
           <div>
@@ -1410,6 +1588,8 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
               <PointCard
                 item={item}
                 index={pointIndex + firstColumn.length}
+                editing={editing}
+                onChange={(path, value) => onChange(index, path, value)}
                 key={item.label}
               />
             ))}
@@ -1420,17 +1600,19 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
   );
 }
 
-function VisualDeck({ mode, notes, onOpenNote, activePageIndex }) {
+function VisualDeck({ mode, pagesSource, notes, onOpenNote, activePageIndex, editing, onChange }) {
   return (
     <main className={`visual-deck deck-${mode.id}`}>
       <HeroSection
-        page={pages[0]}
+        page={pagesSource[0]}
         mode={mode}
         note={notes[0] || ""}
         onOpenNote={onOpenNote}
         isActive={activePageIndex === 0}
+        editing={editing}
+        onChange={onChange}
       />
-      {pages.slice(1).map((page, offset) => {
+      {pagesSource.slice(1).map((page, offset) => {
         const index = offset + 1;
         return (
           <CaseSection
@@ -1440,6 +1622,8 @@ function VisualDeck({ mode, notes, onOpenNote, activePageIndex }) {
             note={notes[index] || ""}
             onOpenNote={onOpenNote}
             isActive={activePageIndex === index}
+            editing={editing}
+            onChange={onChange}
           />
         );
       })}
@@ -1447,12 +1631,12 @@ function VisualDeck({ mode, notes, onOpenNote, activePageIndex }) {
   );
 }
 
-function NavDrawer({ open, onClose }) {
+function NavDrawer({ open, onClose, pagesSource }) {
   return (
     <aside className={`toc ${open ? "is-open" : ""}`}>
       <p className="toc-title">目录</p>
       <nav aria-label="页面目录">
-        {pages.map((page, index) => (
+        {pagesSource.map((page, index) => (
           <a href={`#page-${index + 1}`} key={page.eyebrow} onClick={onClose}>
             <span>{pad(index + 1)}</span>
             {page.title}
@@ -1466,10 +1650,13 @@ function NavDrawer({ open, onClose }) {
 export function App() {
   const [navOpen, setNavOpen] = useState(false);
   const [notes, setNotes] = useState(loadStoredNotes);
+  const [contentPages, setContentPages] = useState(loadStoredPages);
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [copiedTarget, setCopiedTarget] = useState("");
-  const pageCount = useMemo(() => pages.length, []);
+  const [contentEditing, setContentEditing] = useState(false);
+  const [contentDirty, setContentDirty] = useState(false);
+  const pageCount = useMemo(() => contentPages.length, [contentPages.length]);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
     [notes],
@@ -1545,6 +1732,36 @@ export function App() {
     setNotes((current) => ({ ...current, [index]: value }));
   };
 
+  const updateContent = (pageIndex, path, value) => {
+    setContentPages((current) => updateContentValue(current, pageIndex, path, value));
+    setContentDirty(true);
+  };
+
+  const saveContent = () => {
+    try {
+      window.localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify(contentPages));
+      setContentDirty(false);
+      setContentEditing(false);
+      setCopiedTarget("content-save");
+      window.setTimeout(() => setCopiedTarget(""), 1600);
+    } catch {
+      setCopiedTarget("content-save-failed");
+      window.setTimeout(() => setCopiedTarget(""), 1600);
+    }
+  };
+
+  const resetContent = () => {
+    const nextPages = clonePages();
+    setContentPages(nextPages);
+    setContentDirty(false);
+    setContentEditing(false);
+    try {
+      window.localStorage.removeItem(CONTENT_STORAGE_KEY);
+    } catch {
+      // Local content reset is non-critical.
+    }
+  };
+
   const copyText = async (text, target) => {
     try {
       if (navigator.clipboard?.writeText) {
@@ -1568,11 +1785,11 @@ export function App() {
   };
 
   const copyAllNotes = () => {
-    copyText(formatAllNotes(notes), "all");
+    copyText(formatAllNotes(notes, contentPages), "all");
   };
 
   const copyPageNote = (index) => {
-    copyText(formatPageNote(pages[index], index, notes[index] || ""), `page-${index}`);
+    copyText(formatPageNote(contentPages[index], index, notes[index] || ""), `page-${index}`);
   };
 
   return (
@@ -1595,6 +1812,30 @@ export function App() {
             <span>{pageCount} pages</span>
             <span>{notesCount} notes</span>
           </div>
+          <button
+            className={`edit-content-button ${contentEditing ? "is-active" : ""}`}
+            type="button"
+            onClick={() => setContentEditing((value) => !value)}
+          >
+            <PencilLine size={16} />
+            {contentEditing ? "退出编辑" : "编辑文案"}
+          </button>
+          {contentEditing || contentDirty ? (
+            <>
+              <button className="save-content-button" type="button" onClick={saveContent}>
+                {copiedTarget === "content-save" ? <ClipboardCheck size={16} /> : <Save size={16} />}
+                {copiedTarget === "content-save"
+                  ? "已保存"
+                  : copiedTarget === "content-save-failed"
+                    ? "保存失败"
+                    : "保存文案"}
+              </button>
+              <button className="reset-content-button" type="button" onClick={resetContent}>
+                <RotateCcw size={16} />
+                还原
+              </button>
+            </>
+          ) : null}
           <button className="copy-all-button" type="button" onClick={copyAllNotes}>
             {copiedTarget === "all" ? <ClipboardCheck size={16} /> : <ClipboardList size={16} />}
             {copiedTarget === "all" ? "已复制备注" : "复制备注"}
@@ -1611,19 +1852,22 @@ export function App() {
         </div>
       </header>
 
-      <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
+      <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} pagesSource={contentPages} />
       <ViewportGradualBlur />
 
       <VisualDeck
         mode={activeMode}
+        pagesSource={contentPages}
         notes={notes}
         onOpenNote={setActiveNoteIndex}
         activePageIndex={activePageIndex}
+        editing={contentEditing}
+        onChange={updateContent}
       />
 
       {activeNoteIndex !== null ? (
         <NotesModal
-          page={pages[activeNoteIndex]}
+          page={contentPages[activeNoteIndex]}
           index={activeNoteIndex}
           note={notes[activeNoteIndex] || ""}
           onNoteChange={updateNote}
