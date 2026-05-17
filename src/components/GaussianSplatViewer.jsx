@@ -15,6 +15,7 @@ function fitSplatToView(mesh, camera, controls) {
 
   mesh.position.sub(center.multiplyScalar(scale));
   mesh.scale.setScalar(scale);
+  mesh.rotation.z = Math.PI;
   mesh.updateMatrixWorld(true);
 
   const distance = 4.85;
