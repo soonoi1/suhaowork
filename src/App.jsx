@@ -915,7 +915,7 @@ function CoverCards({ items, editing, onChange }) {
   return (
     <div className="cover-cards">
       {items.map((item, index) => (
-        <article className="cover-card" key={item.label}>
+        <article className="cover-card" tabIndex={0} key={item.label}>
           <span>{pad(index + 1)}</span>
           <EditableText
             as="h3"
@@ -936,7 +936,7 @@ function CoverCards({ items, editing, onChange }) {
 
 function PointCard({ item, index, editing, onChange }) {
   return (
-    <article className="point-card">
+    <article className="point-card" tabIndex={0}>
       <span>{pad(index + 1)}</span>
       <EditableText
         as="h3"
@@ -1274,19 +1274,36 @@ function StandbyRadianceDemo() {
 }
 
 function SS4FluidGlassDemo() {
+  const [lensPosition, setLensPosition] = useState({ x: 50, y: 50 });
+
+  const updateLensPosition = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    setLensPosition({
+      x: ((event.clientX - rect.left) / rect.width) * 100,
+      y: ((event.clientY - rect.top) / rect.height) * 100,
+    });
+  };
+
   return (
-    <div className="fluid-glass-demo">
-      <video className="fluid-glass-source-video" src="/assets/ss4/ss4-ui-bg.mp4" autoPlay muted loop playsInline />
+    <div
+      className="fluid-glass-demo"
+      onPointerMove={updateLensPosition}
+      style={{
+        "--glass-lens-x": `${lensPosition.x}%`,
+        "--glass-lens-y": `${lensPosition.y}%`,
+      }}
+    >
       <Suspense fallback={<div className="fluid-glass-loading">SS4 MATERIAL</div>}>
         <FluidGlass
           mode="lens"
+          videoUrl="/assets/ss4/ss4-ui-bg.mp4"
           showSceneImages={false}
           lensProps={{
             scale: 0.3,
             ior: 1.2,
             thickness: 5.6,
             transmission: 1,
-            roughness: 0.045,
+            roughness: 0.08,
             chromaticAberration: 0.1,
             anisotropy: 0.035,
             color: "#ffffff",
@@ -1481,7 +1498,7 @@ function OCVideoShowcase({ points, editing, onChange }) {
       </div>
       <div className="oc-strategy-board">
         {points.map((item, index) => (
-          <article className="oc-strategy-item" key={item.label}>
+          <article className="oc-strategy-item" tabIndex={0} key={item.label}>
             <span>{pad(index + 1)}</span>
             <div>
               <EditableText
@@ -1732,7 +1749,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
 
 function VisualDeck({ mode, pagesSource, notes, onOpenNote, activePageIndex, editing, onChange }) {
   return (
-    <main className={`visual-deck deck-${mode.id}`}>
+    <main className={`visual-deck deck-${mode.id}${editing ? " is-editing" : ""}`}>
       <HeroSection
         page={pagesSource[0]}
         mode={mode}

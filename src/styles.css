@@ -395,6 +395,7 @@ button {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+  width: min(100%, 1120px);
   margin-top: 12px;
 }
 
@@ -406,11 +407,35 @@ button {
   border-radius: 8px;
   background: var(--panel);
   backdrop-filter: blur(16px);
+  outline: none;
+  transition:
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms ease,
+    background 240ms ease,
+    box-shadow 240ms ease;
 }
 
 .cover-card {
-  min-height: 160px;
+  min-height: 86px;
+  max-height: 104px;
   padding: 18px;
+}
+
+.cover-card:hover,
+.cover-card:focus-within,
+.cover-card:focus,
+.point-card:hover,
+.point-card:focus-within,
+.point-card:focus,
+.visual-deck.is-editing .cover-card,
+.visual-deck.is-editing .point-card {
+  z-index: 3;
+  max-height: 260px;
+  border-color: rgba(255, 255, 255, 0.42);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.045)),
+    rgba(0, 0, 0, 0.76);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
 }
 
 .cover-card span,
@@ -432,10 +457,40 @@ button {
 
 .cover-card p,
 .point-card p {
+  max-height: 0;
   margin: 0;
+  overflow: hidden;
   color: var(--muted);
   font-size: 14px;
   line-height: 1.72;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin 260ms ease,
+    opacity 220ms ease,
+    transform 260ms ease;
+}
+
+.cover-card:hover p,
+.cover-card:focus-within p,
+.cover-card:focus p,
+.point-card:hover p,
+.point-card:focus-within p,
+.point-card:focus p,
+.visual-deck.is-editing .cover-card p,
+.visual-deck.is-editing .point-card p {
+  max-height: 150px;
+  margin-top: 10px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.visual-deck.is-editing .cover-card,
+.visual-deck.is-editing .point-card,
+.visual-deck.is-editing .ai-method-card,
+.visual-deck.is-editing .oc-strategy-item {
+  max-height: none;
 }
 
 .case-section {
@@ -993,6 +1048,7 @@ button {
 .ai-method-card {
   position: relative;
   min-height: 86px;
+  max-height: 86px;
   overflow: hidden;
   padding: 13px;
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -1000,18 +1056,16 @@ button {
   background: rgba(5, 5, 5, 0.58);
   backdrop-filter: blur(16px);
   transition:
-    min-height 260ms ease,
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
     background 260ms ease,
-    border-color 260ms ease,
-    transform 260ms ease;
+    border-color 260ms ease;
 }
 
 .ai-method-card:hover,
 .ai-method-card:focus-within {
-  min-height: 178px;
+  max-height: 190px;
   border-color: rgba(255, 255, 255, 0.34);
   background: rgba(12, 12, 12, 0.78);
-  transform: translateY(-4px);
 }
 
 .ai-method-card span {
@@ -1060,7 +1114,8 @@ button {
 }
 
 .ai-method-card:hover p,
-.ai-method-card:focus-within p {
+.ai-method-card:focus-within p,
+.visual-deck.is-editing .ai-method-card p {
   max-height: 132px;
   margin-top: 10px;
   opacity: 1;
@@ -1111,6 +1166,8 @@ button {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  justify-self: end;
+  width: min(100%, 960px);
 }
 
 .points-grid > div {
@@ -1121,6 +1178,7 @@ button {
 
 .point-card {
   min-height: 0;
+  max-height: 86px;
   padding: 16px;
 }
 
@@ -1503,22 +1561,39 @@ button {
 .oc-strategy-board {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.16);
+  align-items: start;
+  gap: 10px;
+  overflow: visible;
 }
 
 .oc-strategy-item {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 12px;
-  min-height: 172px;
+  min-height: 76px;
+  max-height: 86px;
+  overflow: hidden;
   padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
     rgba(5, 5, 5, 0.66);
+  outline: none;
+  transition:
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms ease,
+    background 240ms ease;
+}
+
+.oc-strategy-item:hover,
+.oc-strategy-item:focus-within {
+  z-index: 3;
+  max-height: 210px;
+  border-color: rgba(255, 255, 255, 0.38);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.038)),
+    rgba(5, 5, 5, 0.78);
 }
 
 .oc-strategy-item span {
@@ -1536,10 +1611,28 @@ button {
 }
 
 .oc-strategy-item p {
+  max-height: 0;
   margin: 0;
+  overflow: hidden;
   color: rgba(245, 245, 240, 0.66);
   font-size: 12px;
   line-height: 1.58;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    margin 260ms ease,
+    opacity 220ms ease,
+    transform 260ms ease;
+}
+
+.oc-strategy-item:hover p,
+.oc-strategy-item:focus-within p,
+.visual-deck.is-editing .oc-strategy-item p {
+  max-height: 132px;
+  margin-top: 8px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .gaussian-splat-demo {
@@ -1929,18 +2022,6 @@ button {
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
 }
 
-.fluid-glass-source-video {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.78;
-  filter: saturate(1.06) contrast(1.08) brightness(0.92) blur(0.35px);
-  pointer-events: none;
-}
-
 .fluid-glass-demo canvas {
   position: relative;
   z-index: 1;
@@ -1952,9 +2033,9 @@ button {
 
 .fluid-glass-lens-glow {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
+  left: var(--glass-lens-x, 50%);
+  top: var(--glass-lens-y, 50%);
+  z-index: 3;
   width: clamp(180px, 19vw, 285px);
   aspect-ratio: 1;
   border: 1px solid rgba(255, 248, 236, 0.34);
@@ -1971,8 +2052,12 @@ button {
   opacity: 0.78;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(5px) brightness(1.16) saturate(1.08);
-  -webkit-backdrop-filter: blur(5px) brightness(1.16) saturate(1.08);
+  backdrop-filter: blur(9px) brightness(1.18) saturate(1.1);
+  -webkit-backdrop-filter: blur(9px) brightness(1.18) saturate(1.1);
+  transition:
+    left 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    top 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 220ms ease;
 }
 
 .fluid-glass-lens-glow::after {
@@ -2019,7 +2104,7 @@ button {
   position: absolute;
   left: 18px;
   bottom: 18px;
-  z-index: 3;
+  z-index: 4;
   display: grid;
   gap: 4px;
   color: var(--muted);
@@ -2353,6 +2438,25 @@ button {
     opacity: 1;
   }
 
+  .cover-card,
+  .cover-card:hover,
+  .cover-card:focus-within,
+  .cover-card:focus,
+  .point-card,
+  .point-card:hover,
+  .point-card:focus-within,
+  .point-card:focus {
+    max-height: none;
+  }
+
+  .cover-card p,
+  .point-card p {
+    max-height: none;
+    margin-top: 10px;
+    opacity: 1;
+    transform: none;
+  }
+
   .final-summary-showcase {
     gap: 18px;
   }
@@ -2405,12 +2509,26 @@ button {
   .ai-method-card:hover,
   .ai-method-card:focus-within {
     min-height: auto;
+    max-height: none;
   }
 
   .ai-method-card p {
     max-height: none;
     margin-top: 10px;
     opacity: 1;
+  }
+
+  .oc-strategy-item,
+  .oc-strategy-item:hover,
+  .oc-strategy-item:focus-within {
+    max-height: none;
+  }
+
+  .oc-strategy-item p {
+    max-height: none;
+    margin-top: 8px;
+    opacity: 1;
+    transform: none;
   }
 
   .case-section {

@@ -9,6 +9,7 @@ import {
   Text,
   useFBO,
   useGLTF,
+  useVideoTexture,
 } from "@react-three/drei";
 import { easing } from "maath";
 
@@ -19,6 +20,7 @@ export default function FluidGlass({
   cubeProps = {},
   showSceneImages = true,
   showTypography = true,
+  videoUrl = "",
 }) {
   const Wrapper = mode === "bar" ? Bar : mode === "cube" ? Cube : Lens;
   const modeProps = mode === "bar" ? barProps : mode === "cube" ? cubeProps : lensProps;
@@ -27,12 +29,37 @@ export default function FluidGlass({
     <Canvas camera={{ position: [0, 0, 20], fov: 15 }} gl={{ alpha: true, antialias: true }} dpr={[1, 1.7]}>
       <Suspense fallback={null}>
         <Wrapper modeProps={modeProps}>
+          {videoUrl ? <VideoBackdrop url={videoUrl} /> : null}
           {showTypography ? <Typography /> : null}
           {showSceneImages ? <SceneImages /> : null}
           <Preload />
         </Wrapper>
       </Suspense>
     </Canvas>
+  );
+}
+
+function VideoBackdrop({ url }) {
+  const texture = useVideoTexture(url, {
+    muted: true,
+    loop: true,
+    start: true,
+    playsInline: true,
+  });
+  const { viewport } = useThree();
+
+  useEffect(() => {
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.generateMipmaps = false;
+  }, [texture]);
+
+  return (
+    <mesh position={[0, 0, 0]} scale={[viewport.width, viewport.height, 1]}>
+      <planeGeometry />
+      <meshBasicMaterial map={texture} toneMapped={false} />
+    </mesh>
   );
 }
 
