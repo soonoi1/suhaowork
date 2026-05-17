@@ -53,7 +53,7 @@ const pages = [
       },
       {
         label: "主要的工作项目",
-        text: "理想同学实体化形象、理想同学中心、4o 小同桌、7.4 OTA 设计交付、AI 实战工作流、Standby 放射光、OC 眼睛。",
+        text: "理想同学实体化、理想同学中心、4o 小同桌、7.4 OTA 设计交付、AI 实战工作流、Standby 放射光、OC 眼睛。",
       },
       {
         label: "简单简介",
@@ -65,6 +65,7 @@ const pages = [
   {
     eyebrow: "02 / Capability",
     title: "专业能力背景",
+    demo: "capabilityDock",
     conclusion:
       "能力覆盖 3D 与动画、产品动效与交互、AI 应用工作流和创新探索。",
     intro:
@@ -125,7 +126,7 @@ const pages = [
     conclusion:
       "通过 3D 材质和动画判断，把毛绒的真实感、亲和感和线上稳定性结合起来。",
     intro:
-      "理想同学实体化形象中，帽子和身体的毛发效果是关键转折点。它决定角色是否真实、是否亲和，也决定最终视觉是否能在线上稳定呈现。",
+      "理想同学实体化中，帽子和身体的毛发效果是关键转折点。它决定角色是否真实、是否亲和，也决定最终视觉是否能在线上稳定呈现。",
     points: [
       {
         label: "项目背景",
@@ -234,7 +235,7 @@ const pages = [
     points: [
       {
         label: "实体形象探索",
-        text: "在理想同学实体化形象阶段，持续利用 AI 进行形象方向探索，用大量过程图辅助判断什么样的形体、材质和气质更适合理想同学，再结合 3D 专业判断进行收敛。",
+        text: "在理想同学实体化阶段，持续利用 AI 进行形象方向探索，用大量过程图辅助判断什么样的形体、材质和气质更适合理想同学，再结合 3D 专业判断进行收敛。",
       },
       {
         label: "自定义形象与 24 小时动画",
@@ -261,7 +262,7 @@ const pages = [
   {
     eyebrow: "09 / AI Method",
     title: "逆向生产策略",
-    demo: "aiMethod",
+    demo: "aiGallery",
     conclusion:
       "把 AI 的随机性转化为可筛选、可决策、可复用的生产流程。",
     intro:
@@ -385,7 +386,7 @@ const pages = [
     points: [
       {
         label: "视觉体系",
-        text: "从理想同学实体化形象出发，沉淀了毛绒形象、毛绒材质和相关场景视觉语言，为后续角色和多端形象提供统一基础。",
+        text: "从理想同学实体化出发，沉淀了毛绒形象、毛绒材质和相关场景视觉语言，为后续角色和多端形象提供统一基础。",
       },
       {
         label: "动效与交互方法",
@@ -411,7 +412,7 @@ const pages = [
     points: [
       {
         label: "项目与业务",
-        text: "参与理想同学实体化形象、理想同学中心、4o 小同桌、7.4 OTA 设计交付、AI 实战工作流、Standby 放射光和 OC 眼睛等项目，覆盖形象、交互、动效、资源和未来体验探索。",
+        text: "参与理想同学实体化、理想同学中心、4o 小同桌、7.4 OTA 设计交付、AI 实战工作流、Standby 放射光和 OC 眼睛等项目，覆盖形象、交互、动效、资源和未来体验探索。",
       },
       {
         label: "能力与问题",
@@ -542,6 +543,24 @@ const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
   description: "AI 角色形象筛选",
 }));
 
+const aiGalleryGroups = [
+  {
+    key: "character",
+    label: "自定义形象",
+    range: [1, 16],
+  },
+  {
+    key: "hat",
+    label: "帽子探索",
+    range: [5, 16, 1, 4],
+  },
+  {
+    key: "scene",
+    label: "24 小时场景",
+    range: [9, 16, 1, 8],
+  },
+];
+
 const ocShowcaseVideos = [
   {
     title: "OC 最终眼睛方案",
@@ -655,6 +674,101 @@ function AIWorkflowInfiniteBackdrop() {
   );
 }
 
+function getGalleryImages(group) {
+  const [start, end, wrapStart, wrapEnd] = group.range;
+  const primary = Array.from({ length: end - start + 1 }, (_, index) => start + index);
+  const wrapped =
+    wrapStart && wrapEnd
+      ? Array.from({ length: wrapEnd - wrapStart + 1 }, (_, index) => wrapStart + index)
+      : [];
+
+  return [...primary, ...wrapped].map((imageIndex) => ({
+    src: `/assets/ai-workflow/people/ai-person-${pad(imageIndex)}.jpg`,
+    title: `${group.label} ${pad(imageIndex)}`,
+  }));
+}
+
+function AIStreamGallery({ points }) {
+  const [activeGroup, setActiveGroup] = useState(aiGalleryGroups[0].key);
+  const viewportRef = useRef(null);
+  const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
+  const images = getGalleryImages(group);
+  const streamItems = [...images, ...images, ...images];
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return undefined;
+
+    viewport.scrollLeft = viewport.scrollWidth / 3;
+
+    const handleWheel = (event) => {
+      const section = viewport.closest(".case-section");
+      const rect = section?.getBoundingClientRect();
+      const isPrimaryPage =
+        rect && rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
+
+      if (!isPrimaryPage || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+
+      event.preventDefault();
+      viewport.scrollLeft += event.deltaY;
+    };
+
+    const handleScroll = () => {
+      const third = viewport.scrollWidth / 3;
+      if (viewport.scrollLeft < third * 0.35) {
+        viewport.scrollLeft += third;
+      } else if (viewport.scrollLeft > third * 1.65) {
+        viewport.scrollLeft -= third;
+      }
+    };
+
+    viewport.addEventListener("wheel", handleWheel, { passive: false });
+    viewport.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      viewport.removeEventListener("wheel", handleWheel);
+      viewport.removeEventListener("scroll", handleScroll);
+    };
+  }, [activeGroup, images.length]);
+
+  return (
+    <div className="ai-stream-gallery">
+      <div className="ai-stream-tabs" aria-label="AI 素材分类">
+        {aiGalleryGroups.map((item) => (
+          <button
+            className={item.key === activeGroup ? "is-active" : ""}
+            type="button"
+            onClick={() => setActiveGroup(item.key)}
+            key={item.key}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <div className="ai-stream-viewport" aria-label="横向素材浏览" ref={viewportRef}>
+        <div className="ai-stream-track">
+          {streamItems.map((item, index) => (
+            <figure
+              className={`ai-stream-item ${index % 5 === 1 ? "is-tall" : ""} ${index % 7 === 3 ? "is-wide" : ""}`}
+              key={`${item.src}-${index}`}
+            >
+              <img src={item.src} alt="" loading={index < 10 ? "eager" : "lazy"} />
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div className="ai-stream-summary">
+        {points.slice(0, 3).map((item, index) => (
+          <article key={item.label}>
+            <span>{pad(index + 1)}</span>
+            <strong>{item.label}</strong>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function AIMethodInteractive({ points }) {
   return (
     <div className="ai-method-panel">
@@ -741,6 +855,54 @@ function PointCard({ item, index }) {
   );
 }
 
+function CapabilityDock({ points }) {
+  const [openItems, setOpenItems] = useState(() => new Set([0]));
+
+  const openItem = (index) => {
+    setOpenItems((current) => {
+      if (current.has(index)) return current;
+      const next = new Set(current);
+      next.add(index);
+      return next;
+    });
+  };
+
+  const toggleItem = (index) => {
+    setOpenItems((current) => {
+      const next = new Set(current);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  };
+
+  return (
+    <div className="capability-dock" aria-label="专业能力背景">
+      {points.map((item, index) => {
+        const isOpen = openItems.has(index);
+        return (
+          <button
+            className={`capability-panel ${isOpen ? "is-open" : ""}`}
+            type="button"
+            onMouseEnter={() => openItem(index)}
+            onFocus={() => openItem(index)}
+            onClick={() => toggleItem(index)}
+            aria-expanded={isOpen}
+            key={item.label}
+          >
+            <span className="capability-count">{pad(index + 1)}</span>
+            <h3>{item.label}</h3>
+            <p>{item.text}</p>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 const radiancePresets = {
   standby: {
     label: "Standby",
@@ -791,6 +953,16 @@ function RadianceSlider({ label, value, onChange, min, max, step = 1 }) {
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
       />
+    </label>
+  );
+}
+
+function RadianceColorControl({ label, value, onChange }) {
+  return (
+    <label className="radiance-color-control">
+      <span>{label}</span>
+      <input type="color" value={value} onChange={(event) => onChange(event.target.value)} />
+      <strong>{value}</strong>
     </label>
   );
 }
@@ -895,6 +1067,18 @@ function StandbyRadianceDemo() {
             onChange={(value) => setLightValue("speed", value)}
           />
         </div>
+        <div className="radiance-color-space">
+          <RadianceColorControl
+            label="Base Color"
+            value={light.base}
+            onChange={(value) => setLightValue("base", value)}
+          />
+          <RadianceColorControl
+            label="Light Color"
+            value={light.highlight}
+            onChange={(value) => setLightValue("highlight", value)}
+          />
+        </div>
       </div>
     </div>
   );
@@ -946,6 +1130,36 @@ function LiCenterScrollStackDemo() {
   const moveActiveVideo = (direction) => {
     setActiveIndex((current) => Math.min(lastIndex, Math.max(0, current + direction)));
   };
+
+  useEffect(() => {
+    let snapTimeout;
+
+    const alignSection = () => {
+      const section = rootRef.current?.closest(".case-section");
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      const visibleRatio = visibleHeight / Math.max(rect.height, 1);
+
+      const offset = Math.abs(rect.top);
+      if (visibleRatio > 0.58 && offset > 18 && offset < 140) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
+
+    const scheduleSnap = () => {
+      window.clearTimeout(snapTimeout);
+      snapTimeout = window.setTimeout(alignSection, 180);
+    };
+
+    window.addEventListener("scroll", scheduleSnap, { passive: true });
+
+    return () => {
+      window.clearTimeout(snapTimeout);
+      window.removeEventListener("scroll", scheduleSnap);
+    };
+  }, []);
 
   useEffect(() => {
     const handleWheel = (event) => {
@@ -1053,9 +1267,15 @@ function OCVideoShowcase({ points }) {
           </article>
         ))}
       </div>
-      <div className="oc-points-grid">
+      <div className="oc-strategy-board">
         {points.map((item, index) => (
-          <PointCard item={item} index={index} key={item.label} />
+          <article className="oc-strategy-item" key={item.label}>
+            <span>{pad(index + 1)}</span>
+            <div>
+              <h3>{item.label}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
         ))}
       </div>
     </div>
@@ -1101,6 +1321,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
 
   if (page.demo === "aiMethod") {
     sectionClasses.push("has-ai-method");
+  } else if (page.demo === "aiGallery") {
+    sectionClasses.push("has-ai-gallery");
+  } else if (page.demo === "capabilityDock") {
+    sectionClasses.push("has-capability-dock");
   } else if (pageNumber === 9) {
     sectionClasses.push("has-infinite-menu");
   }
@@ -1129,6 +1353,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive }) {
         <LiCenterScrollStackDemo />
       ) : page.demo === "aiMethod" ? (
         <AIMethodInteractive points={page.points} />
+      ) : page.demo === "aiGallery" ? (
+        <AIStreamGallery points={page.points} />
+      ) : page.demo === "capabilityDock" ? (
+        <CapabilityDock points={page.points} />
       ) : page.demo === "ocVideos" ? (
         <OCVideoShowcase points={page.points} />
       ) : (
