@@ -537,7 +537,7 @@ const liCenterStackVideos = [
 ];
 
 const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
-  image: `/assets/ai-workflow/people/ai-person-${pad(index + 1)}.jpg`,
+  image: `/assets/ai-workflow/results/characters/characters-${pad(index + 1)}.webp`,
   link: "",
   title: `AI Workflow ${pad(index + 1)}`,
   description: "AI 角色形象筛选",
@@ -545,19 +545,28 @@ const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
 
 const aiGalleryGroups = [
   {
-    key: "character",
-    label: "自定义形象",
-    range: [1, 16],
+    key: "characters",
+    label: "人物形象",
+    tone: "black",
+    count: 24,
   },
   {
-    key: "hat",
+    key: "animals",
+    label: "动物形象",
+    tone: "black",
+    count: 20,
+  },
+  {
+    key: "hats",
     label: "帽子探索",
-    range: [5, 16, 1, 4],
+    tone: "black",
+    count: 24,
   },
   {
-    key: "scene",
+    key: "daily",
     label: "24 小时场景",
-    range: [9, 16, 1, 8],
+    tone: "white",
+    count: 20,
   },
 ];
 
@@ -734,16 +743,9 @@ function AIWorkflowInfiniteBackdrop() {
 }
 
 function getGalleryImages(group) {
-  const [start, end, wrapStart, wrapEnd] = group.range;
-  const primary = Array.from({ length: end - start + 1 }, (_, index) => start + index);
-  const wrapped =
-    wrapStart && wrapEnd
-      ? Array.from({ length: wrapEnd - wrapStart + 1 }, (_, index) => wrapStart + index)
-      : [];
-
-  return [...primary, ...wrapped].map((imageIndex) => ({
-    src: `/assets/ai-workflow/people/ai-person-${pad(imageIndex)}.jpg`,
-    title: `${group.label} ${pad(imageIndex)}`,
+  return Array.from({ length: group.count }, (_, index) => ({
+    src: `/assets/ai-workflow/results/${group.key}/${group.key}-${pad(index + 1)}.webp`,
+    title: `${group.label} ${pad(index + 1)}`,
   }));
 }
 
@@ -752,13 +754,13 @@ function AIStreamGallery({ points, editing, onChange }) {
   const viewportRef = useRef(null);
   const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
   const images = getGalleryImages(group);
-  const streamItems = [...images, ...images, ...images];
+  const streamItems = [...images, ...images];
 
   useEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport) return undefined;
 
-    viewport.scrollLeft = viewport.scrollWidth / 3;
+    viewport.scrollLeft = 0;
 
     const handleWheel = (event) => {
       const section = viewport.closest(".case-section");
@@ -773,11 +775,11 @@ function AIStreamGallery({ points, editing, onChange }) {
     };
 
     const handleScroll = () => {
-      const third = viewport.scrollWidth / 3;
-      if (viewport.scrollLeft < third * 0.35) {
-        viewport.scrollLeft += third;
-      } else if (viewport.scrollLeft > third * 1.65) {
-        viewport.scrollLeft -= third;
+      const half = viewport.scrollWidth / 2;
+      if (viewport.scrollLeft < 8) {
+        viewport.scrollLeft += half;
+      } else if (viewport.scrollLeft > half + 8) {
+        viewport.scrollLeft -= half;
       }
     };
 
@@ -791,7 +793,7 @@ function AIStreamGallery({ points, editing, onChange }) {
   }, [activeGroup, images.length]);
 
   return (
-    <div className="ai-stream-gallery">
+    <div className={`ai-stream-gallery is-${group.tone}`}>
       <div className="ai-stream-tabs" aria-label="AI 素材分类">
         {aiGalleryGroups.map((item) => (
           <button
@@ -801,31 +803,36 @@ function AIStreamGallery({ points, editing, onChange }) {
             key={item.key}
           >
             {item.label}
+            <span>{item.count}</span>
           </button>
         ))}
       </div>
-      <div className="ai-stream-viewport" aria-label="横向素材浏览" ref={viewportRef}>
+      <div className="ai-stream-viewport" aria-label={`${group.label}素材浏览`} ref={viewportRef}>
         <div className="ai-stream-track">
           {streamItems.map((item, index) => (
-            <figure
-              className={`ai-stream-item ${index % 5 === 1 ? "is-tall" : ""} ${index % 7 === 3 ? "is-wide" : ""}`}
-              key={`${item.src}-${index}`}
-            >
+            <figure className="ai-stream-item" key={`${item.src}-${index}`}>
               <img src={item.src} alt="" loading={index < 10 ? "eager" : "lazy"} />
             </figure>
           ))}
         </div>
       </div>
       <div className="ai-stream-summary">
-        {points.slice(0, 3).map((item, index) => (
-          <article key={item.label}>
+        {points.map((item, index) => (
+          <article tabIndex={0} key={item.label}>
             <span>{pad(index + 1)}</span>
-            <EditableText
-              as="strong"
-              value={item.label}
-              editing={editing}
-              onChange={(value) => onChange(["points", index, "label"], value)}
-            />
+            <div>
+              <EditableText
+                as="strong"
+                value={item.label}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "label"], value)}
+              />
+              <EditableText
+                value={item.text}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "text"], value)}
+              />
+            </div>
           </article>
         ))}
       </div>
@@ -1600,7 +1607,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   return (
     <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
-      {pageNumber === 9 && page.demo !== "aiMethod" ? <AIWorkflowInfiniteBackdrop /> : null}
+      {pageNumber === 9 && page.demo !== "aiGallery" && page.demo !== "aiMethod" ? <AIWorkflowInfiniteBackdrop /> : null}
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="case-index" aria-hidden="true">
         {pad(pageNumber)}
