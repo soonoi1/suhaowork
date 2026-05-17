@@ -1730,7 +1730,7 @@ button {
 .radiance-demo {
   grid-column: 2;
   display: grid;
-  grid-template-rows: auto auto;
+  grid-template-rows: minmax(340px, 1fr) auto;
   align-content: center;
   gap: 12px;
   height: calc(100svh - 184px);
@@ -1741,8 +1741,8 @@ button {
   position: relative;
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 32 / 9;
-  max-height: 312px;
+  height: clamp(340px, 38svh, 420px);
+  max-height: none;
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
@@ -1780,7 +1780,7 @@ button {
 
 .radiance-webgl {
   z-index: 1;
-  transform: scale(1.1);
+  transform: scale(1.21);
   transform-origin: center;
   transition: filter 220ms ease;
 }
