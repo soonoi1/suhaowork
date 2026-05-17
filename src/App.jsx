@@ -46,27 +46,27 @@ const pages = [
     conclusion:
       "能力覆盖 3D 与动画、产品动效与交互、AI 应用工作流和创新探索。",
     intro:
-      "这部分不是工具清单，而是我在相关项目中形成的能力基础和可对应的项目成果。",
+      "这部分不是工具清单，而是我在项目中形成的专业判断、执行方法和可对应的成果基础。",
     points: [
       {
         label: "3D 与动画能力",
-        text: "我熟悉 3D 全流程制作与技术路径，能够从形体、材质、灯光、渲染到动画节奏判断方案的可实现性与上线稳定性。动画能力覆盖 3D 角色动画、UI 动效和体验型交互动态，能够将重量、节奏、情绪和状态反馈转化为用户可感知的动态表达。",
+        text: "我熟悉 3D 从形体、材质、灯光、渲染到动画的完整制作路径，能够判断方案的视觉质量、实现成本和上线稳定性。动画经验覆盖 3D 角色动画、UI 动效和体验型交互动态，能够把重量、节奏、情绪和状态反馈转化为用户可感知的动态表达。",
       },
       {
         label: "产品动效与交互能力",
-        text: "我对产品动效的理解侧重于状态表达、注意力引导、层级关系和操作反馈。实际项目中，会结合缓动曲线、状态切换、动效频率、停留时长和交互连续性，判断动效是否清晰、是否克制，以及是否适合长期使用场景。",
+        text: "我会从状态表达、注意力引导、层级关系和操作反馈理解产品动效。在项目中，我会结合缓动曲线、状态切换、动效频率、停留时长和交互连续性，判断动效是否清晰、克制，并适合长期使用场景。",
       },
       {
-        label: "多端资源适配落地能力",
-        text: "我具备多端资源交付经验，熟悉不同端侧对格式、尺寸、编码、透明通道、压缩方式、性能和版本兼容的要求。在设计阶段会提前判断资源拆分、导出、压缩和研发接入方式，降低后期返工和端侧适配成本。",
+        label: "资源适配与落地能力",
+        text: "我具备跨端资源交付经验，熟悉图片、视频、透明通道、编码格式、压缩方式、性能限制和版本兼容等要求。在设计阶段，我会提前规划资源拆分、导出规范、压缩策略和研发接入方式，降低后期返工和适配成本。",
       },
       {
         label: "AI 应用工作流",
-        text: "我持续关注 AI 工具的能力边界，并将其转化为具体提效流程，包括批量生成、结果筛选、视频裁切压缩、脚本自动化和可交互原型验证。重点不在于单次使用某个工具，而在于将 AI 嵌入真实项目流程，用于解决效率、验证和交付问题。",
+        text: "我持续观察 AI 工具的能力边界，并将其转化为可复用的提效流程，包括批量生成、结果筛选、视频裁切压缩、脚本自动化和可交互原型验证。我的重点不是单次使用工具，而是把 AI 嵌入真实项目流程，用于解决效率、验证和交付问题。",
       },
       {
         label: "创新探索能力",
-        text: "我在理想同学相关项目中承担过多项早期探索工作，包括原生形象、视觉语言、交互动效和未来体验方向。探索过程强调可验证、可讨论和可转化，目标是将前期概念逐步推进为可落地的产品方案。",
+        text: "我在理想同学相关项目中承担过多项早期探索工作，包括原生形象、视觉语言、交互动效和未来体验方向。探索过程强调可验证、可讨论、可转化，目标是把前期概念逐步推进为可落地的产品方案。",
       },
     ],
   },
@@ -239,26 +239,27 @@ const pages = [
   {
     eyebrow: "09 / AI Method",
     title: "逆向生产策略",
+    demo: "aiMethod",
     conclusion:
-      "关键贡献不是简单生图，而是把 AI 的随机性改造成可被筛选、可被决策、可被复用的生产流程。",
+      "把 AI 的随机性转化为可筛选、可决策、可复用的生产流程。",
     intro:
-      "AI 生成本身并不复杂，真正的问题是如何让普通生图在真实项目中提高效率和命中率。我采用的核心方式，是把传统正向构思改成逆向生产和漏斗式筛选。",
+      "核心方式是先扩大结果池，再用设计判断反向收敛，让生成从单点尝试变成流程能力。",
     points: [
       {
         label: "两行说明",
-        text: "先用 AI 扩大结果池，再用设计判断反向筛选高质量结果；把费时的构思和试错交给批量生成，把关键的审美判断、场景匹配和结果决策留给设计师。",
+        text: "先用 AI 扩大结果池，再用设计判断反向筛选高质量结果。把费时的构思和试错交给批量生成，把关键的审美判断、场景匹配和结果决策留给设计师。",
       },
       {
         label: "逆向生产模式",
-        text: "不再从单个明确想法开始逐个生成，而是围绕项目需求提前设计生成范围，批量覆盖可能的方向，再从成功率高、完整度高的结果中反向收敛最终需求。",
+        text: "不从单个明确想法开始逐个生成，而是围绕项目需求提前设计生成范围，批量覆盖可能方向，再从成功率高、完整度高的结果中反向收敛最终需求。",
       },
       {
         label: "漏斗式筛选流程",
-        text: "先通过 AI 大量生图和生视频，覆盖帽子、形象、场景、动作等可能范围；再根据优质结果倒筛，像漏斗一样快速聚焦并锚定最终可用方向。",
+        text: "通过大量生图和生视频覆盖帽子、形象、场景、动作等可能范围，再根据优质结果倒筛，像漏斗一样快速聚焦并锚定最终可用方向。",
       },
       {
         label: "核心优势",
-        text: "效率和准确率更高：构思与试错环节先被 AI 快速筛一轮；同时也更容易出现意外灵感，让项目不只得到预期结果，也能发现新的设计可能。",
+        text: "效率和准确率更高：构思与试错环节先被 AI 快速筛一轮；同时更容易出现意外灵感，让项目不只得到预期结果，也能发现新的设计可能。",
       },
     ],
   },
@@ -599,28 +600,20 @@ function PageBackdrop({ backdrop }) {
   );
 }
 
-function SectionGradualBlur() {
+function ViewportGradualBlur({ active }) {
   return (
-    <>
-      <GradualBlur
-        className="section-gradual-blur section-gradual-blur-top"
-        position="top"
-        height="12svh"
-        strength={2.4}
-        divCount={10}
-        curve="bezier"
-        zIndex={8}
-      />
-      <GradualBlur
-        className="section-gradual-blur section-gradual-blur-bottom"
-        position="bottom"
-        height="15svh"
-        strength={3.2}
-        divCount={10}
-        curve="bezier"
-        zIndex={8}
-      />
-    </>
+    <GradualBlur
+      className="viewport-gradual-blur"
+      position="bottom"
+      target="page"
+      height="15svh"
+      strength={3.4}
+      divCount={9}
+      curve="bezier"
+      exponential
+      zIndex={-28}
+      style={{ opacity: active ? 1 : 0, transition: "opacity 260ms ease" }}
+    />
   );
 }
 
@@ -636,6 +629,33 @@ function AIWorkflowInfiniteBackdrop() {
           showDetails={false}
         />
       </Suspense>
+    </div>
+  );
+}
+
+function AIMethodInteractive({ points }) {
+  return (
+    <div className="ai-method-panel">
+      <div className="ai-method-visual" aria-label="AI 工作流生成结果池">
+        <Suspense fallback={<div className="ai-method-loading">AI RESULT POOL</div>}>
+          <InfiniteMenu
+            className="ai-method-infinite-menu"
+            items={aiWorkflowPeopleItems}
+            scale={1.5}
+            autoRotate
+            showDetails={false}
+          />
+        </Suspense>
+      </div>
+      <div className="ai-method-cards">
+        {points.map((item, index) => (
+          <article className="ai-method-card" tabIndex={0} key={item.label}>
+            <span>{pad(index + 1)}</span>
+            <h3>{item.label}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
@@ -957,7 +977,6 @@ function HeroSection({ page, mode, note, onOpenNote }) {
   return (
     <section className="hero-section" id="page-1">
       <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
-      <SectionGradualBlur />
       <div className="hero-orbit" aria-hidden="true" />
       <div className="hero-copy">
         <p className="eyebrow">{mode.label} / {mode.name}</p>
@@ -988,16 +1007,17 @@ function CaseSection({ page, index, note, onOpenNote }) {
     sectionClasses.push("has-oc-videos");
   }
 
-  if (pageNumber === 9) {
+  if (page.demo === "aiMethod") {
+    sectionClasses.push("has-ai-method");
+  } else if (pageNumber === 9) {
     sectionClasses.push("has-infinite-menu");
   }
 
   return (
     <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
-      {pageNumber === 9 ? <AIWorkflowInfiniteBackdrop /> : null}
+      {pageNumber === 9 && page.demo !== "aiMethod" ? <AIWorkflowInfiniteBackdrop /> : null}
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
-      <SectionGradualBlur />
       <div className="case-index" aria-hidden="true">
         {pad(pageNumber)}
       </div>
@@ -1015,6 +1035,8 @@ function CaseSection({ page, index, note, onOpenNote }) {
         <GaussianSplatDemo />
       ) : page.demo === "scrollStack" ? (
         <LiCenterScrollStackDemo />
+      ) : page.demo === "aiMethod" ? (
+        <AIMethodInteractive points={page.points} />
       ) : page.demo === "ocVideos" ? (
         <OCVideoShowcase points={page.points} />
       ) : (
@@ -1086,6 +1108,7 @@ export function App() {
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [copiedTarget, setCopiedTarget] = useState("");
+  const [isScrolling, setIsScrolling] = useState(false);
   const pageCount = useMemo(() => pages.length, []);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
@@ -1096,6 +1119,27 @@ export function App() {
   useEffect(() => {
     window.localStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notes));
   }, [notes]);
+
+  useEffect(() => {
+    let timeoutId;
+
+    const markScrolling = () => {
+      setIsScrolling(true);
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(() => setIsScrolling(false), 420);
+    };
+
+    window.addEventListener("scroll", markScrolling, { passive: true });
+    window.addEventListener("wheel", markScrolling, { passive: true });
+    window.addEventListener("touchmove", markScrolling, { passive: true });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.removeEventListener("scroll", markScrolling);
+      window.removeEventListener("wheel", markScrolling);
+      window.removeEventListener("touchmove", markScrolling);
+    };
+  }, []);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
@@ -1193,6 +1237,7 @@ export function App() {
       </header>
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
+      <ViewportGradualBlur active={isScrolling} />
 
       <VisualDeck
         mode={activeMode}

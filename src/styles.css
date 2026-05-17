@@ -545,8 +545,165 @@ button {
   border-color: rgba(255, 255, 255, 0.22);
 }
 
-.section-gradual-blur {
+.viewport-gradual-blur {
   pointer-events: none;
+}
+
+.case-section.has-ai-method {
+  grid-template-columns: minmax(280px, 0.46fr) minmax(0, 1fr);
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.case-section.has-ai-method .case-copy {
+  z-index: 3;
+}
+
+.case-section.has-ai-method .case-copy h2 {
+  max-width: 440px;
+}
+
+.case-section.has-ai-method .conclusion {
+  max-width: 430px;
+  font-size: clamp(18px, 1.65vw, 25px);
+}
+
+.case-section.has-ai-method .intro {
+  max-width: 410px;
+}
+
+.ai-method-panel {
+  grid-column: 2;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 12px;
+  height: calc(100svh - 184px);
+  min-height: 520px;
+}
+
+.ai-method-visual {
+  position: relative;
+  min-height: 312px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 62% 50%, rgba(255, 255, 255, 0.08), transparent 34%),
+    #050505;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+}
+
+.ai-method-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.12), transparent 42%, rgba(0, 0, 0, 0.52)),
+    radial-gradient(circle at 50% 48%, transparent 0%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+.ai-method-infinite-menu {
+  position: absolute;
+  inset: -16%;
+  width: 132%;
+  height: 132%;
+  opacity: 0.94;
+  filter: saturate(0.98) contrast(1.08) brightness(0.9);
+}
+
+.ai-method-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--soft);
+  font-size: 12px;
+  font-weight: 780;
+}
+
+.ai-method-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ai-method-card {
+  position: relative;
+  min-height: 86px;
+  overflow: hidden;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: rgba(5, 5, 5, 0.58);
+  backdrop-filter: blur(16px);
+  transition:
+    min-height 260ms ease,
+    background 260ms ease,
+    border-color 260ms ease,
+    transform 260ms ease;
+}
+
+.ai-method-card:hover,
+.ai-method-card:focus-within {
+  min-height: 178px;
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(12, 12, 12, 0.78);
+  transform: translateY(-4px);
+}
+
+.ai-method-card span {
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 840;
+}
+
+.ai-method-card h3 {
+  margin: 10px 0 0;
+  color: var(--ink);
+  font-size: clamp(15px, 1.35vw, 19px);
+  font-weight: 840;
+  line-height: 1.24;
+}
+
+.ai-method-card h3::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 1px;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0.42);
+  transform-origin: left;
+  transition: transform 260ms ease;
+}
+
+.ai-method-card:hover h3::after,
+.ai-method-card:focus-within h3::after {
+  transform: scaleX(1);
+}
+
+.ai-method-card p {
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  color: rgba(245, 245, 240, 0.7);
+  font-size: 12px;
+  line-height: 1.58;
+  opacity: 0;
+  transition:
+    max-height 300ms ease,
+    margin 260ms ease,
+    opacity 220ms ease;
+}
+
+.ai-method-card:hover p,
+.ai-method-card:focus-within p {
+  max-height: 132px;
+  margin-top: 10px;
+  opacity: 1;
 }
 
 .case-index {
@@ -1335,6 +1492,7 @@ button {
   .fluid-glass-demo,
   .gaussian-splat-demo,
   .li-center-scroll-demo,
+  .ai-method-panel,
   .oc-video-showcase {
     grid-column: auto;
   }
@@ -1382,10 +1540,32 @@ button {
   }
 
   .cover-cards,
-  .points-grid {
+  .points-grid,
+  .ai-method-cards {
     grid-template-columns: 1fr;
     width: 100%;
     margin-left: 0;
+  }
+
+  .ai-method-panel {
+    height: auto;
+    min-height: 0;
+  }
+
+  .ai-method-visual {
+    min-height: 380px;
+  }
+
+  .ai-method-card,
+  .ai-method-card:hover,
+  .ai-method-card:focus-within {
+    min-height: auto;
+  }
+
+  .ai-method-card p {
+    max-height: none;
+    margin-top: 10px;
+    opacity: 1;
   }
 
   .case-section {
