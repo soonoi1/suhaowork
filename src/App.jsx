@@ -1525,11 +1525,21 @@ function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange
 }
 
 function FinalSummaryShowcase({ points, editing, onChange }) {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
   return (
     <div className="final-summary-showcase">
       <div className="final-summary-cards" aria-label="Summary details">
         {points.map((item, pointIndex) => (
-          <article className="final-summary-card" tabIndex={0} key={item.label}>
+          <article
+            className={`final-summary-card${activeCardIndex === pointIndex ? " is-expanded" : ""}`}
+            tabIndex={0}
+            onMouseEnter={() => setActiveCardIndex(pointIndex)}
+            onMouseLeave={() => setActiveCardIndex(null)}
+            onFocus={() => setActiveCardIndex(pointIndex)}
+            onBlur={() => setActiveCardIndex(null)}
+            key={item.label}
+          >
             <span>{pad(pointIndex + 1)}</span>
             <EditableText
               as="h3"

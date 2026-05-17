@@ -562,6 +562,7 @@ button {
   align-self: end;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
   gap: 12px;
   z-index: 2;
 }
@@ -588,9 +589,7 @@ button {
     background 240ms ease;
 }
 
-.final-summary-card:hover,
-.final-summary-card:focus-within,
-.final-summary-card:focus {
+.final-summary-card.is-expanded {
   max-height: 236px;
   transform: translateY(-10px);
   border-color: rgba(255, 255, 255, 0.42);
@@ -628,9 +627,7 @@ button {
     transform 260ms ease;
 }
 
-.final-summary-card:hover p,
-.final-summary-card:focus-within p,
-.final-summary-card:focus p {
+.final-summary-card.is-expanded p {
   opacity: 1;
   transform: translateY(0);
 }
