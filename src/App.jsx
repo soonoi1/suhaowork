@@ -1555,6 +1555,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
     sectionClasses.push("has-infinite-menu");
   }
 
+  if (pageNumber === pages.length) {
+    sectionClasses.push("final-summary-section");
+  }
+
   return (
     <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
@@ -1638,6 +1642,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           editing={editing}
           onChange={(path, value) => onChange(index, path, value)}
         />
+      ) : pageNumber === pages.length ? (
+        <div className="final-summary-visual">
+          <img src="/assets/final-summary-banner.jpg" alt="" />
+        </div>
       ) : (
         <div className="points-grid">
           <div>
@@ -1738,6 +1746,13 @@ export function App() {
       // Notes are a convenience layer; storage failures must not affect page rendering.
     }
   }, [notes]);
+
+  useEffect(() => {
+    document.documentElement.dataset.finalSummary = activePageIndex === pageCount - 1 ? "true" : "false";
+    return () => {
+      delete document.documentElement.dataset.finalSummary;
+    };
+  }, [activePageIndex, pageCount]);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));

@@ -532,6 +532,36 @@ button {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
+.final-summary-section {
+  background: #000;
+}
+
+:root[data-final-summary="true"] .deck-space {
+  background: #000;
+}
+
+.final-summary-section::before,
+.final-summary-section::after {
+  display: none;
+}
+
+.final-summary-section .case-index {
+  color: rgba(255, 255, 255, 0.07);
+}
+
+.final-summary-visual {
+  grid-column: 1 / -1;
+  align-self: end;
+  width: calc(100% + var(--page-gutter) * 2);
+  margin: 0 calc(var(--page-gutter) * -1);
+}
+
+.final-summary-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .ai-infinite-backdrop {
   position: absolute;
   inset: 0;
