@@ -652,7 +652,7 @@ function PageBackdrop({ backdrop }) {
   );
 }
 
-function ViewportGradualBlur({ active }) {
+function ViewportGradualBlur() {
   return (
     <GradualBlur
       className="viewport-gradual-blur"
@@ -663,8 +663,7 @@ function ViewportGradualBlur({ active }) {
       divCount={9}
       curve="bezier"
       exponential
-      zIndex={-28}
-      style={{ opacity: active ? 1 : 0, transition: "opacity 260ms ease" }}
+      zIndex={60}
     />
   );
 }
@@ -1470,7 +1469,6 @@ export function App() {
   const [activeNoteIndex, setActiveNoteIndex] = useState(null);
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [copiedTarget, setCopiedTarget] = useState("");
-  const [isScrolling, setIsScrolling] = useState(false);
   const pageCount = useMemo(() => pages.length, []);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
@@ -1485,27 +1483,6 @@ export function App() {
       // Notes are a convenience layer; storage failures must not affect page rendering.
     }
   }, [notes]);
-
-  useEffect(() => {
-    let timeoutId;
-
-    const markScrolling = () => {
-      setIsScrolling(true);
-      window.clearTimeout(timeoutId);
-      timeoutId = window.setTimeout(() => setIsScrolling(false), 420);
-    };
-
-    window.addEventListener("scroll", markScrolling, { passive: true });
-    window.addEventListener("wheel", markScrolling, { passive: true });
-    window.addEventListener("touchmove", markScrolling, { passive: true });
-
-    return () => {
-      window.clearTimeout(timeoutId);
-      window.removeEventListener("scroll", markScrolling);
-      window.removeEventListener("wheel", markScrolling);
-      window.removeEventListener("touchmove", markScrolling);
-    };
-  }, []);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
@@ -1635,7 +1612,7 @@ export function App() {
       </header>
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} />
-      <ViewportGradualBlur active={isScrolling} />
+      <ViewportGradualBlur />
 
       <VisualDeck
         mode={activeMode}
