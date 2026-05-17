@@ -42,6 +42,8 @@ uniform float uPulseScale;
 // Shockwave Uniform
 uniform float uShockwave; // 0.0 to 1.0 progress
 uniform vec2  uShockwaveCenter;
+uniform float uClickGlow;
+uniform vec2  uClickCenter;
 
 float hash21(vec2 p){
     p = floor(p);
@@ -217,6 +219,17 @@ void main(){
        col += col * pulseMask * uPulseStrength * 1.5; 
     }
 
+    if (uClickGlow > 0.01) {
+       float aspect = uResolution.x / uResolution.y;
+       vec2 uvCentered = (frag - 0.5 * uResolution) / min(uResolution.x, uResolution.y);
+       vec2 clickCenter = vec2(uClickCenter.x, 1.0 - uClickCenter.y) * 2.0 - 1.0;
+       clickCenter.x *= aspect;
+       float clickDist = distance(uvCentered, clickCenter * 0.5);
+       float clickMask = exp(-clickDist * clickDist * 18.0) * uClickGlow;
+       vec3 warmGlow = sampleGradient(0.62);
+       col += col * clickMask * 1.1 + warmGlow * clickMask * 0.34;
+    }
+
     float focusLen = length(uFocus);
     if (focusLen > 0.01) {
        vec2 uvCentered = (frag - 0.5 * uResolution) / min(uResolution.x, uResolution.y);
@@ -269,6 +282,7 @@ interface PrismaticBurstProps {
   pulse?: { strength: number; x: number; y: number; scale: number };
   shockwave?: number; // 0 to 1
   shockwaveCenter?: { x: number; y: number };
+  clickGlow?: { strength: number; x: number; y: number };
 }
 
 const PrismaticBurstComponent: React.FC<PrismaticBurstProps> = ({
@@ -285,7 +299,8 @@ const PrismaticBurstComponent: React.FC<PrismaticBurstProps> = ({
   focus = { x: 0, y: 0 },
   pulse = { strength: 0, x: 0, y: 0, scale: 0 },
   shockwave = 0,
-  shockwaveCenter = { x: 0.5, y: 0.5 }
+  shockwaveCenter = { x: 0.5, y: 0.5 },
+  clickGlow = { strength: 0, x: 0.5, y: 0.5 }
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<any>(null);
@@ -374,7 +389,9 @@ const PrismaticBurstComponent: React.FC<PrismaticBurstProps> = ({
                 uPulseVector: { value: [0, 0] },
                 uPulseScale: { value: 0.0 },
                 uShockwave: { value: 0.0 },
-                uShockwaveCenter: { value: [0.5, 0.5] }
+                uShockwaveCenter: { value: [0.5, 0.5] },
+                uClickGlow: { value: 0.0 },
+                uClickCenter: { value: [0.5, 0.5] }
             },
             transparent: true
         });
@@ -505,6 +522,8 @@ const PrismaticBurstComponent: React.FC<PrismaticBurstProps> = ({
     program.uniforms.uPulseScale.value = pulse.scale ?? 0;
     program.uniforms.uShockwave.value = shockwave ?? 0; // Update shockwave uniform
     program.uniforms.uShockwaveCenter.value = [shockwaveCenter.x, shockwaveCenter.y];
+    program.uniforms.uClickGlow.value = clickGlow.strength ?? 0;
+    program.uniforms.uClickCenter.value = [clickGlow.x, clickGlow.y];
 
     const animTypeMap: Record<string, number> = {
       rotate: 0,
@@ -520,7 +539,7 @@ const PrismaticBurstComponent: React.FC<PrismaticBurstProps> = ({
     program.uniforms.uOffset.value = [ox, oy];
     program.uniforms.uRayCount.value = Math.max(0, Math.floor(rayCount ?? 0));
     program.uniforms.uColorCount.value = colors && colors.length ? Math.min(colors.length, 64) : 0;
-  }, [intensity, animationType, distort, offset, rayCount, focus, pulse, shockwave, shockwaveCenter, colors?.length]);
+  }, [intensity, animationType, distort, offset, rayCount, focus, pulse, shockwave, shockwaveCenter, clickGlow, colors?.length]);
 
   // 2. Heavy Texture Updates (only when colors actually change)
   useEffect(() => {

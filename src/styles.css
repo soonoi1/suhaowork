@@ -1575,7 +1575,7 @@ button {
   overflow: hidden;
   width: 100%;
   aspect-ratio: 32 / 9;
-  max-height: 260px;
+  max-height: 312px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
@@ -1613,6 +1613,8 @@ button {
 
 .radiance-webgl {
   z-index: 1;
+  transform: scale(1.1);
+  transform-origin: center;
   transition: filter 220ms ease;
 }
 
@@ -1627,13 +1629,13 @@ button {
   backdrop-filter: blur(16px);
 }
 
-.radiance-modes {
+.radiance-direction-pad {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
 }
 
-.radiance-modes button {
+.radiance-direction-pad button {
   min-height: 46px;
   padding: 8px;
   border: 1px solid var(--line);
@@ -1643,25 +1645,26 @@ button {
   cursor: pointer;
 }
 
-.radiance-modes button:hover,
-.radiance-modes button.is-selected {
+.radiance-direction-pad button:hover,
+.radiance-direction-pad button:active,
+.radiance-direction-pad button:focus-visible {
   border-color: var(--line-strong);
   background: var(--accent);
   color: var(--accent-contrast);
 }
 
-.radiance-modes span,
-.radiance-modes small {
+.radiance-direction-pad span,
+.radiance-direction-pad small {
   display: block;
 }
 
-.radiance-modes span {
-  font-size: 12px;
+.radiance-direction-pad span {
+  font-size: 15px;
   font-weight: 820;
   text-transform: uppercase;
 }
 
-.radiance-modes small {
+.radiance-direction-pad small {
   margin-top: 3px;
   font-size: 10px;
   opacity: 0.68;
@@ -2214,7 +2217,7 @@ button {
   }
 
   .radiance-controls,
-  .radiance-modes,
+  .radiance-direction-pad,
   .radiance-color-space {
     grid-template-columns: 1fr;
   }

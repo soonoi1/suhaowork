@@ -1017,37 +1017,13 @@ function CapabilityDock({ points, editing, onChange }) {
   );
 }
 
-const radiancePresets = {
-  standby: {
-    label: "Standby",
-    helper: "低打扰待机",
-    intensity: 1.45,
-    distort: 0.55,
-    rayCount: 14,
-    speed: 0.46,
-    base: "#d5851f",
-    highlight: "#fff0c2",
-  },
-  listening: {
-    label: "Listening",
-    helper: "轻响应感知",
-    intensity: 1.8,
-    distort: 0.72,
-    rayCount: 18,
-    speed: 0.72,
-    base: "#ff9b26",
-    highlight: "#fff4d6",
-  },
-  thinking: {
-    label: "Thinking",
-    helper: "慢节奏波动",
-    intensity: 1.55,
-    distort: 1.1,
-    rayCount: 24,
-    speed: 0.95,
-    base: "#be7b1a",
-    highlight: "#fff1ba",
-  },
+const radianceDefault = {
+  intensity: 2.05,
+  distort: 0,
+  rayCount: 15,
+  speed: 0.15,
+  base: "#A87534",
+  highlight: "#D2A14B",
 };
 
 function RadianceSlider({ label, value, onChange, min, max, step = 1 }) {
@@ -1083,30 +1059,22 @@ function RadianceColorControl({ label, value, onChange }) {
 
 function StandbyRadianceDemo() {
   const [light, setLight] = useState({
-    mode: "standby",
-    intensity: radiancePresets.standby.intensity,
-    distort: radiancePresets.standby.distort,
-    rayCount: radiancePresets.standby.rayCount,
-    speed: radiancePresets.standby.speed,
-    base: radiancePresets.standby.base,
-    highlight: radiancePresets.standby.highlight,
+    intensity: radianceDefault.intensity,
+    distort: radianceDefault.distort,
+    rayCount: radianceDefault.rayCount,
+    speed: radianceDefault.speed,
+    base: radianceDefault.base,
+    highlight: radianceDefault.highlight,
   });
+  const stageRef = useRef(null);
+  const keysRef = useRef({ up: false, down: false, left: false, right: false });
+  const targetFocusRef = useRef({ x: 0, y: 0 });
+  const clickGlowRef = useRef({ strength: 0, x: 0.5, y: 0.5 });
+  const [focus, setFocus] = useState({ x: 0, y: 0 });
+  const [clickGlow, setClickGlow] = useState({ strength: 0, x: 0.5, y: 0.5 });
 
   const setLightValue = (key, value) => {
     setLight((current) => ({ ...current, [key]: value }));
-  };
-
-  const applyPreset = (mode) => {
-    const preset = radiancePresets[mode];
-    setLight({
-      mode,
-      intensity: preset.intensity,
-      distort: preset.distort,
-      rayCount: preset.rayCount,
-      speed: preset.speed,
-      base: preset.base,
-      highlight: preset.highlight,
-    });
   };
 
   const burstColors = useMemo(
@@ -1114,9 +1082,87 @@ function StandbyRadianceDemo() {
     [light.base, light.highlight],
   );
 
+  useEffect(() => {
+    let rafId = 0;
+
+    const animateInteraction = () => {
+      const nextTarget = { x: 0, y: 0 };
+      if (keysRef.current.up) nextTarget.y += 1;
+      if (keysRef.current.down) nextTarget.y -= 1;
+      if (keysRef.current.right) nextTarget.x += 1;
+      if (keysRef.current.left) nextTarget.x -= 1;
+
+      const length = Math.hypot(nextTarget.x, nextTarget.y);
+      if (length > 0) {
+        nextTarget.x /= length;
+        nextTarget.y /= length;
+      }
+
+      targetFocusRef.current.x += (nextTarget.x - targetFocusRef.current.x) * 0.08;
+      targetFocusRef.current.y += (nextTarget.y - targetFocusRef.current.y) * 0.08;
+      clickGlowRef.current.strength *= 0.9;
+
+      setFocus({ ...targetFocusRef.current });
+      setClickGlow({ ...clickGlowRef.current });
+      rafId = window.requestAnimationFrame(animateInteraction);
+    };
+
+    rafId = window.requestAnimationFrame(animateInteraction);
+    return () => window.cancelAnimationFrame(rafId);
+  }, []);
+
+  useEffect(() => {
+    const isControlTarget = (target) =>
+      target instanceof HTMLElement &&
+      Boolean(target.closest('input, textarea, select, button, a, [contenteditable="true"]'));
+
+    const isRadiancePageActive = () => {
+      const section = stageRef.current?.closest(".case-section");
+      if (!section) return false;
+      const rect = section.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.62 && rect.bottom > window.innerHeight * 0.38;
+    };
+
+    const updateKey = (event, pressed) => {
+      if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      if (isControlTarget(event.target)) return;
+      if (pressed && !isRadiancePageActive()) return;
+
+      event.preventDefault();
+      if (event.key === "ArrowUp") keysRef.current.up = pressed;
+      if (event.key === "ArrowDown") keysRef.current.down = pressed;
+      if (event.key === "ArrowLeft") keysRef.current.left = pressed;
+      if (event.key === "ArrowRight") keysRef.current.right = pressed;
+    };
+
+    const handleKeyDown = (event) => updateKey(event, true);
+    const handleKeyUp = (event) => updateKey(event, false);
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
+
+  const triggerClickGlow = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    clickGlowRef.current = {
+      strength: 0.85,
+      x: (event.clientX - rect.left) / Math.max(rect.width, 1),
+      y: (event.clientY - rect.top) / Math.max(rect.height, 1),
+    };
+    setClickGlow({ ...clickGlowRef.current });
+  };
+
+  const holdDirection = (direction, pressed) => {
+    keysRef.current[direction] = pressed;
+  };
+
   return (
     <div className="radiance-demo">
-      <div className="radiance-stage">
+      <div className="radiance-stage" ref={stageRef} onPointerDown={triggerClickGlow}>
         <div className="radiance-webgl" aria-hidden="true">
           <PrismaticBurst
             intensity={light.intensity}
@@ -1126,24 +1172,33 @@ function StandbyRadianceDemo() {
             colors={burstColors}
             animationType="rotate3d"
             mixBlendMode="screen"
-            focus={{ x: 0, y: 0 }}
+            focus={focus}
             pulse={{ strength: 0, x: 0, y: 0, scale: 0 }}
             shockwave={0}
             shockwaveCenter={{ x: 0.5, y: 0.5 }}
+            clickGlow={clickGlow}
           />
         </div>
       </div>
       <div className="radiance-panel">
-        <div className="radiance-modes" aria-label="放射光状态">
-          {Object.entries(radiancePresets).map(([key, preset]) => (
+        <div className="radiance-direction-pad" aria-label="放射光方向控制">
+          {[
+            ["left", "←", "左侧视角"],
+            ["up", "↑", "上方视角"],
+            ["down", "↓", "下方视角"],
+            ["right", "→", "右侧视角"],
+          ].map(([key, label, helper]) => (
             <button
-              className={light.mode === key ? "is-selected" : ""}
               type="button"
-              onClick={() => applyPreset(key)}
+              onPointerDown={() => holdDirection(key, true)}
+              onPointerUp={() => holdDirection(key, false)}
+              onPointerLeave={() => holdDirection(key, false)}
+              onPointerCancel={() => holdDirection(key, false)}
+              onBlur={() => holdDirection(key, false)}
               key={key}
             >
-              <span>{preset.label}</span>
-              <small>{preset.helper}</small>
+              <span>{label}</span>
+              <small>{helper}</small>
             </button>
           ))}
         </div>
