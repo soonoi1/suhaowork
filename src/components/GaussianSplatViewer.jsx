@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { SparkRenderer, SplatMesh } from "@sparkjsdev/spark";
 
-function fitSplatToView(mesh, camera, controls) {
+function fitSplatToView(mesh, pivot, camera, controls) {
   const box = mesh.getBoundingBox?.(true) || new THREE.Box3().setFromObject(mesh);
   const size = new THREE.Vector3();
   const center = new THREE.Vector3();
@@ -13,10 +13,14 @@ function fitSplatToView(mesh, camera, controls) {
   const maxAxis = Math.max(size.x, size.y, size.z, 0.0001);
   const scale = 2.22 / maxAxis;
 
-  mesh.position.sub(center.multiplyScalar(scale));
-  mesh.scale.setScalar(scale);
-  mesh.rotation.z = Math.PI;
+  mesh.position.copy(center).multiplyScalar(-1);
+  mesh.scale.setScalar(1);
+  mesh.rotation.set(0, 0, 0);
+  pivot.position.set(0, 0, 0);
+  pivot.scale.setScalar(scale);
+  pivot.rotation.set(0, -0.2, Math.PI);
   mesh.updateMatrixWorld(true);
+  pivot.updateMatrixWorld(true);
 
   const distance = 4.85;
   camera.position.set(0, 0.08, distance);
@@ -99,6 +103,8 @@ export default function GaussianSplatViewer({
     });
     scene.add(spark);
     sparkRef.current = spark;
+    const modelPivot = new THREE.Group();
+    scene.add(modelPivot);
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
@@ -121,7 +127,7 @@ export default function GaussianSplatViewer({
       },
       onLoad: (mesh) => {
         if (disposed) return;
-        fitSplatToView(mesh, camera, controls);
+        fitSplatToView(mesh, modelPivot, camera, controls);
         setStatus("ready");
         setMessage("");
         spark.setDirty();
@@ -129,7 +135,7 @@ export default function GaussianSplatViewer({
     });
 
     splatRef.current = splat;
-    scene.add(splat);
+    modelPivot.add(splat);
     resize();
 
     resizeObserverRef.current = new ResizeObserver(resize);
@@ -154,7 +160,7 @@ export default function GaussianSplatViewer({
       if (disposed) return;
 
       if (autoRotate && status !== "error") {
-        splat.rotation.y += 0.0012;
+        modelPivot.rotation.y += 0.001;
         spark.setDirty();
       }
 
