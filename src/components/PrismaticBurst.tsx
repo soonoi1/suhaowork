@@ -226,9 +226,10 @@ void main(){
        clickDirection.x *= aspect;
        float rayAlignment = dot(normalize(uvCentered), normalize(clickDirection));
        float radialPresence = smoothstep(0.02, 0.18, length(uvCentered));
-       float clickMask = smoothstep(0.64, 0.96, rayAlignment) * radialPresence * uClickGlow;
-       vec3 warmGlow = sampleGradient(0.62);
-       col += col * clickMask * 1.35 + warmGlow * clickMask * 0.18;
+       float rayLuma = max(max(col.r, col.g), col.b);
+       float rayOnly = smoothstep(0.018, 0.18, rayLuma);
+       float clickMask = smoothstep(0.78, 0.985, rayAlignment) * radialPresence * rayOnly * uClickGlow;
+       col *= 1.0 + clickMask * 1.9;
     }
 
     float focusLen = length(uFocus);
