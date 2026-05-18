@@ -229,6 +229,10 @@ texture
   - 保持 `.cover-card` 固定占位高度。
   - 使用 `::before` 作为 hover 背板，让展开效果只发生在视觉层。
   - 桌面端卡片文字整体向上吸附到展开背板顶部，移动端仍自然展开显示。
+- 第 3 页「理想同学实体化」新增素材图库弹窗：
+  - 源素材来自 `E:\baidu\BaiduSyncdisk\liauto\理想素材_手动整理框架\理想同学实体化形象升级\1`。
+  - 已复制 9 张 PNG 到 `public/assets/character-upgrade/`，供站点线上访问。
+  - 新增 `CharacterMaterialPanel`：点击按钮弹出，图片自动横向滚动，点击遮罩空白或关闭按钮收回。
 
 ### 2026-05-14
 

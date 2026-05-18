@@ -2,6 +2,7 @@ import { Component, Suspense, lazy, useEffect, useMemo, useRef, useState } from 
 import {
   ClipboardCheck,
   ClipboardList,
+  Images,
   PencilLine,
   Menu,
   MessageSquareText,
@@ -813,6 +814,21 @@ const gaussianModelOptions = [
   },
 ];
 
+const characterMaterialImages = [
+  "dark2.png",
+  "dark3.png",
+  "dark4.png",
+  "dark5.png",
+  "dark6.png",
+  "dark7.png",
+  "dark8.png",
+  "dark9.png",
+  "dark10.png",
+].map((name, index) => ({
+  src: `/assets/character-upgrade/${name}`,
+  label: `Material ${pad(index + 1)}`,
+}));
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -1605,6 +1621,59 @@ function GaussianSplatDemo() {
   );
 }
 
+function CharacterMaterialPanel({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const loopImages = [...characterMaterialImages, ...characterMaterialImages];
+
+  return (
+    <div
+      className="character-material-overlay"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+    >
+      <section className="character-material-panel" role="dialog" aria-modal="true" aria-label="实体化形象素材">
+        <div className="character-material-head">
+          <div>
+            <span>CHARACTER MATERIAL</span>
+            <h3>实体化形象素材</h3>
+          </div>
+          <button className="character-material-close" type="button" aria-label="关闭素材面板" onClick={onClose}>
+            <X size={18} />
+          </button>
+        </div>
+        <div className="character-material-viewport" aria-label="形象素材图片列表">
+          <div className="character-material-track">
+            {loopImages.map((item, index) => (
+              <figure className="character-material-frame" key={`${item.src}-${index}`}>
+                <img src={item.src} alt={`${item.label} 理想同学实体化素材`} loading="lazy" />
+                <figcaption>{item.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function LiCenterScrollStackDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
   const rootRef = useRef(null);
@@ -1849,6 +1918,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
 }
 
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
+  const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
@@ -1891,6 +1961,12 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       <div className="case-index" aria-hidden="true">
         {pad(pageNumber)}
       </div>
+      {pageNumber === 3 && page.demo === "gaussianSplat" ? (
+        <button className="character-material-trigger" type="button" onClick={() => setMaterialPanelOpen(true)}>
+          <Images size={18} />
+          <span>素材图库</span>
+        </button>
+      ) : null}
       <div className="case-copy">
         <p className="eyebrow">{page.eyebrow}</p>
         <EditableText
@@ -1999,6 +2075,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           </div>
         </div>
       )}
+      <CharacterMaterialPanel open={isMaterialPanelOpen} onClose={() => setMaterialPanelOpen(false)} />
     </section>
   );
 }
