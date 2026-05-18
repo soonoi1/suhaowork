@@ -821,7 +821,13 @@ const liCenterAnimationItems = liCenterStackVideos.map((item) => ({
   label: item.title,
 }));
 
-const fourOCarAnimationItems = [];
+const fourOCarAnimationItems = [
+  {
+    src: "/assets/four-o-car/li-table-dark-w.mp4",
+    label: "小同桌 dark W",
+    meta: "4O car animation",
+  },
+];
 
 const fourOPhoneAnimationItems = [];
 

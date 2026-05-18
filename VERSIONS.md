@@ -101,3 +101,8 @@
 - 新增 `src/content.saved.json` 作为“保存文案”的源码同步文件。
 - 本地开发环境点击“保存文案”时，会同时写入浏览器 `localStorage` 和 `src/content.saved.json`。
 - 站点启动/构建时优先使用 `src/content.saved.json` 中的页面文案，避免文案只存在浏览器缓存里。
+
+## 2026-05-19 4O car material
+
+- 第 4 页“4O 车机端”弹窗新增 `小同桌dark_W.mp4` 素材。
+- 视频已复制到 `public/assets/four-o-car/li-table-dark-w.mp4`，并接入 `fourOCarAnimationItems`。
