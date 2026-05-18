@@ -2,6 +2,7 @@ import { Component, Suspense, lazy, useEffect, useMemo, useRef, useState } from 
 import {
   ClipboardCheck,
   ClipboardList,
+  Film,
   Images,
   PencilLine,
   Menu,
@@ -813,6 +814,11 @@ const gaussianModelOptions = [
     meta: "20 MB / body hand",
   },
 ];
+
+const liCenterAnimationItems = liCenterStackVideos.map((item) => ({
+  ...item,
+  label: item.title,
+}));
 
 const characterMaterialImages = [
   "dark2.png",
@@ -1694,6 +1700,81 @@ function CharacterMaterialPanel({ open, onClose }) {
   );
 }
 
+function LiCenterAnimationPanel({ open, onClose }) {
+  const viewportRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const handlePanelWheel = (event) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    viewport.scrollLeft += event.deltaY + event.deltaX;
+  };
+
+  return (
+    <div
+      className="center-animation-overlay"
+      role="presentation"
+      onMouseDown={(event) => {
+        if (event.target === event.currentTarget) {
+          onClose();
+        }
+      }}
+      onWheel={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      }}
+    >
+      <section
+        className="center-animation-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="理想同学中心动画"
+        onWheel={handlePanelWheel}
+      >
+        <div className="center-animation-head">
+          <div>
+            <span>LI CENTER ANIMATION</span>
+            <h3>理想同学中心动画</h3>
+          </div>
+          <button className="center-animation-close" type="button" aria-label="关闭动画面板" onClick={onClose}>
+            <X size={18} />
+          </button>
+        </div>
+        <div className="center-animation-viewport" aria-label="理想同学中心动画列表" ref={viewportRef}>
+          <div className="center-animation-track">
+            {liCenterAnimationItems.map((item) => (
+              <article className="center-animation-card" key={item.src}>
+                <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                <div className="center-animation-copy">
+                  <span>{item.meta}</span>
+                  <strong>{item.label}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 function LiCenterScrollStackDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
   const rootRef = useRef(null);
@@ -1939,6 +2020,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
 
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
+  const [isCenterAnimationPanelOpen, setCenterAnimationPanelOpen] = useState(false);
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
@@ -1985,6 +2067,12 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
         <button className="character-material-trigger" type="button" onClick={() => setMaterialPanelOpen(true)}>
           <Images size={18} />
           <span>素材图库</span>
+        </button>
+      ) : null}
+      {pageNumber === 4 ? (
+        <button className="center-animation-trigger" type="button" onClick={() => setCenterAnimationPanelOpen(true)}>
+          <Film size={18} />
+          <span>中心动画</span>
         </button>
       ) : null}
       <div className="case-copy">
@@ -2096,6 +2184,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
         </div>
       )}
       <CharacterMaterialPanel open={isMaterialPanelOpen} onClose={() => setMaterialPanelOpen(false)} />
+      <LiCenterAnimationPanel open={isCenterAnimationPanelOpen} onClose={() => setCenterAnimationPanelOpen(false)} />
     </section>
   );
 }

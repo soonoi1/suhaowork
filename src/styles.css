@@ -701,6 +701,41 @@ button {
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
 }
 
+.center-animation-trigger {
+  position: absolute;
+  left: var(--page-gutter);
+  bottom: clamp(30px, 5vh, 58px);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 176px;
+  min-height: 52px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 850;
+  letter-spacing: 0;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.46);
+  transition:
+    border-color 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.center-animation-trigger:hover,
+.center-animation-trigger:focus-visible {
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(0, 0, 0, 0.84);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
+}
+
 .character-material-overlay {
   position: fixed;
   inset: 0;
@@ -837,6 +872,126 @@ button {
   to {
     transform: translateX(calc(-50% - 8px));
   }
+}
+
+.center-animation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 82;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 5vw, 72px);
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px);
+  animation: material-overlay-in 240ms ease both;
+}
+
+.center-animation-panel {
+  width: min(1240px, 100%);
+  max-height: min(760px, 82svh);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: #000;
+  box-shadow: 0 36px 120px rgba(0, 0, 0, 0.64);
+  animation: material-panel-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.center-animation-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.14);
+}
+
+.center-animation-head span {
+  display: block;
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+}
+
+.center-animation-head h3 {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.center-animation-close {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(245, 245, 240, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    transform 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.center-animation-close:hover,
+.center-animation-close:focus-visible {
+  transform: rotate(90deg);
+  border-color: rgba(245, 245, 240, 0.46);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.center-animation-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 22px 24px 26px;
+  scrollbar-color: rgba(245, 245, 240, 0.4) rgba(255, 255, 255, 0.08);
+}
+
+.center-animation-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+}
+
+.center-animation-card {
+  flex: 0 0 clamp(280px, 31vw, 430px);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(245, 245, 240, 0.16);
+  border-radius: 18px;
+  background: #000;
+}
+
+.center-animation-card video {
+  display: block;
+  width: 100%;
+  height: clamp(280px, 48vh, 520px);
+  object-fit: cover;
+  background: #000;
+}
+
+.center-animation-copy {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px 16px;
+  border-top: 1px solid rgba(245, 245, 240, 0.12);
+}
+
+.center-animation-copy span {
+  color: rgba(245, 245, 240, 0.52);
+  font-size: 11px;
+  font-weight: 720;
+}
+
+.center-animation-copy strong {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 850;
 }
 
 .case-section.has-backdrop .point-card {
@@ -2775,6 +2930,15 @@ button {
     justify-self: start;
     margin: 0 0 -8px;
   }
+
+  .center-animation-trigger {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    grid-column: auto;
+    justify-self: start;
+    margin: 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -3021,20 +3185,29 @@ button {
     min-height: 52px;
   }
 
-  .character-material-overlay {
+  .center-animation-trigger {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .character-material-overlay,
+  .center-animation-overlay {
     padding: 14px;
     place-items: end center;
   }
 
-  .character-material-panel {
+  .character-material-panel,
+  .center-animation-panel {
     max-height: 86svh;
   }
 
-  .character-material-head {
+  .character-material-head,
+  .center-animation-head {
     padding: 18px;
   }
 
-  .character-material-viewport {
+  .character-material-viewport,
+  .center-animation-viewport {
     padding: 16px 18px 20px;
   }
 
@@ -3044,6 +3217,14 @@ button {
 
   .character-material-frame img {
     height: 320px;
+  }
+
+  .center-animation-card {
+    flex-basis: min(82vw, 340px);
+  }
+
+  .center-animation-card video {
+    height: 360px;
   }
 
   .gaussian-splat-loading {
