@@ -333,11 +333,6 @@ const pageBackdrops = {
     src: "/assets/li-center/cua-black-bg.mp4",
     className: "backdrop-li-center",
   },
-  9: {
-    type: "image",
-    src: "/assets/final-summary-banner.jpg",
-    className: "backdrop-fur-lineup",
-  },
 };
 
 const liCenterStackVideos = [
@@ -1912,37 +1907,9 @@ function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange
   );
 }
 
-function FinalSummaryShowcase({ points, editing, onChange }) {
-  const [activeCardIndex, setActiveCardIndex] = useState(null);
-
+function FinalSummaryShowcase() {
   return (
     <div className="final-summary-showcase">
-      <div className="final-summary-cards" aria-label="Summary details">
-        {points.map((item, pointIndex) => (
-          <article
-            className={`final-summary-card${activeCardIndex === pointIndex ? " is-expanded" : ""}`}
-            tabIndex={0}
-            onMouseEnter={() => setActiveCardIndex(pointIndex)}
-            onMouseLeave={() => setActiveCardIndex(null)}
-            onFocus={() => setActiveCardIndex(pointIndex)}
-            onBlur={() => setActiveCardIndex(null)}
-            key={item.label}
-          >
-            <span>{pad(pointIndex + 1)}</span>
-            <EditableText
-              as="h3"
-              value={item.label}
-              editing={editing}
-              onChange={(value) => onChange(["points", pointIndex, "label"], value)}
-            />
-            <EditableText
-              value={item.text}
-              editing={editing}
-              onChange={(value) => onChange(["points", pointIndex, "text"], value)}
-            />
-          </article>
-        ))}
-      </div>
       <div className="final-summary-visual">
         <img src="/assets/final-summary-banner.jpg" alt="" />
       </div>
@@ -1980,7 +1947,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
     sectionClasses.push("has-ai-gallery");
   } else if (page.demo === "capabilityDock" || page.demo === "capabilityTimeline") {
     sectionClasses.push("has-capability-dock");
-  } else if (pageNumber === 9) {
+  } else if (page.demo === "infiniteMenu") {
     sectionClasses.push("has-infinite-menu");
   }
 
@@ -1991,7 +1958,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   return (
     <section className={sectionClasses.join(" ")} id={`page-${pageNumber}`}>
       <PageBackdrop backdrop={backdrop} />
-      {pageNumber === 9 && page.demo !== "aiGallery" && page.demo !== "aiMethod" ? <AIWorkflowInfiniteBackdrop /> : null}
+      {page.demo === "infiniteMenu" ? <AIWorkflowInfiniteBackdrop /> : null}
       <NoteButton index={index} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="case-index" aria-hidden="true">
         {pad(pageNumber)}
@@ -2095,11 +2062,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       ) : page.demo === "ocVideos" ? (
         <OCVideoShowcase />
       ) : pageNumber === pages.length ? (
-        <FinalSummaryShowcase
-          points={page.points}
-          editing={editing}
-          onChange={(path, value) => onChange(index, path, value)}
-        />
+        <FinalSummaryShowcase />
       ) : (
         <div className="points-grid">
           <div>

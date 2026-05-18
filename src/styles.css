@@ -1109,6 +1109,8 @@ button {
 
 .final-summary-section {
   background: #000;
+  grid-template-rows: minmax(0, 1fr) auto;
+  align-items: start;
 }
 
 :root[data-final-summary="true"] .deck-space {
@@ -1124,13 +1126,20 @@ button {
   color: rgba(255, 255, 255, 0.07);
 }
 
+.final-summary-section .case-copy {
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / -1;
+  max-width: 780px;
+}
+
 .final-summary-showcase {
   grid-column: 1 / -1;
-  align-self: stretch;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 22px;
+  grid-row: 2;
+  align-self: end;
+  display: block;
   min-height: 0;
+  pointer-events: none;
 }
 
 .final-summary-cards {
@@ -1210,7 +1219,6 @@ button {
 }
 
 .final-summary-visual {
-  align-self: end;
   width: calc(100% + var(--page-gutter) * 2);
   margin: 0 calc(var(--page-gutter) * -1);
 }
