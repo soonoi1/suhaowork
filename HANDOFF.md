@@ -225,6 +225,10 @@ texture
 - 更新顶部导航为 8 页结构：Intro / Overview / Character / Delivery / AI / Light / OC / Sum。
 - 将 `output/` 加入 `.gitignore`，避免本地截图和整理材料进入仓库。
 - 当前渲染使用新的 8 页 `pages`，旧 15 页内容暂保留为 `sourcePages` 备份。
+- 修复第 1 页悬浮卡片展开时把页面向上顶动的问题：
+  - 保持 `.cover-card` 固定占位高度。
+  - 使用 `::before` 作为 hover 背板，让展开效果只发生在视觉层。
+  - 桌面端说明文字覆盖式浮出，移动端仍自然展开显示。
 
 ### 2026-05-14
 
