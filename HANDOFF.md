@@ -240,6 +240,10 @@ texture
   - 使用现有 `public/assets/li-center/` 动画素材。
   - 新增 `LiCenterAnimationPanel`，横向展示中心场景动画，视频自动播放循环。
   - 弹窗内滚轮横向浏览，遮罩空白或关闭按钮可收回。
+- 第 4 页预留「4O 小红桌」素材弹窗架子：
+  - 新增「4O 车机端」和「4O 手机端」入口。
+  - 抽出 `AnimationAssetPanel` 复用弹窗结构。
+  - 当前 `fourOCarAnimationItems` / `fourOPhoneAnimationItems` 为空，面板显示空视窗占位；后续收到素材后补数组即可。
 
 ### 2026-05-14
 

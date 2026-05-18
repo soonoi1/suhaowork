@@ -701,16 +701,24 @@ button {
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
 }
 
-.center-animation-trigger {
+.delivery-popup-triggers {
   position: absolute;
   left: var(--page-gutter);
   bottom: clamp(30px, 5vh, 58px);
   z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: min(720px, calc(100% - var(--page-gutter) * 2));
+}
+
+.center-animation-trigger {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-width: 176px;
+  min-width: 154px;
   min-height: 52px;
   padding: 0 22px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -992,6 +1000,35 @@ button {
   color: var(--ink);
   font-size: 16px;
   font-weight: 850;
+}
+
+.center-animation-empty {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  width: min(100%, 720px);
+  min-height: clamp(280px, 48vh, 520px);
+  margin: 0 auto;
+  border: 1px dashed rgba(245, 245, 240, 0.2);
+  border-radius: 18px;
+  background: #000;
+  text-align: center;
+}
+
+.center-animation-empty span {
+  color: var(--ink);
+  font-size: clamp(24px, 3vw, 42px);
+  font-weight: 860;
+  line-height: 1;
+}
+
+.center-animation-empty p {
+  max-width: 420px;
+  margin: 0;
+  color: rgba(245, 245, 240, 0.58);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .case-section.has-backdrop .point-card {
@@ -2931,7 +2968,7 @@ button {
     margin: 0 0 -8px;
   }
 
-  .center-animation-trigger {
+  .delivery-popup-triggers {
     position: relative;
     left: auto;
     bottom: auto;
@@ -3183,6 +3220,10 @@ button {
   .character-material-trigger {
     width: 100%;
     min-height: 52px;
+  }
+
+  .delivery-popup-triggers {
+    width: 100%;
   }
 
   .center-animation-trigger {

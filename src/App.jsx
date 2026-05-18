@@ -820,6 +820,10 @@ const liCenterAnimationItems = liCenterStackVideos.map((item) => ({
   label: item.title,
 }));
 
+const fourOCarAnimationItems = [];
+
+const fourOPhoneAnimationItems = [];
+
 const characterMaterialImages = [
   "dark2.png",
   "dark3.png",
@@ -1700,7 +1704,15 @@ function CharacterMaterialPanel({ open, onClose }) {
   );
 }
 
-function LiCenterAnimationPanel({ open, onClose }) {
+function AnimationAssetPanel({
+  open,
+  onClose,
+  title,
+  kicker,
+  items,
+  emptyTitle = "素材待补充",
+  emptyText = "素材放入项目后，这里会自动切换为动画浏览视窗。",
+}) {
   const viewportRef = useRef(null);
 
   useEffect(() => {
@@ -1745,33 +1757,68 @@ function LiCenterAnimationPanel({ open, onClose }) {
         className="center-animation-panel"
         role="dialog"
         aria-modal="true"
-        aria-label="理想同学中心动画"
+        aria-label={title}
         onWheel={handlePanelWheel}
       >
         <div className="center-animation-head">
           <div>
-            <span>LI CENTER ANIMATION</span>
-            <h3>理想同学中心动画</h3>
+            <span>{kicker}</span>
+            <h3>{title}</h3>
           </div>
           <button className="center-animation-close" type="button" aria-label="关闭动画面板" onClick={onClose}>
             <X size={18} />
           </button>
         </div>
-        <div className="center-animation-viewport" aria-label="理想同学中心动画列表" ref={viewportRef}>
-          <div className="center-animation-track">
-            {liCenterAnimationItems.map((item) => (
-              <article className="center-animation-card" key={item.src}>
-                <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
-                <div className="center-animation-copy">
-                  <span>{item.meta}</span>
-                  <strong>{item.label}</strong>
-                </div>
-              </article>
-            ))}
-          </div>
+        <div className="center-animation-viewport" aria-label={`${title}列表`} ref={viewportRef}>
+          {items.length ? (
+            <div className="center-animation-track">
+              {items.map((item) => (
+                <article className="center-animation-card" key={item.src}>
+                  <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                  <div className="center-animation-copy">
+                    <span>{item.meta}</span>
+                    <strong>{item.label}</strong>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="center-animation-empty">
+              <span>{emptyTitle}</span>
+              <p>{emptyText}</p>
+            </div>
+          )}
         </div>
       </section>
     </div>
+  );
+}
+
+function LiCenterAnimationPanel({ open, onClose }) {
+  return (
+    <AnimationAssetPanel
+      open={open}
+      onClose={onClose}
+      title="理想同学中心动画"
+      kicker="LI CENTER ANIMATION"
+      items={liCenterAnimationItems}
+    />
+  );
+}
+
+function FourOAnimationPanel({ open, onClose, type }) {
+  const isCar = type === "car";
+
+  return (
+    <AnimationAssetPanel
+      open={open}
+      onClose={onClose}
+      title={isCar ? "4O 小红桌 · 车机端动画" : "4O 小红桌 · 手机端动画"}
+      kicker={isCar ? "4O CAR ANIMATION" : "4O MOBILE ANIMATION"}
+      items={isCar ? fourOCarAnimationItems : fourOPhoneAnimationItems}
+      emptyTitle={isCar ? "车机端素材待补充" : "手机端素材待补充"}
+      emptyText="你把素材给我后，我会把这里替换成对应端的动画浏览视窗。"
+    />
   );
 }
 
@@ -2021,6 +2068,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
   const [isCenterAnimationPanelOpen, setCenterAnimationPanelOpen] = useState(false);
+  const [activeFourOPanel, setActiveFourOPanel] = useState(null);
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = pageBackdrops[pageNumber];
@@ -2070,10 +2118,20 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
         </button>
       ) : null}
       {pageNumber === 4 ? (
-        <button className="center-animation-trigger" type="button" onClick={() => setCenterAnimationPanelOpen(true)}>
-          <Film size={18} />
-          <span>中心动画</span>
-        </button>
+        <div className="delivery-popup-triggers">
+          <button className="center-animation-trigger" type="button" onClick={() => setCenterAnimationPanelOpen(true)}>
+            <Film size={18} />
+            <span>中心动画</span>
+          </button>
+          <button className="center-animation-trigger" type="button" onClick={() => setActiveFourOPanel("car")}>
+            <Film size={18} />
+            <span>4O 车机端</span>
+          </button>
+          <button className="center-animation-trigger" type="button" onClick={() => setActiveFourOPanel("phone")}>
+            <Film size={18} />
+            <span>4O 手机端</span>
+          </button>
+        </div>
       ) : null}
       <div className="case-copy">
         <p className="eyebrow">{page.eyebrow}</p>
@@ -2185,6 +2243,8 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       )}
       <CharacterMaterialPanel open={isMaterialPanelOpen} onClose={() => setMaterialPanelOpen(false)} />
       <LiCenterAnimationPanel open={isCenterAnimationPanelOpen} onClose={() => setCenterAnimationPanelOpen(false)} />
+      <FourOAnimationPanel open={activeFourOPanel === "car"} type="car" onClose={() => setActiveFourOPanel(null)} />
+      <FourOAnimationPanel open={activeFourOPanel === "phone"} type="phone" onClose={() => setActiveFourOPanel(null)} />
     </section>
   );
 }
