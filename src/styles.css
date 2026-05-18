@@ -1317,6 +1317,15 @@ button {
   z-index: 4;
 }
 
+.case-section.has-ai-gallery {
+  background: #000;
+}
+
+.case-section.has-ai-gallery .ai-stream-gallery::before {
+  background: none;
+  filter: none;
+}
+
 .ai-stream-gallery {
   grid-column: 2;
   position: relative;

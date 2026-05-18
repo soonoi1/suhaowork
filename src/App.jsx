@@ -321,11 +321,6 @@ const pageBackdrops = {
     src: "/assets/li-center/cua-black-bg.mp4",
     className: "backdrop-li-center",
   },
-  5: {
-    type: "image",
-    src: "/assets/cases/workflow-ai-lamp.jpg",
-    className: "backdrop-ss4-ui",
-  },
   8: {
     type: "image",
     src: "/assets/final-summary-banner.jpg",
