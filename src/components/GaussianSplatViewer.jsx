@@ -206,7 +206,7 @@ export default function GaussianSplatViewer({
       <div className="gaussian-splat-caption">
         <span>Gaussian Splatting Preview</span>
         <strong>毛绒材质空间预览</strong>
-        <p>真实 3DGS 渲染 / 支持旋转、缩放、平移</p>
+        <p>真实 3DGS 渲染 / 支持旋转、缩放、平移 / SS4 持续推进高斯技术，下一个版本将会上线</p>
       </div>
     </div>
   );

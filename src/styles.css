@@ -783,12 +783,12 @@ button {
   display: flex;
   width: max-content;
   gap: 16px;
-  animation: material-auto-scroll 46s linear infinite;
+  animation: material-auto-scroll var(--material-scroll-duration, 46s) linear infinite;
 }
 
 .character-material-viewport:hover .character-material-track,
 .character-material-viewport:focus-within .character-material-track {
-  animation-play-state: paused;
+  --material-scroll-duration: 120s;
 }
 
 .character-material-frame {
@@ -806,14 +806,6 @@ button {
   height: clamp(260px, 42vh, 480px);
   object-fit: cover;
   background: #090909;
-}
-
-.character-material-frame figcaption {
-  padding: 12px 14px;
-  color: rgba(245, 245, 240, 0.72);
-  font-size: 12px;
-  font-weight: 780;
-  letter-spacing: 0.04em;
 }
 
 @keyframes material-overlay-in {
@@ -2035,12 +2027,22 @@ button {
 }
 
 .gaussian-copy-points article {
+  position: relative;
   display: grid;
   grid-template-columns: 34px 1fr;
   gap: 12px;
   align-items: start;
-  padding: 12px 0;
-  border-top: 1px solid rgba(245, 245, 240, 0.18);
+  padding: 14px 0 12px;
+}
+
+.gaussian-copy-points article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(64%, 340px);
+  height: 1px;
+  background: rgba(245, 245, 240, 0.18);
 }
 
 .gaussian-copy-points span {
@@ -2060,9 +2062,25 @@ button {
 
 .gaussian-copy-points p {
   margin: 0;
+  max-height: 0;
+  overflow: hidden;
   color: rgba(245, 245, 240, 0.68);
   font-size: 12px;
   line-height: 1.72;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    max-height 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 220ms ease,
+    transform 260ms ease;
+}
+
+.gaussian-copy-points article:hover p,
+.gaussian-copy-points article:focus-within p,
+.visual-deck.is-editing .gaussian-copy-points p {
+  max-height: 110px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .gaussian-model-switch {

@@ -1622,6 +1622,8 @@ function GaussianSplatDemo() {
 }
 
 function CharacterMaterialPanel({ open, onClose }) {
+  const viewportRef = useRef(null);
+
   useEffect(() => {
     if (!open) return undefined;
 
@@ -1639,6 +1641,15 @@ function CharacterMaterialPanel({ open, onClose }) {
 
   const loopImages = [...characterMaterialImages, ...characterMaterialImages];
 
+  const handlePanelWheel = (event) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    viewport.scrollLeft += event.deltaY + event.deltaX;
+  };
+
   return (
     <div
       className="character-material-overlay"
@@ -1648,23 +1659,32 @@ function CharacterMaterialPanel({ open, onClose }) {
           onClose();
         }
       }}
+      onWheel={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      }}
     >
-      <section className="character-material-panel" role="dialog" aria-modal="true" aria-label="实体化形象素材">
+      <section
+        className="character-material-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="理想同学形象 1.0"
+        onWheel={handlePanelWheel}
+      >
         <div className="character-material-head">
           <div>
             <span>CHARACTER MATERIAL</span>
-            <h3>实体化形象素材</h3>
+            <h3>理想同学形象 1.0</h3>
           </div>
           <button className="character-material-close" type="button" aria-label="关闭素材面板" onClick={onClose}>
             <X size={18} />
           </button>
         </div>
-        <div className="character-material-viewport" aria-label="形象素材图片列表">
+        <div className="character-material-viewport" aria-label="形象素材图片列表" ref={viewportRef}>
           <div className="character-material-track">
             {loopImages.map((item, index) => (
               <figure className="character-material-frame" key={`${item.src}-${index}`}>
                 <img src={item.src} alt={`${item.label} 理想同学实体化素材`} loading="lazy" />
-                <figcaption>{item.label}</figcaption>
               </figure>
             ))}
           </div>
