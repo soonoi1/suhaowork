@@ -41,7 +41,7 @@ class DemoErrorBoundary extends Component {
   }
 }
 
-const pages = [
+const sourcePages = [
   {
     eyebrow: "01 / Intro",
     layout: "cover",
@@ -429,12 +429,232 @@ const pages = [
   },
 ];
 
+const pages = [
+  {
+    eyebrow: "01 / Intro",
+    layout: "cover",
+    title: "宿浩（Suhao Work）",
+    conclusion: "司龄：待补充｜职级：17级｜3D 动画 / 产品动效 / AI 工作流 / 多端体验落地",
+    intro:
+      "我主要把偏技术和偏视觉的体验方案推进成可上线结果：从角色形象、动态状态、多端资源，到 AI 生产流程和交互原型验证。",
+    coverItems: [
+      {
+        label: "个人定位",
+        text: "技术体验型设计：既能判断 3D、动效和视觉质量，也能把方案拆成研发可接入、业务可上线的资源和流程。",
+      },
+      {
+        label: "核心能力",
+        text: "视觉体验判断、复杂资源交付、AI 工作流提效、跨端动效还原、早期原型验证。",
+      },
+      {
+        label: "代表项目",
+        text: "理想同学实体化、理想同学中心与 4o 小同桌、OTA 7.4 多端交付、AI 实战工作流、Standby 放射光、OC 眼睛。",
+      },
+    ],
+    points: [],
+  },
+  {
+    eyebrow: "02 / Overview",
+    title: "能力总览与项目时间轴",
+    demo: "capabilityTimeline",
+    conclusion:
+      "3 分钟内先看清楚我的能力结构：审美判断、落地交付、AI 提效，以及这些能力在哪些关键项目里被验证。",
+    intro:
+      "下方时间轴先用占位节点搭好结构，你可以后续替换成准确年月、项目名和关键结果。",
+    points: [
+      {
+        label: "视觉体验判断",
+        text: "判断角色形体、毛绒材质、动效节奏、注意力表达和界面质感是否适合业务场景，并能持续收敛方向。",
+      },
+      {
+        label: "复杂资源交付",
+        text: "面对多端、多状态、多模式和版本节点，拆解任务优先级，控制资源体积、还原质量和研发接入风险。",
+      },
+      {
+        label: "AI 与原型提效",
+        text: "把 AI 生成、脚本处理、批量筛选和 React 原型接入真实项目流程，让新工具转化为可复用方法。",
+      },
+    ],
+    timeline: [
+      {
+        time: "2024 Q4",
+        label: "理想同学实体化",
+        text: "从平面符号推进到 3D 毛绒形象方向，建立角色记忆点和材质判断基础。",
+      },
+      {
+        time: "2025 Q1",
+        label: "理想同学中心",
+        text: "参与首页、毛绒时钟和中心场景交互，推动视觉素材、动效和研发还原落地。",
+      },
+      {
+        time: "2025 Q2",
+        label: "4o 小同桌 / OTA 7.4",
+        text: "完成多角色、多状态、多端资源交付，沉淀优先级、复用和文档化交付方式。",
+      },
+      {
+        time: "2025 Q3",
+        label: "AI 工作流与 Standby 原型",
+        text: "把批量生成、筛选、视频处理和交互光效 demo 接入项目验证，提高探索与交付效率。",
+      },
+      {
+        time: "2025 Q4",
+        label: "OC 眼睛与未来体验",
+        text: "探索车外注意力表达、生命感动效和品牌视觉继承，为未来车外交互建立方案基础。",
+      },
+    ],
+  },
+  {
+    eyebrow: "03 / Character",
+    title: "理想同学实体化",
+    demo: "gaussianSplat",
+    conclusion:
+      "把抽象平面符号推进为可被记住的 3D 毛绒形象，同时兼顾材质真实感、品牌继承和上线稳定性。",
+    intro:
+      "这个案例体现的是方向判断：不是只做一个好看的角色，而是在形体、材质、技术路线和落地风险之间做持续收敛。",
+    points: [
+      {
+        label: "问题",
+        text: "原始形象更接近平面符号，需要变成用户能感知性格、材质和存在感的 3D 角色，同时不能丢掉简洁识别。",
+      },
+      {
+        label: "动作",
+        text: "围绕比例、眼睛、帽子、身体体积和毛绒质感做多轮探索，并结合 Spline、3D、Gaussian Splatting 等路线判断落地可能。",
+      },
+      {
+        label: "结果",
+        text: "形成理想同学毛绒实体化方向，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。",
+      },
+    ],
+  },
+  {
+    eyebrow: "04 / Delivery",
+    title: "理想同学中心与 4o 小同桌交付",
+    conclusion:
+      "在版本周期内完成多端、多角色、多状态资源交付，把视觉体验从单点素材推进到可上线产品场景。",
+    intro:
+      "这一页合并理想同学中心、4o 小同桌和 OTA 7.4 交付：重点是复杂资源如何被拆解、取舍、复用并按节点上线。",
+    points: [
+      {
+        label: "交互场景",
+        text: "理想同学中心承载 AI 形象、能力介绍和可作为屏保使用的毛绒时钟，需要兼顾展示、交互和长期使用体验。",
+      },
+      {
+        label: "资源规模",
+        text: "4o 小同桌涉及多角色、多状态、手机 App、车机端和黑白模式，最终需要处理 200 多组视频素材。",
+      },
+      {
+        label: "交付策略",
+        text: "把高频触达和用户最容易感知的状态放在最高优先级，低频状态模板化复用，并通过文档降低研发接入成本。",
+      },
+      {
+        label: "结果",
+        text: "完成多个板块的设计资源交付，平衡核心体验质量、制作成本和版本上线风险。",
+      },
+    ],
+  },
+  {
+    eyebrow: "05 / AI Workflow",
+    title: "AI 实战工作流",
+    demo: "aiGallery",
+    conclusion:
+      "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
+    intro:
+      "这里重点不是列工具，而是说明我如何把 AI 的随机性变成可筛选、可决策、可复用的工作方法。",
+    points: [
+      {
+        label: "结果池",
+        text: "先扩大生图和生视频结果池，再从高质量结果中反向筛选帽子、形象、场景和动作方向。",
+      },
+      {
+        label: "流程化",
+        text: "用脚本和 VS Code 工作流支撑批量导出、命名、裁切、压缩和筛选，让 AI 结果能进入真实交付链路。",
+      },
+      {
+        label: "项目价值",
+        text: "把构思、试错和资源处理的部分成本前置给 AI，设计判断集中在审美、场景匹配和最终决策上。",
+      },
+    ],
+  },
+  {
+    eyebrow: "06 / Prototype",
+    title: "Standby 放射光",
+    demo: "radiance",
+    conclusion:
+      "用 AI Studio、代码工具和视觉判断，把抽象光效需求推进成可调参数、可讨论、可继续交付的交互原型。",
+    intro:
+      "放空小同桌需要一种轻微、低打扰但可响应的桌面光效。传统静态视觉很难说明体验，因此先做成可运行 demo 来验证方向。",
+    points: [
+      {
+        label: "难点",
+        text: "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间。",
+      },
+      {
+        label: "动作",
+        text: "将视觉目标、光心位置、扩散层次、呼吸节奏和响应状态描述给 AI，并结合设计判断完成初版原型。",
+      },
+      {
+        label: "结果",
+        text: "形成可交互放射光方案，并把经验和实现思路共享给团队继续打磨。",
+      },
+    ],
+  },
+  {
+    eyebrow: "07 / OC Eyes",
+    title: "OC 眼睛",
+    demo: "ocVideos",
+    conclusion:
+      "面向未来无人驾驶车外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
+    intro:
+      "这个案例体现的是未来体验判断：既要继承理想同学的椭圆眼睛特征，又要适应车外场景的信息表达和自然感。",
+    points: [
+      {
+        label: "设计判断",
+        text: "目标不是夸张拟人，而是让车辆像一个有注意力的智能体，让路人知道它在看哪里、注意什么、处于什么状态。",
+      },
+      {
+        label: "表达方式",
+        text: "用液态眼白承担眉头、眉弓和眼皮的情绪表达，让眼睛在缩小时也能承接文字信息。",
+      },
+      {
+        label: "动效策略",
+        text: "注意力转移参考人眼快速跳转规律，使用强加速缓出曲线，让车辆“看向某处”的动态更符合直觉。",
+      },
+    ],
+  },
+  {
+    eyebrow: "08 / Summary",
+    title: "结果与方法沉淀",
+    conclusion:
+      "最终沉淀的不只是单个项目，而是视觉判断、动效表达、多端交付和 AI 工作流这些可以继续复用的方法。",
+    intro:
+      "如果评委只记住一句话：我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
+    points: [
+      {
+        label: "上线结果",
+        text: "产出理想同学形象资产、中心场景、4o 小同桌多端视频资源、Standby 初版 demo 和 OC 眼睛方案。",
+      },
+      {
+        label: "方法结果",
+        text: "沉淀毛绒视觉语言、状态动效表达、资源优先级、模板复用、文档化交付和 AI 逆向生产流程。",
+      },
+      {
+        label: "个人价值",
+        text: "在审美判断、技术边界、项目节奏和团队协作之间做连接，让新体验真正进入产品链路。",
+      },
+      {
+        label: "后续延展",
+        text: "这些方法可以继续支持角色体系、多端交互、车外注意力表达和更多 AI 生产工具的业务化应用。",
+      },
+    ],
+  },
+];
+
 function pad(value) {
   return String(value).padStart(2, "0");
 }
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
-const CONTENT_STORAGE_KEY = "suhaowork-page-content-v1";
+const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
 
 const activeVisualMode = {
   id: "space",
@@ -454,52 +674,47 @@ const pillLogo = `data:image/svg+xml,${encodeURIComponent(`
 
 const pillNavItems = [
   { label: "Intro", href: "#page-1" },
-  { label: "Skill", href: "#page-2" },
-  { label: "Case", href: "#page-3" },
-  { label: "AI", href: "#page-8" },
-  { label: "SS4", href: "#page-10" },
-  { label: "Light", href: "#page-11" },
-  { label: "OC", href: "#page-13" },
-  { label: "Sum", href: "#page-15" },
+  { label: "Overview", href: "#page-2" },
+  { label: "Character", href: "#page-3" },
+  { label: "Delivery", href: "#page-4" },
+  { label: "AI", href: "#page-5" },
+  { label: "Light", href: "#page-6" },
+  { label: "OC", href: "#page-7" },
+  { label: "Sum", href: "#page-8" },
 ];
 
 function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
   if (pageNumber <= 2) return `#page-${pageNumber}`;
-  if (pageNumber <= 7) return "#page-3";
-  if (pageNumber <= 9) return "#page-8";
-  if (pageNumber === 10) return "#page-10";
-  if (pageNumber <= 12) return "#page-11";
-  if (pageNumber <= 14) return "#page-13";
-  return "#page-15";
+  if (pageNumber === 3) return "#page-3";
+  if (pageNumber === 4) return "#page-4";
+  if (pageNumber === 5) return "#page-5";
+  if (pageNumber === 6) return "#page-6";
+  if (pageNumber === 7) return "#page-7";
+  return "#page-8";
 }
 
 const pageBackdrops = {
   3: {
-    type: "video",
-    src: "/assets/li-ota74-bg.mp4",
-    className: "backdrop-ota74",
-  },
-  4: {
     type: "image",
     src: "/assets/fur-material-close-bg.jpg",
     className: "backdrop-fur-close",
   },
-  5: {
+  4: {
     type: "video",
     src: "/assets/li-center/cua-black-bg.mp4",
     className: "backdrop-li-center",
   },
-  6: {
+  5: {
     type: "image",
-    src: "/assets/fur-characters-bg.png",
-    className: "backdrop-fur-lineup",
-  },
-  10: {
-    type: "image",
-    src: "/assets/ss4/ss4-glass-bg.png",
+    src: "/assets/cases/workflow-ai-lamp.jpg",
     className: "backdrop-ss4-ui",
+  },
+  8: {
+    type: "image",
+    src: "/assets/final-summary-banner.jpg",
+    className: "backdrop-fur-lineup",
   },
 };
 
@@ -953,7 +1168,44 @@ function PointCard({ item, index, editing, onChange }) {
   );
 }
 
-function CapabilityDock({ points, editing, onChange }) {
+function ProjectTimeline({ items = [], editing, onChange }) {
+  if (!items.length) return null;
+
+  return (
+    <div className="project-timeline" aria-label="项目经历时间轴">
+      <div className="project-timeline-head">
+        <span>Project Timeline</span>
+        <strong>重要项目节点</strong>
+      </div>
+      <div className="project-timeline-track">
+        {items.map((item, index) => (
+          <article className="project-timeline-item" key={`${item.time}-${item.label}`}>
+            <EditableText
+              as="span"
+              className="project-timeline-time"
+              value={item.time}
+              editing={editing}
+              onChange={(value) => onChange(["timeline", index, "time"], value)}
+            />
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["timeline", index, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["timeline", index, "text"], value)}
+            />
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CapabilityDock({ points, timeline = [], editing, onChange }) {
   const [openItems, setOpenItems] = useState(() => new Set([0]));
 
   const openItem = (index) => {
@@ -978,48 +1230,51 @@ function CapabilityDock({ points, editing, onChange }) {
   };
 
   return (
-    <div className="capability-dock" aria-label="专业能力背景">
-      {points.map((item, index) => {
-        const isOpen = openItems.has(index);
-        const content = (
-          <>
-            <span className="capability-count">{pad(index + 1)}</span>
-            <EditableText
-              as="h3"
-              value={item.label}
-              editing={editing}
-              onChange={(value) => onChange(["points", index, "label"], value)}
-            />
-            <EditableText
-              value={item.text}
-              editing={editing}
-              onChange={(value) => onChange(["points", index, "text"], value)}
-            />
-          </>
-        );
-
-        if (editing) {
-          return (
-            <article className={`capability-panel ${isOpen ? "is-open" : ""}`} key={item.label}>
-              {content}
-            </article>
+    <div className="capability-overview">
+      <div className="capability-dock" aria-label="专业能力背景">
+        {points.map((item, index) => {
+          const isOpen = openItems.has(index);
+          const content = (
+            <>
+              <span className="capability-count">{pad(index + 1)}</span>
+              <EditableText
+                as="h3"
+                value={item.label}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "label"], value)}
+              />
+              <EditableText
+                value={item.text}
+                editing={editing}
+                onChange={(value) => onChange(["points", index, "text"], value)}
+              />
+            </>
           );
-        }
 
-        return (
-          <button
-            className={`capability-panel ${isOpen ? "is-open" : ""}`}
-            type="button"
-            onMouseEnter={() => openItem(index)}
-            onFocus={() => openItem(index)}
-            onClick={() => toggleItem(index)}
-            aria-expanded={isOpen}
-            key={item.label}
-          >
-            {content}
-          </button>
-        );
-      })}
+          if (editing) {
+            return (
+              <article className={`capability-panel ${isOpen ? "is-open" : ""}`} key={item.label}>
+                {content}
+              </article>
+            );
+          }
+
+          return (
+            <button
+              className={`capability-panel ${isOpen ? "is-open" : ""}`}
+              type="button"
+              onMouseEnter={() => openItem(index)}
+              onFocus={() => openItem(index)}
+              onClick={() => toggleItem(index)}
+              aria-expanded={isOpen}
+              key={item.label}
+            >
+              {content}
+            </button>
+          );
+        })}
+      </div>
+      <ProjectTimeline items={timeline} editing={editing} onChange={onChange} />
     </div>
   );
 }
@@ -1618,7 +1873,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
     sectionClasses.push("has-ai-method");
   } else if (page.demo === "aiGallery") {
     sectionClasses.push("has-ai-gallery");
-  } else if (page.demo === "capabilityDock") {
+  } else if (page.demo === "capabilityDock" || page.demo === "capabilityTimeline") {
     sectionClasses.push("has-capability-dock");
   } else if (pageNumber === 9) {
     sectionClasses.push("has-infinite-menu");
@@ -1699,9 +1954,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           editing={editing}
           onChange={(path, value) => onChange(index, path, value)}
         />
-      ) : page.demo === "capabilityDock" ? (
+      ) : page.demo === "capabilityDock" || page.demo === "capabilityTimeline" ? (
         <CapabilityDock
           points={page.points}
+          timeline={page.timeline}
           editing={editing}
           onChange={(path, value) => onChange(index, path, value)}
         />

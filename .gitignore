@@ -4,6 +4,7 @@ dist
 texture
 promotion_ppt_output
 promotion_ppt_work
+output
 *.pptx
 ~$*
 .DS_Store

@@ -1197,11 +1197,18 @@ button {
   max-width: 760px;
 }
 
-.capability-dock {
+.capability-overview {
   grid-column: 1 / -1;
   align-self: end;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.72fr);
+  gap: 14px;
+  min-height: 286px;
+}
+
+.capability-dock {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   min-height: 286px;
 }
@@ -1299,6 +1306,117 @@ button {
   max-height: 210px;
   margin-top: 14px;
   opacity: 1;
+}
+
+.capability-overview .capability-panel,
+.capability-overview .capability-panel.is-open,
+.capability-overview .capability-panel:focus-visible {
+  grid-column: auto;
+  align-content: end;
+  min-height: 286px;
+}
+
+.capability-overview .capability-panel p {
+  max-height: none;
+  margin-top: 14px;
+  opacity: 1;
+}
+
+.project-timeline {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  min-width: 0;
+  min-height: 286px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    rgba(5, 5, 5, 0.5);
+  backdrop-filter: blur(18px);
+}
+
+.project-timeline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.project-timeline-head span {
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 840;
+  text-transform: uppercase;
+}
+
+.project-timeline-head strong {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 820;
+}
+
+.project-timeline-track {
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+
+.project-timeline-track::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: 52px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.project-timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  column-gap: 12px;
+  align-items: start;
+  min-width: 0;
+}
+
+.project-timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 48px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(245, 245, 240, 0.1);
+}
+
+.project-timeline-time {
+  grid-row: 1 / span 2;
+  color: var(--warm);
+  font-size: 11px;
+  font-weight: 840;
+  line-height: 1.4;
+}
+
+.project-timeline-item h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 830;
+  line-height: 1.35;
+}
+
+.project-timeline-item p {
+  margin: 4px 0 0;
+  color: rgba(245, 245, 240, 0.66);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .case-section.has-scroll-stack {
@@ -2360,6 +2478,7 @@ button {
   .gaussian-splat-demo,
   .li-center-scroll-demo,
   .ai-method-panel,
+  .capability-overview,
   .capability-dock,
   .ai-stream-gallery,
   .oc-video-showcase {
@@ -2412,6 +2531,7 @@ button {
   .points-grid,
   .final-summary-cards,
   .ai-method-cards,
+  .capability-overview,
   .capability-dock,
   .ai-stream-summary,
   .oc-strategy-board {
@@ -2421,6 +2541,11 @@ button {
   }
 
   .capability-dock {
+    min-height: 0;
+  }
+
+  .capability-overview,
+  .project-timeline {
     min-height: 0;
   }
 
