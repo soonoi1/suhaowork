@@ -1045,7 +1045,8 @@ button {
   background: #000;
 }
 
-.center-animation-card video {
+.center-animation-card video,
+.center-animation-card img {
   display: block;
   width: 100%;
   height: clamp(280px, 48vh, 520px);

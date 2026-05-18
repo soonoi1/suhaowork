@@ -436,7 +436,68 @@ const fourOCarAnimationItems = [
   },
 ];
 
-const fourOPhoneAnimationItems = [];
+const fourOPhoneAnimationItems = [
+  {
+    src: "/assets/four-o-phone/app-4o.mp4",
+    label: "APP 4O",
+    meta: "4O mobile video",
+    type: "video",
+  },
+  {
+    src: "/assets/four-o-phone/li-student.gif",
+    label: "理想同学",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/sweet-li-student.gif",
+    label: "甜美理同",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/light-warrior.gif",
+    label: "光之勇士",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/beijing-auntie.gif",
+    label: "北京大姨",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/beijing-uncle.gif",
+    label: "北京大爷",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/roaring-dragon.gif",
+    label: "吼吼龙",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/li-bai.gif",
+    label: "李白",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/riddle-king.gif",
+    label: "谜语大王",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+  {
+    src: "/assets/four-o-phone/snow-princess.gif",
+    label: "雪国公主",
+    meta: "4O mobile gif",
+    type: "image",
+  },
+];
 
 const characterMaterialImages = [
   "dark2.png",
@@ -1577,7 +1638,11 @@ function AnimationAssetPanel({
             <div className="center-animation-track">
               {items.map((item) => (
                 <article className="center-animation-card" key={item.src}>
-                  <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                  {item.type === "image" ? (
+                    <img src={item.src} alt={item.label} loading="lazy" />
+                  ) : (
+                    <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                  )}
                   <div className="center-animation-copy">
                     <span>{item.meta}</span>
                     <strong>{item.label}</strong>
