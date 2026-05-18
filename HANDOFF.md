@@ -233,6 +233,7 @@ texture
   - 源素材来自 `E:\baidu\BaiduSyncdisk\liauto\理想素材_手动整理框架\理想同学实体化形象升级\1`。
   - 已复制 9 张 PNG 到 `public/assets/character-upgrade/`，供站点线上访问。
   - 新增 `CharacterMaterialPanel`：点击按钮弹出，图片自动横向滚动，点击遮罩空白或关闭按钮收回。
+  - 素材入口、弹窗面板和图片视窗统一使用与高斯预览一致的 18px 圆角；入口顶部按高斯窗口高度计算对齐，并去掉高亮渐变，保持纯黑低亮度。
 
 ### 2026-05-14
 

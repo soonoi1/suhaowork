@@ -576,6 +576,7 @@ button {
 }
 
 .case-section {
+  --gaussian-window-height: clamp(420px, 62svh, 560px);
   position: relative;
   display: grid;
   grid-template-columns: minmax(280px, 0.58fr) minmax(0, 1fr);
@@ -667,7 +668,7 @@ button {
 
 .character-material-trigger {
   position: absolute;
-  top: clamp(132px, 20vh, 220px);
+  top: calc((100svh - var(--gaussian-window-height) + clamp(92px, 10vh, 118px) - clamp(30px, 5vh, 58px)) / 2);
   left: 51.5%;
   z-index: 5;
   display: inline-flex;
@@ -677,49 +678,27 @@ button {
   min-width: 196px;
   min-height: 58px;
   padding: 0 24px;
-  border: 1px solid rgba(245, 245, 240, 0.28);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.045)),
-    rgba(5, 5, 5, 0.58);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.72);
   color: var(--ink);
   cursor: pointer;
   font-size: 15px;
   font-weight: 850;
   letter-spacing: 0;
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
   transition:
-    transform 260ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 220ms ease,
     background 220ms ease,
     box-shadow 220ms ease;
 }
 
-.character-material-trigger::after {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(245, 245, 240, 0), rgba(245, 245, 240, 0.34), rgba(245, 245, 240, 0));
-  opacity: 0;
-  transition: opacity 220ms ease;
-}
-
 .character-material-trigger:hover,
 .character-material-trigger:focus-visible {
-  transform: translateY(-4px);
-  border-color: rgba(245, 245, 240, 0.52);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.07)),
-    rgba(9, 9, 9, 0.68);
-  box-shadow: 0 26px 68px rgba(0, 0, 0, 0.42);
-}
-
-.character-material-trigger:hover::after,
-.character-material-trigger:focus-visible::after {
-  opacity: 1;
+  border-color: rgba(255, 255, 255, 0.36);
+  background: rgba(0, 0, 0, 0.84);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.56);
 }
 
 .character-material-overlay {
@@ -729,9 +708,7 @@ button {
   display: grid;
   place-items: center;
   padding: clamp(24px, 5vw, 72px);
-  background:
-    radial-gradient(circle at 50% 30%, rgba(190, 145, 94, 0.16), transparent 34%),
-    rgba(0, 0, 0, 0.62);
+  background: rgba(0, 0, 0, 0.72);
   backdrop-filter: blur(10px);
   animation: material-overlay-in 240ms ease both;
 }
@@ -740,11 +717,9 @@ button {
   width: min(1180px, 100%);
   max-height: min(760px, 82svh);
   overflow: hidden;
-  border: 1px solid rgba(245, 245, 240, 0.22);
-  border-radius: 8px;
-  background:
-    linear-gradient(180deg, rgba(245, 245, 240, 0.1), rgba(245, 245, 240, 0.035)),
-    rgba(5, 5, 5, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: #000;
   box-shadow: 0 36px 120px rgba(0, 0, 0, 0.64);
   animation: material-panel-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -821,8 +796,8 @@ button {
   margin: 0;
   overflow: hidden;
   border: 1px solid rgba(245, 245, 240, 0.16);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.055);
+  border-radius: 18px;
+  background: #000;
 }
 
 .character-material-frame img {
@@ -2048,8 +2023,7 @@ button {
   grid-column: 2;
   align-self: center;
   width: min(100%, 520px);
-  height: min(62svh, 560px);
-  min-height: 420px;
+  height: var(--gaussian-window-height);
   justify-self: end;
 }
 
