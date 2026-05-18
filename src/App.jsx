@@ -566,7 +566,7 @@ const aiGalleryGroups = [
     key: "daily",
     label: "24 小时场景",
     tone: "black",
-    count: 20,
+    count: 24,
   },
 ];
 
