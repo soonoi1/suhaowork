@@ -1756,7 +1756,32 @@ function LiCenterScrollStackDemo() {
   );
 }
 
-function OCVideoShowcase({ points, editing, onChange }) {
+function OCStrategyBoard({ points, editing, onChange }) {
+  return (
+    <div className="oc-strategy-board">
+      {points.map((item, index) => (
+        <article className="oc-strategy-item" tabIndex={0} key={item.label}>
+          <span>{pad(index + 1)}</span>
+          <div>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", index, "text"], value)}
+            />
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function OCVideoShowcase() {
   return (
     <div className="oc-video-showcase">
       <div className="oc-video-grid">
@@ -1767,26 +1792,6 @@ function OCVideoShowcase({ points, editing, onChange }) {
               <span>{pad(index + 1)}</span>
               <h3>{item.title}</h3>
               <p>{item.meta}</p>
-            </div>
-          </article>
-        ))}
-      </div>
-      <div className="oc-strategy-board">
-        {points.map((item, index) => (
-          <article className="oc-strategy-item" tabIndex={0} key={item.label}>
-            <span>{pad(index + 1)}</span>
-            <div>
-              <EditableText
-                as="h3"
-                value={item.label}
-                editing={editing}
-                onChange={(value) => onChange(["points", index, "label"], value)}
-              />
-              <EditableText
-                value={item.text}
-                editing={editing}
-                onChange={(value) => onChange(["points", index, "text"], value)}
-              />
             </div>
           </article>
         ))}
@@ -1975,6 +1980,13 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
             ))}
           </div>
         ) : null}
+        {page.demo === "ocVideos" ? (
+          <OCStrategyBoard
+            points={page.points}
+            editing={editing}
+            onChange={(path, value) => onChange(index, path, value)}
+          />
+        ) : null}
       </div>
       {page.demo === "radiance" ? (
         <StandbyRadianceDemo />
@@ -2004,11 +2016,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           onChange={(path, value) => onChange(index, path, value)}
         />
       ) : page.demo === "ocVideos" ? (
-        <OCVideoShowcase
-          points={page.points}
-          editing={editing}
-          onChange={(path, value) => onChange(index, path, value)}
-        />
+        <OCVideoShowcase />
       ) : pageNumber === pages.length ? (
         <FinalSummaryShowcase
           points={page.points}
