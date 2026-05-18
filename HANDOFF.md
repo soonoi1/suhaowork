@@ -236,6 +236,11 @@ texture
   - 素材入口、弹窗面板和图片视窗统一使用与高斯预览一致的 18px 圆角；入口顶部按高斯窗口高度计算对齐，并去掉高亮渐变，保持纯黑低亮度。
   - 面板标题改为「理想同学形象 1.0」，不再显示单张图片名称；鼠标悬浮图库时滚动减速，面板内滚轮被拦截并阻止背后页面滚动。
   - 素材图库自动滚动由 CSS keyframes 改为 `requestAnimationFrame` 连续位移，避免 hover 改速时闪动；浮层内滚轮完全拦截，不再触发图库横向滚动或背后页面滚动。
+- 第 3 页素材区从单个按钮改为三张同宽卡片：
+  - 「理想同学形象 1.0」保留为图库弹窗入口。
+  - 新增「理想同学 OTA 更新」视频窗，素材来自 `G:\eagle\lib\a.library\images\MP8DIW3SQ0BKK.info\理想同学更新 OTA7.4.mp4`，已复制为 `public/assets/character-upgrade/li-ota74-update.mp4`。
+  - 新增「理想同学听想说（视频）」视频窗，素材来自 `E:\baidu\BaiduSyncdisk\liauto\理想素材_手动整理框架\理想同学实体化形象升级\理想同学听想说.mp4`，已复制为 `public/assets/character-upgrade/li-listen-think-speak.mp4`。
+  - 三张卡片宽度一致，整体高度与右侧高斯窗口对齐；视频用 `object-fit: contain`，不裁切画面。
 - 第 3 页左侧「问题 / 动作 / 结果」条目分割线缩短，正文默认隐藏，悬浮时淡入上移；高斯预览文案补充「SS4 持续推进高斯技术，下一个版本将会上线」。
 - 第 4 页「理想同学中心与 4o 小同桌交付」新增左下角「中心动画」二级弹窗：
   - 使用现有 `public/assets/li-center/` 动画素材。

@@ -839,6 +839,17 @@ const characterMaterialImages = [
   label: `Material ${pad(index + 1)}`,
 }));
 
+const characterEntityVideos = [
+  {
+    title: "理想同学 OTA 更新",
+    src: "/assets/character-upgrade/li-ota74-update.mp4",
+  },
+  {
+    title: "理想同学听想说（视频）",
+    src: "/assets/character-upgrade/li-listen-think-speak.mp4",
+  },
+];
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -1745,6 +1756,23 @@ function CharacterMaterialPanel({ open, onClose }) {
   );
 }
 
+function CharacterAssetStack({ onOpenGallery }) {
+  return (
+    <div className="character-asset-stack">
+      <button className="character-asset-card character-gallery-card" type="button" onClick={onOpenGallery}>
+        <Images size={18} />
+        <span>理想同学形象 1.0</span>
+      </button>
+      {characterEntityVideos.map((item) => (
+        <article className="character-asset-card character-video-card" key={item.src}>
+          <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+          <strong>{item.title}</strong>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function AnimationAssetPanel({
   open,
   onClose,
@@ -2153,10 +2181,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
         {pad(pageNumber)}
       </div>
       {pageNumber === 3 && page.demo === "gaussianSplat" ? (
-        <button className="character-material-trigger" type="button" onClick={() => setMaterialPanelOpen(true)}>
-          <Images size={18} />
-          <span>素材图库</span>
-        </button>
+        <CharacterAssetStack onOpenGallery={() => setMaterialPanelOpen(true)} />
       ) : null}
       {pageNumber === 4 ? (
         <div className="delivery-popup-triggers">
