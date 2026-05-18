@@ -1003,46 +1003,53 @@ function getGalleryImages(group) {
 
 function AIStreamGallery({ points, editing, onChange }) {
   const [activeGroup, setActiveGroup] = useState(aiGalleryGroups[0].key);
-  const viewportRef = useRef(null);
+  const [previewImage, setPreviewImage] = useState(null);
+  const trackRef = useRef(null);
   const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
   const images = getGalleryImages(group);
   const streamItems = [...images, ...images];
 
   useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport) return undefined;
+    let frameId;
+    let lastTime = performance.now();
+    let offset = 0;
+    const speed = 18;
 
-    viewport.scrollLeft = 0;
+    const tick = (time) => {
+      const track = trackRef.current;
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
+      lastTime = time;
 
-    const handleWheel = (event) => {
-      const section = viewport.closest(".case-section");
-      const rect = section?.getBoundingClientRect();
-      const isPrimaryPage =
-        rect && rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
+      if (track) {
+        const loopWidth = track.scrollWidth / 2;
+        if (loopWidth > 0) {
+          offset = (offset + speed * delta) % loopWidth;
+          track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+        }
+      }
 
-      if (!isPrimaryPage || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
-
-      event.preventDefault();
-      viewport.scrollLeft += event.deltaY;
+      frameId = window.requestAnimationFrame(tick);
     };
 
-    const handleScroll = () => {
-      const half = viewport.scrollWidth / 2;
-      if (viewport.scrollLeft < 8) {
-        viewport.scrollLeft += half;
-      } else if (viewport.scrollLeft > half + 8) {
-        viewport.scrollLeft -= half;
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [activeGroup]);
+
+  useEffect(() => {
+    if (!previewImage) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setPreviewImage(null);
       }
     };
 
-    viewport.addEventListener("wheel", handleWheel, { passive: false });
-    viewport.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      viewport.removeEventListener("wheel", handleWheel);
-      viewport.removeEventListener("scroll", handleScroll);
-    };
-  }, [activeGroup, images.length]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [previewImage]);
 
   return (
     <div className={`ai-stream-gallery is-${group.tone}`}>
@@ -1059,12 +1066,18 @@ function AIStreamGallery({ points, editing, onChange }) {
           </button>
         ))}
       </div>
-      <div className="ai-stream-viewport" aria-label={`${group.label}素材浏览`} ref={viewportRef}>
-        <div className="ai-stream-track">
+      <div className="ai-stream-viewport" aria-label={`${group.label}素材浏览`}>
+        <div className="ai-stream-track" ref={trackRef}>
           {streamItems.map((item, index) => (
-            <figure className="ai-stream-item" key={`${item.src}-${index}`}>
+            <button
+              className="ai-stream-item"
+              type="button"
+              key={`${item.src}-${index}`}
+              onClick={() => setPreviewImage(item)}
+              aria-label={`打开${item.title}大图`}
+            >
               <img src={item.src} alt="" loading={index < 10 ? "eager" : "lazy"} />
-            </figure>
+            </button>
           ))}
         </div>
       </div>
@@ -1088,6 +1101,29 @@ function AIStreamGallery({ points, editing, onChange }) {
           </article>
         ))}
       </div>
+      {previewImage ? (
+        <div
+          className="ai-image-preview-overlay"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setPreviewImage(null);
+            }
+          }}
+        >
+          <section className="ai-image-preview-dialog" role="dialog" aria-modal="true" aria-label={previewImage.title}>
+            <button
+              className="ai-image-preview-close"
+              type="button"
+              aria-label="关闭大图"
+              onClick={() => setPreviewImage(null)}
+            >
+              <X size={18} />
+            </button>
+            <img src={previewImage.src} alt={previewImage.title} />
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }

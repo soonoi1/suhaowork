@@ -1345,9 +1345,7 @@ button {
 .ai-stream-viewport {
   position: relative;
   min-height: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  cursor: grab;
+  overflow: hidden;
   scrollbar-width: none;
   border-radius: 12px;
   background: #050505;
@@ -1362,10 +1360,6 @@ button {
   display: none;
 }
 
-.ai-stream-viewport:active {
-  cursor: grabbing;
-}
-
 .ai-stream-track {
   display: grid;
   grid-auto-flow: column;
@@ -1377,6 +1371,7 @@ button {
   width: max-content;
   height: 100%;
   padding: 0 clamp(72px, 8vw, 148px);
+  will-change: transform;
 }
 
 .ai-stream-item {
@@ -1385,10 +1380,13 @@ button {
   place-items: center;
   overflow: visible;
   margin: 0;
+  padding: 0;
+  border: 0;
   aspect-ratio: 1;
   border-radius: 999px;
   background: #050505;
   box-shadow: 0 20px 58px rgba(0, 0, 0, 0.34);
+  cursor: zoom-in;
 }
 
 .ai-stream-gallery.is-white .ai-stream-item {
@@ -1409,8 +1407,68 @@ button {
 }
 
 .ai-stream-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.36);
   filter: saturate(1.05) contrast(1.08) brightness(1.04);
+}
+
+.ai-image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 84;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 72px);
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(10px);
+  animation: material-overlay-in 220ms ease both;
+}
+
+.ai-image-preview-dialog {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(960px, 100%);
+  max-height: 84svh;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: #000;
+  box-shadow: 0 36px 120px rgba(0, 0, 0, 0.64);
+  animation: material-panel-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.ai-image-preview-dialog img {
+  display: block;
+  width: 100%;
+  max-height: 84svh;
+  object-fit: contain;
+}
+
+.ai-image-preview-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(245, 245, 240, 0.22);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.62);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    transform 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease;
+}
+
+.ai-image-preview-close:hover,
+.ai-image-preview-close:focus-visible {
+  transform: rotate(90deg);
+  border-color: rgba(245, 245, 240, 0.46);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .ai-stream-summary {
@@ -2099,13 +2157,9 @@ button {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  filter: saturate(0.95) contrast(1.08) brightness(0.86);
-}
-
-.oc-video-card:first-child video {
   object-fit: contain;
   background: #050505;
+  filter: saturate(0.95) contrast(1.08) brightness(0.86);
 }
 
 .oc-video-card::after {
@@ -2152,40 +2206,35 @@ button {
 
 .oc-strategy-board {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  gap: 10px;
+  gap: 18px;
   overflow: visible;
 }
 
 .oc-strategy-item {
+  position: relative;
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 34px 1fr;
   gap: 12px;
-  min-height: 76px;
-  max-height: 86px;
-  overflow: hidden;
-  padding: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
-    rgba(5, 5, 5, 0.66);
+  align-items: start;
+  min-height: 0;
+  overflow: visible;
+  padding: 14px 0 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   outline: none;
-  transition:
-    max-height 360ms cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 240ms ease,
-    background 240ms ease;
 }
 
-.oc-strategy-item:hover,
-.oc-strategy-item:focus-within {
-  z-index: 3;
-  max-height: 210px;
-  border-color: rgba(255, 255, 255, 0.38);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.038)),
-    rgba(5, 5, 5, 0.78);
+.oc-strategy-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(64%, 340px);
+  height: 1px;
+  background: rgba(245, 245, 240, 0.18);
 }
 
 .oc-strategy-item span {
@@ -2195,7 +2244,7 @@ button {
 }
 
 .oc-strategy-item h3 {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   color: var(--ink);
   font-size: 15px;
   font-weight: 840;
@@ -2222,7 +2271,6 @@ button {
 .oc-strategy-item:focus-within p,
 .visual-deck.is-editing .oc-strategy-item p {
   max-height: 132px;
-  margin-top: 8px;
   opacity: 1;
   transform: translateY(0);
 }
