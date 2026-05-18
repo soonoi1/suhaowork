@@ -1616,7 +1616,7 @@ function FourOAnimationPanel({ open, onClose, type }) {
     <AnimationAssetPanel
       open={open}
       onClose={onClose}
-      title={isCar ? "4O 小红桌 · 车机端动画" : "4O 小红桌 · 手机端动画"}
+      title={isCar ? "4O 小同桌 · 车机端动画" : "4O 小同桌 · 手机端动画"}
       kicker={isCar ? "4O CAR ANIMATION" : "4O MOBILE ANIMATION"}
       items={isCar ? fourOCarAnimationItems : fourOPhoneAnimationItems}
       emptyTitle={isCar ? "车机端素材待补充" : "手机端素材待补充"}
