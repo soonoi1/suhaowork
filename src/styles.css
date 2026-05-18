@@ -857,7 +857,7 @@ button {
 
 .character-material-viewport {
   overflow: hidden;
-  padding: 22px 24px 26px;
+  padding: 22px 24px 14px;
   scrollbar-color: rgba(245, 245, 240, 0.4) rgba(255, 255, 255, 0.08);
 }
 
@@ -883,6 +883,51 @@ button {
   height: clamp(260px, 42vh, 480px);
   object-fit: cover;
   background: #090909;
+  filter: none;
+  opacity: 1;
+}
+
+.character-material-scrollbar {
+  padding: 0 24px 24px;
+}
+
+.character-material-scrollbar input {
+  display: block;
+  width: 100%;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+  cursor: pointer;
+}
+
+.character-material-scrollbar input::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(245, 245, 240, 0.18);
+}
+
+.character-material-scrollbar input::-webkit-slider-thumb {
+  width: 46px;
+  height: 6px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(245, 245, 240, 0.72);
+  appearance: none;
+}
+
+.character-material-scrollbar input::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(245, 245, 240, 0.18);
+}
+
+.character-material-scrollbar input::-moz-range-thumb {
+  width: 46px;
+  height: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(245, 245, 240, 0.72);
 }
 
 @keyframes material-overlay-in {
@@ -3330,7 +3375,11 @@ button {
 
   .character-material-viewport,
   .center-animation-viewport {
-    padding: 16px 18px 20px;
+    padding: 16px 18px 12px;
+  }
+
+  .character-material-scrollbar {
+    padding: 0 18px 20px;
   }
 
   .character-material-frame {

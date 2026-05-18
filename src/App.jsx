@@ -1707,10 +1707,19 @@ function GaussianSplatDemo() {
 
 function CharacterMaterialPanel({ open, onClose }) {
   const trackRef = useRef(null);
+  const rangeRef = useRef(null);
   const hoverRef = useRef(false);
+  const offsetRef = useRef(0);
+  const loopWidthRef = useRef(0);
+  const scrubActiveRef = useRef(false);
 
   useEffect(() => {
     if (!open) return undefined;
+
+    const preventWheel = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
 
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -1718,8 +1727,18 @@ function CharacterMaterialPanel({ open, onClose }) {
       }
     };
 
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    window.addEventListener("wheel", preventWheel, { passive: false, capture: true });
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      window.removeEventListener("wheel", preventWheel, { capture: true });
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [open, onClose]);
 
   useEffect(() => {
@@ -1727,7 +1746,6 @@ function CharacterMaterialPanel({ open, onClose }) {
 
     let frameId;
     let lastTime = performance.now();
-    let offset = 0;
     let speed = 26;
 
     const tick = (time) => {
@@ -1740,9 +1758,15 @@ function CharacterMaterialPanel({ open, onClose }) {
 
       if (track) {
         const loopWidth = track.scrollWidth / 2;
+        loopWidthRef.current = loopWidth;
+
         if (loopWidth > 0) {
-          offset = (offset + speed * delta) % loopWidth;
-          track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+          offsetRef.current = (offsetRef.current + speed * delta) % loopWidth;
+          track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+
+          if (rangeRef.current && !scrubActiveRef.current) {
+            rangeRef.current.value = String(Math.round((offsetRef.current / loopWidth) * 1000));
+          }
         }
       }
 
@@ -1763,6 +1787,16 @@ function CharacterMaterialPanel({ open, onClose }) {
   const blockWheel = (event) => {
     event.preventDefault();
     event.stopPropagation();
+  };
+
+  const handleScrub = (event) => {
+    const loopWidth = loopWidthRef.current;
+    const track = trackRef.current;
+    if (!loopWidth || !track) return;
+
+    const nextOffset = (Number(event.currentTarget.value) / 1000) * loopWidth;
+    offsetRef.current = nextOffset;
+    track.style.transform = `translate3d(${-nextOffset}px, 0, 0)`;
   };
 
   return (
@@ -1813,6 +1847,26 @@ function CharacterMaterialPanel({ open, onClose }) {
               </figure>
             ))}
           </div>
+        </div>
+        <div className="character-material-scrollbar" onWheelCapture={blockWheel}>
+          <input
+            ref={rangeRef}
+            type="range"
+            min="0"
+            max="1000"
+            defaultValue="0"
+            aria-label="调整素材图库横向位置"
+            onInput={handleScrub}
+            onPointerDown={() => {
+              scrubActiveRef.current = true;
+            }}
+            onPointerUp={() => {
+              scrubActiveRef.current = false;
+            }}
+            onPointerCancel={() => {
+              scrubActiveRef.current = false;
+            }}
+          />
         </div>
       </section>
     </div>

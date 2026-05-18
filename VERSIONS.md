@@ -106,3 +106,9 @@
 
 - 第 4 页“4O 车机端”弹窗新增 `小同桌dark_W.mp4` 素材。
 - 视频已复制到 `public/assets/four-o-car/li-table-dark-w.mp4`，并接入 `fourOCarAnimationItems`。
+
+## 2026-05-19 character gallery scrollbar
+
+- 第 3 页“理想同学形象 1.0”素材弹窗底部新增横向位置滑块，方便手动快速浏览图片。
+- 弹窗打开期间锁定页面滚轮，避免滚轮带动背后页面滚动。
+- 素材图像明确移除额外滤镜和透明度处理，避免出现黑色蒙层感。
