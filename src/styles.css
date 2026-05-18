@@ -816,8 +816,7 @@ button {
 }
 
 .character-material-viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
   padding: 22px 24px 26px;
   scrollbar-color: rgba(245, 245, 240, 0.4) rgba(255, 255, 255, 0.08);
 }
@@ -826,12 +825,7 @@ button {
   display: flex;
   width: max-content;
   gap: 16px;
-  animation: material-auto-scroll var(--material-scroll-duration, 46s) linear infinite;
-}
-
-.character-material-viewport:hover .character-material-track,
-.character-material-viewport:focus-within .character-material-track {
-  --material-scroll-duration: 120s;
+  will-change: transform;
 }
 
 .character-material-frame {
@@ -870,15 +864,6 @@ button {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
-  }
-}
-
-@keyframes material-auto-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(calc(-50% - 8px));
   }
 }
 

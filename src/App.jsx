@@ -1632,7 +1632,8 @@ function GaussianSplatDemo() {
 }
 
 function CharacterMaterialPanel({ open, onClose }) {
-  const viewportRef = useRef(null);
+  const trackRef = useRef(null);
+  const hoverRef = useRef(false);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -1647,17 +1648,47 @@ function CharacterMaterialPanel({ open, onClose }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [open, onClose]);
 
+  useEffect(() => {
+    if (!open) return undefined;
+
+    let frameId;
+    let lastTime = performance.now();
+    let offset = 0;
+    let speed = 26;
+
+    const tick = (time) => {
+      const track = trackRef.current;
+      const delta = Math.min((time - lastTime) / 1000, 0.05);
+      lastTime = time;
+
+      const targetSpeed = hoverRef.current ? 0 : 26;
+      speed += (targetSpeed - speed) * Math.min(1, delta * 3.2);
+
+      if (track) {
+        const loopWidth = track.scrollWidth / 2;
+        if (loopWidth > 0) {
+          offset = (offset + speed * delta) % loopWidth;
+          track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+        }
+      }
+
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    frameId = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [open]);
+
   if (!open) return null;
 
   const loopImages = [...characterMaterialImages, ...characterMaterialImages];
 
-  const handlePanelWheel = (event) => {
-    const viewport = viewportRef.current;
-    if (!viewport) return;
-
+  const blockWheel = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    viewport.scrollLeft += event.deltaY + event.deltaX;
   };
 
   return (
@@ -1679,7 +1710,7 @@ function CharacterMaterialPanel({ open, onClose }) {
         role="dialog"
         aria-modal="true"
         aria-label="理想同学形象 1.0"
-        onWheel={handlePanelWheel}
+        onWheelCapture={blockWheel}
       >
         <div className="character-material-head">
           <div>
@@ -1690,8 +1721,18 @@ function CharacterMaterialPanel({ open, onClose }) {
             <X size={18} />
           </button>
         </div>
-        <div className="character-material-viewport" aria-label="形象素材图片列表" ref={viewportRef}>
-          <div className="character-material-track">
+        <div
+          className="character-material-viewport"
+          aria-label="形象素材图片列表"
+          onMouseEnter={() => {
+            hoverRef.current = true;
+          }}
+          onMouseLeave={() => {
+            hoverRef.current = false;
+          }}
+          onWheelCapture={blockWheel}
+        >
+          <div className="character-material-track" ref={trackRef}>
             {loopImages.map((item, index) => (
               <figure className="character-material-frame" key={`${item.src}-${index}`}>
                 <img src={item.src} alt={`${item.label} 理想同学实体化素材`} loading="lazy" />
