@@ -2440,9 +2440,9 @@ button {
 .radiance-demo {
   grid-column: 2;
   display: grid;
-  grid-template-rows: minmax(340px, 1fr) auto;
-  align-content: center;
-  gap: 12px;
+  grid-template-rows: auto auto;
+  align-content: start;
+  gap: 8px;
   height: calc(100svh - 184px);
   min-height: 520px;
 }

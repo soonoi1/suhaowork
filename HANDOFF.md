@@ -250,6 +250,7 @@ texture
   - 新增「4O 车机端」和「4O 手机端」入口。
   - 抽出 `AnimationAssetPanel` 复用弹窗结构。
   - 当前 `fourOCarAnimationItems` / `fourOPhoneAnimationItems` 为空，面板显示空视窗占位；后续收到素材后补数组即可。
+- 第 6 页 `Standby 放射光` 右侧演示区域将 `.radiance-demo` 改为内容靠上排列，并把画布与控制器之间的 gap 收紧到 8px。
 
 ### 2026-05-14
 
