@@ -214,7 +214,17 @@ const pages = [
     ],
   },
   {
-    eyebrow: "07 / OC Eyes",
+    eyebrow: "07 / Material Study",
+    title: "SS4 质感探索",
+    demo: "fluidGlass",
+    conclusion:
+      "通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
+    intro:
+      "这一页先作为质感交互原型，用 ReactBits Fluid Glass 的方式呈现可被鼠标扰动的玻璃折射效果。后续可以继续替换为 SS4 的具体素材、界面控件和材质参数，用来说明质感方案如何从静态视觉进入可交互验证。",
+    points: [],
+  },
+  {
+    eyebrow: "08 / OC Eyes",
     title: "OC 眼睛",
     demo: "ocVideos",
     conclusion:
@@ -237,7 +247,7 @@ const pages = [
     ],
   },
   {
-    eyebrow: "08 / Summary",
+    eyebrow: "09 / Summary",
     title: "结果与方法沉淀",
     conclusion:
       "最终沉淀的不只是单个项目，而是视觉判断、动效表达、多端交付和 AI 工作流这些可以继续复用的方法。",
@@ -294,8 +304,9 @@ const pillNavItems = [
   { label: "Delivery", href: "#page-4" },
   { label: "AI", href: "#page-5" },
   { label: "Light", href: "#page-6" },
-  { label: "OC", href: "#page-7" },
-  { label: "Sum", href: "#page-8" },
+  { label: "Glass", href: "#page-7" },
+  { label: "OC", href: "#page-8" },
+  { label: "Sum", href: "#page-9" },
 ];
 
 function getActivePillHref(activePageIndex) {
@@ -307,7 +318,8 @@ function getActivePillHref(activePageIndex) {
   if (pageNumber === 5) return "#page-5";
   if (pageNumber === 6) return "#page-6";
   if (pageNumber === 7) return "#page-7";
-  return "#page-8";
+  if (pageNumber === 8) return "#page-8";
+  return "#page-9";
 }
 
 const pageBackdrops = {
@@ -321,7 +333,7 @@ const pageBackdrops = {
     src: "/assets/li-center/cua-black-bg.mp4",
     className: "backdrop-li-center",
   },
-  8: {
+  9: {
     type: "image",
     src: "/assets/final-summary-banner.jpg",
     className: "backdrop-fur-lineup",
