@@ -15,6 +15,7 @@ import {
 import GradualBlur from "./components/GradualBlur";
 import PillNav from "./components/PillNav";
 import { PrismaticBurst } from "./components/PrismaticBurst";
+import savedContent from "./content.saved.json";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
 const GaussianSplatViewer = lazy(() => import("./components/GaussianSplatViewer"));
@@ -861,8 +862,12 @@ function loadStoredNotes() {
   }
 }
 
-function clonePages(sourcePages = pages) {
-  return JSON.parse(JSON.stringify(sourcePages));
+function getDefaultPages() {
+  return Array.isArray(savedContent.pages) && savedContent.pages.length ? savedContent.pages : sourcePages;
+}
+
+function clonePages(sourcePagesToClone = getDefaultPages()) {
+  return JSON.parse(JSON.stringify(sourcePagesToClone));
 }
 
 function loadStoredPages() {
@@ -876,8 +881,24 @@ function loadStoredPages() {
   }
 }
 
-function formatAllNotes(notes, sourcePages = pages) {
-  const filledNotes = sourcePages
+async function syncContentToSource(contentPages) {
+  if (!import.meta.env.DEV || typeof fetch !== "function") return;
+
+  const response = await fetch("/__suhaowork/save-content-source", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ pages: contentPages }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to sync content to source.");
+  }
+}
+
+function formatAllNotes(notes, pagesSource = getDefaultPages()) {
+  const filledNotes = pagesSource
     .map((page, index) => ({
       index,
       title: page.title,
@@ -2540,9 +2561,10 @@ export function App() {
     setContentDirty(true);
   };
 
-  const saveContent = () => {
+  const saveContent = async () => {
     try {
       window.localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify(contentPages));
+      await syncContentToSource(contentPages);
       setContentDirty(false);
       setContentEditing(false);
       setCopiedTarget("content-save");
