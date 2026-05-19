@@ -2565,6 +2565,26 @@ button {
   transform: translateY(0);
 }
 
+.case-section.has-radiance .case-copy {
+  top: 104px;
+  align-self: start;
+}
+
+.radiance-copy-points {
+  margin-top: 28px;
+  max-width: 620px;
+}
+
+.radiance-copy-points article::before {
+  width: min(58%, 300px);
+}
+
+.radiance-copy-points article:hover p,
+.radiance-copy-points article:focus-within p,
+.visual-deck.is-editing .radiance-copy-points p {
+  max-height: 148px;
+}
+
 .gaussian-model-switch {
   position: absolute;
   top: 14px;

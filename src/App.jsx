@@ -195,16 +195,16 @@ const pages = [
       "放空小同桌需要一种轻微、低打扰但可响应的桌面光效。传统静态视觉很难说明体验，因此先做成可运行 demo 来验证方向。",
     points: [
       {
-        label: "难点",
-        text: "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间。",
+        label: "问题",
+        text: "Standby 放空桌面需要一种轻微、低打扰、可被状态调用的光效语言。静态视觉很难说明体验，也缺少可讨论的参数边界。",
       },
       {
         label: "动作",
-        text: "将视觉目标、光心位置、扩散层次、呼吸节奏和响应状态描述给 AI，并结合设计判断完成初版原型。",
+        text: "基于 AI Studio 和代码工具，把光心位置、扩散层次、呼吸节奏、方向视角和颜色关系拆成可调参数，快速做出可运行原型。",
       },
       {
         label: "结果",
-        text: "形成可交互放射光方案，并把经验和实现思路共享给团队继续打磨。",
+        text: "形成可交互的放射光验证方案，让抽象光效从描述进入可演示、可讨论、可继续交付的状态，并沉淀给团队继续打磨。",
       },
     ],
   },
@@ -1935,6 +1935,31 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
   );
 }
 
+function RevealPointList({ points, editing, onChange, className = "" }) {
+  return (
+    <div className={`gaussian-copy-points ${className}`.trim()}>
+      {points.map((item, pointIndex) => (
+        <article key={item.label}>
+          <span>{pad(pointIndex + 1)}</span>
+          <div>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "text"], value)}
+            />
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
   const [isCenterAnimationPanelOpen, setCenterAnimationPanelOpen] = useState(false);
@@ -1953,6 +1978,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
 
   if (page.demo === "scrollStack") {
     sectionClasses.push("has-scroll-stack");
+  }
+
+  if (page.demo === "radiance") {
+    sectionClasses.push("has-radiance");
   }
 
   if (page.demo === "ocVideos") {
@@ -2066,26 +2095,19 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           onChange={(value) => onChange(index, ["intro"], value)}
         />
         {page.demo === "gaussianSplat" ? (
-          <div className="gaussian-copy-points">
-            {page.points.map((item, pointIndex) => (
-              <article key={item.label}>
-                <span>{pad(pointIndex + 1)}</span>
-                <div>
-                  <EditableText
-                    as="h3"
-                    value={item.label}
-                    editing={editing}
-                    onChange={(value) => onChange(index, ["points", pointIndex, "label"], value)}
-                  />
-                  <EditableText
-                    value={item.text}
-                    editing={editing}
-                    onChange={(value) => onChange(index, ["points", pointIndex, "text"], value)}
-                  />
-                </div>
-              </article>
-            ))}
-          </div>
+          <RevealPointList
+            points={page.points}
+            editing={editing}
+            onChange={(path, value) => onChange(index, path, value)}
+          />
+        ) : null}
+        {page.demo === "radiance" ? (
+          <RevealPointList
+            points={page.points}
+            editing={editing}
+            onChange={(path, value) => onChange(index, path, value)}
+            className="radiance-copy-points"
+          />
         ) : null}
         {page.demo === "ocVideos" ? (
           <OCStrategyBoard
