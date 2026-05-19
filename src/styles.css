@@ -438,7 +438,7 @@ button {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 18px;
   background: rgba(0, 0, 0, 0.72);
   backdrop-filter: none;
   outline: none;
@@ -469,8 +469,10 @@ button {
 .cover-card-shell {
   position: absolute;
   inset: auto 0 0;
-  z-index: -1;
+  z-index: 0;
+  display: block;
   height: 100%;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: inherit;
   background: rgba(0, 0, 0, 0.72);
@@ -498,6 +500,48 @@ button {
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
 }
 
+.cover-card .border-glow-inner > span:not(.cover-card-shell),
+.cover-card h3,
+.cover-card p {
+  position: relative;
+  z-index: 1;
+}
+
+.cover-card.border-glow-card::before,
+.cover-card.border-glow-card > .edge-light {
+  display: none;
+}
+
+.cover-card-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 105deg at center,
+    transparent 0deg,
+    transparent 40deg,
+    rgba(255, 209, 138, 0.16) 66deg,
+    rgba(255, 209, 138, 0.58) 92deg,
+    rgba(255, 240, 204, 0.92) 112deg,
+    rgba(255, 209, 138, 0.42) 134deg,
+    transparent 172deg,
+    transparent 360deg
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
 .cover-card:hover,
 .cover-card:focus-within,
 .cover-card:focus,
@@ -517,6 +561,13 @@ button {
   border-color: rgba(255, 255, 255, 0.42);
   background: rgba(0, 0, 0, 0.84);
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+}
+
+.cover-card:hover .cover-card-shell::before,
+.cover-card:focus-within .cover-card-shell::before,
+.cover-card:focus .cover-card-shell::before,
+.visual-deck.is-editing .cover-card .cover-card-shell::before {
+  opacity: 1;
 }
 
 .cover-card span,
