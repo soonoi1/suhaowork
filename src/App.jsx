@@ -79,12 +79,12 @@ const pages = [
         text: "深耕 3D 角色设计与产品动效多年，具备扎实的“手头功夫”。能够精准把控形体、材质、动画节奏与交互体验，将高品质的视觉效果完美落地。",
       },
       {
-        label: "职业能力",
-        text: "具备跨越角色壁垒的沟通、协同与资源整合能力。面对复杂业务，能在体验、风险与节奏间做出精准决策与判断，保障海量多端资源的高效交付。",
+        label: "协同能力",
+        text: "跨越职业壁垒与技术盲区，率先完成方案验证并赋能团队，承担关键衔接作用（对应：车端语音形象协同、放空放射光落地）",
       },
       {
-        label: "探索能力",
-        text: "保持敏锐，善于结合与吸收 AI 等新技术。能够快速摸清前沿技术的边界，并将其转化为解决实际业务痛点、提升团队设计效能的落地流程。",
+        label: "创新能力",
+        text: "保持敏锐，善于结合与吸收 AI 等新技术。能够快速摸清技术的边界，并将其转化为解决实际业务痛点、提升团队设计效能的落地流程。",
       },
     ],
     timeline: [
@@ -128,11 +128,11 @@ const pages = [
       },
       {
         label: "动作",
-        text: "主导团队内成员不断尝试各种形态面对 Spine、3D Multipass、Gauss 等多种技术路线并行探索，能够基于体验效果、业务风险与节奏综合决策。协同多角色推进落地，以 Spine 保障交付，保留 Gauss 探索空间。",
+        text: "解决3D毛绒质感视觉问题，构建毛绒形象基础形态，多种技术路线并行探索,能够基于最终体验效果、业务风险与交付节奏进行综合判断,最终选择以Spine方案保障稳定交付,同时保留Gauss方案的后续探索空间,为后续体验升级蓄力。",
       },
       {
         label: "结果",
-        text: "形成理想同学毛绒实体化方向，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。",
+        text: "实现理想汽车车机端理想同学形象的全面迭代换新，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。",
       },
     ],
   },
@@ -140,25 +140,25 @@ const pages = [
     eyebrow: "04 / Delivery",
     title: "理想同学中心与 4o 小同桌交付",
     conclusion:
-      "在版本周期内完成多端、多角色、多状态资源交付，把视觉体验从单点素材推进到可上线产品场景。",
+      "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
     intro:
-      "这一页合并理想同学中心、4o 小同桌和 OTA 7.4 交付：重点是复杂资源如何被拆解、取舍、复用并按节点上线。",
+      "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
     points: [
       {
-        label: "交互场景",
-        text: "理想同学中心承载 AI 形象、能力介绍和可作为屏保使用的毛绒时钟，需要兼顾展示、交互和长期使用体验。",
+        label: "首页设计决策",
+        text: "跳出单纯视觉表达，从“用户是否真正理解并持续使用”出发组织信息结构与交互节奏。主动调整动效露出频率解决疲劳问题，兼顾当前体验与长期演进。",
       },
       {
-        label: "资源规模",
-        text: "4o 小同桌涉及多角色、多状态、手机 App、车机端和黑白模式，最终需要处理 200 多组视频素材。",
+        label: "设计价值主张",
+        text: "视觉减负：减少交互行为带来的审美疲劳；长期主义：坚持使用透明素材作为基础框架，减少了后续不同版本适配成本",
       },
       {
-        label: "交付策略",
-        text: "把高频触达和用户最容易感知的状态放在最高优先级，低频状态模板化复用，并通过文档降低研发接入成本。",
+        label: "交付执行力",
+        text: "在 OTA 7.4 中面对手机/车机双端、9个形象、黑白两套资源的并行交付挑战，快速完成任务拆解、资源协调与优先级管理，有效控制风险。",
       },
       {
         label: "结果",
-        text: "完成多个板块的设计资源交付，平衡核心体验质量、制作成本和版本上线风险。",
+        text: "保障关键节点顺利上线，有效控制多板块并行交付的制作成本与风险。数字时钟效果如同预期被高频使用和曝光。",
       },
     ],
   },
@@ -169,19 +169,19 @@ const pages = [
     conclusion:
       "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
     intro:
-      "这里重点不是列工具，而是说明我如何把 AI 的随机性变成可筛选、可决策、可复用的工作方法。",
+      "发现AI的边界，提出解决问题的思路，并利用AI将其解决。人的瓶颈在于思考的速度，AI的瓶颈在于成功率。我只要解决这两点就行了，构建AI特定workflow批量生图人工筛选解决成功率问题，AI泛化思考批量生图解决人工思考瓶颈。",
     points: [
       {
-        label: "结果池",
-        text: "先扩大生图和生视频结果池，再从高质量结果中反向筛选帽子、形象、场景和动作方向。",
+        label: "流程与效率",
+        text: "在理想同学APP首页动画素材规模快速增长的时候，主动推动 AI 化生产。allin Ai ，搭建批量生图、生视频工作流，提升出图效率，保障项目推进节奏。",
       },
       {
-        label: "流程化",
-        text: "用脚本和 VS Code 工作流支撑批量导出、命名、裁切、压缩和筛选，让 AI 结果能进入真实交付链路。",
+        label: "探索与验证",
+        text: "在行业未形成成熟 AI 设计流程阶段，主动探索 open claw、VibeCoding 等AI的能力边界，提前积累 AI 在业务场景中的使用可能性。",
       },
       {
-        label: "项目价值",
-        text: "把构思、试错和资源处理的部分成本前置给 AI，设计判断集中在审美、场景匹配和最终决策上。",
+        label: "沉淀与应用",
+        text: "结合团队在批量调色与流程衔接中的真实痛点，主动开发适配流程的辅助工具与插件，降低重复性操作成本，并在团队内部共享提升整体效率。",
       },
     ],
   },
@@ -190,21 +190,21 @@ const pages = [
     title: "Standby 放射光",
     demo: "radiance",
     conclusion:
-      "用 AI Studio、代码工具和视觉判断，把抽象光效需求推进成可调参数、可讨论、可继续交付的交互原型。",
+      "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
     intro:
-      "放空小同桌需要一种轻微、低打扰但可响应的桌面光效。传统静态视觉很难说明体验，因此先做成可运行 demo 来验证方向。",
+      "基于 Aistudio 尝试设计交互效果并结合 React 源码验证；在团队缺少相关经验的情况下，率先完成技术方向验证与方案沉淀，并将经验共享给团队成员，建立推进基础。",
     points: [
       {
         label: "问题",
-        text: "Standby 放空桌面需要一种轻微、低打扰、可被状态调用的光效语言。静态视觉很难说明体验，也缺少可讨论的参数边界。",
+        text: "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间，而在设计初期团队缺少相关图形化代码经验。",
       },
       {
         label: "动作",
-        text: "基于 AI Studio 和代码工具，把光心位置、扩散层次、呼吸节奏、方向视角和颜色关系拆成可调参数，快速做出可运行原型。",
+        text: "因为前期的探索和验证，有用AI做过绑定的经验，基于此使用 Aistudio 结合 React 动效源码，将其与设计想法结合，形成了该效果的可交互的初版视觉方案。",
       },
       {
         label: "结果",
-        text: "形成可交互的放射光验证方案，让抽象光效从描述进入可演示、可讨论、可继续交付的状态，并沉淀给团队继续打磨。",
+        text: "率先完成方向验证与方案沉淀，并将经验共享给团队成员，帮助团队建立后续协同推进的基础。",
       },
     ],
   },
@@ -213,9 +213,9 @@ const pages = [
     title: "SS4 质感探索",
     demo: "fluidGlass",
     conclusion:
-      "通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
+      "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
     intro:
-      "这一页先作为质感交互原型，用 ReactBits Fluid Glass 的方式呈现可被鼠标扰动的玻璃折射效果。后续可以继续替换为 SS4 的具体素材、界面控件和材质参数，用来说明质感方案如何从静态视觉进入可交互验证。",
+      "通过 3D 动效先去验证目前技术路径所有可实现的效果，然后再逐渐收敛成 SS4 系统的 UI 材质参数效果。提供视效玻璃质感技术实现的思路给到技术。",
     points: [],
   },
   {
@@ -223,21 +223,21 @@ const pages = [
     title: "OC 眼睛",
     demo: "ocVideos",
     conclusion:
-      "面向未来无人驾驶车外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
+      "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
     intro:
-      "这个案例体现的是未来体验判断：既要继承理想同学的椭圆眼睛特征，又要适应车外场景的信息表达和自然感。",
+      "结合真实用户场景判断“角色生命感”问题，通过引入仿真人眼微动作与非规律变化逻辑，增强角色灵动感与情绪反馈。",
     points: [
       {
-        label: "设计判断",
-        text: "目标不是夸张拟人，而是让车辆像一个有注意力的智能体，让路人知道它在看哪里、注意什么、处于什么状态。",
+        label: "问题和难点",
+        text: "如何塑造“角色生命感”问题，目标不是夸张拟人，而是让车辆像一个有注意力、情绪反馈的智能体。在特定的尺寸边界下如何做好情绪表达，如何延续理想同学的特征。",
       },
       {
         label: "表达方式",
-        text: "用液态眼白承担眉头、眉弓和眼皮的情绪表达，让眼睛在缩小时也能承接文字信息。",
+        text: "在OC眼睛动效方案中,能够结合真实用户场景判断\"角色生命感\"问题,通过引入仿真人眼微动作与\n非规律变化逻辑,增强角色灵动感与情绪反馈,使角色状态更加自然生动。",
       },
       {
         label: "动效策略",
-        text: "注意力转移参考人眼快速跳转规律，使用强加速缓出曲线，让车辆“看向某处”的动态更符合直觉。",
+        text: "通过引入仿真人眼微动作与非规律变化逻辑，参考眼动跳转规律，增强角色灵动感，使状态更自然生动。",
       },
     ],
   },
@@ -245,25 +245,25 @@ const pages = [
     eyebrow: "09 / Summary",
     title: "结果与方法沉淀",
     conclusion:
-      "最终沉淀的不只是单个项目，而是视觉判断、动效表达、多端交付和 AI 工作流这些可以继续复用的方法。",
+      "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
     intro:
-      "如果评委只记住一句话：我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
+      "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
     points: [
       {
-        label: "上线结果",
-        text: "产出理想同学形象资产、中心场景、4o 小同桌多端视频资源、Standby 初版 demo 和 OC 眼睛方案。",
+        label: "主要业务产出",
+        text: "完成理想同学实体化、理想同学中心、4o 小同桌、7.4 多端交付、App 首页动画、Standby放射光、具身迎宾、SS4质感探索和 OC眼睛等关键项目。",
       },
       {
-        label: "方法结果",
-        text: "沉淀毛绒视觉语言、状态动效表达、资源优先级、模板复用、文档化交付和 AI 逆向生产流程。",
+        label: "业务价值沉淀",
+        text: "让理想同学更容易被用户理解、持续使用和高频感知，同时通过资源复用、透明素材框架和交付优先级管理，降低后续版本适配成本与上线风险。",
       },
       {
-        label: "个人价值",
-        text: "在审美判断、技术边界、项目节奏和团队协作之间做连接，让新体验真正进入产品链路。",
+        label: "方法与工具沉淀",
+        text: "沉淀 AI 逆向生产、批量生成、资源处理脚本、辅助插件和代码原型方法，提升探索效率、资源产出效率和团队协作效率。",
       },
       {
-        label: "后续延展",
-        text: "这些方法可以继续支持角色体系、多端交互、车外注意力表达和更多 AI 生产工具的业务化应用。",
+        label: "跨界价值与未来延展",
+        text: "在 Spine、Gauss、React 动效、SS4 质感和 OC 眼睛等方向中连接设计与技术，把不确定探索转化为可验证、可复用、可继续推进的体验方案。",
       },
     ],
   },
@@ -275,7 +275,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-20-9page-copy-v1";
+const CONTENT_STORAGE_VERSION = "2026-05-20-9page-new-copy-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -374,7 +374,7 @@ const aiWorkflowPeopleItems = Array.from({ length: 16 }, (_, index) => ({
 const aiGalleryGroups = [
   {
     key: "characters",
-    label: "人物形象",
+    label: "人物反推",
     tone: "black",
     count: 24,
   },
@@ -434,70 +434,70 @@ const liCenterAnimationItems = liCenterStackVideos.map((item) => ({
 const fourOCarAnimationItems = [
   {
     src: "/assets/four-o-car/li-table-dark-w.mp4",
-    label: "小同桌 dark W",
-    meta: "4O car animation",
+    label: "小同桌 dark",
+    meta: "4o car animation",
   },
 ];
 
 const fourOPhoneAnimationItems = [
   {
     src: "/assets/four-o-phone/app-4o.mp4",
-    label: "APP 4O",
-    meta: "4O mobile video",
+    label: "APP 4o",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/li-student.mp4",
     label: "理想同学",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/sweet-li-student.mp4",
     label: "甜美理同",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/light-warrior.mp4",
     label: "光之勇士",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/beijing-auntie.mp4",
     label: "北京大姨",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/beijing-uncle.mp4",
     label: "北京大爷",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/roaring-dragon.mp4",
     label: "吼吼龙",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/li-bai.mp4",
     label: "李白",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/riddle-king.mp4",
     label: "谜语大王",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
   {
     src: "/assets/four-o-phone/snow-princess.mp4",
     label: "雪国公主",
-    meta: "4O mobile video",
+    meta: "4o mobile video",
     type: "video",
   },
 ];
@@ -844,7 +844,7 @@ function AIStreamGallery({ points, editing, onChange }) {
 function AIMethodInteractive({ points, editing, onChange }) {
   return (
     <div className="ai-method-panel">
-      <div className="ai-method-visual" aria-label="AI 工作流生成结果池">
+      <div className="ai-method-visual" aria-label="AI 工作流素材浏览">
         <Suspense fallback={<div className="ai-method-loading">AI RESULT POOL</div>}>
           <InfiniteMenu
             className="ai-method-infinite-menu"
@@ -1677,7 +1677,7 @@ function FourOAnimationPanel({ open, onClose, type }) {
     <AnimationAssetPanel
       open={open}
       onClose={onClose}
-      title={isCar ? "4O 小同桌 · 车机端动画" : "4O 小同桌 · 手机端动画"}
+      title={isCar ? "4O 小同桌 · 车机端" : "4O 小同桌 · 手机端"}
       kicker={isCar ? "4O CAR ANIMATION" : "4O MOBILE ANIMATION"}
       items={isCar ? fourOCarAnimationItems : fourOPhoneAnimationItems}
       emptyTitle={isCar ? "车机端素材待补充" : "手机端素材待补充"}
@@ -2030,7 +2030,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
             <span className="delivery-entry-copy">
               <span>01</span>
               <strong>中心动画</strong>
-              <small>理想农业中心里的其他动画</small>
+              <small>理想同学中心里的其他动画（含未上线）</small>
             </span>
             <Film size={22} />
           </BorderGlow>
