@@ -8,7 +8,6 @@ import {
   Menu,
   MessageSquareText,
   Orbit,
-  RotateCcw,
   Save,
   X,
 } from "lucide-react";
@@ -2367,18 +2366,6 @@ export function App() {
     }
   };
 
-  const resetContent = () => {
-    const nextPages = clonePages();
-    setContentPages(nextPages);
-    setContentDirty(false);
-    setContentEditing(false);
-    try {
-      window.localStorage.removeItem(CONTENT_STORAGE_KEY);
-    } catch {
-      // Local content reset is non-critical.
-    }
-  };
-
   const copyText = async (text, target) => {
     try {
       if (navigator.clipboard?.writeText) {
@@ -2446,10 +2433,6 @@ export function App() {
                   : copiedTarget === "content-save-failed"
                     ? "保存失败"
                     : "保存文案"}
-              </button>
-              <button className="reset-content-button" type="button" onClick={resetContent}>
-                <RotateCcw size={16} />
-                还原
               </button>
             </>
           ) : null}

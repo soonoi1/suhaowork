@@ -139,7 +139,6 @@ button {
 .copy-all-button,
 .edit-content-button,
 .save-content-button,
-.reset-content-button,
 .note-copy-button,
 .menu-button {
   display: inline-flex;
@@ -163,8 +162,7 @@ button {
 }
 
 .edit-content-button,
-.save-content-button,
-.reset-content-button {
+.save-content-button {
   padding: 0 12px;
 }
 
@@ -175,12 +173,6 @@ button {
   outline: 1px solid rgba(245, 245, 240, 0.42);
 }
 
-.reset-content-button {
-  background: rgba(245, 245, 240, 0.14);
-  color: #f5f5f0;
-  outline: 1px solid rgba(245, 245, 240, 0.24);
-}
-
 .menu-button {
   width: 42px;
 }
@@ -188,7 +180,6 @@ button {
 .copy-all-button:hover,
 .edit-content-button:hover,
 .save-content-button:hover,
-.reset-content-button:hover,
 .note-copy-button:hover,
 .menu-button:hover {
   background: #08080a;
