@@ -860,6 +860,16 @@ button {
   --entry-bg: url("/assets/delivery-entry/four-o-phone.webp");
 }
 
+.ss4-material-trigger {
+  --entry-bg: url("/assets/ss4-material/entry.webp");
+  position: absolute;
+  left: var(--page-gutter);
+  bottom: clamp(30px, 5vh, 58px);
+  z-index: 5;
+  width: min(440px, calc(100vw - var(--page-gutter) * 2));
+  min-height: clamp(190px, 26vh, 300px);
+}
+
 .delivery-entry-media {
   position: absolute;
   inset: 0;
@@ -1238,6 +1248,15 @@ button {
   height: clamp(280px, 48vh, 520px);
   object-fit: cover;
   background: #000;
+}
+
+.center-animation-panel[aria-label="SS4 质感素材"] .center-animation-card {
+  flex-basis: clamp(360px, 43vw, 640px);
+}
+
+.center-animation-panel[aria-label="SS4 质感素材"] .center-animation-card video,
+.center-animation-panel[aria-label="SS4 质感素材"] .center-animation-card img {
+  object-fit: contain;
 }
 
 .center-animation-copy {

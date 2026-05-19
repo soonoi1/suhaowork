@@ -528,6 +528,25 @@ const characterEntityVideos = [
   },
 ];
 
+const ss4MaterialItems = [
+  {
+    src: "/assets/ss4-material/ui-material-backplate.mp4",
+    label: "UI 材质背板测试",
+    meta: "SS4 material video",
+  },
+  {
+    src: "/assets/ss4-material/ss4-ui.mp4",
+    label: "SS4 UI 动效",
+    meta: "SS4 UI video",
+  },
+  {
+    src: "/assets/ss4-material/ui2.webp",
+    label: "UI 材质方案图",
+    meta: "SS4 UI image",
+    type: "image",
+  },
+];
+
 function loadStoredNotes() {
   if (typeof window === "undefined") return {};
 
@@ -1686,6 +1705,18 @@ function FourOAnimationPanel({ open, onClose, type }) {
   );
 }
 
+function SS4MaterialPanel({ open, onClose }) {
+  return (
+    <AnimationAssetPanel
+      open={open}
+      onClose={onClose}
+      title="SS4 质感素材"
+      kicker="SS4 MATERIAL"
+      items={ss4MaterialItems}
+    />
+  );
+}
+
 function LiCenterScrollStackDemo() {
   const [activeIndex, setActiveIndex] = useState(0);
   const rootRef = useRef(null);
@@ -1963,6 +1994,7 @@ function RevealPointList({ points, editing, onChange, className = "" }) {
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
   const [isCenterAnimationPanelOpen, setCenterAnimationPanelOpen] = useState(false);
+  const [isSS4MaterialPanelOpen, setSS4MaterialPanelOpen] = useState(false);
   const [activeFourOPanel, setActiveFourOPanel] = useState(null);
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
@@ -2074,6 +2106,27 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           </BorderGlow>
         </div>
       ) : null}
+      {page.demo === "fluidGlass" ? (
+        <BorderGlow
+          as="button"
+          className="center-animation-trigger ss4-material-trigger"
+          type="button"
+          onClick={() => setSS4MaterialPanelOpen(true)}
+          borderRadius={18}
+          glowRadius={38}
+          fillOpacity={0}
+        >
+          <span className="delivery-entry-media" aria-hidden="true" />
+          <span className="delivery-entry-shade" aria-hidden="true" />
+          <span className="delivery-entry-sheen" aria-hidden="true" />
+          <span className="delivery-entry-copy">
+            <span>01</span>
+            <strong>SS4 质感素材</strong>
+            <small>玻璃背板、UI 动效与材质方案图</small>
+          </span>
+          <Images size={22} />
+        </BorderGlow>
+      ) : null}
       <div className="case-copy">
         <p className="eyebrow">{page.eyebrow}</p>
         <EditableText
@@ -2182,6 +2235,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       <LiCenterAnimationPanel open={isCenterAnimationPanelOpen} onClose={() => setCenterAnimationPanelOpen(false)} />
       <FourOAnimationPanel open={activeFourOPanel === "car"} type="car" onClose={() => setActiveFourOPanel(null)} />
       <FourOAnimationPanel open={activeFourOPanel === "phone"} type="phone" onClose={() => setActiveFourOPanel(null)} />
+      <SS4MaterialPanel open={isSS4MaterialPanelOpen} onClose={() => setSS4MaterialPanelOpen(false)} />
     </section>
   );
 }
