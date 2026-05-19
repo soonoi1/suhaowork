@@ -275,6 +275,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
+const CONTENT_STORAGE_VERSION = "2026-05-20-9page-copy-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -557,8 +558,11 @@ function loadStoredPages() {
     const saved = window.localStorage.getItem(CONTENT_STORAGE_KEY);
     if (!saved) return clonePages();
 
-    const parsedPages = JSON.parse(saved);
-    if (isCurrentPageSet(parsedPages)) return parsedPages;
+    const parsed = JSON.parse(saved);
+    const parsedPages = Array.isArray(parsed) ? null : parsed?.pages;
+    if (parsed?.version === CONTENT_STORAGE_VERSION && isCurrentPageSet(parsedPages)) {
+      return parsedPages;
+    }
 
     window.localStorage.removeItem(CONTENT_STORAGE_KEY);
     return clonePages();
@@ -2351,7 +2355,13 @@ export function App() {
 
   const saveContent = async () => {
     try {
-      window.localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify(contentPages));
+      window.localStorage.setItem(
+        CONTENT_STORAGE_KEY,
+        JSON.stringify({
+          version: CONTENT_STORAGE_VERSION,
+          pages: contentPages,
+        }),
+      );
       const sourceSynced = await syncContentToSource(contentPages);
       setContentDirty(false);
       setContentEditing(false);
