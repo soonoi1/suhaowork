@@ -573,7 +573,7 @@ function loadStoredPages() {
 }
 
 async function syncContentToSource(contentPages) {
-  if (!import.meta.env.DEV || typeof fetch !== "function") return;
+  if (!import.meta.env.DEV || typeof fetch !== "function") return false;
 
   const response = await fetch("/__suhaowork/save-content-source", {
     method: "POST",
@@ -586,6 +586,8 @@ async function syncContentToSource(contentPages) {
   if (!response.ok) {
     throw new Error("Failed to sync content to source.");
   }
+
+  return true;
 }
 
 function formatAllNotes(notes, pagesSource = getDefaultPages()) {
@@ -2355,10 +2357,10 @@ export function App() {
   const saveContent = async () => {
     try {
       window.localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify(contentPages));
-      await syncContentToSource(contentPages);
+      const sourceSynced = await syncContentToSource(contentPages);
       setContentDirty(false);
       setContentEditing(false);
-      setCopiedTarget("content-save");
+      setCopiedTarget(sourceSynced ? "content-save" : "content-save-local");
       window.setTimeout(() => setCopiedTarget(""), 1600);
     } catch {
       setCopiedTarget("content-save-failed");
@@ -2427,12 +2429,18 @@ export function App() {
           {contentEditing || contentDirty ? (
             <>
               <button className="save-content-button" type="button" onClick={saveContent}>
-                {copiedTarget === "content-save" ? <ClipboardCheck size={16} /> : <Save size={16} />}
+                {copiedTarget === "content-save" || copiedTarget === "content-save-local" ? (
+                  <ClipboardCheck size={16} />
+                ) : (
+                  <Save size={16} />
+                )}
                 {copiedTarget === "content-save"
-                  ? "已保存"
-                  : copiedTarget === "content-save-failed"
-                    ? "保存失败"
-                    : "保存文案"}
+                  ? "已同步源码"
+                  : copiedTarget === "content-save-local"
+                    ? "已本地保存"
+                    : copiedTarget === "content-save-failed"
+                      ? "保存失败"
+                      : "保存文案"}
               </button>
             </>
           ) : null}

@@ -609,6 +609,10 @@ button {
   pointer-events: none;
 }
 
+.visual-deck.is-editing .cover-card p {
+  pointer-events: auto;
+}
+
 .cover-card:hover .border-glow-inner > span:not(.cover-card-shell),
 .cover-card:focus-within .border-glow-inner > span:not(.cover-card-shell),
 .cover-card:focus .border-glow-inner > span:not(.cover-card-shell),
