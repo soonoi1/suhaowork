@@ -18,28 +18,6 @@ function buildGlowVars(glowColor, intensity) {
   return vars;
 }
 
-const GRADIENT_POSITIONS = ["80% 55%", "69% 34%", "8% 6%", "41% 38%", "86% 85%", "82% 18%", "51% 4%"];
-const GRADIENT_KEYS = [
-  "--gradient-one",
-  "--gradient-two",
-  "--gradient-three",
-  "--gradient-four",
-  "--gradient-five",
-  "--gradient-six",
-  "--gradient-seven",
-];
-const COLOR_MAP = [0, 1, 2, 0, 1, 2, 1];
-
-function buildGradientVars(colors) {
-  const vars = {};
-  for (let i = 0; i < 7; i += 1) {
-    const color = colors[Math.min(COLOR_MAP[i], colors.length - 1)];
-    vars[GRADIENT_KEYS[i]] = `radial-gradient(at ${GRADIENT_POSITIONS[i]}, ${color} 0px, transparent 50%)`;
-  }
-  vars["--gradient-base"] = `linear-gradient(${colors[0]} 0 100%)`;
-  return vars;
-}
-
 function easeOutCubic(x) {
   return 1 - Math.pow(1 - x, 3);
 }
@@ -73,7 +51,6 @@ export default function BorderGlow({
   glowIntensity = 0.7,
   coneSpread = 25,
   animated = false,
-  colors = ["#f5f5f0", "#c9905e", "#aeb3b5"],
   fillOpacity = 0,
   as: Component = "div",
   ...rest
@@ -183,7 +160,6 @@ export default function BorderGlow({
         "--cone-spread": coneSpread,
         "--fill-opacity": fillOpacity,
         ...buildGlowVars(glowColor, glowIntensity),
-        ...buildGradientVars(colors),
       }}
       {...rest}
     >

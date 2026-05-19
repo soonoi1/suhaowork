@@ -916,7 +916,8 @@ function CoverCards({ items, editing, onChange }) {
   return (
     <div className="cover-cards">
       {items.map((item, index) => (
-        <article className="cover-card" tabIndex={0} key={item.label}>
+        <BorderGlow as="article" className="cover-card" tabIndex={0} key={item.label} fillOpacity={0}>
+          <span className="cover-card-shell" aria-hidden="true" />
           <span>{pad(index + 1)}</span>
           <EditableText
             as="h3"
@@ -929,7 +930,7 @@ function CoverCards({ items, editing, onChange }) {
             editing={editing}
             onChange={(value) => onChange(["coverItems", index, "text"], value)}
           />
-        </article>
+        </BorderGlow>
       ))}
     </div>
   );
