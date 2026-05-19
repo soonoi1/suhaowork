@@ -35,7 +35,7 @@
   z-index: 3;
   padding: var(--ring-width);
   background: conic-gradient(
-    from var(--cursor-angle) at center,
+    from calc(var(--cursor-angle) - 110deg) at center,
     transparent 0deg,
     transparent 38deg,
     var(--glow-color-20, hsl(40deg 80% 80% / 20%)) 66deg,

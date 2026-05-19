@@ -95,11 +95,12 @@ export default function BorderGlow({
       const card = cardRef.current;
       if (!card) return;
 
-      const rect = card.getBoundingClientRect();
+      const measurementElement = card.querySelector(".cover-card-shell") || card;
+      const rect = measurementElement.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
-      const edge = getEdgeProximity(card, x, y);
-      const angle = getCursorAngle(card, x, y);
+      const edge = getEdgeProximity(measurementElement, x, y);
+      const angle = getCursorAngle(measurementElement, x, y);
 
       card.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`);
       card.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`);
