@@ -2124,7 +2124,7 @@ button {
 .project-timeline-track::before {
   content: "";
   position: absolute;
-  top: 7px;
+  top: 10px;
   bottom: 7px;
   left: 52px;
   width: 1px;
@@ -2143,7 +2143,7 @@ button {
 .project-timeline-item::before {
   content: "";
   position: absolute;
-  top: 7px;
+  top: 5px;
   left: 48px;
   width: 9px;
   height: 9px;
@@ -2154,7 +2154,9 @@ button {
 
 .project-timeline-time {
   grid-row: 1 / span 2;
-  line-height: 1.4;
+  align-self: start;
+  font-size: 11px;
+  line-height: 19px;
 }
 
 .project-timeline-item h3 {
@@ -3584,4 +3586,9 @@ button {
   font-weight: 860;
   line-height: 1;
   text-shadow: 0 0 16px rgba(215, 163, 94, 0.16);
+}
+
+.project-timeline-time {
+  font-size: 11px;
+  line-height: 19px;
 }
