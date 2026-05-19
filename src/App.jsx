@@ -1314,25 +1314,8 @@ function StandbyRadianceDemo() {
 }
 
 function SS4FluidGlassDemo() {
-  const [lensPosition, setLensPosition] = useState({ x: 50, y: 50 });
-
-  const updateLensPosition = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setLensPosition({
-      x: ((event.clientX - rect.left) / rect.width) * 100,
-      y: ((event.clientY - rect.top) / rect.height) * 100,
-    });
-  };
-
   return (
-    <div
-      className="fluid-glass-demo"
-      onPointerMove={updateLensPosition}
-      style={{
-        "--glass-lens-x": `${lensPosition.x}%`,
-        "--glass-lens-y": `${lensPosition.y}%`,
-      }}
-    >
+    <div className="fluid-glass-demo">
       <Suspense fallback={<div className="fluid-glass-loading">SS4 MATERIAL</div>}>
         <FluidGlass
           mode="lens"
@@ -1349,11 +1332,10 @@ function SS4FluidGlassDemo() {
             color: "#ffffff",
             attenuationColor: "#fff5e8",
             attenuationDistance: 0.42,
-            highlightOpacity: 0.3,
+            highlightOpacity: 0,
           }}
         />
       </Suspense>
-      <div className="fluid-glass-lens-glow" aria-hidden="true" />
       <div className="fluid-glass-meta" aria-hidden="true">
         <span>SS4 MATERIAL</span>
         <strong>GLASS RESPONSE</strong>
