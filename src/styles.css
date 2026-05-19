@@ -1266,9 +1266,10 @@ button {
   grid-column: 1 / -1;
   grid-row: 2;
   align-self: end;
-  display: block;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 20px;
   min-height: 0;
-  pointer-events: none;
 }
 
 .final-summary-cards {
@@ -1280,6 +1281,7 @@ button {
   height: 86px;
   overflow: visible;
   z-index: 2;
+  pointer-events: auto;
 }
 
 .final-summary-card {
@@ -3563,6 +3565,7 @@ button {
 .center-animation-empty,
 .ai-method-visual,
 .ai-method-card,
+.final-summary-card,
 .project-timeline,
 .capability-panel,
 .li-center-stack-card,
@@ -3593,6 +3596,7 @@ button {
 .cover-card,
 .point-card,
 .ai-method-card,
+.final-summary-card,
 .capability-panel,
 .project-timeline,
 .radiance-panel {
@@ -3630,6 +3634,9 @@ button {
 .center-animation-trigger:focus-visible,
 .ai-method-card:hover,
 .ai-method-card:focus-within,
+.final-summary-card:hover,
+.final-summary-card:focus-within,
+.final-summary-card.is-expanded,
 .capability-panel:focus-visible,
 .capability-panel.is-open,
 .li-center-stack-card.is-active,

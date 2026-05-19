@@ -1889,9 +1889,37 @@ function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange
   );
 }
 
-function FinalSummaryShowcase() {
+function FinalSummaryShowcase({ points, editing, onChange }) {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
   return (
     <div className="final-summary-showcase">
+      <div className="final-summary-cards" aria-label="Summary details">
+        {points.map((item, pointIndex) => (
+          <article
+            className={`final-summary-card${activeCardIndex === pointIndex ? " is-expanded" : ""}`}
+            tabIndex={0}
+            onMouseEnter={() => setActiveCardIndex(pointIndex)}
+            onMouseLeave={() => setActiveCardIndex(null)}
+            onFocus={() => setActiveCardIndex(pointIndex)}
+            onBlur={() => setActiveCardIndex(null)}
+            key={item.label}
+          >
+            <span>{pad(pointIndex + 1)}</span>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "text"], value)}
+            />
+          </article>
+        ))}
+      </div>
       <div className="final-summary-visual">
         <img src="/assets/final-summary-banner.jpg" alt="" />
       </div>
@@ -2071,7 +2099,11 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       ) : page.demo === "ocVideos" ? (
         <OCVideoShowcase />
       ) : pageNumber === pages.length ? (
-        <FinalSummaryShowcase />
+        <FinalSummaryShowcase
+          points={page.points}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
       ) : (
         <div className="points-grid">
           <div>
