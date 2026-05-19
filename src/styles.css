@@ -830,7 +830,7 @@ button {
 }
 
 .center-animation-trigger {
-  --entry-bg: url("/assets/delivery-entry/center-animation.png");
+  --entry-bg: url("/assets/delivery-entry/center-animation.webp");
   position: relative;
   display: grid;
   align-items: end;
@@ -853,11 +853,11 @@ button {
 }
 
 .center-animation-trigger.is-car {
-  --entry-bg: url("/assets/delivery-entry/four-o-car.png");
+  --entry-bg: url("/assets/delivery-entry/four-o-car.webp");
 }
 
 .center-animation-trigger.is-phone {
-  --entry-bg: url("/assets/delivery-entry/four-o-phone.png");
+  --entry-bg: url("/assets/delivery-entry/four-o-phone.webp");
 }
 
 .delivery-entry-media {
@@ -3136,7 +3136,7 @@ button {
   background:
     linear-gradient(90deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.42) 38%, rgba(0, 0, 0, 0.08) 74%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.04) 18%, rgba(0, 0, 0, 0.02) 48%, rgba(0, 0, 0, 0.1) 82%, rgba(0, 0, 0, 0.96) 100%),
-    url("/assets/hero-fur-hat.png") center / cover no-repeat;
+    url("/assets/hero-fur-hat.webp") center / cover no-repeat;
   filter: saturate(0.88) contrast(1.08);
   transform: none;
 }

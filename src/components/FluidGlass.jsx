@@ -208,9 +208,9 @@ function SceneImages() {
 
   return (
     <group ref={group}>
-      <Image position={[-2.25, 0.05, 1.2]} scale={[2.1, 1.3, 1]} url="/assets/fur-material-close-bg.jpg" />
-      <Image position={[2.2, -0.18, 2.5]} scale={[2.2, 1.18, 1]} url="/assets/fur-characters-bg.png" />
-      <Image position={[0, -1.55, 3.1]} scale={[2.65, 1.1, 1]} url="/assets/hero-fur-hat.png" />
+      <Image position={[-2.25, 0.05, 1.2]} scale={[2.1, 1.3, 1]} url="/assets/fur-material-close-bg.webp" />
+      <Image position={[2.2, -0.18, 2.5]} scale={[2.2, 1.18, 1]} url="/assets/fur-characters-bg.webp" />
+      <Image position={[0, -1.55, 3.1]} scale={[2.65, 1.1, 1]} url="/assets/hero-fur-hat.webp" />
     </group>
   );
 }

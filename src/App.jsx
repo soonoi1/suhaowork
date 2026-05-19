@@ -321,7 +321,7 @@ function getActivePillHref(activePageIndex) {
 const pageBackdrops = {
   3: {
     type: "image",
-    src: "/assets/fur-material-close-bg.jpg",
+    src: "/assets/fur-material-close-bg.webp",
     className: "backdrop-fur-close",
   },
   4: {
@@ -447,71 +447,71 @@ const fourOPhoneAnimationItems = [
     type: "video",
   },
   {
-    src: "/assets/four-o-phone/li-student.gif",
+    src: "/assets/four-o-phone/li-student.mp4",
     label: "理想同学",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/sweet-li-student.gif",
+    src: "/assets/four-o-phone/sweet-li-student.mp4",
     label: "甜美理同",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/light-warrior.gif",
+    src: "/assets/four-o-phone/light-warrior.mp4",
     label: "光之勇士",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/beijing-auntie.gif",
+    src: "/assets/four-o-phone/beijing-auntie.mp4",
     label: "北京大姨",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/beijing-uncle.gif",
+    src: "/assets/four-o-phone/beijing-uncle.mp4",
     label: "北京大爷",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/roaring-dragon.gif",
+    src: "/assets/four-o-phone/roaring-dragon.mp4",
     label: "吼吼龙",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/li-bai.gif",
+    src: "/assets/four-o-phone/li-bai.mp4",
     label: "李白",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/riddle-king.gif",
+    src: "/assets/four-o-phone/riddle-king.mp4",
     label: "谜语大王",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
   {
-    src: "/assets/four-o-phone/snow-princess.gif",
+    src: "/assets/four-o-phone/snow-princess.mp4",
     label: "雪国公主",
-    meta: "4O mobile gif",
-    type: "image",
+    meta: "4O mobile video",
+    type: "video",
   },
 ];
 
 const characterMaterialImages = [
-  "dark2.png",
-  "dark3.png",
-  "dark4.png",
-  "dark5.png",
-  "dark6.png",
-  "dark7.png",
-  "dark8.png",
-  "dark9.png",
-  "dark10.png",
+  "dark2.webp",
+  "dark3.webp",
+  "dark4.webp",
+  "dark5.webp",
+  "dark6.webp",
+  "dark7.webp",
+  "dark8.webp",
+  "dark9.webp",
+  "dark10.webp",
 ].map((name, index) => ({
   src: `/assets/character-upgrade/${name}`,
   label: `Material ${pad(index + 1)}`,
@@ -1929,7 +1929,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
         ))}
       </div>
       <div className="final-summary-visual">
-        <img src="/assets/final-summary-banner.jpg" alt="" />
+        <img src="/assets/final-summary-banner.webp" alt="" />
       </div>
     </div>
   );
