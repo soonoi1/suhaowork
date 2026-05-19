@@ -15,6 +15,7 @@ import {
 import GradualBlur from "./components/GradualBlur";
 import PillNav from "./components/PillNav";
 import { PrismaticBurst } from "./components/PrismaticBurst";
+import BorderGlow from "./components/BorderGlow";
 import savedContent from "./content.saved.json";
 
 const FluidGlass = lazy(() => import("./components/FluidGlass"));
@@ -856,7 +857,7 @@ function AIMethodInteractive({ points, editing, onChange }) {
       </div>
       <div className="ai-method-cards">
         {points.map((item, index) => (
-          <article className="ai-method-card" tabIndex={0} key={item.label}>
+          <BorderGlow as="article" className="ai-method-card" tabIndex={0} key={item.label}>
             <span>{pad(index + 1)}</span>
             <EditableText
               as="h3"
@@ -869,7 +870,7 @@ function AIMethodInteractive({ points, editing, onChange }) {
               editing={editing}
               onChange={(value) => onChange(["points", index, "text"], value)}
             />
-          </article>
+          </BorderGlow>
         ))}
       </div>
     </div>
@@ -936,7 +937,7 @@ function CoverCards({ items, editing, onChange }) {
 
 function PointCard({ item, index, editing, onChange }) {
   return (
-    <article className="point-card" tabIndex={0}>
+    <BorderGlow as="article" className="point-card" tabIndex={0}>
       <span>{pad(index + 1)}</span>
       <EditableText
         as="h3"
@@ -949,7 +950,7 @@ function PointCard({ item, index, editing, onChange }) {
         editing={editing}
         onChange={(value) => onChange(["points", index, "text"], value)}
       />
-    </article>
+    </BorderGlow>
   );
 }
 
@@ -1038,14 +1039,19 @@ function CapabilityDock({ points, timeline = [], editing, onChange }) {
 
           if (editing) {
             return (
-              <article className={`capability-panel ${isOpen ? "is-open" : ""}`} key={item.label}>
+              <BorderGlow
+                as="article"
+                className={`capability-panel ${isOpen ? "is-open" : ""}`}
+                key={item.label}
+              >
                 {content}
-              </article>
+              </BorderGlow>
             );
           }
 
           return (
-            <button
+            <BorderGlow
+              as="button"
               className={`capability-panel ${isOpen ? "is-open" : ""}`}
               type="button"
               onMouseEnter={() => openItem(index)}
@@ -1055,7 +1061,7 @@ function CapabilityDock({ points, timeline = [], editing, onChange }) {
               key={item.label}
             >
               {content}
-            </button>
+            </BorderGlow>
           );
         })}
       </div>
@@ -1896,7 +1902,8 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
     <div className="final-summary-showcase">
       <div className="final-summary-cards" aria-label="Summary details">
         {points.map((item, pointIndex) => (
-          <article
+          <BorderGlow
+            as="article"
             className={`final-summary-card${activeCardIndex === pointIndex ? " is-expanded" : ""}`}
             tabIndex={0}
             onMouseEnter={() => setActiveCardIndex(pointIndex)}
@@ -1917,7 +1924,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
               editing={editing}
               onChange={(value) => onChange(["points", pointIndex, "text"], value)}
             />
-          </article>
+          </BorderGlow>
         ))}
       </div>
       <div className="final-summary-visual">
@@ -1978,45 +1985,63 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       ) : null}
       {pageNumber === 4 ? (
         <div className="delivery-popup-triggers">
-          <button
+          <BorderGlow
+            as="button"
             className="center-animation-trigger is-center"
             type="button"
             onClick={() => setCenterAnimationPanelOpen(true)}
+            borderRadius={18}
+            glowRadius={38}
+            fillOpacity={0}
           >
             <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-shade" aria-hidden="true" />
+            <span className="delivery-entry-sheen" aria-hidden="true" />
             <span className="delivery-entry-copy">
               <span>01</span>
               <strong>中心动画</strong>
               <small>理想农业中心里的其他动画</small>
             </span>
             <Film size={22} />
-          </button>
-          <button
+          </BorderGlow>
+          <BorderGlow
+            as="button"
             className="center-animation-trigger is-car"
             type="button"
             onClick={() => setActiveFourOPanel("car")}
+            borderRadius={18}
+            glowRadius={38}
+            fillOpacity={0}
           >
             <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-shade" aria-hidden="true" />
+            <span className="delivery-entry-sheen" aria-hidden="true" />
             <span className="delivery-entry-copy">
               <span>02</span>
               <strong>4O 小同桌 · 车机端</strong>
               <small>车机端动画与小同桌素材</small>
             </span>
             <Film size={22} />
-          </button>
-          <button
+          </BorderGlow>
+          <BorderGlow
+            as="button"
             className="center-animation-trigger is-phone"
             type="button"
             onClick={() => setActiveFourOPanel("phone")}
+            borderRadius={18}
+            glowRadius={38}
+            fillOpacity={0}
           >
             <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-shade" aria-hidden="true" />
+            <span className="delivery-entry-sheen" aria-hidden="true" />
             <span className="delivery-entry-copy">
               <span>03</span>
               <strong>4O 手机端</strong>
               <small>手机端形象与动态素材</small>
             </span>
             <Film size={22} />
-          </button>
+          </BorderGlow>
         </div>
       ) : null}
       <div className="case-copy">

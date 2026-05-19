@@ -13,23 +13,6 @@
   --warm: #c9905e;
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.42);
   --page-gutter: clamp(24px, 3.6vw, 72px);
-  --glow-border-radius: 18px;
-  --glow-border-width: 1px;
-  --glow-opacity: 0.34;
-  --glow-opacity-active: 0.68;
-  --glow-speed: 8s;
-  --glow-color-a: rgba(245, 245, 240, 0.26);
-  --glow-color-b: rgba(201, 144, 94, 0.2);
-  --glow-color-c: rgba(174, 179, 181, 0.14);
-  --glow-color-a-active: rgba(245, 245, 240, 0.52);
-  --glow-color-b-active: rgba(201, 144, 94, 0.38);
-  --glow-color-c-active: rgba(174, 179, 181, 0.26);
-}
-
-@property --glow-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
 }
 
 * {
@@ -813,22 +796,21 @@ button {
     filter 360ms ease;
 }
 
-.center-animation-trigger::before,
-.center-animation-trigger::after {
-  content: "";
+.delivery-entry-shade,
+.delivery-entry-sheen {
   position: absolute;
   inset: 0;
   pointer-events: none;
 }
 
-.center-animation-trigger::before {
+.delivery-entry-shade {
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.24) 44%, rgba(0, 0, 0, 0.82) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.48), transparent 58%);
 }
 
-.center-animation-trigger::after {
+.delivery-entry-sheen {
   z-index: 1;
   background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, 0.16) 46%, transparent 58%);
   opacity: 0;
@@ -896,8 +878,8 @@ button {
   filter: brightness(1.08) saturate(1.04);
 }
 
-.center-animation-trigger:hover::after,
-.center-animation-trigger:focus-visible::after {
+.center-animation-trigger:hover .delivery-entry-sheen,
+.center-animation-trigger:focus-visible .delivery-entry-sheen {
   opacity: 1;
   transform: translateX(72%);
 }
@@ -3551,140 +3533,5 @@ button {
 
   .note-copy-button {
     width: fit-content;
-  }
-}
-
-.cover-card,
-.point-card,
-.character-asset-card,
-.character-material-panel,
-.character-material-frame,
-.center-animation-trigger,
-.center-animation-panel,
-.center-animation-card,
-.center-animation-empty,
-.ai-method-visual,
-.ai-method-card,
-.final-summary-card,
-.project-timeline,
-.capability-panel,
-.li-center-stack-card,
-.oc-video-card,
-.radiance-panel,
-.radiance-stage,
-.fluid-glass-demo,
-.gaussian-splat-viewer,
-.notes-modal {
-  --glow-alpha: var(--glow-opacity);
-  --glow-surface: rgba(5, 5, 5, 0.78);
-  border-color: transparent;
-  background:
-    linear-gradient(var(--glow-surface), var(--glow-surface)) padding-box,
-    conic-gradient(
-      from var(--glow-angle),
-      transparent 0deg,
-      transparent 72deg,
-      var(--glow-color-c) 118deg,
-      var(--glow-color-a) 156deg,
-      var(--glow-color-b) 204deg,
-      transparent 256deg,
-      transparent 360deg
-    ) border-box;
-  animation: global-border-glow var(--glow-speed) linear infinite;
-}
-
-.cover-card,
-.point-card,
-.ai-method-card,
-.final-summary-card,
-.capability-panel,
-.project-timeline,
-.radiance-panel {
-  --glow-surface: rgba(5, 5, 5, 0.58);
-}
-
-.character-material-panel,
-.center-animation-panel,
-.center-animation-card,
-.center-animation-empty,
-.character-material-frame,
-.oc-video-card,
-.gaussian-splat-viewer,
-.notes-modal {
-  --glow-surface: #000;
-}
-
-.ai-method-visual,
-.radiance-stage,
-.fluid-glass-demo {
-  --glow-surface: #050505;
-}
-
-.cover-card:hover,
-.cover-card:focus-within,
-.cover-card:focus,
-.point-card:hover,
-.point-card:focus-within,
-.point-card:focus,
-.character-asset-card:hover,
-.character-asset-card:focus-visible,
-.character-gallery-card:hover,
-.character-gallery-card:focus-visible,
-.center-animation-trigger:hover,
-.center-animation-trigger:focus-visible,
-.ai-method-card:hover,
-.ai-method-card:focus-within,
-.final-summary-card:hover,
-.final-summary-card:focus-within,
-.final-summary-card.is-expanded,
-.capability-panel:focus-visible,
-.capability-panel.is-open,
-.li-center-stack-card.is-active,
-.oc-video-card:hover,
-.radiance-panel:hover,
-.radiance-stage:hover,
-.fluid-glass-demo:hover,
-.gaussian-splat-viewer:hover {
-  --glow-alpha: var(--glow-opacity-active);
-  --glow-color-a: var(--glow-color-a-active);
-  --glow-color-b: var(--glow-color-b-active);
-  --glow-color-c: var(--glow-color-c-active);
-}
-
-.center-animation-trigger,
-.character-asset-card {
-  background:
-    linear-gradient(transparent, transparent) padding-box,
-    conic-gradient(
-      from var(--glow-angle),
-      transparent 0deg,
-      transparent 72deg,
-      var(--glow-color-c) 118deg,
-      var(--glow-color-a) 156deg,
-      var(--glow-color-b) 204deg,
-      transparent 256deg,
-      transparent 360deg
-    ) border-box;
-}
-
-.cover-card::before {
-  border-color: transparent;
-  background:
-    linear-gradient(var(--panel), var(--panel)) padding-box,
-    conic-gradient(
-      from var(--glow-angle),
-      transparent 0deg,
-      transparent 72deg,
-      var(--glow-color-c) 118deg,
-      var(--glow-color-a) 156deg,
-      var(--glow-color-b) 204deg,
-      transparent 256deg,
-      transparent 360deg
-    ) border-box;
-}
-
-@keyframes global-border-glow {
-  to {
-    --glow-angle: 360deg;
   }
 }
