@@ -1950,17 +1950,44 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       ) : null}
       {pageNumber === 4 ? (
         <div className="delivery-popup-triggers">
-          <button className="center-animation-trigger" type="button" onClick={() => setCenterAnimationPanelOpen(true)}>
-            <Film size={18} />
-            <span>中心动画</span>
+          <button
+            className="center-animation-trigger is-center"
+            type="button"
+            onClick={() => setCenterAnimationPanelOpen(true)}
+          >
+            <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-copy">
+              <span>01</span>
+              <strong>中心动画</strong>
+              <small>理想农业中心里的其他动画</small>
+            </span>
+            <Film size={22} />
           </button>
-          <button className="center-animation-trigger" type="button" onClick={() => setActiveFourOPanel("car")}>
-            <Film size={18} />
-            <span>4O 车机端</span>
+          <button
+            className="center-animation-trigger is-car"
+            type="button"
+            onClick={() => setActiveFourOPanel("car")}
+          >
+            <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-copy">
+              <span>02</span>
+              <strong>4O 小同桌 · 车机端</strong>
+              <small>车机端动画与小同桌素材</small>
+            </span>
+            <Film size={22} />
           </button>
-          <button className="center-animation-trigger" type="button" onClick={() => setActiveFourOPanel("phone")}>
-            <Film size={18} />
-            <span>4O 手机端</span>
+          <button
+            className="center-animation-trigger is-phone"
+            type="button"
+            onClick={() => setActiveFourOPanel("phone")}
+          >
+            <span className="delivery-entry-media" aria-hidden="true" />
+            <span className="delivery-entry-copy">
+              <span>03</span>
+              <strong>4O 手机端</strong>
+              <small>手机端形象与动态素材</small>
+            </span>
+            <Film size={22} />
           </button>
         </div>
       ) : null}
