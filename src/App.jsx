@@ -2,6 +2,8 @@ import { Component, Suspense, lazy, useEffect, useMemo, useRef, useState } from 
 import {
   ClipboardCheck,
   ClipboardList,
+  Eye,
+  EyeOff,
   Film,
   Images,
   PencilLine,
@@ -2296,6 +2298,7 @@ export function App() {
   const [copiedTarget, setCopiedTarget] = useState("");
   const [contentEditing, setContentEditing] = useState(false);
   const [contentDirty, setContentDirty] = useState(false);
+  const [interfaceHidden, setInterfaceHidden] = useState(false);
   const pageCount = useMemo(() => contentPages.length, [contentPages.length]);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
@@ -2479,8 +2482,18 @@ export function App() {
     copyText(formatPageNote(contentPages[index], index, notes[index] || ""), `page-${index}`);
   };
 
+  const toggleInterfaceHidden = () => {
+    setInterfaceHidden((current) => {
+      const next = !current;
+      if (next) {
+        setNavOpen(false);
+      }
+      return next;
+    });
+  };
+
   return (
-    <div className={`app-shell theme-${activeMode.id}`}>
+    <div className={`app-shell theme-${activeMode.id}${interfaceHidden ? " is-interface-hidden" : ""}`}>
       <header className="site-header">
         <PillNav
           logo={pillLogo}
@@ -2537,6 +2550,16 @@ export function App() {
             onClick={() => setNavOpen((value) => !value)}
           >
             {navOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+          <button
+            className="interface-toggle-button"
+            type="button"
+            aria-pressed={interfaceHidden}
+            aria-label={interfaceHidden ? "显示界面控件" : "隐藏界面控件"}
+            title={interfaceHidden ? "显示界面控件" : "隐藏界面控件"}
+            onClick={toggleInterfaceHidden}
+          >
+            {interfaceHidden ? <Eye size={18} /> : <EyeOff size={18} />}
           </button>
         </div>
       </header>
