@@ -2298,7 +2298,7 @@ export function App() {
   const [copiedTarget, setCopiedTarget] = useState("");
   const [contentEditing, setContentEditing] = useState(false);
   const [contentDirty, setContentDirty] = useState(false);
-  const [interfaceHidden, setInterfaceHidden] = useState(false);
+  const [interfaceHidden, setInterfaceHidden] = useState(true);
   const pageCount = useMemo(() => contentPages.length, [contentPages.length]);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
