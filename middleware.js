@@ -1,4 +1,5 @@
 const encoder = new TextEncoder();
+const AUTH_PROTECTION_ENABLED = false;
 
 function timingSafeEqual(left, right) {
   const leftBytes = encoder.encode(left);
@@ -24,6 +25,10 @@ function unauthorized() {
 }
 
 export default function middleware(request) {
+  if (!AUTH_PROTECTION_ENABLED) {
+    return;
+  }
+
   const user = process.env.SITE_AUTH_USER;
   const password = process.env.SITE_AUTH_PASSWORD;
 
