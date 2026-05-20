@@ -892,7 +892,7 @@ button {
   --entry-bg: url("/assets/ss4-material/ui2.webp");
   position: absolute;
   left: var(--page-gutter);
-  bottom: clamp(84px, 10vh, 128px);
+  bottom: clamp(116px, 14vh, 168px);
   z-index: 5;
   width: min(360px, calc(100vw - var(--page-gutter) * 2));
   min-height: clamp(150px, 20vh, 230px);
