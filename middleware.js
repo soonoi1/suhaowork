@@ -1,5 +1,5 @@
 const encoder = new TextEncoder();
-const AUTH_PROTECTION_ENABLED = false;
+const AUTH_PROTECTION_ENABLED = true;
 
 function timingSafeEqual(left, right) {
   const leftBytes = encoder.encode(left);
