@@ -2040,11 +2040,12 @@ button {
 .capability-panel {
   position: relative;
   display: grid;
-  align-content: end;
+  align-content: start;
+  grid-template-rows: auto auto 1fr;
   min-width: 0;
   min-height: 112px;
   overflow: hidden;
-  padding: 16px;
+  padding: 16px 16px 18px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.72);
@@ -2074,9 +2075,9 @@ button {
 }
 
 .capability-count {
-  position: absolute;
-  top: 14px;
-  left: 16px;
+  position: static;
+  width: max-content;
+  margin-bottom: 122px;
 }
 
 .capability-panel h3 {
@@ -2129,7 +2130,7 @@ button {
 .capability-overview .capability-panel.is-open,
 .capability-overview .capability-panel:focus-visible {
   grid-column: auto;
-  align-content: end;
+  align-content: start;
   min-height: 286px;
 }
 
