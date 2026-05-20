@@ -277,7 +277,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-20-9page-new-copy-v1";
+const CONTENT_STORAGE_VERSION = "2026-05-20-9page-new-copy-v2";
 
 const activeVisualMode = {
   id: "space",
