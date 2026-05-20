@@ -48,227 +48,480 @@ class DemoErrorBoundary extends Component {
 
 const pages = [
   {
-    eyebrow: "01 / Intro",
-    layout: "cover",
-    title: "宿浩（Suhao Work）",
-    conclusion: "司龄：2年｜职级：17级｜3D 动效 / AI / 创新探索 / 交互体验设计",
-    intro: "将综合技术能力与产品体验结合进业务的设计师",
-    coverItems: [
+    "eyebrow": "01 / Intro",
+    "layout": "cover",
+    "title": "宿浩（Suhao Work）",
+    "conclusion": "司龄：2年｜职级：17级｜3D 动效 / AI / 创新探索 / 交互体验设计",
+    "intro": "将综合技术能力与产品体验结合进业务的设计师",
+    "coverItems": [
       {
-        label: "个人定位",
-        text: "技术体验型设计师：既能判断 3D、动效和视觉质量，也能把方案拆成研发可接入、业务可上线的资源和流程。",
+        "label": "个人定位",
+        "text": "技术体验型设计师：既能判断 3D、动效和视觉质量，也能把方案拆成研发可接入、业务可上线的资源和流程。"
       },
       {
-        label: "核心能力",
-        text: "3D技术、产品动效、角色设计、视觉品质把控、交互体验设计、资源整合、AI工作模式、交互原型设计。",
+        "label": "核心能力",
+        "text": "3D技术、产品动效、角色设计、视觉品质把控、交互体验设计、资源整合、AI工作模式、交互原型设计。"
       },
       {
-        label: "代表项目",
-        text: "理想同学实体化、理想同学中心、 4o 小同桌、OTA 7.4 多端交付、AI 实战工作流、Standby 放射光、OC 眼睛。",
-      },
+        "label": "代表项目",
+        "text": "理想同学实体化、理想同学中心、 4o 小同桌、OTA 7.4 多端交付、AI 实战工作流、Standby 放射光、OC 眼睛。"
+      }
     ],
-    points: [],
+    "points": []
   },
   {
-    eyebrow: "02 / Overview",
-    title: "能力总览与项目历程",
-    demo: "capabilityTimeline",
-    conclusion: "能力：专业手头功夫；职业协同决策；技术探索与业务转化",
-    intro: "我将自身能力沉淀为三个层次：立身之本的专业技术、推进复杂项目的职业素养、以及不断突破边界的技术探索能力。",
-    points: [
+    "eyebrow": "02 / Overview",
+    "title": "能力总览与项目历程",
+    "demo": "capabilityTimeline",
+    "conclusion": "能力：专业手头功夫；职业协同决策；技术探索与业务转化",
+    "intro": "我将自身能力沉淀为三个层次：立身之本的专业技术、推进复杂项目的职业素养、以及不断突破边界的技术探索能力。",
+    "points": [
       {
-        label: "专业能力",
-        text: "深耕 3D 角色设计与产品动效多年，具备扎实的“手头功夫”。能够精准把控形体、材质、动画节奏与交互体验，将高品质的视觉效果完美落地。",
+        "label": "专业能力",
+        "text": "深耕 3D 角色设计与产品动效多年，具备扎实的“手头功夫”。能够精准把控形体、材质、动画节奏与交互体验，将高品质的视觉效果完美落地。"
       },
       {
-        label: "协同能力",
-        text: "跨越职业壁垒与技术盲区，率先完成方案验证并赋能团队，承担关键衔接作用（对应：车端语音形象协同、放空放射光落地）",
+        "label": "协同能力",
+        "text": "跨越职业壁垒与技术盲区，率先完成方案验证并赋能团队，承担关键衔接作用（对应：车端语音形象协同、放空放射光落地）"
       },
       {
-        label: "创新能力",
-        text: "保持敏锐，善于结合与吸收 AI 等新技术。能够快速摸清技术的边界，并将其转化为解决实际业务痛点、提升团队设计效能的落地流程。",
-      },
+        "label": "创新能力",
+        "text": "保持敏锐，善于结合与吸收 AI 等新技术。能够快速摸清技术的边界，并将其转化为解决实际业务痛点、提升团队设计效能的落地流程。"
+      }
     ],
-    timeline: [
+    "timeline": [
       {
-        time: "2024 Q4",
-        label: "理想同学实体化",
-        text: "从平面符号推进到实体化形象，完成理想汽车全新理想同学形象建设。",
+        "time": "2024 Q4",
+        "label": "理想同学实体化",
+        "text": "从平面符号推进到实体化形象，完成理想汽车全新理想同学形象建设。"
       },
       {
-        time: "2025 Q1",
-        label: "理想同学中心",
-        text: "主导了理想同学中心设计（首页、毛绒时钟和场景交互动画），推动视觉素材、动效和研发还原落地。",
+        "time": "2025 Q1",
+        "label": "理想同学中心",
+        "text": "主导了理想同学中心设计（首页、毛绒时钟和场景交互动画），推动视觉素材、动效和研发还原落地。"
       },
       {
-        time: "2025 Q2",
-        label: "4o 小同桌 / OTA 7.4",
-        text: "负责了OTA7.4与4o小同桌的多角色、多状态和多端项目的落地交付。",
+        "time": "2025 Q2",
+        "label": "4o 小同桌 / OTA 7.4",
+        "text": "负责了OTA7.4与4o小同桌的多角色、多状态和多端项目的落地交付。"
       },
       {
-        time: "2025 Q3",
-        label: "AI 工作流与 Standby 原型",
-        text: "探索 AI 批量生成、筛选、视频处理提供业务交付效率；探索全新AI技术路径完成光效原型设计",
+        "time": "2025 Q3",
+        "label": "AI 工作流与 Standby 原型",
+        "text": "探索 AI 批量生成、筛选、视频处理提供业务交付效率；探索全新AI技术路径完成光效原型设计"
       },
       {
-        time: "2025 Q4",
-        label: "OC 眼睛与未来体验",
-        text: "主导完成OC眼镜形态的设计，构建注意力系统的表达方式，为舱外交互建立基础。",
-      },
-    ],
+        "time": "2025 Q4",
+        "label": "OC 眼睛与未来体验",
+        "text": "主导完成OC眼镜形态的设计，构建注意力系统的表达方式，为舱外交互建立基础。"
+      }
+    ]
   },
   {
-    eyebrow: "03 / Character",
-    title: "理想同学实体化",
-    demo: "gaussianSplat",
-    conclusion: "从0到1开始建设理想同学实体化3D形象。从平面符号进化成为可被记住的3D毛绒形象。",
-    intro: "这是理想同学这个符号的第一次实体化探索。在明确这是长期陪伴用户的数字人IP之后，我们开始探索它在车端的视觉存在感。",
-    points: [
+    "eyebrow": "03 / Character Key Question",
+    "title": "理想同学实体化｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "理想同学实体化",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
       {
-        label: "问题",
-        text: "如何将二维平面符号转化为 3D 实体？如何平衡毛绒材质的真实感与线上性能？如何构建有温度的陪伴感，同时满足跨端一致性、车机性能与品牌调性？",
+        "label": "关键问题",
+        "text": "待补充。"
       },
       {
-        label: "动作",
-        text: "解决3D毛绒质感视觉问题，构建毛绒形象基础形态，多种技术路线并行探索,能够基于最终体验效果、业务风险与交付节奏进行综合判断,最终选择以Spine方案保障稳定交付,同时保留Gauss方案的后续探索空间,为后续体验升级蓄力。",
+        "label": "判断标准",
+        "text": "待补充。"
       },
       {
-        label: "结果",
-        text: "实现理想汽车车机端理想同学形象的全面迭代换新，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。",
-      },
-    ],
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
   },
   {
-    eyebrow: "04 / Delivery",
-    title: "理想同学中心与 4o 小同桌交付",
-    conclusion:
-      "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
-    intro:
-      "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
-    points: [
+    "eyebrow": "04 / Character Process",
+    "title": "理想同学实体化｜过程解法",
+    "detailType": "process",
+    "parentTitle": "理想同学实体化",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
       {
-        label: "首页设计决策",
-        text: "跳出单纯视觉表达，从“用户是否真正理解并持续使用”出发组织信息结构与交互节奏。主动调整动效露出频率解决疲劳问题，兼顾当前体验与长期演进。",
+        "label": "过程路径",
+        "text": "待补充。"
       },
       {
-        label: "设计价值主张",
-        text: "视觉减负：减少交互行为带来的审美疲劳；长期主义：坚持使用透明素材作为基础框架，减少了后续不同版本适配成本",
+        "label": "解法拆解",
+        "text": "待补充。"
       },
       {
-        label: "交付执行力",
-        text: "在 OTA 7.4 中面对手机/车机双端、9个形象、黑白两套资源的并行交付挑战，快速完成任务拆解、资源协调与优先级管理，有效控制风险。",
-      },
-      {
-        label: "结果",
-        text: "保障关键节点顺利上线，有效控制多板块并行交付的制作成本与风险。数字时钟效果如同预期被高频使用和曝光。",
-      },
-    ],
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
   },
   {
-    eyebrow: "05 / AI Workflow",
-    title: "AI 实战工作流",
-    demo: "aiGallery",
-    conclusion:
-      "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
-    intro:
-      "发现AI的边界，提出解决问题的思路，并利用AI将其解决。人的瓶颈在于思考的速度，AI的瓶颈在于成功率。我只要解决这两点就行了，构建AI特定workflow批量生图人工筛选解决成功率问题，AI泛化思考批量生图解决人工思考瓶颈。",
-    points: [
+    "eyebrow": "05 / Character",
+    "title": "理想同学实体化",
+    "demo": "gaussianSplat",
+    "conclusion": "从0到1开始建设理想同学实体化3D形象。从平面符号进化成为可被记住的3D毛绒形象。",
+    "intro": "这是理想同学这个符号的第一次实体化探索。在明确这是长期陪伴用户的数字人IP之后，我们开始探索它在车端的视觉存在感。",
+    "points": [
       {
-        label: "流程与效率",
-        text: "在理想同学APP首页动画素材规模快速增长的时候，主动推动 AI 化生产。allin Ai ，搭建批量生图、生视频工作流，提升出图效率，保障项目推进节奏。",
+        "label": "问题",
+        "text": "如何将二维平面符号转化为 3D 实体？如何平衡毛绒材质的真实感与线上性能？如何构建有温度的陪伴感，同时满足跨端一致性、车机性能与品牌调性？"
       },
       {
-        label: "探索与验证",
-        text: "在行业未形成成熟 AI 设计流程阶段，主动探索 open claw、VibeCoding 等AI的能力边界，提前积累 AI 在业务场景中的使用可能性。",
+        "label": "动作",
+        "text": "解决3D毛绒质感视觉问题，构建毛绒形象基础形态，多种技术路线并行探索,能够基于最终体验效果、业务风险与交付节奏进行综合判断,最终选择以Spine方案保障稳定交付,同时保留Gauss方案的后续探索空间,为后续体验升级蓄力。"
       },
       {
-        label: "沉淀与应用",
-        text: "结合团队在批量调色与流程衔接中的真实痛点，主动开发适配流程的辅助工具与插件，降低重复性操作成本，并在团队内部共享提升整体效率。",
-      },
-    ],
+        "label": "结果",
+        "text": "实现理想汽车车机端理想同学形象的全面迭代换新，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。"
+      }
+    ]
   },
   {
-    eyebrow: "06 / Prototype",
-    title: "Standby 放射光",
-    demo: "radiance",
-    conclusion:
-      "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
-    intro:
-      "基于 Aistudio 尝试设计交互效果并结合 React 源码验证；在团队缺少相关经验的情况下，率先完成技术方向验证与方案沉淀，并将经验共享给团队成员，建立推进基础。",
-    points: [
+    "eyebrow": "06 / Delivery Key Question",
+    "title": "理想同学中心与 4o 小同桌交付｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "理想同学中心与 4o 小同桌交付",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
       {
-        label: "问题",
-        text: "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间，而在设计初期团队缺少相关图形化代码经验。",
+        "label": "关键问题",
+        "text": "待补充。"
       },
       {
-        label: "动作",
-        text: "因为前期的探索和验证，有用AI做过绑定的经验，基于此使用 Aistudio 结合 React 动效源码，将其与设计想法结合，形成了该效果的可交互的初版视觉方案。",
+        "label": "判断标准",
+        "text": "待补充。"
       },
       {
-        label: "结果",
-        text: "率先完成方向验证与方案沉淀，并将经验共享给团队成员，帮助团队建立后续协同推进的基础。",
-      },
-    ],
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
   },
   {
-    eyebrow: "07 / Material Study",
-    title: "SS4 质感探索",
-    demo: "fluidGlass",
-    conclusion:
-      "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
-    intro:
-      "通过 3D 动效先去验证目前技术路径所有可实现的效果，然后再逐渐收敛成 SS4 系统的 UI 材质参数效果。提供视效玻璃质感技术实现的思路给到技术。",
-    points: [],
+    "eyebrow": "07 / Delivery Process",
+    "title": "理想同学中心与 4o 小同桌交付｜过程解法",
+    "detailType": "process",
+    "parentTitle": "理想同学中心与 4o 小同桌交付",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "过程路径",
+        "text": "待补充。"
+      },
+      {
+        "label": "解法拆解",
+        "text": "待补充。"
+      },
+      {
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
   },
   {
-    eyebrow: "08 / OC Eyes",
-    title: "OC 眼睛",
-    demo: "ocVideos",
-    conclusion:
-      "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
-    intro:
-      "结合真实用户场景判断“角色生命感”问题，通过引入仿真人眼微动作与非规律变化逻辑，增强角色灵动感与情绪反馈。",
-    points: [
+    "eyebrow": "08 / Delivery",
+    "title": "理想同学中心与 4o 小同桌交付",
+    "conclusion": "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
+    "intro": "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
+    "points": [
       {
-        label: "问题和难点",
-        text: "如何塑造“角色生命感”问题，目标不是夸张拟人，而是让车辆像一个有注意力、情绪反馈的智能体。在特定的尺寸边界下如何做好情绪表达，如何延续理想同学的特征。",
+        "label": "首页设计决策",
+        "text": "跳出单纯视觉表达，从“用户是否真正理解并持续使用”出发组织信息结构与交互节奏。主动调整动效露出频率解决疲劳问题，兼顾当前体验与长期演进。"
       },
       {
-        label: "表达方式",
-        text: "在OC眼睛动效方案中,能够结合真实用户场景判断\"角色生命感\"问题,通过引入仿真人眼微动作与\n非规律变化逻辑,增强角色灵动感与情绪反馈,使角色状态更加自然生动。",
+        "label": "设计价值主张",
+        "text": "视觉减负：减少交互行为带来的审美疲劳；长期主义：坚持使用透明素材作为基础框架，减少了后续不同版本适配成本"
       },
       {
-        label: "动效策略",
-        text: "通过引入仿真人眼微动作与非规律变化逻辑，参考眼动跳转规律，增强角色灵动感，使状态更自然生动。",
+        "label": "交付执行力",
+        "text": "在 OTA 7.4 中面对手机/车机双端、9个形象、黑白两套资源的并行交付挑战，快速完成任务拆解、资源协调与优先级管理，有效控制风险。"
       },
+      {
+        "label": "结果",
+        "text": "保障关键节点顺利上线，有效控制多板块并行交付的制作成本与风险。数字时钟效果如同预期被高频使用和曝光。"
+      }
     ],
+    "demo": "deliveryPopups"
   },
   {
-    eyebrow: "09 / Summary",
-    title: "结果与方法沉淀",
-    conclusion:
-      "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
-    intro:
-      "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
-    points: [
+    "eyebrow": "09 / AI Workflow Key Question",
+    "title": "AI 实战工作流｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "AI 实战工作流",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
       {
-        label: "主要业务产出",
-        text: "完成理想同学实体化、理想同学中心、4o 小同桌、7.4 多端交付、App 首页动画、Standby放射光、具身迎宾、SS4质感探索和 OC眼睛等关键项目。",
+        "label": "关键问题",
+        "text": "待补充。"
       },
       {
-        label: "业务价值沉淀",
-        text: "让理想同学更容易被用户理解、持续使用和高频感知，同时通过资源复用、透明素材框架和交付优先级管理，降低后续版本适配成本与上线风险。",
+        "label": "判断标准",
+        "text": "待补充。"
       },
       {
-        label: "方法与工具沉淀",
-        text: "沉淀 AI 逆向生产、批量生成、资源处理脚本、辅助插件和代码原型方法，提升探索效率、资源产出效率和团队协作效率。",
-      },
-      {
-        label: "跨界价值与未来延展",
-        text: "在 Spine、Gauss、React 动效、SS4 质感和 OC 眼睛等方向中连接设计与技术，把不确定探索转化为可验证、可复用、可继续推进的体验方案。",
-      },
-    ],
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
   },
+  {
+    "eyebrow": "10 / AI Workflow Process",
+    "title": "AI 实战工作流｜过程解法",
+    "detailType": "process",
+    "parentTitle": "AI 实战工作流",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "过程路径",
+        "text": "待补充。"
+      },
+      {
+        "label": "解法拆解",
+        "text": "待补充。"
+      },
+      {
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "11 / AI Workflow",
+    "title": "AI 实战工作流",
+    "demo": "aiGallery",
+    "conclusion": "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
+    "intro": "发现AI的边界，提出解决问题的思路，并利用AI将其解决。人的瓶颈在于思考的速度，AI的瓶颈在于成功率。我只要解决这两点就行了，构建AI特定workflow批量生图人工筛选解决成功率问题，AI泛化思考批量生图解决人工思考瓶颈。",
+    "points": [
+      {
+        "label": "流程与效率",
+        "text": "在理想同学APP首页动画素材规模快速增长的时候，主动推动 AI 化生产。allin Ai ，搭建批量生图、生视频工作流，提升出图效率，保障项目推进节奏。"
+      },
+      {
+        "label": "探索与验证",
+        "text": "在行业未形成成熟 AI 设计流程阶段，主动探索 open claw、VibeCoding 等AI的能力边界，提前积累 AI 在业务场景中的使用可能性。"
+      },
+      {
+        "label": "沉淀与应用",
+        "text": "结合团队在批量调色与流程衔接中的真实痛点，主动开发适配流程的辅助工具与插件，降低重复性操作成本，并在团队内部共享提升整体效率。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "12 / Prototype Key Question",
+    "title": "Standby 放射光｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "Standby 放射光",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "关键问题",
+        "text": "待补充。"
+      },
+      {
+        "label": "判断标准",
+        "text": "待补充。"
+      },
+      {
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "13 / Prototype Process",
+    "title": "Standby 放射光｜过程解法",
+    "detailType": "process",
+    "parentTitle": "Standby 放射光",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "过程路径",
+        "text": "待补充。"
+      },
+      {
+        "label": "解法拆解",
+        "text": "待补充。"
+      },
+      {
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "14 / Prototype",
+    "title": "Standby 放射光",
+    "demo": "radiance",
+    "conclusion": "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
+    "intro": "基于 Aistudio 尝试设计交互效果并结合 React 源码验证；在团队缺少相关经验的情况下，率先完成技术方向验证与方案沉淀，并将经验共享给团队成员，建立推进基础。",
+    "points": [
+      {
+        "label": "问题",
+        "text": "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间，而在设计初期团队缺少相关图形化代码经验。"
+      },
+      {
+        "label": "动作",
+        "text": "因为前期的探索和验证，有用AI做过绑定的经验，基于此使用 Aistudio 结合 React 动效源码，将其与设计想法结合，形成了该效果的可交互的初版视觉方案。"
+      },
+      {
+        "label": "结果",
+        "text": "率先完成方向验证与方案沉淀，并将经验共享给团队成员，帮助团队建立后续协同推进的基础。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "15 / Material Study Key Question",
+    "title": "SS4 质感探索｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "SS4 质感探索",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "关键问题",
+        "text": "待补充。"
+      },
+      {
+        "label": "判断标准",
+        "text": "待补充。"
+      },
+      {
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "16 / Material Study Process",
+    "title": "SS4 质感探索｜过程解法",
+    "detailType": "process",
+    "parentTitle": "SS4 质感探索",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "过程路径",
+        "text": "待补充。"
+      },
+      {
+        "label": "解法拆解",
+        "text": "待补充。"
+      },
+      {
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "17 / Material Study",
+    "title": "SS4 质感探索",
+    "demo": "fluidGlass",
+    "conclusion": "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
+    "intro": "通过 3D 动效先去验证目前技术路径所有可实现的效果，然后再逐渐收敛成 SS4 系统的 UI 材质参数效果。提供视效玻璃质感技术实现的思路给到技术。",
+    "points": []
+  },
+  {
+    "eyebrow": "18 / OC Eyes Key Question",
+    "title": "OC 眼睛｜关键问题",
+    "detailType": "problem",
+    "parentTitle": "OC 眼睛",
+    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "关键问题",
+        "text": "待补充。"
+      },
+      {
+        "label": "判断标准",
+        "text": "待补充。"
+      },
+      {
+        "label": "业务约束",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "19 / OC Eyes Process",
+    "title": "OC 眼睛｜过程解法",
+    "detailType": "process",
+    "parentTitle": "OC 眼睛",
+    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
+    "intro": "待补充。",
+    "points": [
+      {
+        "label": "过程路径",
+        "text": "待补充。"
+      },
+      {
+        "label": "解法拆解",
+        "text": "待补充。"
+      },
+      {
+        "label": "沉淀结果",
+        "text": "待补充。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "20 / OC Eyes",
+    "title": "OC 眼睛",
+    "demo": "ocVideos",
+    "conclusion": "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
+    "intro": "结合真实用户场景判断“角色生命感”问题，通过引入仿真人眼微动作与非规律变化逻辑，增强角色灵动感与情绪反馈。",
+    "points": [
+      {
+        "label": "问题和难点",
+        "text": "如何塑造“角色生命感”问题，目标不是夸张拟人，而是让车辆像一个有注意力、情绪反馈的智能体。在特定的尺寸边界下如何做好情绪表达，如何延续理想同学的特征。"
+      },
+      {
+        "label": "表达方式",
+        "text": "在OC眼睛动效方案中,能够结合真实用户场景判断\"角色生命感\"问题,通过引入仿真人眼微动作与\n非规律变化逻辑,增强角色灵动感与情绪反馈,使角色状态更加自然生动。"
+      },
+      {
+        "label": "动效策略",
+        "text": "通过引入仿真人眼微动作与非规律变化逻辑，参考眼动跳转规律，增强角色灵动感，使状态更自然生动。"
+      }
+    ]
+  },
+  {
+    "eyebrow": "21 / Summary",
+    "title": "结果与方法沉淀",
+    "conclusion": "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
+    "intro": "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
+    "points": [
+      {
+        "label": "主要业务产出",
+        "text": "完成理想同学实体化、理想同学中心、4o 小同桌、7.4 多端交付、App 首页动画、Standby放射光、具身迎宾、SS4质感探索和 OC眼睛等关键项目。"
+      },
+      {
+        "label": "业务价值沉淀",
+        "text": "让理想同学更容易被用户理解、持续使用和高频感知，同时通过资源复用、透明素材框架和交付优先级管理，降低后续版本适配成本与上线风险。"
+      },
+      {
+        "label": "方法与工具沉淀",
+        "text": "沉淀 AI 逆向生产、批量生成、资源处理脚本、辅助插件和代码原型方法，提升探索效率、资源产出效率和团队协作效率。"
+      },
+      {
+        "label": "跨界价值与未来延展",
+        "text": "在 Spine、Gauss、React 动效、SS4 质感和 OC 眼睛等方向中连接设计与技术，把不确定探索转化为可验证、可复用、可继续推进的体验方案。"
+      }
+    ]
+  }
 ];
 
 function pad(value) {
@@ -277,7 +530,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-20-9page-new-copy-v2";
+const CONTENT_STORAGE_VERSION = "2026-05-20-21page-project-detail-shell-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -291,39 +544,46 @@ const pillNavItems = [
   { label: "Intro", href: "#page-1" },
   { label: "Overview", href: "#page-2" },
   { label: "Character", href: "#page-3" },
-  { label: "Delivery", href: "#page-4" },
-  { label: "AI", href: "#page-5" },
-  { label: "Light", href: "#page-6" },
-  { label: "Glass", href: "#page-7" },
-  { label: "OC", href: "#page-8" },
-  { label: "Sum", href: "#page-9" },
+  { label: "Delivery", href: "#page-6" },
+  { label: "AI", href: "#page-9" },
+  { label: "Light", href: "#page-12" },
+  { label: "Glass", href: "#page-15" },
+  { label: "OC", href: "#page-18" },
+  { label: "Sum", href: "#page-21" },
 ];
 
 function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
   if (pageNumber <= 2) return `#page-${pageNumber}`;
-  if (pageNumber === 3) return "#page-3";
-  if (pageNumber === 4) return "#page-4";
-  if (pageNumber === 5) return "#page-5";
-  if (pageNumber === 6) return "#page-6";
-  if (pageNumber === 7) return "#page-7";
-  if (pageNumber === 8) return "#page-8";
-  return "#page-9";
+  if (pageNumber <= 5) return "#page-3";
+  if (pageNumber <= 8) return "#page-6";
+  if (pageNumber <= 11) return "#page-9";
+  if (pageNumber <= 14) return "#page-12";
+  if (pageNumber <= 17) return "#page-15";
+  if (pageNumber <= 20) return "#page-18";
+  return "#page-21";
 }
 
-const pageBackdrops = {
-  3: {
+function getPageBackdrop(page) {
+  if (page.demo === "gaussianSplat") {
+    return {
     type: "image",
     src: "/assets/fur-material-close-bg.webp",
     className: "backdrop-fur-close",
-  },
-  4: {
+    };
+  }
+
+  if (page.demo === "deliveryPopups") {
+    return {
     type: "video",
     src: "/assets/li-center/cua-black-bg.mp4",
     className: "backdrop-li-center",
-  },
-};
+    };
+  }
+
+  return null;
+}
 
 const liCenterStackVideos = [
   {
@@ -2047,7 +2307,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   const [activeFourOPanel, setActiveFourOPanel] = useState(null);
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
-  const backdrop = pageBackdrops[pageNumber];
+  const backdrop = getPageBackdrop(page);
+  const isFinalSummaryPage = index === pages.length - 1;
+  const isCharacterProjectPage = page.demo === "gaussianSplat";
+  const isDeliveryProjectPage = page.demo === "deliveryPopups";
   const sectionClasses = ["case-section"];
   if (isActive) {
     sectionClasses.push("is-active");
@@ -2079,7 +2342,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
     sectionClasses.push("has-infinite-menu");
   }
 
-  if (pageNumber === pages.length) {
+  if (isFinalSummaryPage) {
     sectionClasses.push("final-summary-section");
   }
 
@@ -2091,10 +2354,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
       <div className="case-index" aria-hidden="true">
         {pad(pageNumber)}
       </div>
-      {pageNumber === 3 && page.demo === "gaussianSplat" ? (
+      {isCharacterProjectPage ? (
         <CharacterAssetStack onOpenGallery={() => setMaterialPanelOpen(true)} />
       ) : null}
-      {pageNumber === 4 ? (
+      {isDeliveryProjectPage ? (
         <div className="delivery-popup-triggers">
           <BorderGlow
             as="button"
@@ -2248,7 +2511,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
         />
       ) : page.demo === "ocVideos" ? (
         <OCVideoShowcase />
-      ) : pageNumber === pages.length ? (
+      ) : isFinalSummaryPage ? (
         <FinalSummaryShowcase
           points={page.points}
           editing={editing}
