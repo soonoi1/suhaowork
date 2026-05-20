@@ -287,14 +287,6 @@ const activeVisualMode = {
   Icon: Orbit,
 };
 
-const pillLogo = `data:image/svg+xml,${encodeURIComponent(`
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#050505"/>
-  <path d="M18 35.5c4.8 9.5 18.4 9.5 27.9 0 6.3-6.3 6.3-16.5 0-22.8-4.2-4.2-11-4.2-15.2 0-2.8 2.8-2.8 7.3 0 10.1 1.9 1.9 5 1.9 6.9 0" fill="none" stroke="#f5f5f0" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="22" cy="42" r="4" fill="#c9905e"/>
-</svg>
-`)}`;
-
 const pillNavItems = [
   { label: "Intro", href: "#page-1" },
   { label: "Overview", href: "#page-2" },
@@ -2551,8 +2543,6 @@ export function App() {
     <div className={`app-shell theme-${activeMode.id}${interfaceHidden ? " is-interface-hidden" : ""}`}>
       <header className="site-header">
         <PillNav
-          logo={pillLogo}
-          logoAlt="Suhao Work"
           items={pillNavItems}
           activeHref={getActivePillHref(activePageIndex)}
           baseColor="#f5f5f0"
