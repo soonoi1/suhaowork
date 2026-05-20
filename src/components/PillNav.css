@@ -80,6 +80,10 @@
   text-decoration: none;
   text-transform: uppercase;
   white-space: nowrap;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
 }
 
 .pill .hover-circle {
@@ -131,6 +135,14 @@
   border-radius: 50%;
   background: var(--base, #fff);
   transform: translateX(-50%);
+}
+
+.pill:hover,
+.pill:focus-visible,
+.pill.is-active {
+  background: #050505;
+  color: var(--pill-text, var(--base, #fff));
+  outline: 1px solid rgba(245, 245, 240, 0.26);
 }
 
 .desktop-only {
