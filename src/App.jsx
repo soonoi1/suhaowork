@@ -439,6 +439,61 @@ const fourOCarAnimationItems = [
     label: "小同桌 dark",
     meta: "4o car animation",
   },
+  {
+    src: "/assets/four-o-car/li-student-update-v3.mp4",
+    label: "理想同学更新 v3",
+    meta: "4o car animation",
+  },
+  {
+    src: "/assets/four-o-car/voice-search-card.mp4",
+    label: "语搜卡",
+    meta: "4o car animation",
+  },
+  {
+    src: "/assets/four-o-car/beijing-uncle-entrance.mp4",
+    label: "北京大爷入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/dongbei-auntie-entrance.mp4",
+    label: "东北大姨入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/light-warrior-entrance.mp4",
+    label: "光之勇士入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/haagen-dazs-entrance.mp4",
+    label: "哈根达斯入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/roaring-dragon-entrance.mp4",
+    label: "吼吼龙入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/li-bai-entrance.mp4",
+    label: "李白入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/riddle-man-entrance.mp4",
+    label: "谜语人入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/cowboy-entrance.mp4",
+    label: "牛仔入场",
+    meta: "4o entrance animation",
+  },
+  {
+    src: "/assets/four-o-car/snow-princess-entrance.mp4",
+    label: "雪国公主入场",
+    meta: "4o entrance animation",
+  },
 ];
 
 const fourOPhoneAnimationItems = [
