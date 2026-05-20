@@ -63,10 +63,16 @@ const PillNav = ({
 
         tlRefs.current[index]?.kill();
         const tl = gsap.timeline({ paused: true });
-        tl.to(circle, { scale: 0, xPercent: -50, duration: 2, ease, overwrite: "auto" }, 0);
+        tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: "auto" }, 0);
 
-        if (label) tl.to(label, { y: 0, duration: 2, ease, overwrite: "auto" }, 0);
-        if (hoverLabel) gsap.set(hoverLabel, { y: h + 12, opacity: 0 });
+        if (label) {
+          tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: "auto" }, 0);
+        }
+
+        if (hoverLabel) {
+          gsap.set(hoverLabel, { y: Math.ceil(h + 100), opacity: 0 });
+          tl.to(hoverLabel, { y: 0, opacity: 1, duration: 2, ease, overwrite: "auto" }, 0);
+        }
 
         tlRefs.current[index] = tl;
       });
