@@ -2956,7 +2956,7 @@ button {
   min-height: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 18px;
   background: #050505;
   box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
 }
