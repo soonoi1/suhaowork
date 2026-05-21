@@ -5,8 +5,10 @@ import {
   Eye,
   EyeOff,
   Film,
+  Hand,
   Images,
   PencilLine,
+  Sparkles,
   Menu,
   MessageSquareText,
   Orbit,
@@ -119,45 +121,53 @@ const pages = [
   },
   {
     "eyebrow": "03 / Character Key Question",
-    "title": "理想同学实体化｜关键问题",
+    "title": "毛绒绒理想同学！",
     "detailType": "problem",
     "parentTitle": "理想同学实体化",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
+    "conclusion": "那么多毛怎么设计？性能感觉不行啊？毛绒应该长什么样呢？",
+    "intro": "我把一个不清晰的“毛绒同学”概念拆成可判断、可讨论、可继续推进的目标：先从旧版理想同学的识别资产出发，逐步确定体块、手、眼神高光和帽子这些记忆点，再把它收束成可以落地的 3D 毛绒形象。",
     "points": [
       {
-        "label": "关键问题",
-        "text": "待补充。"
+        "label": "旧形象不是被推翻，而是被实体化",
+        "text": "最早的理想同学已经有亲和、陪伴和轻量感，我先保留这些识别资产，再判断哪些特征能从平面符号转成可被记住的三维体块。"
       },
       {
-        "label": "判断标准",
-        "text": "待补充。"
+        "label": "为什么有手",
+        "text": "手不是装饰，而是情绪和动作的接口。它让形象可以靠“趴着、探出、回应、陪伴”等姿态和用户建立关系，也给后续动画留下可表达的空间。"
       },
       {
-        "label": "业务约束",
-        "text": "待补充。"
+        "label": "为什么有高光",
+        "text": "眼里的高光决定它是否有生命感。高光让视线有方向、让情绪更稳定，也帮助这个毛绒形象在车机暗色界面里被快速识别。"
+      },
+      {
+        "label": "目标感如何形成",
+        "text": "从 AI 发散、手搓模型到材质调节，我把“可爱”拆成比例、轮廓、毛感、帽子、眼神和动作接口，并不断淘汰不稳定方向，最后收束成明确的形象目标。"
       }
     ]
   },
   {
     "eyebrow": "04 / Character Process",
-    "title": "理想同学实体化｜过程解法",
+    "title": "从形象到落地",
     "detailType": "process",
     "parentTitle": "理想同学实体化",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
+    "conclusion": "效果不好怎么办？先验证，再放弃，再换技术路线。",
+    "intro": "形象确认之后，真正难的是把毛绒质感稳定落到车机体验里。我先用 Spine 保住状态表达和交付确定性，再尝试 3D 多通道方案验证质感边界，发现效果不达预期后果断放弃，转向有 3D 基础支撑、但更适合毛绒表现的 Gaussian Splatting。",
     "points": [
       {
-        "label": "过程路径",
-        "text": "待补充。"
+        "label": "Spine：先把状态跑通",
+        "text": "用 Spine 快速验证听、想、说、开心、困惑等状态，确保业务节奏里先有一套稳定可用的形象动态。"
       },
       {
-        "label": "解法拆解",
-        "text": "待补充。"
+        "label": "3D：验证后果断放弃",
+        "text": "3D 多通道方案能解释结构，但在毛绒真实感、边缘柔软度和整体氛围上没有达到目标，继续投入会把风险带到交付末端。"
       },
       {
-        "label": "沉淀结果",
-        "text": "待补充。"
+        "label": "Gaussian：用新技术承接毛绒质感",
+        "text": "有前期 3D 建模和材质判断作为基础后，Gaussian 路线能更好保留真实毛绒的体积、柔软边界和光照变化，成为后续版本继续推进的方向。"
+      },
+      {
+        "label": "最终沉淀",
+        "text": "把形象判断、技术路径和交付风险拆开处理：稳定版本先交付，先进路线持续推进，让探索不阻塞上线，也为下一轮体验升级保留空间。"
       }
     ]
   },
@@ -310,7 +320,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-21-11page-character-detail-shell-v1";
+const CONTENT_STORAGE_VERSION = "2026-05-21-character-process-story-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -617,6 +627,143 @@ const characterEntityVideos = [
   },
 ];
 
+const characterShapeHeroMedia = [
+  {
+    src: "/assets/character-process/shape-final-confidence.webp",
+    label: "目标形象",
+    meta: "从模糊概念收束出的毛绒理想同学",
+    type: "image",
+  },
+  {
+    src: "/assets/character-process/shape-old.mp4",
+    label: "旧版符号",
+    meta: "从原始理想同学的识别资产出发",
+    type: "video",
+    tone: "light-evidence",
+  },
+];
+
+const characterShapeStageMedia = [
+  {
+    src: "/assets/character-process/shape-old.mp4",
+    label: "01 / 原始识别",
+    meta: "保留旧形象的亲和、陪伴和轻量感",
+    type: "video",
+    tone: "light-evidence",
+  },
+  {
+    src: "/assets/character-process/shape-hand-draft.mp4",
+    label: "02 / 手的接口",
+    meta: "让角色可以趴着、探出、回应用户",
+    type: "video",
+    tone: "light-evidence",
+  },
+  {
+    src: "/assets/character-process/shape-eye-highlight.webp",
+    label: "03 / 眼神高光",
+    meta: "用视线方向和生命感稳定情绪表达",
+    type: "image",
+    tone: "light-evidence",
+  },
+  {
+    src: "/assets/character-process/shape-hat-feeling.webp",
+    label: "04 / 帽子记忆点",
+    meta: "找到更强的轮廓和品牌识别锚点",
+    type: "image",
+    tone: "light-evidence",
+  },
+];
+
+const characterShapeCollageMedia = [
+  {
+    src: "/assets/character-process/shape-eye-ratio.webp",
+    label: "眼睛比例",
+    meta: "不断校准可爱感与识别度",
+    type: "image",
+    tone: "light-evidence",
+  },
+  {
+    src: "/assets/character-process/shape-ai-hat.webp",
+    label: "AI 发散",
+    meta: "用 AI 扩展帽子和体块的可能性",
+    type: "image",
+    tone: "light-evidence",
+  },
+  {
+    src: "/assets/character-process/fur-handmade-study.mp4",
+    label: "手搓毛发",
+    meta: "研究毛绒应有的蓬松、厚度和边缘",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/fur-render-tune.mp4",
+    label: "材质调节",
+    meta: "把“很多毛”转成可判断的渲染质感",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/shape-3d-render.mp4",
+    label: "纯手搓 3D",
+    meta: "验证体块和基础毛绒渲染是否成立",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/shape-cua-hand.mp4",
+    label: "动作入口",
+    meta: "手、眼睛和姿态共同形成陪伴感",
+    type: "video",
+  },
+];
+
+const characterLandingStageMedia = [
+  {
+    src: "/assets/character-process/landing-spine-principle.mp4",
+    label: "Spine 状态验证",
+    meta: "先用稳定路径跑通状态表达",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/landing-multipass-bad.mp4",
+    label: "3D 多通道试错",
+    meta: "结构成立，但毛绒真实感不达预期",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/landing-gauss-process.mp4",
+    label: "Gaussian 继续推进",
+    meta: "借助真实采集和新技术保留毛绒体积",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/landing-gauss-dark.mp4",
+    label: "车机暗色效果",
+    meta: "验证暗色界面里的识别和氛围",
+    type: "video",
+  },
+];
+
+const characterSpineStateVideos = [
+  { src: "/assets/character-process/spine-listen.mp4", label: "听", tone: "light-evidence" },
+  { src: "/assets/character-process/spine-think.mp4", label: "想", tone: "light-evidence" },
+  { src: "/assets/character-process/spine-happy.mp4", label: "开心", tone: "light-evidence" },
+  { src: "/assets/character-process/spine-confused.mp4", label: "困惑", tone: "light-evidence" },
+];
+
+const characterLandingResultMedia = [
+  {
+    src: "/assets/character-process/landing-multipass-effect.mp4",
+    label: "多通道效果",
+    meta: "用于判断路线边界，而不是盲目投入",
+    type: "video",
+  },
+  {
+    src: "/assets/character-process/landing-gauss-light.mp4",
+    label: "高斯实车亮色",
+    meta: "保留毛绒柔软边界和真实光照",
+    type: "video",
+  },
+];
+
 const ss4MaterialItems = [
   {
     src: "/assets/ss4-material/ui-material-backplate.mp4",
@@ -781,6 +928,30 @@ function PageBackdrop({ backdrop }) {
       )}
     </div>
   );
+}
+
+function StoryMedia({ item, className = "", loading = "lazy" }) {
+  const mediaClassName = `character-story-media ${item.tone ? `is-${item.tone}` : ""} ${className}`.trim();
+
+  if (item.type === "video" || item.src.endsWith(".mp4")) {
+    const poster = item.poster || item.src.replace("/assets/character-process/", "/assets/character-process/posters/").replace(".mp4", ".webp");
+
+    return (
+      <video
+        className={mediaClassName}
+        src={item.src}
+        poster={poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={item.label}
+      />
+    );
+  }
+
+  return <img className={mediaClassName} src={item.src} alt={item.label || ""} loading={loading} />;
 }
 
 function ViewportGradualBlur() {
@@ -2055,6 +2226,267 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
   );
 }
 
+function CharacterStoryPointList({ points, editing, onChange, start = 0 }) {
+  return (
+    <div className="character-story-point-list">
+      {points.map((item, pointIndex) => (
+        <article className="character-story-point" key={item.label}>
+          <span>{pad(start + pointIndex + 1)}</span>
+          <div>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(["points", pointIndex, "text"], value)}
+            />
+          </div>
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function CharacterShapeStory({ page, editing, onChange }) {
+  return (
+    <div className="character-story character-shape-story">
+      <section className="character-story-hero">
+        <div className="character-story-orbit" aria-hidden="true">
+          <Sparkles size={18} />
+          <Hand size={18} />
+          <Eye size={18} />
+        </div>
+        <div className="character-story-kicker">
+          <span>01</span>
+          <p>{page.parentTitle}</p>
+        </div>
+        <div className="character-story-title">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <EditableText
+            as="h2"
+            value={page.title}
+            editing={editing}
+            onChange={(value) => onChange(["title"], value)}
+          />
+          <EditableText
+            className="character-story-question"
+            value={page.conclusion}
+            editing={editing}
+            onChange={(value) => onChange(["conclusion"], value)}
+          />
+          <EditableText
+            className="character-story-intro"
+            value={page.intro}
+            editing={editing}
+            onChange={(value) => onChange(["intro"], value)}
+          />
+        </div>
+        <div className="character-story-hero-media" aria-label="理想同学形态探索素材">
+          {characterShapeHeroMedia.map((item, mediaIndex) => (
+            <figure className={`character-story-frame hero-frame-${mediaIndex + 1}`} key={item.src}>
+              <StoryMedia item={item} loading={mediaIndex === 0 ? "eager" : "lazy"} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-shape-flow">
+        <div className="character-story-section-copy">
+          <span>Birth</span>
+          <h3>从旧符号出发，而不是重新发明一个角色。</h3>
+          <p>
+            这个阶段的核心不是“画一个可爱的毛球”，而是把旧版理想同学已经被用户记住的部分转译成三维语言：
+            保留亲近感，强化被看见的眼神，再补上能参与动作的手。
+          </p>
+        </div>
+        <div className="character-story-stage-grid is-dark-process-grid">
+          {[characterShapeCollageMedia[2], characterShapeCollageMedia[3], characterLandingStageMedia[2], characterLandingStageMedia[3]].map((item) => (
+            <figure className="character-story-frame" key={item.src}>
+              <StoryMedia item={item} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-design-proof">
+        <div className="character-story-large-copy">
+          <span>Proof</span>
+          <h3>有手、有高光、有帽子，都是为了让它能被记住。</h3>
+          <p>
+            白底探索图不作为主视觉，而是作为推导证据：手让角色能回应，眼睛高光让它有生命感，帽子让轮廓有更强记忆点。
+            这些判断共同把“毛绒绒”从情绪描述推进成可交付的形态规则。
+          </p>
+        </div>
+        <div className="character-story-stage-grid is-proof-grid">
+          {characterShapeStageMedia.map((item) => (
+            <figure className="character-story-frame is-evidence-frame" key={`${item.src}-proof`}>
+              <StoryMedia item={item} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-shape-collage">
+        <div className="character-story-large-copy">
+          <span>Question</span>
+          <h3>毛绒应该长什么样？</h3>
+          <p>
+            我把模糊的质感问题拆成能被团队判断的视觉参数：毛发长短、边缘柔软度、眼睛比例、帽子轮廓、手的姿态和暗色界面里的识别速度。
+          </p>
+        </div>
+        <div className="character-story-collage-grid">
+          {[characterShapeCollageMedia[0], characterShapeCollageMedia[1], characterShapeStageMedia[2], characterShapeStageMedia[3]].map((item, mediaIndex) => (
+            <figure className={`character-story-frame collage-frame-${mediaIndex + 1}`} key={item.src}>
+              <StoryMedia item={item} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-story-summary">
+        <CharacterStoryPointList points={page.points} editing={editing} onChange={onChange} />
+      </section>
+    </div>
+  );
+}
+
+function CharacterLandingStory({ page, editing, onChange }) {
+  return (
+    <div className="character-story character-landing-story">
+      <section className="character-story-hero landing-story-hero">
+        <div className="character-story-orbit" aria-hidden="true">
+          <Film size={18} />
+          <Orbit size={18} />
+          <Sparkles size={18} />
+        </div>
+        <div className="character-story-kicker">
+          <span>02</span>
+          <p>{page.parentTitle}</p>
+        </div>
+        <div className="character-story-title">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <EditableText
+            as="h2"
+            value={page.title}
+            editing={editing}
+            onChange={(value) => onChange(["title"], value)}
+          />
+          <EditableText
+            className="character-story-question"
+            value={page.conclusion}
+            editing={editing}
+            onChange={(value) => onChange(["conclusion"], value)}
+          />
+          <EditableText
+            className="character-story-intro"
+            value={page.intro}
+            editing={editing}
+            onChange={(value) => onChange(["intro"], value)}
+          />
+        </div>
+        <div className="character-landing-hero-media" aria-label="技术落地关键素材">
+          {[characterLandingStageMedia[2], characterLandingStageMedia[0]].map((item, mediaIndex) => (
+            <figure className="character-story-frame" key={item.src}>
+              <StoryMedia item={item} loading={mediaIndex === 0 ? "eager" : "lazy"} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-spine-proof">
+        <div className="character-story-large-copy">
+          <span>States</span>
+          <h3>先让它能表达，再继续逼近真实毛绒。</h3>
+          <p>
+            Spine 不是最终质感答案，但它能快速确认“听、想、说、开心、困惑”等状态是否成立。稳定表达先支撑业务，质感路线再继续推进。
+          </p>
+        </div>
+        <div className="character-landing-spine-strip" aria-label="Spine 状态动画">
+          {characterSpineStateVideos.map((item, mediaIndex) => (
+            <figure className="character-story-frame is-evidence-frame" key={item.src}>
+              <StoryMedia item={{ ...item, type: "video" }} loading={mediaIndex === 0 ? "eager" : "lazy"} />
+              <figcaption>
+                <span>{item.label}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-landing-roadmap">
+        <div className="character-story-section-copy">
+          <span>Route</span>
+          <h3>技术路线不是线性成功，而是不断缩小风险。</h3>
+          <p>
+            我把“真实毛绒”拆成先能动、再能像、最后能真实三步。每一步都明确判断口径：能不能支撑上线，能不能保留毛感，能不能继续升级。
+          </p>
+        </div>
+        <div className="character-landing-stage-grid">
+          {characterLandingStageMedia.map((item, mediaIndex) => (
+            <figure className={`character-story-frame landing-stage-${mediaIndex + 1}`} key={item.src}>
+              <StoryMedia item={item} loading={mediaIndex === 0 ? "eager" : "lazy"} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-landing-decision">
+        <div className="character-story-large-copy">
+          <span>Decision</span>
+          <h3>效果不好，就不要把错路拖到交付末端。</h3>
+          <p>
+            3D 多通道方案提供了结构判断，但在毛绒真实感上没有通过；Gaussian 则更适合承接真实材质、体积光和柔软边缘。
+            这不是换一个炫技方案，而是把前面的形象基础、3D 基础和新技术重新组合成可继续推进的路线。
+          </p>
+        </div>
+        <div className="character-landing-result-grid">
+          {characterLandingResultMedia.map((item) => (
+            <figure className="character-story-frame" key={item.src}>
+              <StoryMedia item={item} />
+              <figcaption>
+                <span>{item.label}</span>
+                <small>{item.meta}</small>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section className="character-story-section character-story-summary">
+        <CharacterStoryPointList points={page.points} editing={editing} onChange={onChange} />
+      </section>
+    </div>
+  );
+}
+
 function RevealPointList({ points, editing, onChange, className = "" }) {
   return (
     <div className={`gaussian-copy-points ${className}`.trim()}>
@@ -2091,6 +2523,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   const isFinalSummaryPage = index === pages.length - 1;
   const isCharacterProjectPage = page.demo === "gaussianSplat";
   const isDeliveryProjectPage = page.demo === "deliveryPopups";
+  const isCharacterStoryPage = page.detailType === "problem" || page.detailType === "process";
   const sectionClasses = ["case-section"];
   if (isActive) {
     sectionClasses.push("is-active");
@@ -2102,6 +2535,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
 
   if (page.demo === "scrollStack") {
     sectionClasses.push("has-scroll-stack");
+  }
+
+  if (isCharacterStoryPage) {
+    sectionClasses.push("has-character-story", `is-character-${page.detailType}`);
   }
 
   if (page.demo === "radiance") {
@@ -2219,50 +2656,64 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           <Images size={22} />
         </BorderGlow>
       ) : null}
-      <div className="case-copy">
-        <p className="eyebrow">{page.eyebrow}</p>
-        <EditableText
-          as="h2"
-          value={page.title}
-          editing={editing}
-          onChange={(value) => onChange(index, ["title"], value)}
-        />
-        <EditableText
-          className="conclusion"
-          value={page.conclusion}
-          editing={editing}
-          onChange={(value) => onChange(index, ["conclusion"], value)}
-        />
-        <EditableText
-          className="intro"
-          value={page.intro}
-          editing={editing}
-          onChange={(value) => onChange(index, ["intro"], value)}
-        />
-        {page.demo === "gaussianSplat" ? (
-          <RevealPointList
-            points={page.points}
+      {isCharacterStoryPage ? null : (
+        <div className="case-copy">
+          <p className="eyebrow">{page.eyebrow}</p>
+          <EditableText
+            as="h2"
+            value={page.title}
             editing={editing}
-            onChange={(path, value) => onChange(index, path, value)}
+            onChange={(value) => onChange(index, ["title"], value)}
           />
-        ) : null}
-        {page.demo === "radiance" ? (
-          <RevealPointList
-            points={page.points}
+          <EditableText
+            className="conclusion"
+            value={page.conclusion}
             editing={editing}
-            onChange={(path, value) => onChange(index, path, value)}
-            className="radiance-copy-points"
+            onChange={(value) => onChange(index, ["conclusion"], value)}
           />
-        ) : null}
-        {page.demo === "ocVideos" ? (
-          <OCStrategyBoard
-            points={page.points}
+          <EditableText
+            className="intro"
+            value={page.intro}
             editing={editing}
-            onChange={(path, value) => onChange(index, path, value)}
+            onChange={(value) => onChange(index, ["intro"], value)}
           />
-        ) : null}
-      </div>
-      {page.demo === "radiance" ? (
+          {page.demo === "gaussianSplat" ? (
+            <RevealPointList
+              points={page.points}
+              editing={editing}
+              onChange={(path, value) => onChange(index, path, value)}
+            />
+          ) : null}
+          {page.demo === "radiance" ? (
+            <RevealPointList
+              points={page.points}
+              editing={editing}
+              onChange={(path, value) => onChange(index, path, value)}
+              className="radiance-copy-points"
+            />
+          ) : null}
+          {page.demo === "ocVideos" ? (
+            <OCStrategyBoard
+              points={page.points}
+              editing={editing}
+              onChange={(path, value) => onChange(index, path, value)}
+            />
+          ) : null}
+        </div>
+      )}
+      {page.detailType === "problem" ? (
+        <CharacterShapeStory
+          page={page}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
+      ) : page.detailType === "process" ? (
+        <CharacterLandingStory
+          page={page}
+          editing={editing}
+          onChange={(path, value) => onChange(index, path, value)}
+        />
+      ) : page.demo === "radiance" ? (
         <StandbyRadianceDemo />
       ) : page.demo === "fluidGlass" ? (
         <SS4FluidGlassDemo />
@@ -2427,6 +2878,12 @@ export function App() {
 
         sections.forEach((section) => {
           const rect = section.getBoundingClientRect();
+          if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+            nextActiveIndex = Number(section.id.replace("page-", "")) - 1;
+            nearestDistance = 0;
+            return;
+          }
+
           const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
           if (distance < nearestDistance) {
             nearestDistance = distance;
@@ -2483,6 +2940,10 @@ export function App() {
       return sections.reduce(
         (nearest, section, index) => {
           const rect = section.getBoundingClientRect();
+          if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
+            return { distance: 0, index };
+          }
+
           const distance = Math.abs(rect.top + rect.height / 2 - viewportCenter);
           return distance < nearest.distance ? { distance, index } : nearest;
         },
