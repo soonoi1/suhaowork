@@ -2187,6 +2187,52 @@ function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange
   );
 }
 
+function IntroOverlay({ page, mode, active, editing, onChange }) {
+  return (
+    <section className={`intro-overlay ${active ? "is-visible" : ""}`} aria-hidden={!active}>
+      <div className="intro-overlay-copy">
+        <p className="eyebrow">{mode.label} / {mode.name}</p>
+        <EditableText
+          as="h1"
+          value={page.title}
+          editing={editing}
+          onChange={(value) => onChange(0, ["title"], value)}
+        />
+        <EditableText
+          className="hero-line"
+          value={page.conclusion}
+          editing={editing}
+          onChange={(value) => onChange(0, ["conclusion"], value)}
+        />
+        <EditableText
+          className="hero-intro"
+          value={page.intro}
+          editing={editing}
+          onChange={(value) => onChange(0, ["intro"], value)}
+        />
+      </div>
+      <div className="intro-overlay-cards">
+        {(page.coverItems || []).map((item, index) => (
+          <article className="intro-overlay-card" key={item.label}>
+            <span>{pad(index + 1)}</span>
+            <EditableText
+              as="h3"
+              value={item.label}
+              editing={editing}
+              onChange={(value) => onChange(0, ["coverItems", index, "label"], value)}
+            />
+            <EditableText
+              value={item.text}
+              editing={editing}
+              onChange={(value) => onChange(0, ["coverItems", index, "text"], value)}
+            />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function FinalSummaryShowcase({ points, editing, onChange }) {
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
@@ -3115,6 +3161,14 @@ export function App() {
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} pagesSource={contentPages} />
       <ViewportGradualBlur />
+
+      <IntroOverlay
+        page={contentPages[0]}
+        mode={activeMode}
+        active={activePageIndex === 0}
+        editing={contentEditing}
+        onChange={updateContent}
+      />
 
       <VisualDeck
         mode={activeMode}
