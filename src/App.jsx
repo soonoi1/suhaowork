@@ -183,51 +183,7 @@ const pages = [
     ]
   },
   {
-    "eyebrow": "06 / Delivery Key Question",
-    "title": "理想同学中心与 4o 小同桌交付｜关键问题",
-    "detailType": "problem",
-    "parentTitle": "理想同学中心与 4o 小同桌交付",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "关键问题",
-        "text": "待补充。"
-      },
-      {
-        "label": "判断标准",
-        "text": "待补充。"
-      },
-      {
-        "label": "业务约束",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "07 / Delivery Process",
-    "title": "理想同学中心与 4o 小同桌交付｜过程解法",
-    "detailType": "process",
-    "parentTitle": "理想同学中心与 4o 小同桌交付",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "过程路径",
-        "text": "待补充。"
-      },
-      {
-        "label": "解法拆解",
-        "text": "待补充。"
-      },
-      {
-        "label": "沉淀结果",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "08 / Delivery",
+    "eyebrow": "06 / Delivery",
     "title": "理想同学中心与 4o 小同桌交付",
     "conclusion": "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
     "intro": "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
@@ -252,51 +208,7 @@ const pages = [
     "demo": "deliveryPopups"
   },
   {
-    "eyebrow": "09 / AI Workflow Key Question",
-    "title": "AI 实战工作流｜关键问题",
-    "detailType": "problem",
-    "parentTitle": "AI 实战工作流",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "关键问题",
-        "text": "待补充。"
-      },
-      {
-        "label": "判断标准",
-        "text": "待补充。"
-      },
-      {
-        "label": "业务约束",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "10 / AI Workflow Process",
-    "title": "AI 实战工作流｜过程解法",
-    "detailType": "process",
-    "parentTitle": "AI 实战工作流",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "过程路径",
-        "text": "待补充。"
-      },
-      {
-        "label": "解法拆解",
-        "text": "待补充。"
-      },
-      {
-        "label": "沉淀结果",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "11 / AI Workflow",
+    "eyebrow": "07 / AI Workflow",
     "title": "AI 实战工作流",
     "demo": "aiGallery",
     "conclusion": "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
@@ -317,51 +229,7 @@ const pages = [
     ]
   },
   {
-    "eyebrow": "12 / Prototype Key Question",
-    "title": "Standby 放射光｜关键问题",
-    "detailType": "problem",
-    "parentTitle": "Standby 放射光",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "关键问题",
-        "text": "待补充。"
-      },
-      {
-        "label": "判断标准",
-        "text": "待补充。"
-      },
-      {
-        "label": "业务约束",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "13 / Prototype Process",
-    "title": "Standby 放射光｜过程解法",
-    "detailType": "process",
-    "parentTitle": "Standby 放射光",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "过程路径",
-        "text": "待补充。"
-      },
-      {
-        "label": "解法拆解",
-        "text": "待补充。"
-      },
-      {
-        "label": "沉淀结果",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "14 / Prototype",
+    "eyebrow": "08 / Prototype",
     "title": "Standby 放射光",
     "demo": "radiance",
     "conclusion": "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
@@ -382,51 +250,7 @@ const pages = [
     ]
   },
   {
-    "eyebrow": "15 / Material Study Key Question",
-    "title": "SS4 质感探索｜关键问题",
-    "detailType": "problem",
-    "parentTitle": "SS4 质感探索",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "关键问题",
-        "text": "待补充。"
-      },
-      {
-        "label": "判断标准",
-        "text": "待补充。"
-      },
-      {
-        "label": "业务约束",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "16 / Material Study Process",
-    "title": "SS4 质感探索｜过程解法",
-    "detailType": "process",
-    "parentTitle": "SS4 质感探索",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "过程路径",
-        "text": "待补充。"
-      },
-      {
-        "label": "解法拆解",
-        "text": "待补充。"
-      },
-      {
-        "label": "沉淀结果",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "17 / Material Study",
+    "eyebrow": "09 / Material Study",
     "title": "SS4 质感探索",
     "demo": "fluidGlass",
     "conclusion": "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
@@ -434,51 +258,7 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "18 / OC Eyes Key Question",
-    "title": "OC 眼睛｜关键问题",
-    "detailType": "problem",
-    "parentTitle": "OC 眼睛",
-    "conclusion": "待补充：这个项目最关键的问题、判断边界和需要解决的核心矛盾。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "关键问题",
-        "text": "待补充。"
-      },
-      {
-        "label": "判断标准",
-        "text": "待补充。"
-      },
-      {
-        "label": "业务约束",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "19 / OC Eyes Process",
-    "title": "OC 眼睛｜过程解法",
-    "detailType": "process",
-    "parentTitle": "OC 眼睛",
-    "conclusion": "待补充：这个项目的推进过程、方案拆解、技术路径和最终解法。",
-    "intro": "待补充。",
-    "points": [
-      {
-        "label": "过程路径",
-        "text": "待补充。"
-      },
-      {
-        "label": "解法拆解",
-        "text": "待补充。"
-      },
-      {
-        "label": "沉淀结果",
-        "text": "待补充。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "20 / OC Eyes",
+    "eyebrow": "10 / OC Eyes",
     "title": "OC 眼睛",
     "demo": "ocVideos",
     "conclusion": "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
@@ -499,7 +279,7 @@ const pages = [
     ]
   },
   {
-    "eyebrow": "21 / Summary",
+    "eyebrow": "11 / Summary",
     "title": "结果与方法沉淀",
     "conclusion": "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
     "intro": "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
@@ -530,7 +310,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-20-21page-project-detail-shell-v1";
+const CONTENT_STORAGE_VERSION = "2026-05-21-11page-character-detail-shell-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -545,11 +325,11 @@ const pillNavItems = [
   { label: "Overview", href: "#page-2" },
   { label: "Character", href: "#page-3" },
   { label: "Delivery", href: "#page-6" },
-  { label: "AI", href: "#page-9" },
-  { label: "Light", href: "#page-12" },
-  { label: "Glass", href: "#page-15" },
-  { label: "OC", href: "#page-18" },
-  { label: "Sum", href: "#page-21" },
+  { label: "AI", href: "#page-7" },
+  { label: "Light", href: "#page-8" },
+  { label: "Glass", href: "#page-9" },
+  { label: "OC", href: "#page-10" },
+  { label: "Sum", href: "#page-11" },
 ];
 
 function getActivePillHref(activePageIndex) {
@@ -557,12 +337,12 @@ function getActivePillHref(activePageIndex) {
 
   if (pageNumber <= 2) return `#page-${pageNumber}`;
   if (pageNumber <= 5) return "#page-3";
-  if (pageNumber <= 8) return "#page-6";
-  if (pageNumber <= 11) return "#page-9";
-  if (pageNumber <= 14) return "#page-12";
-  if (pageNumber <= 17) return "#page-15";
-  if (pageNumber <= 20) return "#page-18";
-  return "#page-21";
+  if (pageNumber === 6) return "#page-6";
+  if (pageNumber === 7) return "#page-7";
+  if (pageNumber === 8) return "#page-8";
+  if (pageNumber === 9) return "#page-9";
+  if (pageNumber === 10) return "#page-10";
+  return "#page-11";
 }
 
 function getPageBackdrop(page) {
