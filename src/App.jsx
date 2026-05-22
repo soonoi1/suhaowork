@@ -72,104 +72,85 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "02 / Overview",
-    "title": "能力总览与项目历程",
-    "demo": "capabilityTimeline",
-    "conclusion": "能力：专业手头功夫；职业协同决策；技术探索与业务转化",
-    "intro": "我将自身能力沉淀为三个层次：立身之本的专业技术、推进复杂项目的职业素养、以及不断突破边界的技术探索能力。",
-    "points": [
-      {
-        "label": "专业能力",
-        "text": "深耕 3D 角色设计与产品动效多年，具备扎实的“手头功夫”。能够精准把控形体、材质、动画节奏与交互体验，将高品质的视觉效果完美落地。"
-      },
-      {
-        "label": "协同能力",
-        "text": "跨越职业壁垒与技术盲区，率先完成方案验证并赋能团队，承担关键衔接作用（对应：车端语音形象协同、放空放射光落地）"
-      },
-      {
-        "label": "创新能力",
-        "text": "保持敏锐，善于结合与吸收 AI 等新技术。能够快速摸清技术的边界，并将其转化为解决实际业务痛点、提升团队设计效能的落地流程。"
-      }
-    ],
-    "timeline": [
-      {
-        "time": "2024 Q4",
-        "label": "理想同学实体化",
-        "text": "从平面符号推进到实体化形象，完成理想汽车全新理想同学形象建设。"
-      },
-      {
-        "time": "2025 Q1",
-        "label": "理想同学中心",
-        "text": "主导了理想同学中心设计（首页、毛绒时钟和场景交互动画），推动视觉素材、动效和研发还原落地。"
-      },
-      {
-        "time": "2025 Q2",
-        "label": "4o 小同桌 / OTA 7.4",
-        "text": "负责了OTA7.4与4o小同桌的多角色、多状态和多端项目的落地交付。"
-      },
-      {
-        "time": "2025 Q3",
-        "label": "AI 工作流与 Standby 原型",
-        "text": "探索 AI 批量生成、筛选、视频处理提供业务交付效率；探索全新AI技术路径完成光效原型设计"
-      },
-      {
-        "time": "2025 Q4",
-        "label": "OC 眼睛与未来体验",
-        "text": "主导完成OC眼镜形态的设计，构建注意力系统的表达方式，为舱外交互建立基础。"
-      }
-    ]
+    "eyebrow": "02 / Character Process",
+    "title": "怎么升级",
+    "demo": "keynoteSlide",
+    "slide": "02",
+    "conclusion": "",
+    "intro": "",
+    "points": []
   },
   {
-    "eyebrow": "03 / Character Key Question",
-    "title": "毛绒绒理想同学！",
-    "detailType": "problem",
-    "parentTitle": "理想同学实体化",
-    "conclusion": "那么多毛怎么设计？性能感觉不行啊？毛绒应该长什么样呢？",
-    "intro": "我把一个不清晰的“毛绒同学”概念拆成可判断、可讨论、可继续推进的目标：先从旧版理想同学的识别资产出发，逐步确定体块、手、眼神高光和帽子这些记忆点，再把它收束成可以落地的 3D 毛绒形象。",
-    "points": [
-      {
-        "label": "旧形象不是被推翻，而是被实体化",
-        "text": "最早的理想同学已经有亲和、陪伴和轻量感，我先保留这些识别资产，再判断哪些特征能从平面符号转成可被记住的三维体块。"
-      },
-      {
-        "label": "为什么有手",
-        "text": "手不是装饰，而是情绪和动作的接口。它让形象可以靠“趴着、探出、回应、陪伴”等姿态和用户建立关系，也给后续动画留下可表达的空间。"
-      },
-      {
-        "label": "为什么有高光",
-        "text": "眼里的高光决定它是否有生命感。高光让视线有方向、让情绪更稳定，也帮助这个毛绒形象在车机暗色界面里被快速识别。"
-      },
-      {
-        "label": "目标感如何形成",
-        "text": "从 AI 发散、手搓模型到材质调节，我把“可爱”拆成比例、轮廓、毛感、帽子、眼神和动作接口，并不断淘汰不稳定方向，最后收束成明确的形象目标。"
-      }
-    ]
+    "eyebrow": "03 / Shape",
+    "title": "形态探索",
+    "demo": "keynoteSlide",
+    "slide": "03",
+    "conclusion": "",
+    "intro": "",
+    "points": []
   },
   {
-    "eyebrow": "04 / Character Process",
-    "title": "从形象到落地",
-    "detailType": "process",
-    "parentTitle": "理想同学实体化",
-    "conclusion": "效果不好怎么办？先验证，再放弃，再换技术路线。",
-    "intro": "形象确认之后，真正难的是把毛绒质感稳定落到车机体验里。我先用 Spine 保住状态表达和交付确定性，再尝试 3D 多通道方案验证质感边界，发现效果不达预期后果断放弃，转向有 3D 基础支撑、但更适合毛绒表现的 Gaussian Splatting。",
-    "points": [
-      {
-        "label": "Spine：先把状态跑通",
-        "text": "用 Spine 快速验证听、想、说、开心、困惑等状态，确保业务节奏里先有一套稳定可用的形象动态。"
-      },
-      {
-        "label": "3D：验证后果断放弃",
-        "text": "3D 多通道方案能解释结构，但在毛绒真实感、边缘柔软度和整体氛围上没有达到目标，继续投入会把风险带到交付末端。"
-      },
-      {
-        "label": "Gaussian：用新技术承接毛绒质感",
-        "text": "有前期 3D 建模和材质判断作为基础后，Gaussian 路线能更好保留真实毛绒的体积、柔软边界和光照变化，成为后续版本继续推进的方向。"
-      },
-      {
-        "label": "最终沉淀",
-        "text": "把形象判断、技术路径和交付风险拆开处理：稳定版本先交付，先进路线持续推进，让探索不阻塞上线，也为下一轮体验升级保留空间。"
-      }
-    ]
+    "eyebrow": "04 / Fur",
+    "title": "毛绒化",
+    "demo": "keynoteSlide",
+    "slide": "04",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "05 / Styling",
+    "title": "造型优化",
+    "demo": "keynoteSlide",
+    "slide": "05",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "06 / Model",
+    "title": "要动起来 必须得建模",
+    "demo": "keynoteSlide",
+    "slide": "06",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "07 / Fur Detail",
+    "title": "攻克毛绒细节渲染效果",
+    "demo": "keynoteSlide",
+    "slide": "07",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "08 / Birth",
+    "title": "理想同学形象诞生",
+    "demo": "keynoteSlide",
+    "slide": "08",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "09 / Technical Route",
+    "title": "技术路径盘点",
+    "demo": "keynoteSlide",
+    "slide": "09",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "10 / Delivery",
+    "title": "理想同学形象从设计到交付",
+    "demo": "keynoteSlide",
+    "slide": "10",
+    "conclusion": "",
+    "intro": "",
+    "points": []
   },
   {
     "eyebrow": "05 / Character",
@@ -320,7 +301,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-21-character-process-story-v1";
+const CONTENT_STORAGE_VERSION = "2026-05-22-keynote-character-process-v1";
 
 const activeVisualMode = {
   id: "space",
@@ -332,27 +313,63 @@ const activeVisualMode = {
 
 const pillNavItems = [
   { label: "Intro", href: "#page-1" },
-  { label: "Overview", href: "#page-2" },
-  { label: "Character", href: "#page-3" },
-  { label: "Delivery", href: "#page-6" },
-  { label: "AI", href: "#page-7" },
-  { label: "Light", href: "#page-8" },
-  { label: "Glass", href: "#page-9" },
-  { label: "OC", href: "#page-10" },
-  { label: "Sum", href: "#page-11" },
+  { label: "Process", href: "#page-2" },
+  { label: "Route", href: "#page-9" },
+  { label: "Character", href: "#page-11" },
+  { label: "Delivery", href: "#page-12" },
+  { label: "AI", href: "#page-13" },
+  { label: "Light", href: "#page-14" },
+  { label: "Glass", href: "#page-15" },
+  { label: "OC", href: "#page-16" },
+  { label: "Sum", href: "#page-17" },
 ];
 
 function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
-  if (pageNumber <= 2) return `#page-${pageNumber}`;
-  if (pageNumber <= 5) return "#page-3";
-  if (pageNumber === 6) return "#page-6";
-  if (pageNumber === 7) return "#page-7";
-  if (pageNumber === 8) return "#page-8";
-  if (pageNumber === 9) return "#page-9";
-  if (pageNumber === 10) return "#page-10";
-  return "#page-11";
+  if (pageNumber === 1) return "#page-1";
+  if (pageNumber <= 8) return "#page-2";
+  if (pageNumber <= 10) return "#page-9";
+  if (pageNumber === 11) return "#page-11";
+  if (pageNumber === 12) return "#page-12";
+  if (pageNumber === 13) return "#page-13";
+  if (pageNumber === 14) return "#page-14";
+  if (pageNumber === 15) return "#page-15";
+  if (pageNumber === 16) return "#page-16";
+  return "#page-17";
+}
+
+function emphasizeText(value = "") {
+  const highlightMap = {
+    "具象化": "key",
+    "形态": "key",
+    "3D化": "key",
+    "有手了": "key",
+    "毛发": "key",
+    "簇状": "key",
+    "头顶光秃秃": "key",
+    "改改形态": "key",
+    "戴帽子": "key",
+    "牛仔帽": "key",
+    "建模": "key",
+    "手动梳理": "key",
+    "细节质感": "key",
+    "怎么上车": "key",
+    "<10%": "key",
+    "分阶段": "key",
+    "强推高斯": "key",
+    "两套方案": "key",
+    "100%": "key",
+    "一年": "key",
+  };
+  const tokens = Object.keys(highlightMap).sort((first, second) => second.length - first.length);
+  if (!tokens.length) return value;
+
+  const pattern = new RegExp(`(${tokens.map((token) => token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+  return value.split(pattern).map((part, index) => {
+    if (!highlightMap[part]) return part;
+    return <strong key={`${part}-${index}`}>{part}</strong>;
+  });
 }
 
 function getPageBackdrop(page) {
@@ -764,6 +781,119 @@ const characterLandingResultMedia = [
   },
 ];
 
+const keynoteProcessSlides = {
+  "02": {
+    variant: "question",
+    background: true,
+    title: "怎么升级",
+    subtitle: "作为理想同学新形象设计负责人，聚焦从零开始，将一个模糊的形象具象化。创造一个全新的形态。",
+    center: "faces",
+    callouts: [
+      { text: "要做实体化？", x: 24, y: 18 },
+      { text: "全新理想同学长啥样？", x: 77, y: 12 },
+      { text: "要升级？", x: 70, y: 35 },
+      { text: "加手？", x: 31, y: 43 },
+      { text: "手跟身体怎么结合？", x: 17, y: 56 },
+      { text: "毛绒形态？", x: 34, y: 66 },
+      { text: "特征继承吗？", x: 81, y: 56 },
+      { text: "毛绒能上车吗？", x: 70, y: 64 },
+    ],
+  },
+  "03": {
+    variant: "shape",
+    background: true,
+    title: "形态探索",
+    subtitle: "我：先建模吧 3D化 再加上一个手",
+    kicker: "有手了，能点了！",
+    media: [
+      { type: "video", src: "/assets/character-process/shape-old.mp4", className: "shape-old", label: "早期 3D 化" },
+      { type: "video", src: "/assets/character-keynote/hand-draft.mp4", className: "shape-hand", label: "加上手的模型" },
+    ],
+  },
+  "04": {
+    variant: "fur",
+    background: true,
+    title: "毛绒化",
+    subtitle: "先要去尝试、探索毛发的渲染效果。然后需要疏毛了，选择将毛发梳成簇状，更接近毛绒玩具质感",
+    media: [
+      { type: "image", src: "/assets/character-keynote/fur-disc.webp", className: "fur-disc", label: "毛绒材质" },
+      { type: "video", src: "/assets/character-process/shape-cua-hand.mp4", className: "fur-final", label: "毛绒形态" },
+    ],
+  },
+  "05": {
+    variant: "styling",
+    background: true,
+    title: "造型优化",
+    subtitle: "理想同学长出毛以后，显得头顶光秃秃的，不太好看，得找个法子改改形态。",
+    note: "使用 AI 先玩一玩。效果还不错，要不试试戴帽子？",
+    media: [
+      { type: "image", src: "/assets/character-process/shape-ai-hat.webp", className: "styling-grid", label: "帽子方向探索" },
+      { type: "video", src: "/assets/character-keynote/hat-animation.mp4", className: "styling-final", label: "帽子造型动画" },
+    ],
+  },
+  "06": {
+    variant: "model",
+    background: true,
+    title: "要动起来\n必须得建模",
+    subtitle: "我在形态上用 AI 做了个不错的牛仔帽，接下来压力给到建模。",
+    note: "好吧！建模也是我。",
+    media: [
+      { type: "video", src: "/assets/character-keynote/memory-animation.mp4", className: "model-memory", label: "车机界面记忆点" },
+      { type: "video", src: "/assets/character-keynote/hat-animation.mp4", className: "model-reference", label: "牛仔帽动画参考" },
+      { type: "image", src: "/assets/character-keynote/hand-model.webp", className: "model-character", label: "牛仔帽形象" },
+    ],
+  },
+  "07": {
+    variant: "fur-detail",
+    background: true,
+    title: "攻克毛绒细节渲染效果",
+    subtitle: "真实感需要用多层随机毛发混合，我用了最不取巧却实用的方式一根根手动梳理。在3D中构建真实毛发结构，增强细节质感。",
+    media: [
+      { type: "video", src: "/assets/character-keynote/fur-grooming.mp4", className: "detail-video", label: "毛发细节渲染" },
+      { type: "image", src: "/assets/character-keynote/dark-model.webp", className: "detail-character", label: "暗光细节效果" },
+    ],
+  },
+  "08": {
+    variant: "birth",
+    background: true,
+    title: "理想同学形象诞生",
+    subtitle: "卖家秀有了，买家秀怎么办！光这300万根毛发，4090都卡，怎么上车！",
+    problem: "毛绒形象落地困难！",
+    text: "没有任何同类产品出现过，更何况车机上有限的算力空间 <10%。需要分阶段优化解决渲染品质。",
+    media: [
+      { type: "image", src: "/assets/character-keynote/hand-model.webp", className: "birth-character", label: "理想同学形象" },
+    ],
+  },
+  "09": {
+    variant: "route",
+    background: true,
+    title: "技术路径盘点",
+    items: [
+      "1、Spine自研引擎，用2D绑定做；（有相应技能能力，效果一般）",
+      "2、3D引擎：真实毛发，多通道渲染（shell fur、multipass）；（我们没有技术储备，且效果较差）",
+      "3、高斯泼溅（3D Gaussian Splatting）全新技术，在年底才出现。发现新的可能性。",
+    ],
+    captions: ["Spine效果（目前线上方案）", "3D multipass 效果（弃用）", "高斯方案（SS4 OTA9.1上线，目前线上效果）"],
+    bottom: "我的工作：三条技术路线同步推进，我负责提供所有的子弹，spine特殊处理的切图、3D multipass中的定制模型、高斯方案中的高斯模型，以及所有模型的骨骼动画。我的决策：主张强推高斯方案，为了能保交付，我可以同期对spine和高斯维护两套方案的设计交付。",
+    media: [
+      { type: "video", src: "/assets/character-keynote/spine.mp4", className: "route-media route-spine", label: "Spine效果" },
+      { type: "video", src: "/assets/character-keynote/multipass.mp4", className: "route-media route-multipass", label: "3D multipass 效果" },
+      { type: "video", src: "/assets/character-keynote/car-dark.mp4", className: "route-media route-gauss", label: "高斯方案" },
+    ],
+  },
+  "10": {
+    variant: "delivery",
+    background: true,
+    title: "理想同学形象从设计到交付",
+    subtitle: "高斯效果的落地基本上 100% 还原了离线渲染的设计效果，尤其高斯点云对毛发质感的效果表现尤为突出。",
+    note: "从一个面片到高斯理同，花了整整一年",
+    media: [
+      { type: "video", src: "/assets/character-keynote/car-light.mp4", className: "delivery-side delivery-light", label: "浅色模式实车效果" },
+      { type: "video", src: "/assets/character-keynote/gauss-result.mp4", className: "delivery-main", label: "高斯落地效果" },
+    ],
+  },
+};
+
 const ss4MaterialItems = [
   {
     src: "/assets/ss4-material/ui-material-backplate.mp4",
@@ -952,6 +1082,81 @@ function StoryMedia({ item, className = "", loading = "lazy" }) {
   }
 
   return <img className={mediaClassName} src={item.src} alt={item.label || ""} loading={loading} />;
+}
+
+function KeynoteMedia({ item }) {
+  const mediaRole = item.type === "video" ? "is-video" : "is-image";
+  const content = item.type === "video" ? (
+    <video src={item.src} autoPlay muted loop playsInline preload="auto" aria-label={item.label} />
+  ) : (
+    <img src={item.src} alt={item.label || ""} loading="lazy" />
+  );
+
+  return (
+    <figure className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}>
+      {content}
+      {item.label ? <figcaption>{item.label}</figcaption> : null}
+    </figure>
+  );
+}
+
+function KeynoteSlide({ slide, title }) {
+  const data = keynoteProcessSlides[slide];
+  if (!data) return null;
+
+  const hasSlideBackground = Boolean(data.background);
+  const backgroundSrc = typeof data.background === "string" ? data.background : `/assets/character-keynote/slides/page-${slide}.jpg`;
+  const mediaItems = hasSlideBackground ? data.media?.filter((item) => item.type === "video") : data.media;
+
+  return (
+    <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
+      {hasSlideBackground ? <img className="keynote-slide-background" src={backgroundSrc} alt="" aria-hidden="true" /> : null}
+
+      {!hasSlideBackground ? (
+        <>
+          {data.eyebrow ? <p className="keynote-eyebrow">{data.eyebrow}</p> : null}
+          <h2>{data.title}</h2>
+          {data.subtitle ? <p className="keynote-subtitle">{emphasizeText(data.subtitle)}</p> : null}
+          {data.note ? <p className="keynote-note">{emphasizeText(data.note)}</p> : null}
+          {data.kicker ? <p className="keynote-kicker">{emphasizeText(data.kicker)}</p> : null}
+        </>
+      ) : null}
+
+      {!hasSlideBackground && data.center ? (
+        <div className="keynote-question-map" aria-hidden="true">
+          <div className="keynote-center-mark">
+            <span />
+            <span />
+          </div>
+          {data.callouts.map((item) => (
+            <span key={item.text} style={{ left: `${item.x}%`, top: `${item.y}%` }}>
+              {item.text}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
+      {!hasSlideBackground && data.items ? (
+        <ol className="keynote-route-list">
+          {data.items.map((item) => <li key={item}>{item}</li>)}
+        </ol>
+      ) : null}
+
+      {mediaItems?.map((item) => (
+        <KeynoteMedia item={item} key={`${item.src}-${item.className}`} />
+      ))}
+
+      {!hasSlideBackground && data.captions ? (
+        <div className="keynote-route-captions">
+          {data.captions.map((caption) => <span key={caption}>{caption}</span>)}
+        </div>
+      ) : null}
+
+      {!hasSlideBackground && data.problem ? <strong className="keynote-problem">{data.problem}</strong> : null}
+      {!hasSlideBackground && data.text ? <p className="keynote-body-copy">{emphasizeText(data.text)}</p> : null}
+      {!hasSlideBackground && data.bottom ? <p className="keynote-bottom-copy">{emphasizeText(data.bottom)}</p> : null}
+    </div>
+  );
 }
 
 function ViewportGradualBlur() {
@@ -2570,6 +2775,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   const isCharacterProjectPage = page.demo === "gaussianSplat";
   const isDeliveryProjectPage = page.demo === "deliveryPopups";
   const isCharacterStoryPage = page.detailType === "problem" || page.detailType === "process";
+  const isKeynoteSlidePage = page.demo === "keynoteSlide";
   const sectionClasses = ["case-section"];
   if (isActive) {
     sectionClasses.push("is-active");
@@ -2585,6 +2791,10 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
 
   if (isCharacterStoryPage) {
     sectionClasses.push("has-character-story", `is-character-${page.detailType}`);
+  }
+
+  if (isKeynoteSlidePage) {
+    sectionClasses.push("has-keynote-slide");
   }
 
   if (page.demo === "radiance") {
@@ -2702,7 +2912,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           <Images size={22} />
         </BorderGlow>
       ) : null}
-      {isCharacterStoryPage ? null : (
+      {isCharacterStoryPage || isKeynoteSlidePage ? null : (
         <div className="case-copy">
           <p className="eyebrow">{page.eyebrow}</p>
           <EditableText
@@ -2747,7 +2957,9 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           ) : null}
         </div>
       )}
-      {page.detailType === "problem" ? (
+      {isKeynoteSlidePage ? (
+        <KeynoteSlide slide={page.slide} title={page.title} />
+      ) : page.detailType === "problem" ? (
         <CharacterShapeStory
           page={page}
           editing={editing}
@@ -2909,14 +3121,32 @@ export function App() {
   }, [activePageIndex, pageCount]);
 
   useEffect(() => {
+    const scrollToHash = () => {
+      const targetId = window.location.hash.slice(1);
+      if (!targetId) return;
+
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      window.requestAnimationFrame(() => {
+        window.scrollTo({ top: target.offsetTop, behavior: "auto" });
+        const nextIndex = Number(targetId.replace("page-", "")) - 1;
+        if (!Number.isNaN(nextIndex)) {
+          setActivePageIndex(nextIndex);
+        }
+      });
+    };
+
+    scrollToHash();
+    window.addEventListener("hashchange", scrollToHash);
+    return () => window.removeEventListener("hashchange", scrollToHash);
+  }, [contentPages.length]);
+
+  useEffect(() => {
     const sections = Array.from(document.querySelectorAll(".hero-section, .case-section"));
     if (!sections.length) return undefined;
 
-    let rafId = 0;
-
-    const updateActiveSection = () => {
-      rafId = 0;
-
+    const resolveByViewportCenter = () => {
       try {
         const viewportCenter = window.innerHeight / 2;
         let nextActiveIndex = 0;
@@ -2945,26 +3175,77 @@ export function App() {
       }
     };
 
+    if ("IntersectionObserver" in window) {
+      let rafId = 0;
+      const scheduleResolve = () => {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(() => {
+          rafId = 0;
+          resolveByViewportCenter();
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+          if (!visibleEntries.length) {
+            scheduleResolve();
+            return;
+          }
+
+          const bestEntry = visibleEntries.reduce((best, entry) => {
+            if (!best) return entry;
+            if (entry.intersectionRatio !== best.intersectionRatio) {
+              return entry.intersectionRatio > best.intersectionRatio ? entry : best;
+            }
+            return Math.abs(entry.boundingClientRect.top) < Math.abs(best.boundingClientRect.top)
+              ? entry
+              : best;
+          }, null);
+
+          if (bestEntry) {
+            const nextIndex = Number(bestEntry.target.id.replace("page-", "")) - 1;
+            if (!Number.isNaN(nextIndex)) {
+              setActivePageIndex(nextIndex);
+            }
+          } else {
+            scheduleResolve();
+          }
+        },
+        {
+          threshold: [0.1, 0.25, 0.4, 0.55, 0.7, 0.85],
+        },
+      );
+
+      sections.forEach((section) => observer.observe(section));
+      scheduleResolve();
+      window.addEventListener("resize", scheduleResolve);
+
+      return () => {
+        if (rafId) {
+          window.cancelAnimationFrame(rafId);
+        }
+        observer.disconnect();
+        window.removeEventListener("resize", scheduleResolve);
+      };
+    }
+
+    let rafId = 0;
     const scheduleUpdate = () => {
       if (rafId) return;
-      if (typeof window.requestAnimationFrame === "function") {
-        rafId = window.requestAnimationFrame(updateActiveSection);
-      } else {
-        rafId = window.setTimeout(updateActiveSection, 16);
-      }
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        resolveByViewportCenter();
+      });
     };
 
-    updateActiveSection();
+    scheduleUpdate();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
 
     return () => {
       if (rafId) {
-        if (typeof window.cancelAnimationFrame === "function") {
-          window.cancelAnimationFrame(rafId);
-        } else {
-          window.clearTimeout(rafId);
-        }
+        window.cancelAnimationFrame(rafId);
       }
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
@@ -3161,14 +3442,6 @@ export function App() {
 
       <NavDrawer open={navOpen} onClose={() => setNavOpen(false)} pagesSource={contentPages} />
       <ViewportGradualBlur />
-
-      <IntroOverlay
-        page={contentPages[0]}
-        mode={activeMode}
-        active={activePageIndex === 0}
-        editing={contentEditing}
-        onChange={updateContent}
-      />
 
       <VisualDeck
         mode={activeMode}

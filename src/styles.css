@@ -913,6 +913,534 @@ button {
   background: #000;
 }
 
+.case-section.has-keynote-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  place-items: center;
+  min-height: 100svh;
+  height: 100svh;
+  padding: 0;
+  overflow: hidden;
+  border-top-color: rgba(247, 247, 242, 0.14);
+  background: #000;
+}
+
+.case-section.has-keynote-slide .case-index {
+  display: none;
+}
+
+.keynote-slide-stage {
+  position: relative;
+  width: min(100vw, calc(100svh * 16 / 9));
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  color: #f5f5f0;
+  font-family:
+    "PingFang SC", "Microsoft YaHei", "SF Pro Display", "Helvetica Neue",
+    Arial, sans-serif;
+}
+
+.keynote-slide-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.keynote-slide-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 58% 40%, rgba(255, 255, 255, 0.035), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 18%, transparent 82%, rgba(255, 255, 255, 0.025));
+}
+
+.keynote-slide-stage:has(.keynote-slide-background)::before {
+  display: none;
+}
+
+.keynote-slide-stage h2 {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  white-space: pre-line;
+  color: #f7f7f2;
+  font-size: clamp(28px, 3.5vw, 54px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.keynote-subtitle,
+.keynote-note,
+.keynote-kicker,
+.keynote-body-copy,
+.keynote-bottom-copy,
+.keynote-route-list {
+  position: absolute;
+  z-index: 3;
+  margin: 0;
+  color: rgba(247, 247, 242, 0.64);
+  font-size: clamp(9px, 0.86vw, 14px);
+  line-height: 1.78;
+  letter-spacing: 0;
+}
+
+.keynote-eyebrow {
+  position: absolute;
+  left: 37.2%;
+  top: 14.2%;
+  z-index: 3;
+  margin: 0;
+  color: rgba(247, 247, 242, 0.38);
+  font-size: clamp(8px, 0.72vw, 12px);
+  letter-spacing: 0;
+}
+
+.keynote-note {
+  color: rgba(247, 247, 242, 0.78);
+}
+
+.keynote-slide-stage em,
+.keynote-slide-stage strong {
+  color: #f0a94f;
+  font-style: normal;
+}
+
+.keynote-media-window {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(247, 247, 242, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.36);
+}
+
+.keynote-slide-stage .keynote-media-window.is-video {
+  border: 0;
+  border-radius: 6px;
+  background: #000;
+  box-shadow: none;
+}
+
+.keynote-slide-stage .keynote-media-window.is-video::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(247, 247, 242, 0.06);
+}
+
+.keynote-media-window.is-image {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.keynote-media-window video,
+.keynote-media-window img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.keynote-media-window.is-image img {
+  object-fit: contain;
+}
+
+.keynote-media-window figcaption {
+  display: none;
+}
+
+.keynote-question h2 {
+  left: 38%;
+  top: 12.5%;
+  font-size: clamp(48px, 6.2vw, 118px);
+  font-family: "KaiTi", "STKaiti", "FZKai-Z03", cursive;
+  font-weight: 900;
+  transform: rotate(-6deg);
+}
+
+.keynote-question .keynote-subtitle {
+  left: 50%;
+  top: 32%;
+  width: 56%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.keynote-question-map {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.keynote-center-mark {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  display: grid;
+  width: 14.2%;
+  aspect-ratio: 1;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  border: 10px solid #f7f7f2;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+}
+
+.keynote-center-mark span {
+  display: block;
+  width: 28%;
+  height: 38%;
+  border-radius: 999px;
+  background: #f7f7f2;
+}
+
+.keynote-question-map span {
+  position: absolute;
+  color: rgba(247, 247, 242, 0.36);
+  font-size: clamp(10px, 1.02vw, 18px);
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.keynote-shape h2,
+.keynote-fur h2,
+.keynote-styling h2,
+.keynote-fur-detail h2,
+.keynote-birth h2,
+.keynote-delivery h2 {
+  left: 50%;
+  top: 12.6%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.keynote-shape .keynote-subtitle,
+.keynote-fur .keynote-subtitle,
+.keynote-styling .keynote-subtitle,
+.keynote-fur-detail .keynote-subtitle,
+.keynote-birth .keynote-subtitle,
+.keynote-delivery .keynote-subtitle {
+  left: 50%;
+  top: 24%;
+  width: 54%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.keynote-shape .keynote-note,
+.keynote-styling .keynote-note,
+.keynote-model .keynote-note,
+.keynote-delivery .keynote-note {
+  left: 50%;
+  bottom: 9.5%;
+  width: 42%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.keynote-shape .shape-old {
+  left: 40.2%;
+  top: 38.2%;
+  width: 10.8%;
+  height: 18.8%;
+}
+
+.keynote-shape .shape-hand {
+  left: 51.8%;
+  top: 26.2%;
+  width: 16%;
+  height: 29%;
+}
+
+.keynote-shape .keynote-kicker {
+  left: 50%;
+  top: 69.2%;
+  width: 22%;
+  transform: translateX(-50%);
+  color: #f0a94f;
+  font-weight: 820;
+  text-align: center;
+}
+
+.keynote-fur h2 {
+  top: 45.2%;
+}
+
+.keynote-fur .keynote-subtitle {
+  top: 56.2%;
+  width: 45%;
+}
+
+.keynote-fur .fur-disc {
+  left: 50%;
+  top: -38%;
+  z-index: 1;
+  width: 46%;
+  height: 64%;
+  transform: translateX(-50%);
+}
+
+.keynote-fur .fur-final {
+  left: 42%;
+  top: 68.5%;
+  width: 16%;
+  height: 20%;
+  background: #f7f7f2;
+}
+
+.keynote-styling h2 {
+  top: 12.4%;
+}
+
+.keynote-styling .keynote-subtitle {
+  top: 25.2%;
+  width: 54%;
+}
+
+.keynote-styling .keynote-note {
+  bottom: 12.5%;
+  width: 38%;
+}
+
+.keynote-styling .styling-grid {
+  left: 41.6%;
+  top: 38.2%;
+  width: 16.8%;
+  height: 31.5%;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.keynote-styling .styling-final {
+  display: none;
+}
+
+.keynote-model h2 {
+  left: 32.2%;
+  top: 36.8%;
+  width: 26%;
+}
+
+.keynote-model .keynote-subtitle {
+  left: 32.2%;
+  top: 55.8%;
+  width: 25%;
+}
+
+.keynote-model .keynote-note {
+  left: 32.2%;
+  bottom: auto;
+  top: 65.8%;
+  width: 24%;
+  transform: none;
+  text-align: left;
+}
+
+.keynote-model .model-reference {
+  left: 32.4%;
+  top: 8.5%;
+  width: 10.5%;
+  height: 17.5%;
+}
+
+.keynote-model .model-memory {
+  left: 43.6%;
+  top: 8.5%;
+  width: 28%;
+  height: 17.5%;
+}
+
+.keynote-model .model-character {
+  left: 31%;
+  top: 74.2%;
+  width: 19%;
+  height: 18%;
+  border: 0;
+  background: transparent;
+}
+
+.keynote-fur-detail h2 {
+  top: 12.8%;
+}
+
+.keynote-fur-detail .keynote-subtitle {
+  top: 27.4%;
+  width: 62%;
+}
+
+.keynote-fur-detail .detail-video {
+  left: 12.3%;
+  top: 45.8%;
+  width: 36.7%;
+  height: 28.8%;
+}
+
+.keynote-fur-detail .detail-character {
+  left: 61.5%;
+  top: 43.2%;
+  width: 24%;
+  height: 33%;
+  border: 0;
+  background: transparent;
+}
+
+.keynote-birth h2 {
+  top: 7.8%;
+}
+
+.keynote-birth .keynote-subtitle {
+  top: 19.8%;
+  width: 52%;
+}
+
+.keynote-birth .birth-character {
+  left: 50%;
+  top: 33%;
+  width: 32%;
+  height: 31%;
+  transform: translateX(-50%);
+  border: 0;
+  background: transparent;
+}
+
+.keynote-problem {
+  position: absolute;
+  left: 50%;
+  top: 70.2%;
+  z-index: 3;
+  width: 48%;
+  transform: translateX(-50%);
+  color: #f7f7f2;
+  font-size: clamp(18px, 2.3vw, 42px);
+  line-height: 1.12;
+  text-align: center;
+}
+
+.keynote-birth .keynote-body-copy {
+  left: 50%;
+  top: 83.4%;
+  width: 52%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.keynote-route h2 {
+  left: 4%;
+  top: 7.6%;
+}
+
+.keynote-route-list {
+  left: 4.2%;
+  top: 19%;
+  width: 67%;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(8px, 0.78vw, 12px);
+  line-height: 1.55;
+}
+
+.keynote-route-list li {
+  margin: 0 0 0.32em;
+}
+
+.keynote-route .route-media {
+  top: 37.8%;
+  height: 23%;
+}
+
+.keynote-route .route-spine {
+  left: 5.2%;
+  width: 24%;
+}
+
+.keynote-route .route-multipass {
+  left: 33.8%;
+  width: 25.2%;
+}
+
+.keynote-route .route-gauss {
+  left: 62.9%;
+  width: 33.2%;
+}
+
+.keynote-route-captions {
+  position: absolute;
+  left: 4.1%;
+  right: 3.2%;
+  top: 67.1%;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 25.5% 27.5% 34.8%;
+  justify-content: space-between;
+  color: rgba(247, 247, 242, 0.52);
+  font-size: clamp(7px, 0.7vw, 12px);
+  text-align: center;
+}
+
+.keynote-route .keynote-bottom-copy {
+  left: 4.1%;
+  right: 4%;
+  bottom: 5%;
+  font-size: clamp(7px, 0.72vw, 11.5px);
+  line-height: 1.65;
+  color: rgba(247, 247, 242, 0.7);
+}
+
+.keynote-delivery h2 {
+  top: 10.4%;
+}
+
+.keynote-delivery .keynote-subtitle {
+  top: 22%;
+  width: 62%;
+}
+
+.keynote-delivery .delivery-side {
+  top: 42.6%;
+  width: 31.8%;
+  height: 20.2%;
+}
+
+.keynote-delivery .delivery-light {
+  left: 9.2%;
+}
+
+.keynote-delivery .delivery-main {
+  left: 45.2%;
+  top: 38%;
+  width: 46.8%;
+  height: 37.8%;
+}
+
+.keynote-delivery .delivery-dark {
+  display: none;
+}
+
+.keynote-delivery .keynote-note {
+  bottom: 14%;
+}
+
 .case-section.has-character-story::before {
   content: "";
   position: fixed;
@@ -4167,6 +4695,16 @@ button {
     height: auto;
     min-height: 100vh;
     padding: 62px 12px;
+  }
+
+  .case-section.has-keynote-slide {
+    height: 100svh;
+    min-height: 100svh;
+    padding: 0;
+  }
+
+  .keynote-slide-stage {
+    width: min(100vw, calc(100svh * 16 / 9));
   }
 
   .case-section.has-character-story {
