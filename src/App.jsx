@@ -1142,7 +1142,7 @@ function KeynoteSlide({ slide, title }) {
 
   const hasSlideBackground = Boolean(data.background);
   const backgroundSrc = typeof data.background === "string" ? data.background : `/assets/character-keynote/slides/page-${slide}.jpg`;
-  const mediaItems = hasSlideBackground ? data.media?.filter((item) => item.type === "video") : data.media;
+  const mediaItems = hasSlideBackground ? null : data.media;
 
   return (
     <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
@@ -1178,7 +1178,7 @@ function KeynoteSlide({ slide, title }) {
         </ol>
       ) : null}
 
-      {mediaItems?.map((item) => (
+      {!hasSlideBackground && mediaItems?.map((item) => (
         <KeynoteMedia item={item} key={`${item.src}-${item.className}`} />
       ))}
 
