@@ -1085,15 +1085,51 @@ function StoryMedia({ item, className = "", loading = "lazy" }) {
 }
 
 function KeynoteMedia({ item }) {
+  const containerRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const mediaRole = item.type === "video" ? "is-video" : "is-image";
+
+  useEffect(() => {
+    if (item.type !== "video") return undefined;
+
+    const node = containerRef.current;
+    if (!node) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1400px 0px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [item.type]);
+
   const content = item.type === "video" ? (
-    <video src={item.src} autoPlay muted loop playsInline preload="auto" aria-label={item.label} />
+    <video
+      src={shouldLoad ? item.src : undefined}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-label={item.label}
+    />
   ) : (
     <img src={item.src} alt={item.label || ""} loading="lazy" />
   );
 
   return (
-    <figure className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}>
+    <figure ref={containerRef} className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}>
       {content}
       {item.label ? <figcaption>{item.label}</figcaption> : null}
     </figure>
