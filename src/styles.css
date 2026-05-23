@@ -1122,6 +1122,17 @@ button {
   transform: translate(-50%, -50%);
 }
 
+.keynote-question .question-old-li {
+  left: 41.46%;
+  top: 44.8%;
+  width: 17.82%;
+  height: 31.7%;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+}
+
 .keynote-shape h2,
 .keynote-fur h2,
 .keynote-styling h2,
@@ -1158,18 +1169,26 @@ button {
   text-align: center;
 }
 
-.keynote-shape .shape-old {
-  left: 40.2%;
-  top: 38.2%;
-  width: 10.8%;
-  height: 18.8%;
+.keynote-shape .shape-original {
+  left: 39.95%;
+  top: 33.7%;
+  width: 20.36%;
+  height: 36.12%;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
 }
 
-.keynote-shape .shape-hand {
-  left: 51.8%;
-  top: 26.2%;
-  width: 16%;
-  height: 29%;
+.keynote-shape .shape-handmade {
+  left: 28.7%;
+  top: 50.74%;
+  width: 10.8%;
+  height: 19.08%;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
 }
 
 .keynote-shape .keynote-kicker {
@@ -1191,23 +1210,6 @@ button {
   width: 45%;
 }
 
-.keynote-fur .fur-disc {
-  left: 50%;
-  top: -38%;
-  z-index: 1;
-  width: 46%;
-  height: 64%;
-  transform: translateX(-50%);
-}
-
-.keynote-fur .fur-final {
-  left: 42%;
-  top: 68.5%;
-  width: 16%;
-  height: 20%;
-  background: #f7f7f2;
-}
-
 .keynote-styling h2 {
   top: 12.4%;
 }
@@ -1220,20 +1222,6 @@ button {
 .keynote-styling .keynote-note {
   bottom: 12.5%;
   width: 38%;
-}
-
-.keynote-styling .styling-grid {
-  left: 41.6%;
-  top: 38.2%;
-  width: 16.8%;
-  height: 31.5%;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-}
-
-.keynote-styling .styling-final {
-  display: none;
 }
 
 .keynote-model h2 {
@@ -1258,26 +1246,25 @@ button {
 }
 
 .keynote-model .model-reference {
-  left: 32.4%;
-  top: 8.5%;
-  width: 10.5%;
-  height: 17.5%;
+  left: 30.94%;
+  top: 11.48%;
+  width: 9.64%;
+  height: 17.04%;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: none;
 }
 
 .keynote-model .model-memory {
-  left: 43.6%;
-  top: 8.5%;
-  width: 28%;
-  height: 17.5%;
-}
-
-.keynote-model .model-character {
-  left: 31%;
-  top: 74.2%;
-  width: 19%;
-  height: 18%;
+  left: 40.83%;
+  top: 11.48%;
+  width: 28.02%;
+  height: 17.04%;
   border: 0;
+  border-radius: 8px;
   background: transparent;
+  box-shadow: none;
 }
 
 .keynote-fur-detail h2 {
@@ -1290,38 +1277,12 @@ button {
 }
 
 .keynote-fur-detail .detail-video {
-  left: 12.3%;
-  top: 45.8%;
-  width: 36.7%;
-  height: 28.8%;
-}
-
-.keynote-fur-detail .detail-character {
-  left: 61.5%;
-  top: 43.2%;
-  width: 24%;
-  height: 33%;
+  left: 11.41%;
+  top: 43.43%;
+  width: 35.36%;
+  height: 40.74%;
   border: 0;
-  background: transparent;
-}
-
-.keynote-birth h2 {
-  top: 7.8%;
-}
-
-.keynote-birth .keynote-subtitle {
-  top: 19.8%;
-  width: 52%;
-}
-
-.keynote-birth .birth-character {
-  left: 50%;
-  top: 33%;
-  width: 32%;
-  height: 31%;
-  transform: translateX(-50%);
-  border: 0;
-  background: transparent;
+  border-radius: 6px;
 }
 
 .keynote-problem {
@@ -1365,23 +1326,29 @@ button {
 }
 
 .keynote-route .route-media {
-  top: 37.8%;
-  height: 23%;
+  border: 0;
+  border-radius: 8px;
 }
 
 .keynote-route .route-spine {
-  left: 5.2%;
-  width: 24%;
+  left: 9.9%;
+  top: 33.89%;
+  width: 21.15%;
+  height: 37.5%;
 }
 
 .keynote-route .route-multipass {
-  left: 33.8%;
-  width: 25.2%;
+  left: 41.98%;
+  top: 39.17%;
+  width: 16.72%;
+  height: 25.1%;
 }
 
 .keynote-route .route-gauss {
-  left: 62.9%;
-  width: 33.2%;
+  left: 73.39%;
+  top: 35.83%;
+  width: 16.72%;
+  height: 34.72%;
 }
 
 .keynote-route-captions {
@@ -1417,20 +1384,24 @@ button {
 }
 
 .keynote-delivery .delivery-side {
-  top: 42.6%;
-  width: 31.8%;
-  height: 20.2%;
+  top: 39.35%;
+  width: 33.08%;
+  height: 26.48%;
+  border: 0;
+  border-radius: 8px;
 }
 
 .keynote-delivery .delivery-light {
-  left: 9.2%;
+  left: 8.33%;
 }
 
 .keynote-delivery .delivery-main {
-  left: 45.2%;
-  top: 38%;
-  width: 46.8%;
-  height: 37.8%;
+  left: 42.76%;
+  top: 39.35%;
+  width: 46.98%;
+  height: 47.22%;
+  border: 0;
+  border-radius: 8px;
 }
 
 .keynote-delivery .delivery-dark {

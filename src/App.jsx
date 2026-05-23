@@ -798,6 +798,9 @@ const keynoteProcessSlides = {
       { text: "特征继承吗？", x: 81, y: 56 },
       { text: "毛绒能上车吗？", x: 70, y: 64 },
     ],
+    media: [
+      { type: "image", src: "/assets/character-keynote/page-media/page-02-old-li.gif", className: "question-old-li", label: "旧版理想同学" },
+    ],
   },
   "03": {
     variant: "shape",
@@ -806,8 +809,8 @@ const keynoteProcessSlides = {
     subtitle: "我：先建模吧 3D化 再加上一个手",
     kicker: "有手了，能点了！",
     media: [
-      { type: "video", src: "/assets/character-process/shape-old.mp4", className: "shape-old", label: "早期 3D 化" },
-      { type: "video", src: "/assets/character-keynote/hand-draft.mp4", className: "shape-hand", label: "加上手的模型" },
+      { type: "image", src: "/assets/character-keynote/page-media/page-03-original.gif", className: "shape-original", label: "原始形态" },
+      { type: "image", src: "/assets/character-keynote/page-media/page-03-handmade.gif", className: "shape-handmade", label: "手搓版雏形" },
     ],
   },
   "04": {
@@ -815,10 +818,6 @@ const keynoteProcessSlides = {
     background: true,
     title: "毛绒化",
     subtitle: "先要去尝试、探索毛发的渲染效果。然后需要疏毛了，选择将毛发梳成簇状，更接近毛绒玩具质感",
-    media: [
-      { type: "image", src: "/assets/character-keynote/fur-disc.webp", className: "fur-disc", label: "毛绒材质" },
-      { type: "video", src: "/assets/character-process/shape-cua-hand.mp4", className: "fur-final", label: "毛绒形态" },
-    ],
   },
   "05": {
     variant: "styling",
@@ -826,10 +825,6 @@ const keynoteProcessSlides = {
     title: "造型优化",
     subtitle: "理想同学长出毛以后，显得头顶光秃秃的，不太好看，得找个法子改改形态。",
     note: "使用 AI 先玩一玩。效果还不错，要不试试戴帽子？",
-    media: [
-      { type: "image", src: "/assets/character-process/shape-ai-hat.webp", className: "styling-grid", label: "帽子方向探索" },
-      { type: "video", src: "/assets/character-keynote/hat-animation.mp4", className: "styling-final", label: "帽子造型动画" },
-    ],
   },
   "06": {
     variant: "model",
@@ -838,9 +833,8 @@ const keynoteProcessSlides = {
     subtitle: "我在形态上用 AI 做了个不错的牛仔帽，接下来压力给到建模。",
     note: "好吧！建模也是我。",
     media: [
-      { type: "video", src: "/assets/character-keynote/memory-animation.mp4", className: "model-memory", label: "车机界面记忆点" },
-      { type: "video", src: "/assets/character-keynote/hat-animation.mp4", className: "model-reference", label: "牛仔帽动画参考" },
-      { type: "image", src: "/assets/character-keynote/hand-model.webp", className: "model-character", label: "牛仔帽形象" },
+      { type: "image", src: "/assets/character-keynote/page-media/page-07-hat.gif", className: "model-reference", label: "牛仔帽动画参考" },
+      { type: "image", src: "/assets/character-keynote/page-media/page-07-memory.gif", className: "model-memory", label: "车机界面记忆点" },
     ],
   },
   "07": {
@@ -849,8 +843,7 @@ const keynoteProcessSlides = {
     title: "攻克毛绒细节渲染效果",
     subtitle: "真实感需要用多层随机毛发混合，我用了最不取巧却实用的方式一根根手动梳理。在3D中构建真实毛发结构，增强细节质感。",
     media: [
-      { type: "video", src: "/assets/character-keynote/fur-grooming.mp4", className: "detail-video", label: "毛发细节渲染" },
-      { type: "image", src: "/assets/character-keynote/dark-model.webp", className: "detail-character", label: "暗光细节效果" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-08-fur-grooming.mp4", className: "detail-video", label: "毛发细节渲染" },
     ],
   },
   "08": {
@@ -860,9 +853,6 @@ const keynoteProcessSlides = {
     subtitle: "卖家秀有了，买家秀怎么办！光这300万根毛发，4090都卡，怎么上车！",
     problem: "毛绒形象落地困难！",
     text: "没有任何同类产品出现过，更何况车机上有限的算力空间 <10%。需要分阶段优化解决渲染品质。",
-    media: [
-      { type: "image", src: "/assets/character-keynote/hand-model.webp", className: "birth-character", label: "理想同学形象" },
-    ],
   },
   "09": {
     variant: "route",
@@ -876,9 +866,9 @@ const keynoteProcessSlides = {
     captions: ["Spine效果（目前线上方案）", "3D multipass 效果（弃用）", "高斯方案（SS4 OTA9.1上线，目前线上效果）"],
     bottom: "我的工作：三条技术路线同步推进，我负责提供所有的子弹，spine特殊处理的切图、3D multipass中的定制模型、高斯方案中的高斯模型，以及所有模型的骨骼动画。我的决策：主张强推高斯方案，为了能保交付，我可以同期对spine和高斯维护两套方案的设计交付。",
     media: [
-      { type: "video", src: "/assets/character-keynote/spine.mp4", className: "route-media route-spine", label: "Spine效果" },
-      { type: "video", src: "/assets/character-keynote/multipass.mp4", className: "route-media route-multipass", label: "3D multipass 效果" },
-      { type: "video", src: "/assets/character-keynote/car-dark.mp4", className: "route-media route-gauss", label: "高斯方案" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-10-spine.mp4", className: "route-media route-spine", label: "Spine效果" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-10-multipass.mp4", className: "route-media route-multipass", label: "3D multipass 效果" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-10-dark-car.mp4", className: "route-media route-gauss", label: "深色模式实车效果" },
     ],
   },
   "10": {
@@ -888,8 +878,8 @@ const keynoteProcessSlides = {
     subtitle: "高斯效果的落地基本上 100% 还原了离线渲染的设计效果，尤其高斯点云对毛发质感的效果表现尤为突出。",
     note: "从一个面片到高斯理同，花了整整一年",
     media: [
-      { type: "video", src: "/assets/character-keynote/car-light.mp4", className: "delivery-side delivery-light", label: "浅色模式实车效果" },
-      { type: "video", src: "/assets/character-keynote/gauss-result.mp4", className: "delivery-main", label: "高斯落地效果" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-11-light-car.mp4", className: "delivery-side delivery-light", label: "浅色模式实车效果" },
+      { type: "video", src: "/assets/character-keynote/page-media/page-11-result.mp4", className: "delivery-main", label: "落地效果" },
     ],
   },
 };
@@ -1142,7 +1132,7 @@ function KeynoteSlide({ slide, title }) {
 
   const hasSlideBackground = Boolean(data.background);
   const backgroundSrc = typeof data.background === "string" ? data.background : `/assets/character-keynote/slides/page-${slide}.jpg`;
-  const mediaItems = hasSlideBackground ? null : data.media;
+  const mediaItems = data.media;
 
   return (
     <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
@@ -1178,7 +1168,7 @@ function KeynoteSlide({ slide, title }) {
         </ol>
       ) : null}
 
-      {!hasSlideBackground && mediaItems?.map((item) => (
+      {mediaItems?.map((item) => (
         <KeynoteMedia item={item} key={`${item.src}-${item.className}`} />
       ))}
 

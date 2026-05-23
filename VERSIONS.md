@@ -2,6 +2,19 @@
 
 用于保留不同视觉与动效方向，方便后续挑选最终版本。
 
+## 2026-05-23 keynote media replacement
+
+- 将形态设计 Keynote 段第 02-10 页背景替换为 `0528材料无图版.key` 导出的无图背景。
+- 新增 `public/assets/character-keynote/page-media/`，接入 `/Users/m/Documents/素材/过程/理想同学/形态设计/page` 下对应 GIF / MP4 素材。
+- 按 `0528材料.key` 有图版的位置对齐媒体层：
+  - `page/2` -> slide 02
+  - `page/3` -> slide 03
+  - `page/7` -> slide 06
+  - `page/8` -> slide 07
+  - `page/10` -> slide 09
+  - `page/11` -> slide 10
+- 因有图版比无图版多一页“眼睛形态”过程页，后半段按视觉内容错位映射，不直接使用 Keynote 文件页码一一对应。
+
 ## v0-portfolio-frame
 
 - 基线版本
