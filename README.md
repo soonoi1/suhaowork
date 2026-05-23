@@ -15,6 +15,13 @@ npm run dev
 http://127.0.0.1:5173/
 ```
 
+本地预览生产构建：
+
+```bash
+npm run build
+npm run preview
+```
+
 ## 构建
 
 ```bash
@@ -25,7 +32,21 @@ npm run build
 
 ## 部署
 
-推荐部署到 Vercel：
+项目已连接到 Vercel。正常上线流程是：本地修改完成后，提交并推送到 GitHub `main` 分支，Vercel 会自动构建并更新线上站点。
+
+```bash
+git pull --ff-only origin main
+npm run dev
+# 修改并本地确认
+npm run build
+git add .
+git commit -m "update portfolio"
+npm run deploy
+```
+
+`npm run deploy` 会先重新构建，并检查本地没有未提交改动，然后推送到 `origin/main`。如果还有未提交改动，它会停止，避免漏提交。
+
+Vercel 配置：
 
 - Framework Preset: `Vite`
 - Build Command: `npm run build`

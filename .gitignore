@@ -1,6 +1,8 @@
 node_modules
 dist
 .vercel
+out
+scripts
 texture
 promotion_ppt_output
 promotion_ppt_work
