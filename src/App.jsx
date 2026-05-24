@@ -594,12 +594,6 @@ const gaussianModelOptions = [
     src: "/assets/bodyhand.splat",
     meta: "2.5 MB / body hand",
   },
-  {
-    key: "ply",
-    label: "PLY",
-    src: "/assets/bodyhand.ply",
-    meta: "20 MB / body hand",
-  },
 ];
 
 const liCenterAnimationItems = liCenterStackVideos.map((item) => ({
