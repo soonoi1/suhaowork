@@ -186,8 +186,8 @@ const PillNav = ({
     }
   };
 
-  const handleNavigate = () => {
-    onNavigate?.();
+  const handleNavigate = (item) => {
+    onNavigate?.(item);
     closeMobileMenu();
   };
 
@@ -210,7 +210,7 @@ const PillNav = ({
                   href={item.href}
                   className={`pill${activeHref === item.href ? " is-active" : ""}`}
                   aria-label={item.ariaLabel || item.label}
-                  onClick={handleNavigate}
+                  onClick={() => handleNavigate(item)}
                   onMouseEnter={() => handleEnter(index)}
                   onMouseLeave={() => handleLeave(index)}
                 >
@@ -253,7 +253,7 @@ const PillNav = ({
               <a
                 href={item.href}
                 className={`mobile-menu-link${activeHref === item.href ? " is-active" : ""}`}
-                onClick={handleNavigate}
+                onClick={() => handleNavigate(item)}
               >
                 {item.label}
               </a>

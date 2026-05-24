@@ -164,11 +164,23 @@ const pages = [
   {
     "eyebrow": "12 / Character",
     "title": "理想同学实体化",
-    "demo": "keynoteSlide",
-    "slide": "12",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "demo": "gaussianSplat",
+    "conclusion": "从0到1开始建设理想同学实体化3D形象。从平面符号进化成为可被记住的3D毛绒形象。",
+    "intro": "这是理想同学这个符号的第一次实体化探索。在明确这是长期陪伴用户的数字人IP之后，我们开始探索它在车端的视觉存在感。",
+    "points": [
+      {
+        "label": "问题",
+        "text": "如何将二维平面符号转化为 3D 实体？如何平衡毛绒材质的真实感与线上性能？如何构建有温度的陪伴感，同时满足跨端一致性、车机性能与品牌调性？"
+      },
+      {
+        "label": "动作",
+        "text": "解决3D毛绒质感视觉问题，构建毛绒形象基础形态，多种技术路线并行探索,能够基于最终体验效果、业务风险与交付节奏进行综合判断,最终选择以Spine方案保障稳定交付,同时保留Gauss方案的后续探索空间,为后续体验升级蓄力。"
+      },
+      {
+        "label": "结果",
+        "text": "实现理想汽车车机端理想同学形象的全面迭代换新，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。"
+      }
+    ]
   },
   {
     "eyebrow": "13 / Collaboration",
@@ -191,11 +203,27 @@ const pages = [
   {
     "eyebrow": "15 / 4O Delivery",
     "title": "理想同学中心与 4o 小同桌交付",
-    "demo": "keynoteSlide",
-    "slide": "15",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "conclusion": "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
+    "intro": "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
+    "points": [
+      {
+        "label": "首页设计决策",
+        "text": "跳出单纯视觉表达，从“用户是否真正理解并持续使用”出发组织信息结构与交互节奏。主动调整动效露出频率解决疲劳问题，兼顾当前体验与长期演进。"
+      },
+      {
+        "label": "设计价值主张",
+        "text": "视觉减负：减少交互行为带来的审美疲劳；长期主义：坚持使用透明素材作为基础框架，减少了后续不同版本适配成本"
+      },
+      {
+        "label": "交付执行力",
+        "text": "在 OTA 7.4 中面对手机/车机双端、9个形象、黑白两套资源的并行交付挑战，快速完成任务拆解、资源协调与优先级管理，有效控制风险。"
+      },
+      {
+        "label": "结果",
+        "text": "保障关键节点顺利上线，有效控制多板块并行交付的制作成本与风险。数字时钟效果如同预期被高频使用和曝光。"
+      }
+    ],
+    "demo": "deliveryPopups"
   },
   {
     "eyebrow": "16 / AI Application",
@@ -209,11 +237,23 @@ const pages = [
   {
     "eyebrow": "17 / AI Workflow",
     "title": "AI 实战工作流",
-    "demo": "keynoteSlide",
-    "slide": "17",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "demo": "aiGallery",
+    "conclusion": "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
+    "intro": "发现AI的边界，提出解决问题的思路，并利用AI将其解决。人的瓶颈在于思考的速度，AI的瓶颈在于成功率。我只要解决这两点就行了，构建AI特定workflow批量生图人工筛选解决成功率问题，AI泛化思考批量生图解决人工思考瓶颈。",
+    "points": [
+      {
+        "label": "流程与效率",
+        "text": "在理想同学APP首页动画素材规模快速增长的时候，主动推动 AI 化生产。allin Ai ，搭建批量生图、生视频工作流，提升出图效率，保障项目推进节奏。"
+      },
+      {
+        "label": "探索与验证",
+        "text": "在行业未形成成熟 AI 设计流程阶段，主动探索 open claw、VibeCoding 等AI的能力边界，提前积累 AI 在业务场景中的使用可能性。"
+      },
+      {
+        "label": "沉淀与应用",
+        "text": "结合团队在批量调色与流程衔接中的真实痛点，主动开发适配流程的辅助工具与插件，降低重复性操作成本，并在团队内部共享提升整体效率。"
+      }
+    ]
   },
   {
     "eyebrow": "18 / Standby Prompt",
@@ -236,11 +276,23 @@ const pages = [
   {
     "eyebrow": "20 / Standby Light",
     "title": "Standby 放射光",
-    "demo": "keynoteSlide",
-    "slide": "20",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "demo": "radiance",
+    "conclusion": "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
+    "intro": "基于 Aistudio 尝试设计交互效果并结合 React 源码验证；在团队缺少相关经验的情况下，率先完成技术方向验证与方案沉淀，并将经验共享给团队成员，建立推进基础。",
+    "points": [
+      {
+        "label": "问题",
+        "text": "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间，而在设计初期团队缺少相关图形化代码经验。"
+      },
+      {
+        "label": "动作",
+        "text": "因为前期的探索和验证，有用AI做过绑定的经验，基于此使用 Aistudio 结合 React 动效源码，将其与设计想法结合，形成了该效果的可交互的初版视觉方案。"
+      },
+      {
+        "label": "结果",
+        "text": "率先完成方向验证与方案沉淀，并将经验共享给团队成员，帮助团队建立后续协同推进的基础。"
+      }
+    ]
   },
   {
     "eyebrow": "21 / Technical Validation",
@@ -254,10 +306,9 @@ const pages = [
   {
     "eyebrow": "22 / SS4 Material",
     "title": "SS4 质感探索",
-    "demo": "keynoteSlide",
-    "slide": "22",
-    "conclusion": "",
-    "intro": "",
+    "demo": "fluidGlass",
+    "conclusion": "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
+    "intro": "通过 3D 动效先去验证目前技术路径所有可实现的效果，然后再逐渐收敛成 SS4 系统的 UI 材质参数效果。提供视效玻璃质感技术实现的思路给到技术。",
     "points": []
   },
   {
@@ -317,20 +368,47 @@ const pages = [
   {
     "eyebrow": "29 / OC Eyes",
     "title": "OC 眼睛",
-    "demo": "keynoteSlide",
-    "slide": "29",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "demo": "ocVideos",
+    "conclusion": "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
+    "intro": "结合真实用户场景判断“角色生命感”问题，通过引入仿真人眼微动作与非规律变化逻辑，增强角色灵动感与情绪反馈。",
+    "points": [
+      {
+        "label": "问题和难点",
+        "text": "如何塑造“角色生命感”问题，目标不是夸张拟人，而是让车辆像一个有注意力、情绪反馈的智能体。在特定的尺寸边界下如何做好情绪表达，如何延续理想同学的特征。"
+      },
+      {
+        "label": "表达方式",
+        "text": "在OC眼睛动效方案中,能够结合真实用户场景判断\"角色生命感\"问题,通过引入仿真人眼微动作与\n非规律变化逻辑,增强角色灵动感与情绪反馈,使角色状态更加自然生动。"
+      },
+      {
+        "label": "动效策略",
+        "text": "通过引入仿真人眼微动作与非规律变化逻辑，参考眼动跳转规律，增强角色灵动感，使状态更自然生动。"
+      }
+    ]
   },
   {
     "eyebrow": "30 / Summary",
     "title": "结果与方法沉淀",
-    "demo": "keynoteSlide",
-    "slide": "30",
-    "conclusion": "",
-    "intro": "",
-    "points": []
+    "conclusion": "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
+    "intro": "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
+    "points": [
+      {
+        "label": "主要业务产出",
+        "text": "完成理想同学实体化、理想同学中心、4o 小同桌、7.4 多端交付、App 首页动画、Standby放射光、具身迎宾、SS4质感探索和 OC眼睛等关键项目。"
+      },
+      {
+        "label": "业务价值沉淀",
+        "text": "让理想同学更容易被用户理解、持续使用和高频感知，同时通过资源复用、透明素材框架和交付优先级管理，降低后续版本适配成本与上线风险。"
+      },
+      {
+        "label": "方法与工具沉淀",
+        "text": "沉淀 AI 逆向生产、批量生成、资源处理脚本、辅助插件和代码原型方法，提升探索效率、资源产出效率和团队协作效率。"
+      },
+      {
+        "label": "跨界价值与未来延展",
+        "text": "在 Spine、Gauss、React 动效、SS4 质感和 OC 眼睛等方向中连接设计与技术，把不确定探索转化为可验证、可复用、可继续推进的体验方案。"
+      }
+    ]
   }
 ];
 
@@ -340,7 +418,7 @@ function pad(value) {
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v3-keynote-30";
-const CONTENT_STORAGE_VERSION = "2026-05-24-keynote-30-page-sync";
+const CONTENT_STORAGE_VERSION = "2026-05-24-restore-original-feature-pages";
 
 const activeVisualMode = {
   id: "space",
@@ -864,6 +942,10 @@ const keynoteSlideMedia = {
     mediaItem(`${keynoteMediaBase}/page-11-light-car.mp4`, [8.33, 39.35, 33.07, 26.48], { fit: "cover", label: "浅色模式实车效果" }),
     mediaItem(`${keynoteMediaBase}/page-11-result.mp4`, [42.76, 39.35, 46.98, 47.22], { fit: "cover", label: "落地效果" }),
   ],
+  "13": [
+    mediaItem(`${keynoteMediaBase}/page-13-4o-filled.mp4`, [4.48, 24.63, 55.21, 48.43], { fit: "cover", label: "4o 小同桌交付资源" }),
+    mediaItem(`${keynoteMediaBase}/page-13-center-delivery.mp4`, [61.88, 24.63, 29.38, 48.43], { fit: "cover", label: "理想同学中心交付资源" }),
+  ],
   "14": [
     mediaItem(`${keynoteMediaBase}/page-14-split.mp4`, [37.24, 31.11, 25.68, 31.48], { fit: "cover", label: "资源分割素材" }),
   ],
@@ -1212,13 +1294,71 @@ function EditableText({ as: Tag = "p", className = "", value, editing, onChange 
   );
 }
 
+function LazyVideo({ src, className = "", style, poster, preload = "metadata", rootMargin = "1200px 0px", ...props }) {
+  const videoRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const node = videoRef.current;
+    if (!node) return undefined;
+
+    const loadIfNearViewport = () => {
+      const rect = node.getBoundingClientRect();
+      const preloadMargin = window.innerHeight * 1.6;
+      if (rect.top < window.innerHeight + preloadMargin && rect.bottom > -preloadMargin) {
+        setShouldLoad(true);
+        return true;
+      }
+
+      return false;
+    };
+
+    if (loadIfNearViewport()) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(node);
+    window.addEventListener("scroll", loadIfNearViewport, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", loadIfNearViewport);
+    };
+  }, [rootMargin]);
+
+  return (
+    <video
+      {...props}
+      ref={videoRef}
+      className={className}
+      src={shouldLoad ? src : undefined}
+      poster={poster}
+      preload={shouldLoad ? preload : "none"}
+      style={style}
+    />
+  );
+}
+
 function PageBackdrop({ backdrop }) {
   if (!backdrop) return null;
 
   return (
     <div className={`page-backdrop ${backdrop.className}`} aria-hidden="true">
       {backdrop.type === "video" ? (
-        <video src={backdrop.src} autoPlay muted loop playsInline preload="auto" />
+        <LazyVideo src={backdrop.src} autoPlay muted loop playsInline preload="metadata" />
       ) : (
         <img src={backdrop.src} alt="" />
       )}
@@ -1233,7 +1373,7 @@ function StoryMedia({ item, className = "", loading = "lazy" }) {
     const poster = item.poster || item.src.replace("/assets/character-process/", "/assets/character-process/posters/").replace(".mp4", ".webp");
 
     return (
-      <video
+      <LazyVideo
         className={mediaClassName}
         src={item.src}
         poster={poster}
@@ -1241,7 +1381,6 @@ function StoryMedia({ item, className = "", loading = "lazy" }) {
         muted
         loop
         playsInline
-        preload="metadata"
         aria-label={item.label}
       />
     );
@@ -1301,13 +1440,14 @@ function KeynoteMedia({ item }) {
   }, [item.type]);
 
   const content = item.type === "video" ? (
-    <video
+    <LazyVideo
       src={shouldLoad ? item.src : undefined}
       autoPlay
       muted
       loop
       playsInline
       preload="none"
+      rootMargin="0px"
       aria-label={item.label}
       style={mediaStyle}
     />
@@ -2367,7 +2507,7 @@ function CharacterAssetStack({ onOpenGallery }) {
       </button>
       {characterEntityVideos.map((item) => (
         <article className="character-asset-card character-video-card" key={item.src}>
-          <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+          <LazyVideo src={item.src} muted autoPlay loop playsInline preload="metadata" />
           <strong>{item.title}</strong>
         </article>
       ))}
@@ -2448,7 +2588,7 @@ function AnimationAssetPanel({
                   {item.type === "image" ? (
                     <img src={item.src} alt={item.label} loading="lazy" />
                   ) : (
-                    <video src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                    <LazyVideo src={item.src} muted autoPlay loop playsInline preload="metadata" />
                   )}
                   <div className="center-animation-copy">
                     <span>{item.meta}</span>
@@ -2605,7 +2745,7 @@ function LiCenterScrollStackDemo() {
               }}
               key={item.src}
             >
-              <video
+              <LazyVideo
                 className="li-center-stack-video"
                 src={item.src}
                 autoPlay
@@ -2671,7 +2811,7 @@ function OCVideoShowcase() {
       <div className="oc-video-grid">
         {ocShowcaseVideos.map((item, index) => (
           <article className="oc-video-card" key={item.src}>
-            <video src={item.src} autoPlay muted loop playsInline preload="auto" />
+            <LazyVideo src={item.src} autoPlay muted loop playsInline preload="metadata" />
             <div className="oc-video-copy">
               <span>{pad(index + 1)}</span>
               <h3>{item.title}</h3>
@@ -3426,13 +3566,35 @@ export function App() {
   const [contentEditing, setContentEditing] = useState(false);
   const [contentDirty, setContentDirty] = useState(false);
   const [interfaceHidden, setInterfaceHidden] = useState(true);
+  const [pendingPillHref, setPendingPillHref] = useState(null);
+  const pendingPillTimeoutRef = useRef(null);
   const pageCount = useMemo(() => contentPages.length, [contentPages.length]);
   const notesCount = useMemo(
     () => Object.values(notes).filter((value) => value?.trim()).length,
     [notes],
   );
   const activeMode = activeVisualMode;
+  const activePillHref = getActivePillHref(activePageIndex);
+  const displayedPillHref = pendingPillHref ?? activePillHref;
   useKeynoteAssetWarmup(contentPages, activePageIndex);
+
+  useEffect(() => {
+    if (!pendingPillHref || activePillHref !== pendingPillHref) return undefined;
+
+    const clearPendingPill = window.setTimeout(() => {
+      setPendingPillHref(null);
+    }, 160);
+
+    return () => window.clearTimeout(clearPendingPill);
+  }, [activePillHref, pendingPillHref]);
+
+  useEffect(() => {
+    return () => {
+      if (pendingPillTimeoutRef.current) {
+        window.clearTimeout(pendingPillTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     try {
@@ -3704,13 +3866,27 @@ export function App() {
       <header className="site-header">
         <PillNav
           items={pillNavItems}
-          activeHref={getActivePillHref(activePageIndex)}
+          activeHref={displayedPillHref}
           baseColor="#f5f5f0"
           pillColor="#08080a"
           hoveredPillTextColor="#08080a"
           pillTextColor="#f5f5f0"
           initialLoadAnimation
-          onNavigate={() => setNavOpen(false)}
+          onNavigate={(item) => {
+            setNavOpen(false);
+            if (!item?.href) return;
+
+            setPendingPillHref(item.href);
+
+            if (pendingPillTimeoutRef.current) {
+              window.clearTimeout(pendingPillTimeoutRef.current);
+            }
+
+            pendingPillTimeoutRef.current = window.setTimeout(() => {
+              setPendingPillHref(null);
+              pendingPillTimeoutRef.current = null;
+            }, 1800);
+          }}
         />
         <div className="header-actions">
           <div className="header-meta">
