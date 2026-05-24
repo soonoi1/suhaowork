@@ -818,8 +818,7 @@ const characterLandingResultMedia = [
   },
 ];
 
-const keynoteMediaBase = "/assets/character-keynote/page-media";
-const keynoteMediaNewBase = "/assets/character-keynote/page-media-new";
+const keynoteMediaBase = "/assets/character-keynote/page-media-sync";
 
 function pctBox(left, top, width, height) {
   return {
@@ -843,15 +842,15 @@ function mediaItem(src, box, options = {}) {
 
 const keynoteSlideMedia = {
   "02": [
-    mediaItem(`${keynoteMediaBase}/page-02-old-li.gif`, [41.46, 44.81, 17.81, 31.67], { fit: "contain", label: "旧版理想同学" }),
+    mediaItem(`${keynoteMediaBase}/page-02-old-li.mp4`, [41.46, 44.81, 17.81, 31.67], { fit: "contain", label: "旧版理想同学" }),
   ],
   "03": [
-    mediaItem(`${keynoteMediaBase}/page-03-original.gif`, [39.95, 33.7, 20.36, 36.11], { fit: "contain", label: "原始形态" }),
-    mediaItem(`${keynoteMediaBase}/page-03-handmade.gif`, [28.7, 50.74, 10.78, 19.07], { fit: "cover", label: "手搓版雏形" }),
+    mediaItem(`${keynoteMediaBase}/page-03-original.mp4`, [39.95, 33.7, 20.36, 36.11], { fit: "contain", label: "原始形态" }),
+    mediaItem(`${keynoteMediaBase}/page-03-handmade.mp4`, [28.7, 50.74, 10.78, 19.07], { fit: "cover", label: "手搓版雏形" }),
   ],
   "07": [
-    mediaItem(`${keynoteMediaBase}/page-07-hat.gif`, [30.94, 11.48, 9.64, 17.04], { fit: "cover", label: "换帽子" }),
-    mediaItem(`${keynoteMediaBase}/page-07-memory.gif`, [40.83, 11.48, 28.02, 17.04], { fit: "cover", label: "记忆" }),
+    mediaItem(`${keynoteMediaBase}/page-07-hat.mp4`, [30.73, 11.11, 9.9, 17.59], { fit: "cover", label: "换帽子" }),
+    mediaItem(`${keynoteMediaBase}/page-07-memory.mp4`, [40.63, 11.11, 28.13, 17.59], { fit: "cover", label: "记忆" }),
   ],
   "08": [
     mediaItem(`${keynoteMediaBase}/page-08-fur-grooming.mp4`, [11.41, 43.43, 35.36, 40.74], { fit: "cover", label: "毛发细节渲染" }),
@@ -866,49 +865,51 @@ const keynoteSlideMedia = {
     mediaItem(`${keynoteMediaBase}/page-11-result.mp4`, [42.76, 39.35, 46.98, 47.22], { fit: "cover", label: "落地效果" }),
   ],
   "14": [
-    mediaItem(`${keynoteMediaNewBase}/page-14-split.gif`, [37.24, 31.11, 25.68, 31.48], { fit: "cover", label: "资源分割素材" }),
+    mediaItem(`${keynoteMediaBase}/page-14-split.mp4`, [37.24, 31.11, 25.68, 31.48], { fit: "cover", label: "资源分割素材" }),
   ],
   "16": [
-    mediaItem(`${keynoteMediaNewBase}/page-16-custom.mp4`, [11.67, 25.28, 49.1, 43.7], { fit: "cover", label: "自定义形象" }),
-    mediaItem(`${keynoteMediaNewBase}/page-16-spring.mp4`, [61.56, 25.28, 27.45, 43.7], { fit: "cover", label: "春节形象" }),
+    mediaItem(`${keynoteMediaBase}/page-16-custom.mp4`, [11.67, 25.28, 49.1, 43.7], { fit: "cover", label: "自定义形象" }),
+    mediaItem(`${keynoteMediaBase}/page-16-spring.mp4`, [61.56, 25.28, 27.45, 43.7], { fit: "cover", label: "春节形象" }),
   ],
   "18": [
-    mediaItem(`${keynoteMediaNewBase}/page-18-1.mp4`, [1.67, 28.06, 31.35, 30.28], { fit: "cover", label: "方案一" }),
-    mediaItem(`${keynoteMediaNewBase}/page-18-2.mp4`, [34.32, 28.06, 31.35, 30.28], { fit: "cover", label: "方案二" }),
-    mediaItem(`${keynoteMediaNewBase}/page-18-3.mp4`, [66.98, 28.06, 31.35, 30.28], { fit: "cover", label: "方案三" }),
-    mediaItem(`${keynoteMediaNewBase}/page-18-wakeup.gif`, [33.54, 60.37, 32.97, 30.37], { fit: "cover", label: "唤醒模式" }),
+    mediaItem(`${keynoteMediaBase}/page-18-1.mp4`, [1.67, 28.06, 31.35, 30.28], { fit: "cover", label: "方案一" }),
+    mediaItem(`${keynoteMediaBase}/page-18-2.mp4`, [34.32, 28.06, 31.35, 30.28], { fit: "cover", label: "方案二" }),
+    mediaItem(`${keynoteMediaBase}/page-18-3.mp4`, [66.98, 28.06, 31.35, 30.28], { fit: "cover", label: "方案三" }),
+    mediaItem(`${keynoteMediaBase}/page-18-wakeup.mp4`, [33.54, 60.37, 32.97, 30.37], { fit: "cover", label: "唤醒模式" }),
   ],
   "19": [
-    mediaItem(`${keynoteMediaNewBase}/page-19-attention.gif`, [1.46, 25.93, 25.94, 17.22], { fit: "cover", label: "注意力" }),
-    mediaItem(`${keynoteMediaNewBase}/page-19-temperature.gif`, [34.58, 25.93, 25.94, 17.22], { fit: "cover", label: "温度感知" }),
-    mediaItem(`${keynoteMediaNewBase}/page-19-visibility.gif`, [67.76, 25.93, 25.94, 17.22], { fit: "cover", label: "能见度" }),
-    mediaItem(`${keynoteMediaNewBase}/page-19-driving.gif`, [1.46, 60.37, 25.94, 17.22], { fit: "cover", label: "行驶状态" }),
-    mediaItem(`${keynoteMediaNewBase}/page-19-warning.gif`, [34.58, 60.37, 25.94, 17.22], { fit: "cover", label: "警告" }),
-    mediaItem(`${keynoteMediaNewBase}/page-19-dialog.gif`, [67.76, 60.37, 25.94, 17.22], { fit: "cover", label: "进入对话" }),
+    mediaItem(`${keynoteMediaBase}/page-19-attention.mp4`, [1.46, 25.93, 25.94, 17.22], { fit: "cover", label: "注意力" }),
+    mediaItem(`${keynoteMediaBase}/page-19-temperature.mp4`, [34.58, 25.93, 25.94, 17.22], { fit: "cover", label: "温度感知" }),
+    mediaItem(`${keynoteMediaBase}/page-19-visibility.mp4`, [67.76, 25.93, 25.94, 17.22], { fit: "cover", label: "能见度" }),
+    mediaItem(`${keynoteMediaBase}/page-19-driving.mp4`, [1.46, 60.37, 25.94, 17.22], { fit: "cover", label: "行驶状态" }),
+    mediaItem(`${keynoteMediaBase}/page-19-warning.mp4`, [34.58, 60.37, 25.94, 17.22], { fit: "cover", label: "警告" }),
+    mediaItem(`${keynoteMediaBase}/page-19-dialog.mp4`, [67.76, 60.37, 25.94, 17.22], { fit: "cover", label: "进入对话" }),
   ],
   "21": [
-    mediaItem(`${keynoteMediaNewBase}/page-21-before.gif`, [27.24, 55.19, 11.35, 24.81], { fit: "cover", label: "不带透镜" }),
-    mediaItem(`${keynoteMediaNewBase}/page-21-after.gif`, [71.41, 60, 8.85, 20.56], { fit: "cover", label: "边缘透镜效果" }),
+    mediaItem(`${keynoteMediaBase}/page-21-before.mp4`, [27.24, 55.19, 11.35, 24.81], { fit: "cover", label: "不带透镜" }),
+    mediaItem(`${keynoteMediaBase}/page-21-after.mp4`, [71.41, 60, 8.85, 20.56], { fit: "cover", label: "边缘透镜效果" }),
   ],
   "23": [
-    mediaItem(`${keynoteMediaNewBase}/page-23-doc-1.gif`, [12.92, 68.15, 11.3, 10.56], { fit: "contain", label: "迎宾形态" }),
-    mediaItem(`${keynoteMediaNewBase}/page-23-eyelid.gif`, [33.59, 68.98, 13.96, 10.19], { fit: "contain", label: "眼皮状态" }),
-    mediaItem(`${keynoteMediaNewBase}/page-23-welcome.mp4`, [53.96, 71.48, 13.33, 6.11], { fit: "contain", label: "迎宾视频" }),
-    mediaItem(`${keynoteMediaNewBase}/page-23-greeting.gif`, [76.04, 72.69, 1.82, 6.02], { fit: "contain", label: "左侧呼吸灯" }),
-    mediaItem(`${keynoteMediaNewBase}/page-23-greeting.gif`, [84.9, 72.69, 1.82, 6.02], { fit: "contain", label: "右侧呼吸灯" }),
+    mediaItem(`${keynoteMediaBase}/page-23-doc-1.mp4`, [12.92, 68.15, 11.3, 10.56], { fit: "contain", label: "迎宾形态" }),
+    mediaItem(`${keynoteMediaBase}/page-23-eyelid.mp4`, [33.33, 68.52, 14.58, 10.56], { fit: "contain", label: "眼皮状态" }),
+    mediaItem(`${keynoteMediaBase}/page-23-welcome.mp4`, [53.96, 71.48, 13.33, 6.11], { fit: "cover", label: "迎宾视频" }),
+    mediaItem(`${keynoteMediaBase}/page-23-greeting.mp4`, [75.52, 68.52, 12.5, 10.56], { fit: "contain", label: "呼吸灯状态" }),
   ],
   "24": [
-    mediaItem(`${keynoteMediaNewBase}/page-24-attention-system.mp4`, [21.67, 31.48, 56.67, 56.94], { fit: "cover", label: "注意力系统" }),
+    mediaItem(`${keynoteMediaBase}/page-24-attention-system.mp4`, [21.67, 31.48, 56.67, 56.94], { fit: "cover", label: "注意力系统" }),
   ],
   "25": [
-    mediaItem(`${keynoteMediaNewBase}/page-25-eye-capture.mp4`, [21.67, 29.72, 56.67, 56.02], { fit: "cover", label: "人眼捕捉" }),
+    mediaItem(`${keynoteMediaBase}/page-25-eye-capture.mp4`, [21.67, 29.72, 56.67, 56.02], { fit: "cover", label: "人眼捕捉" }),
   ],
   "26": [
-    mediaItem(`${keynoteMediaNewBase}/page-26-chatgpt-expression.mp4`, [15.42, 26.11, 69.17, 66.85], { fit: "cover", label: "ChatGPT 驱动表情" }),
+    mediaItem(`${keynoteMediaBase}/page-26-chatgpt-expression.mp4`, [15.42, 26.11, 69.17, 66.85], { fit: "cover", label: "ChatGPT 驱动表情" }),
   ],
   "27": [
-    mediaItem(`${keynoteMediaNewBase}/page-27-eye-bind.mp4`, [4.53, 23.98, 56.67, 68.15], { fit: "cover", label: "眼睛绑定" }),
-    mediaItem(`${keynoteMediaNewBase}/page-27-eye-bind-2.mp4`, [62.55, 23.89, 32.92, 67.96], { fit: "cover", label: "绑定面板" }),
+    mediaItem(`${keynoteMediaBase}/page-27-eye-bind.mp4`, [4.53, 23.98, 56.67, 68.15], { fit: "cover", label: "眼睛绑定" }),
+    mediaItem(`${keynoteMediaBase}/page-27-eye-bind-2.mp4`, [62.55, 23.89, 32.92, 67.96], { fit: "cover", label: "绑定面板" }),
+  ],
+  "28": [
+    mediaItem(`${keynoteMediaBase}/page-28-oc-bubble.mp4`, [20.83, 70.37, 58.33, 18.52], { fit: "contain", label: "OC 气泡动效" }),
   ],
 };
 
@@ -1326,6 +1327,95 @@ function KeynoteMedia({ item }) {
   );
 }
 
+function flattenKeynoteMediaItems(pagesSource = []) {
+  return pagesSource.flatMap((page) => {
+    if (page.demo !== "keynoteSlide") return [];
+
+    const slideData = keynoteProcessSlides[page.slide] || {};
+    return [...(slideData.media || []), ...(keynoteSlideMedia[page.slide] || [])];
+  });
+}
+
+const warmedKeynoteAssets = new Set();
+const warmedKeynoteVideos = new Map();
+
+function warmKeynoteAsset(src) {
+  if (!src || warmedKeynoteAssets.has(src)) return;
+  warmedKeynoteAssets.add(src);
+
+  const isVideo = src.endsWith(".mp4") || src.endsWith(".mov");
+  if (isVideo) {
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.muted = true;
+    video.playsInline = true;
+    video.src = src;
+    video.load();
+    warmedKeynoteVideos.set(src, video);
+    return;
+  }
+
+  const image = new Image();
+  image.decoding = "async";
+  image.src = src;
+}
+
+function useKeynoteAssetWarmup(pagesSource, activePageIndex) {
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mediaItems = flattenKeynoteMediaItems(pagesSource);
+    const backgroundItems = pagesSource
+      .filter((page) => page.demo === "keynoteSlide")
+      .map((page) => `/assets/character-keynote/slides/page-${page.slide}.jpg`);
+    const mediaBySrc = new Map(
+      [...backgroundItems.map((src) => ({ src })), ...mediaItems].map((item) => [item.src, item]),
+    );
+
+    const orderedSlides = [];
+    for (let offset = 0; offset <= 8; offset += 1) {
+      const page = pagesSource[activePageIndex + offset];
+      if (page?.demo === "keynoteSlide") {
+        orderedSlides.push(page);
+      }
+    }
+
+    const queue = [];
+    orderedSlides.forEach((page) => {
+      const slideSrc = `/assets/character-keynote/slides/page-${page.slide}.jpg`;
+      queue.push(slideSrc);
+      (keynoteSlideMedia[page.slide] || []).forEach((item) => queue.push(item.src));
+    });
+
+    let cancelled = false;
+    const seen = new Set();
+    const uniqueQueue = queue.filter((src) => {
+      if (!mediaBySrc.has(src) || seen.has(src)) return false;
+      seen.add(src);
+      return true;
+    });
+
+    const warmNext = (index = 0) => {
+      if (cancelled || index >= uniqueQueue.length) return;
+      warmKeynoteAsset(uniqueQueue[index]);
+      window.setTimeout(() => warmNext(index + 1), index < 3 ? 180 : 420);
+    };
+
+    const start = window.requestIdleCallback
+      ? window.requestIdleCallback(() => warmNext(), { timeout: 900 })
+      : window.setTimeout(() => warmNext(), 220);
+
+    return () => {
+      cancelled = true;
+      if (window.cancelIdleCallback && typeof start === "number") {
+        window.cancelIdleCallback(start);
+      } else {
+        window.clearTimeout(start);
+      }
+    };
+  }, [activePageIndex, pagesSource]);
+}
+
 function KeynoteSlide({ slide, title }) {
   const data = keynoteProcessSlides[slide];
   if (!data) return null;
@@ -1336,7 +1426,16 @@ function KeynoteSlide({ slide, title }) {
 
   return (
     <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
-      {hasSlideBackground ? <img className="keynote-slide-background" src={backgroundSrc} alt="" aria-hidden="true" /> : null}
+      {hasSlideBackground ? (
+        <img
+          className="keynote-slide-background"
+          src={backgroundSrc}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : null}
 
       {!hasSlideBackground ? (
         <>
@@ -1371,6 +1470,8 @@ function KeynoteSlide({ slide, title }) {
       {mediaItems?.map((item) => (
         <KeynoteMedia item={item} key={`${item.src}-${item.className}`} />
       ))}
+
+      <span className="keynote-page-number" aria-hidden="true">{slide}</span>
 
       {!hasSlideBackground && data.captions ? (
         <div className="keynote-route-captions">
@@ -2588,6 +2689,7 @@ function HeroSection({ page, mode, note, onOpenNote, isActive, editing, onChange
     <section className={`hero-section ${isActive ? "is-active" : ""}`} id="page-1">
       <NoteButton index={0} hasNote={Boolean(note?.trim())} onOpen={onOpenNote} />
       <div className="hero-orbit" aria-hidden="true" />
+      <span className="hero-page-number" aria-hidden="true">01</span>
       <div className="hero-copy">
         <p className="eyebrow">{mode.label} / {mode.name}</p>
         <EditableText
@@ -3330,6 +3432,7 @@ export function App() {
     [notes],
   );
   const activeMode = activeVisualMode;
+  useKeynoteAssetWarmup(contentPages, activePageIndex);
 
   useEffect(() => {
     try {

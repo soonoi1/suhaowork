@@ -2,6 +2,15 @@
 
 用于保留不同视觉与动效方向，方便后续挑选最终版本。
 
+## 2026-05-24 source media remap and preload
+
+- 重新核对 `/Users/m/Documents/素材/过程/page`，将早期原始素材页 `2、3、7、8、10、11` 接回网页，修正第 7-12 页错位问题；第 9、12 页在有图版中未检测到独立媒体窗口，保留背景页。
+- 新增 `public/assets/character-keynote/page-media-sync/` 作为派生资源目录：MP4 原样复制以保留清晰度，GIF 另行转为 H.264 MP4，不覆盖原始素材。
+- 移除旧的 `page-media` / `page-media-new` 引用，避免继续使用压缩过头或错位的旧资源。
+- 修正第 23 页右侧两个窗口：长眼睛视频使用裁切填充，右侧竖条/Hello 动画合并为一个完整窗口。
+- 补齐第 28 页 `OC气泡a.mp4` 动画。
+- 为每个 Keynote 页面增加右下角页码，并增加从当前页向后逐步预热背景图和视频 metadata 的缓存逻辑。
+
 ## 2026-05-24 expanded keynote sync
 
 - 将 `0528材料无图版.key` 导出的第 11-30 页背景同步到网站，当前网页共覆盖 Keynote 第 02-30 页。

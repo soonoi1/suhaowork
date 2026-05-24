@@ -375,6 +375,19 @@ button {
   grid-row: 1;
 }
 
+.hero-page-number {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: clamp(18px, 3vw, 34px);
+  z-index: 4;
+  color: rgba(247, 247, 242, 0.46);
+  font-size: clamp(9px, 0.72vw, 12px);
+  font-weight: 760;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .hero-copy,
 .case-copy,
 .cover-card,
@@ -1067,6 +1080,19 @@ button {
 
 .keynote-media-window figcaption {
   display: none;
+}
+
+.keynote-page-number {
+  position: absolute;
+  right: 1.4%;
+  bottom: 1.35%;
+  z-index: 5;
+  color: rgba(247, 247, 242, 0.46);
+  font-size: clamp(9px, 0.72vw, 12px);
+  font-weight: 760;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .keynote-question h2 {
