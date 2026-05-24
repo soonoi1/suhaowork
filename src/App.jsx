@@ -82,7 +82,7 @@ const pages = [
   },
   {
     "eyebrow": "03 / Shape",
-    "title": "形态探索",
+    "title": "从何开始？",
     "demo": "keynoteSlide",
     "slide": "03",
     "conclusion": "",
@@ -91,7 +91,7 @@ const pages = [
   },
   {
     "eyebrow": "04 / Fur",
-    "title": "毛绒化",
+    "title": "怎么毛绒化？",
     "demo": "keynoteSlide",
     "slide": "04",
     "conclusion": "",
@@ -100,7 +100,7 @@ const pages = [
   },
   {
     "eyebrow": "05 / Styling",
-    "title": "造型优化",
+    "title": "为什么戴帽子？",
     "demo": "keynoteSlide",
     "slide": "05",
     "conclusion": "",
@@ -108,8 +108,8 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "06 / Model",
-    "title": "要动起来 必须得建模",
+    "eyebrow": "06 / Eye Shape",
+    "title": "眼睛形态应该是个啥样的？",
     "demo": "keynoteSlide",
     "slide": "06",
     "conclusion": "",
@@ -117,8 +117,8 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "07 / Fur Detail",
-    "title": "攻克毛绒细节渲染效果",
+    "eyebrow": "07 / Model",
+    "title": "要动起来 必须得建模",
     "demo": "keynoteSlide",
     "slide": "07",
     "conclusion": "",
@@ -126,8 +126,8 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "08 / Birth",
-    "title": "理想同学形象诞生",
+    "eyebrow": "08 / Fur Detail",
+    "title": "如何攻克毛绒渲染效果？",
     "demo": "keynoteSlide",
     "slide": "08",
     "conclusion": "",
@@ -135,8 +135,8 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "09 / Technical Route",
-    "title": "技术路径盘点",
+    "eyebrow": "09 / Birth",
+    "title": "理想同学形象诞生",
     "demo": "keynoteSlide",
     "slide": "09",
     "conclusion": "",
@@ -144,8 +144,8 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "10 / Delivery",
-    "title": "理想同学形象从设计到交付",
+    "eyebrow": "10 / Technical Route",
+    "title": "如何选择技术路径？",
     "demo": "keynoteSlide",
     "slide": "10",
     "conclusion": "",
@@ -153,145 +153,184 @@ const pages = [
     "points": []
   },
   {
-    "eyebrow": "05 / Character",
-    "title": "理想同学实体化",
-    "demo": "gaussianSplat",
-    "conclusion": "从0到1开始建设理想同学实体化3D形象。从平面符号进化成为可被记住的3D毛绒形象。",
-    "intro": "这是理想同学这个符号的第一次实体化探索。在明确这是长期陪伴用户的数字人IP之后，我们开始探索它在车端的视觉存在感。",
-    "points": [
-      {
-        "label": "问题",
-        "text": "如何将二维平面符号转化为 3D 实体？如何平衡毛绒材质的真实感与线上性能？如何构建有温度的陪伴感，同时满足跨端一致性、车机性能与品牌调性？"
-      },
-      {
-        "label": "动作",
-        "text": "解决3D毛绒质感视觉问题，构建毛绒形象基础形态，多种技术路线并行探索,能够基于最终体验效果、业务风险与交付节奏进行综合判断,最终选择以Spine方案保障稳定交付,同时保留Gauss方案的后续探索空间,为后续体验升级蓄力。"
-      },
-      {
-        "label": "结果",
-        "text": "实现理想汽车车机端理想同学形象的全面迭代换新，为理想同学中心、4o 小同桌、多端形象和后续角色体系提供基础资产。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "06 / Delivery",
-    "title": "理想同学中心与 4o 小同桌交付",
-    "conclusion": "强化了从用户理解出发的设计决策，以及应对小同桌9个形象黑白两套复杂资源的交付执行力",
-    "intro": "不止是完成了在版本周期内完成了 OTA 7.4 理想同学换新所配套的所有相关应用服务。",
-    "points": [
-      {
-        "label": "首页设计决策",
-        "text": "跳出单纯视觉表达，从“用户是否真正理解并持续使用”出发组织信息结构与交互节奏。主动调整动效露出频率解决疲劳问题，兼顾当前体验与长期演进。"
-      },
-      {
-        "label": "设计价值主张",
-        "text": "视觉减负：减少交互行为带来的审美疲劳；长期主义：坚持使用透明素材作为基础框架，减少了后续不同版本适配成本"
-      },
-      {
-        "label": "交付执行力",
-        "text": "在 OTA 7.4 中面对手机/车机双端、9个形象、黑白两套资源的并行交付挑战，快速完成任务拆解、资源协调与优先级管理，有效控制风险。"
-      },
-      {
-        "label": "结果",
-        "text": "保障关键节点顺利上线，有效控制多板块并行交付的制作成本与风险。数字时钟效果如同预期被高频使用和曝光。"
-      }
-    ],
-    "demo": "deliveryPopups"
-  },
-  {
-    "eyebrow": "07 / AI Workflow",
-    "title": "AI 实战工作流",
-    "demo": "aiGallery",
-    "conclusion": "把 AI 从单点出图工具变成项目生产流程，用批量生成、反向筛选和脚本处理提高命中率与交付效率。",
-    "intro": "发现AI的边界，提出解决问题的思路，并利用AI将其解决。人的瓶颈在于思考的速度，AI的瓶颈在于成功率。我只要解决这两点就行了，构建AI特定workflow批量生图人工筛选解决成功率问题，AI泛化思考批量生图解决人工思考瓶颈。",
-    "points": [
-      {
-        "label": "流程与效率",
-        "text": "在理想同学APP首页动画素材规模快速增长的时候，主动推动 AI 化生产。allin Ai ，搭建批量生图、生视频工作流，提升出图效率，保障项目推进节奏。"
-      },
-      {
-        "label": "探索与验证",
-        "text": "在行业未形成成熟 AI 设计流程阶段，主动探索 open claw、VibeCoding 等AI的能力边界，提前积累 AI 在业务场景中的使用可能性。"
-      },
-      {
-        "label": "沉淀与应用",
-        "text": "结合团队在批量调色与流程衔接中的真实痛点，主动开发适配流程的辅助工具与插件，降低重复性操作成本，并在团队内部共享提升整体效率。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "08 / Prototype",
-    "title": "Standby 放射光",
-    "demo": "radiance",
-    "conclusion": "用 AI Studio、代码工具和视觉判断，把抽象光效需求搭建成可调参数、可讨论、可继续交付的交互原型。",
-    "intro": "基于 Aistudio 尝试设计交互效果并结合 React 源码验证；在团队缺少相关经验的情况下，率先完成技术方向验证与方案沉淀，并将经验共享给团队成员，建立推进基础。",
-    "points": [
-      {
-        "label": "问题",
-        "text": "光效需要同时满足视觉氛围、状态绑定、参数可调和后续研发迭代空间，而在设计初期团队缺少相关图形化代码经验。"
-      },
-      {
-        "label": "动作",
-        "text": "因为前期的探索和验证，有用AI做过绑定的经验，基于此使用 Aistudio 结合 React 动效源码，将其与设计想法结合，形成了该效果的可交互的初版视觉方案。"
-      },
-      {
-        "label": "结果",
-        "text": "率先完成方向验证与方案沉淀，并将经验共享给团队成员，帮助团队建立后续协同推进的基础。"
-      }
-    ]
-  },
-  {
-    "eyebrow": "09 / Material Study",
-    "title": "SS4 质感探索",
-    "demo": "fluidGlass",
-    "conclusion": "先行做技术路径的示效探索，通过流体玻璃的折射、透光和动态形变，验证 SS4 界面质感中透明层次与动态材质的表达方式。",
-    "intro": "通过 3D 动效先去验证目前技术路径所有可实现的效果，然后再逐渐收敛成 SS4 系统的 UI 材质参数效果。提供视效玻璃质感技术实现的思路给到技术。",
+    "eyebrow": "11 / Delivery",
+    "title": "理想同学从设计到交付",
+    "demo": "keynoteSlide",
+    "slide": "11",
+    "conclusion": "",
+    "intro": "",
     "points": []
   },
   {
-    "eyebrow": "10 / OC Eyes",
-    "title": "OC 眼睛",
-    "demo": "ocVideos",
-    "conclusion": "面向未来无人驾驶舱外交互，把眼睛设计成能表达注意力、状态和生命感的车辆外部视觉语言。",
-    "intro": "结合真实用户场景判断“角色生命感”问题，通过引入仿真人眼微动作与非规律变化逻辑，增强角色灵动感与情绪反馈。",
-    "points": [
-      {
-        "label": "问题和难点",
-        "text": "如何塑造“角色生命感”问题，目标不是夸张拟人，而是让车辆像一个有注意力、情绪反馈的智能体。在特定的尺寸边界下如何做好情绪表达，如何延续理想同学的特征。"
-      },
-      {
-        "label": "表达方式",
-        "text": "在OC眼睛动效方案中,能够结合真实用户场景判断\"角色生命感\"问题,通过引入仿真人眼微动作与\n非规律变化逻辑,增强角色灵动感与情绪反馈,使角色状态更加自然生动。"
-      },
-      {
-        "label": "动效策略",
-        "text": "通过引入仿真人眼微动作与非规律变化逻辑，参考眼动跳转规律，增强角色灵动感，使状态更自然生动。"
-      }
-    ]
+    "eyebrow": "12 / Character",
+    "title": "理想同学实体化",
+    "demo": "keynoteSlide",
+    "slide": "12",
+    "conclusion": "",
+    "intro": "",
+    "points": []
   },
   {
-    "eyebrow": "11 / Summary",
+    "eyebrow": "13 / Collaboration",
+    "title": "同期复杂项目如何保证交付？",
+    "demo": "keynoteSlide",
+    "slide": "13",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "14 / Resource Delivery",
+    "title": "如何整合资源保障交付？",
+    "demo": "keynoteSlide",
+    "slide": "14",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "15 / 4O Delivery",
+    "title": "理想同学中心与 4o 小同桌交付",
+    "demo": "keynoteSlide",
+    "slide": "15",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "16 / AI Application",
+    "title": "AI实战怎么应用？",
+    "demo": "keynoteSlide",
+    "slide": "16",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "17 / AI Workflow",
+    "title": "AI 实战工作流",
+    "demo": "keynoteSlide",
+    "slide": "17",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "18 / Standby Prompt",
+    "title": "Standby放射光怎么来的？",
+    "demo": "keynoteSlide",
+    "slide": "18",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "19 / Light Language",
+    "title": "光视觉语言的设想？",
+    "demo": "keynoteSlide",
+    "slide": "19",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "20 / Standby Light",
+    "title": "Standby 放射光",
+    "demo": "keynoteSlide",
+    "slide": "20",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "21 / Technical Validation",
+    "title": "技术验证有用吗？",
+    "demo": "keynoteSlide",
+    "slide": "21",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "22 / SS4 Material",
+    "title": "SS4 质感探索",
+    "demo": "keynoteSlide",
+    "slide": "22",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "23 / Welcome Research",
+    "title": "车如果有眼睛应该长啥样？",
+    "demo": "keynoteSlide",
+    "slide": "23",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "24 / Helping Eyes",
+    "title": "如何驱动眼睛？",
+    "demo": "keynoteSlide",
+    "slide": "24",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "25 / Natural Blink",
+    "title": "真实感如何用做？",
+    "demo": "keynoteSlide",
+    "slide": "25",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "26 / Tooling",
+    "title": "如何串联工作？",
+    "demo": "keynoteSlide",
+    "slide": "26",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "27 / Binding",
+    "title": "眼睛都长不一样怎么驱动？",
+    "demo": "keynoteSlide",
+    "slide": "27",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "28 / Scenario",
+    "title": "实际业务场景如何应用？",
+    "demo": "keynoteSlide",
+    "slide": "28",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "29 / OC Eyes",
+    "title": "OC 眼睛",
+    "demo": "keynoteSlide",
+    "slide": "29",
+    "conclusion": "",
+    "intro": "",
+    "points": []
+  },
+  {
+    "eyebrow": "30 / Summary",
     "title": "结果与方法沉淀",
-    "conclusion": "我能把复杂视觉体验从探索推进到上线，并把过程沉淀成下一次可以复用的能力。",
-    "intro": "我的核心价值不是单点产出视觉资产，而是围绕理想同学和未来交互体验，持续完成从方向判断、技术验证、资源交付到方法沉淀的闭环：既保障 OTA 版本和关键项目上线，也为后续 AI 化生产、角色体系升级和舱外交互探索积累可复用能力。",
-    "points": [
-      {
-        "label": "主要业务产出",
-        "text": "完成理想同学实体化、理想同学中心、4o 小同桌、7.4 多端交付、App 首页动画、Standby放射光、具身迎宾、SS4质感探索和 OC眼睛等关键项目。"
-      },
-      {
-        "label": "业务价值沉淀",
-        "text": "让理想同学更容易被用户理解、持续使用和高频感知，同时通过资源复用、透明素材框架和交付优先级管理，降低后续版本适配成本与上线风险。"
-      },
-      {
-        "label": "方法与工具沉淀",
-        "text": "沉淀 AI 逆向生产、批量生成、资源处理脚本、辅助插件和代码原型方法，提升探索效率、资源产出效率和团队协作效率。"
-      },
-      {
-        "label": "跨界价值与未来延展",
-        "text": "在 Spine、Gauss、React 动效、SS4 质感和 OC 眼睛等方向中连接设计与技术，把不确定探索转化为可验证、可复用、可继续推进的体验方案。"
-      }
-    ]
+    "demo": "keynoteSlide",
+    "slide": "30",
+    "conclusion": "",
+    "intro": "",
+    "points": []
   }
 ];
 
@@ -300,8 +339,8 @@ function pad(value) {
 }
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
-const CONTENT_STORAGE_KEY = "suhaowork-page-content-v2-8page-draft";
-const CONTENT_STORAGE_VERSION = "2026-05-22-keynote-character-process-v1";
+const CONTENT_STORAGE_KEY = "suhaowork-page-content-v3-keynote-30";
+const CONTENT_STORAGE_VERSION = "2026-05-24-keynote-30-page-sync";
 
 const activeVisualMode = {
   id: "space",
@@ -313,30 +352,28 @@ const activeVisualMode = {
 
 const pillNavItems = [
   { label: "Intro", href: "#page-1" },
-  { label: "Process", href: "#page-2" },
-  { label: "Route", href: "#page-9" },
-  { label: "Character", href: "#page-11" },
-  { label: "Delivery", href: "#page-12" },
-  { label: "AI", href: "#page-13" },
-  { label: "Light", href: "#page-14" },
-  { label: "Glass", href: "#page-15" },
-  { label: "OC", href: "#page-16" },
-  { label: "Sum", href: "#page-17" },
+  { label: "Shape", href: "#page-2" },
+  { label: "Route", href: "#page-10" },
+  { label: "Delivery", href: "#page-11" },
+  { label: "AI", href: "#page-16" },
+  { label: "Light", href: "#page-18" },
+  { label: "SS4", href: "#page-22" },
+  { label: "OC", href: "#page-23" },
+  { label: "Sum", href: "#page-30" },
 ];
 
 function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
   if (pageNumber === 1) return "#page-1";
-  if (pageNumber <= 8) return "#page-2";
-  if (pageNumber <= 10) return "#page-9";
-  if (pageNumber === 11) return "#page-11";
-  if (pageNumber === 12) return "#page-12";
-  if (pageNumber === 13) return "#page-13";
-  if (pageNumber === 14) return "#page-14";
-  if (pageNumber === 15) return "#page-15";
-  if (pageNumber === 16) return "#page-16";
-  return "#page-17";
+  if (pageNumber <= 9) return "#page-2";
+  if (pageNumber === 10) return "#page-10";
+  if (pageNumber <= 15) return "#page-11";
+  if (pageNumber <= 17) return "#page-16";
+  if (pageNumber <= 21) return "#page-18";
+  if (pageNumber === 22) return "#page-22";
+  if (pageNumber <= 29) return "#page-23";
+  return "#page-30";
 }
 
 function emphasizeText(value = "") {
@@ -781,109 +818,247 @@ const characterLandingResultMedia = [
   },
 ];
 
+const keynoteMediaBase = "/assets/character-keynote/page-media";
+const keynoteMediaNewBase = "/assets/character-keynote/page-media-new";
+
+function pctBox(left, top, width, height) {
+  return {
+    left: `${left}%`,
+    top: `${top}%`,
+    width: `${width}%`,
+    height: `${height}%`,
+  };
+}
+
+function mediaItem(src, box, options = {}) {
+  return {
+    type: src.endsWith(".mp4") || src.endsWith(".mov") ? "video" : "image",
+    src,
+    style: pctBox(...box),
+    fit: options.fit,
+    className: options.className,
+    label: options.label,
+  };
+}
+
+const keynoteSlideMedia = {
+  "02": [
+    mediaItem(`${keynoteMediaBase}/page-02-old-li.gif`, [41.46, 44.81, 17.81, 31.67], { fit: "contain", label: "旧版理想同学" }),
+  ],
+  "03": [
+    mediaItem(`${keynoteMediaBase}/page-03-original.gif`, [39.95, 33.7, 20.36, 36.11], { fit: "contain", label: "原始形态" }),
+    mediaItem(`${keynoteMediaBase}/page-03-handmade.gif`, [28.7, 50.74, 10.78, 19.07], { fit: "cover", label: "手搓版雏形" }),
+  ],
+  "07": [
+    mediaItem(`${keynoteMediaBase}/page-07-hat.gif`, [30.94, 11.48, 9.64, 17.04], { fit: "cover", label: "换帽子" }),
+    mediaItem(`${keynoteMediaBase}/page-07-memory.gif`, [40.83, 11.48, 28.02, 17.04], { fit: "cover", label: "记忆" }),
+  ],
+  "08": [
+    mediaItem(`${keynoteMediaBase}/page-08-fur-grooming.mp4`, [11.41, 43.43, 35.36, 40.74], { fit: "cover", label: "毛发细节渲染" }),
+  ],
+  "10": [
+    mediaItem(`${keynoteMediaBase}/page-10-spine.mp4`, [9.9, 33.89, 21.15, 37.5], { fit: "cover", label: "Spine效果" }),
+    mediaItem(`${keynoteMediaBase}/page-10-multipass.mp4`, [41.98, 39.17, 16.72, 25.09], { fit: "cover", label: "3D multipass 效果" }),
+    mediaItem(`${keynoteMediaBase}/page-10-dark-car.mp4`, [73.39, 35.83, 16.72, 34.72], { fit: "cover", label: "深色模式实车效果" }),
+  ],
+  "11": [
+    mediaItem(`${keynoteMediaBase}/page-11-light-car.mp4`, [8.33, 39.35, 33.07, 26.48], { fit: "cover", label: "浅色模式实车效果" }),
+    mediaItem(`${keynoteMediaBase}/page-11-result.mp4`, [42.76, 39.35, 46.98, 47.22], { fit: "cover", label: "落地效果" }),
+  ],
+  "14": [
+    mediaItem(`${keynoteMediaNewBase}/page-14-split.gif`, [37.24, 31.11, 25.68, 31.48], { fit: "cover", label: "资源分割素材" }),
+  ],
+  "16": [
+    mediaItem(`${keynoteMediaNewBase}/page-16-custom.mp4`, [11.67, 25.28, 49.1, 43.7], { fit: "cover", label: "自定义形象" }),
+    mediaItem(`${keynoteMediaNewBase}/page-16-spring.mp4`, [61.56, 25.28, 27.45, 43.7], { fit: "cover", label: "春节形象" }),
+  ],
+  "18": [
+    mediaItem(`${keynoteMediaNewBase}/page-18-1.mp4`, [1.67, 28.06, 31.35, 30.28], { fit: "cover", label: "方案一" }),
+    mediaItem(`${keynoteMediaNewBase}/page-18-2.mp4`, [34.32, 28.06, 31.35, 30.28], { fit: "cover", label: "方案二" }),
+    mediaItem(`${keynoteMediaNewBase}/page-18-3.mp4`, [66.98, 28.06, 31.35, 30.28], { fit: "cover", label: "方案三" }),
+    mediaItem(`${keynoteMediaNewBase}/page-18-wakeup.gif`, [33.54, 60.37, 32.97, 30.37], { fit: "cover", label: "唤醒模式" }),
+  ],
+  "19": [
+    mediaItem(`${keynoteMediaNewBase}/page-19-attention.gif`, [1.46, 25.93, 25.94, 17.22], { fit: "cover", label: "注意力" }),
+    mediaItem(`${keynoteMediaNewBase}/page-19-temperature.gif`, [34.58, 25.93, 25.94, 17.22], { fit: "cover", label: "温度感知" }),
+    mediaItem(`${keynoteMediaNewBase}/page-19-visibility.gif`, [67.76, 25.93, 25.94, 17.22], { fit: "cover", label: "能见度" }),
+    mediaItem(`${keynoteMediaNewBase}/page-19-driving.gif`, [1.46, 60.37, 25.94, 17.22], { fit: "cover", label: "行驶状态" }),
+    mediaItem(`${keynoteMediaNewBase}/page-19-warning.gif`, [34.58, 60.37, 25.94, 17.22], { fit: "cover", label: "警告" }),
+    mediaItem(`${keynoteMediaNewBase}/page-19-dialog.gif`, [67.76, 60.37, 25.94, 17.22], { fit: "cover", label: "进入对话" }),
+  ],
+  "21": [
+    mediaItem(`${keynoteMediaNewBase}/page-21-before.gif`, [27.24, 55.19, 11.35, 24.81], { fit: "cover", label: "不带透镜" }),
+    mediaItem(`${keynoteMediaNewBase}/page-21-after.gif`, [71.41, 60, 8.85, 20.56], { fit: "cover", label: "边缘透镜效果" }),
+  ],
+  "23": [
+    mediaItem(`${keynoteMediaNewBase}/page-23-doc-1.gif`, [12.92, 68.15, 11.3, 10.56], { fit: "contain", label: "迎宾形态" }),
+    mediaItem(`${keynoteMediaNewBase}/page-23-eyelid.gif`, [33.59, 68.98, 13.96, 10.19], { fit: "contain", label: "眼皮状态" }),
+    mediaItem(`${keynoteMediaNewBase}/page-23-welcome.mp4`, [53.96, 71.48, 13.33, 6.11], { fit: "contain", label: "迎宾视频" }),
+    mediaItem(`${keynoteMediaNewBase}/page-23-greeting.gif`, [76.04, 72.69, 1.82, 6.02], { fit: "contain", label: "左侧呼吸灯" }),
+    mediaItem(`${keynoteMediaNewBase}/page-23-greeting.gif`, [84.9, 72.69, 1.82, 6.02], { fit: "contain", label: "右侧呼吸灯" }),
+  ],
+  "24": [
+    mediaItem(`${keynoteMediaNewBase}/page-24-attention-system.mp4`, [21.67, 31.48, 56.67, 56.94], { fit: "cover", label: "注意力系统" }),
+  ],
+  "25": [
+    mediaItem(`${keynoteMediaNewBase}/page-25-eye-capture.mp4`, [21.67, 29.72, 56.67, 56.02], { fit: "cover", label: "人眼捕捉" }),
+  ],
+  "26": [
+    mediaItem(`${keynoteMediaNewBase}/page-26-chatgpt-expression.mp4`, [15.42, 26.11, 69.17, 66.85], { fit: "cover", label: "ChatGPT 驱动表情" }),
+  ],
+  "27": [
+    mediaItem(`${keynoteMediaNewBase}/page-27-eye-bind.mp4`, [4.53, 23.98, 56.67, 68.15], { fit: "cover", label: "眼睛绑定" }),
+    mediaItem(`${keynoteMediaNewBase}/page-27-eye-bind-2.mp4`, [62.55, 23.89, 32.92, 67.96], { fit: "cover", label: "绑定面板" }),
+  ],
+};
+
 const keynoteProcessSlides = {
   "02": {
     variant: "question",
     background: true,
     title: "怎么升级",
-    subtitle: "作为理想同学新形象设计负责人，聚焦从零开始，将一个模糊的形象具象化。创造一个全新的形态。",
-    center: "faces",
-    callouts: [
-      { text: "要做实体化？", x: 24, y: 18 },
-      { text: "全新理想同学长啥样？", x: 77, y: 12 },
-      { text: "要升级？", x: 70, y: 35 },
-      { text: "加手？", x: 31, y: 43 },
-      { text: "手跟身体怎么结合？", x: 17, y: 56 },
-      { text: "毛绒形态？", x: 34, y: 66 },
-      { text: "特征继承吗？", x: 81, y: 56 },
-      { text: "毛绒能上车吗？", x: 70, y: 64 },
-    ],
-    media: [
-      { type: "image", src: "/assets/character-keynote/page-media/page-02-old-li.gif", className: "question-old-li", label: "旧版理想同学" },
-    ],
   },
   "03": {
     variant: "shape",
     background: true,
-    title: "形态探索",
-    subtitle: "我：先建模吧 3D化 再加上一个手",
-    kicker: "有手了，能点了！",
-    media: [
-      { type: "image", src: "/assets/character-keynote/page-media/page-03-original.gif", className: "shape-original", label: "原始形态" },
-      { type: "image", src: "/assets/character-keynote/page-media/page-03-handmade.gif", className: "shape-handmade", label: "手搓版雏形" },
-    ],
+    title: "从何开始？",
   },
   "04": {
     variant: "fur",
     background: true,
-    title: "毛绒化",
-    subtitle: "先要去尝试、探索毛发的渲染效果。然后需要疏毛了，选择将毛发梳成簇状，更接近毛绒玩具质感",
+    title: "怎么毛绒化？",
   },
   "05": {
     variant: "styling",
     background: true,
-    title: "造型优化",
-    subtitle: "理想同学长出毛以后，显得头顶光秃秃的，不太好看，得找个法子改改形态。",
-    note: "使用 AI 先玩一玩。效果还不错，要不试试戴帽子？",
+    title: "为什么戴帽子？",
   },
   "06": {
+    variant: "eye-shape",
+    background: true,
+    title: "眼睛形态应该是个啥样的？",
+  },
+  "07": {
     variant: "model",
     background: true,
     title: "要动起来\n必须得建模",
-    subtitle: "我在形态上用 AI 做了个不错的牛仔帽，接下来压力给到建模。",
-    note: "好吧！建模也是我。",
-    media: [
-      { type: "image", src: "/assets/character-keynote/page-media/page-07-hat.gif", className: "model-reference", label: "牛仔帽动画参考" },
-      { type: "image", src: "/assets/character-keynote/page-media/page-07-memory.gif", className: "model-memory", label: "车机界面记忆点" },
-    ],
-  },
-  "07": {
-    variant: "fur-detail",
-    background: true,
-    title: "攻克毛绒细节渲染效果",
-    subtitle: "真实感需要用多层随机毛发混合，我用了最不取巧却实用的方式一根根手动梳理。在3D中构建真实毛发结构，增强细节质感。",
-    media: [
-      { type: "video", src: "/assets/character-keynote/page-media/page-08-fur-grooming.mp4", className: "detail-video", label: "毛发细节渲染" },
-    ],
   },
   "08": {
+    variant: "fur-detail",
+    background: true,
+    title: "如何攻克毛绒渲染效果？",
+  },
+  "09": {
     variant: "birth",
     background: true,
     title: "理想同学形象诞生",
-    subtitle: "卖家秀有了，买家秀怎么办！光这300万根毛发，4090都卡，怎么上车！",
-    problem: "毛绒形象落地困难！",
-    text: "没有任何同类产品出现过，更何况车机上有限的算力空间 <10%。需要分阶段优化解决渲染品质。",
-  },
-  "09": {
-    variant: "route",
-    background: true,
-    title: "技术路径盘点",
-    items: [
-      "1、Spine自研引擎，用2D绑定做；（有相应技能能力，效果一般）",
-      "2、3D引擎：真实毛发，多通道渲染（shell fur、multipass）；（我们没有技术储备，且效果较差）",
-      "3、高斯泼溅（3D Gaussian Splatting）全新技术，在年底才出现。发现新的可能性。",
-    ],
-    captions: ["Spine效果（目前线上方案）", "3D multipass 效果（弃用）", "高斯方案（SS4 OTA9.1上线，目前线上效果）"],
-    bottom: "我的工作：三条技术路线同步推进，我负责提供所有的子弹，spine特殊处理的切图、3D multipass中的定制模型、高斯方案中的高斯模型，以及所有模型的骨骼动画。我的决策：主张强推高斯方案，为了能保交付，我可以同期对spine和高斯维护两套方案的设计交付。",
-    media: [
-      { type: "video", src: "/assets/character-keynote/page-media/page-10-spine.mp4", className: "route-media route-spine", label: "Spine效果" },
-      { type: "video", src: "/assets/character-keynote/page-media/page-10-multipass.mp4", className: "route-media route-multipass", label: "3D multipass 效果" },
-      { type: "video", src: "/assets/character-keynote/page-media/page-10-dark-car.mp4", className: "route-media route-gauss", label: "深色模式实车效果" },
-    ],
   },
   "10": {
+    variant: "route",
+    background: true,
+    title: "如何选择技术路径？",
+  },
+  "11": {
     variant: "delivery",
     background: true,
-    title: "理想同学形象从设计到交付",
-    subtitle: "高斯效果的落地基本上 100% 还原了离线渲染的设计效果，尤其高斯点云对毛发质感的效果表现尤为突出。",
-    note: "从一个面片到高斯理同，花了整整一年",
-    media: [
-      { type: "video", src: "/assets/character-keynote/page-media/page-11-light-car.mp4", className: "delivery-side delivery-light", label: "浅色模式实车效果" },
-      { type: "video", src: "/assets/character-keynote/page-media/page-11-result.mp4", className: "delivery-main", label: "落地效果" },
-    ],
+    title: "理想同学从设计到交付",
   },
+  "12": {
+    variant: "full-slide",
+    background: true,
+    title: "理想同学实体化",
+  },
+  "13": {
+    variant: "full-slide",
+    background: true,
+    title: "同期复杂项目如何保证交付？",
+  },
+  "14": {
+    variant: "full-slide",
+    background: true,
+    title: "如何整合资源保障交付？",
+  },
+  "15": {
+    variant: "full-slide",
+    background: true,
+    title: "理想同学中心与 4o 小同桌交付",
+  },
+  "16": {
+    variant: "full-slide",
+    background: true,
+    title: "AI实战怎么应用？",
+  },
+  "17": {
+    variant: "full-slide",
+    background: true,
+    title: "AI 实战工作流",
+  },
+  "18": {
+    variant: "full-slide",
+    background: true,
+    title: "Standby放射光怎么来的？",
+  },
+  "19": {
+    variant: "full-slide",
+    background: true,
+    title: "光视觉语言的设想？",
+  },
+  "20": {
+    variant: "full-slide",
+    background: true,
+    title: "Standby 放射光",
+  },
+  "21": {
+    variant: "full-slide",
+    background: true,
+    title: "技术验证有用吗？",
+  },
+  "22": {
+    variant: "full-slide",
+    background: true,
+    title: "SS4 质感探索",
+  },
+  "23": {
+    variant: "full-slide",
+    background: true,
+    title: "车如果有眼睛应该长啥样？",
+  },
+  "24": {
+    variant: "full-slide",
+    background: true,
+    title: "如何驱动眼睛？",
+  },
+  "25": {
+    variant: "full-slide",
+    background: true,
+    title: "真实感如何用做？",
+  },
+  "26": {
+    variant: "full-slide",
+    background: true,
+    title: "如何串联工作？",
+  },
+  "27": {
+    variant: "full-slide",
+    background: true,
+    title: "眼睛都长不一样怎么驱动？",
+  },
+  "28": {
+    variant: "full-slide",
+    background: true,
+    title: "实际业务场景如何应用？",
+  },
+  "29": {
+    variant: "full-slide",
+    background: true,
+    title: "OC 眼睛",
+  },
+  "30": {
+    variant: "full-slide",
+    background: true,
+    title: "结果与方法沉淀",
+  }
 };
-
 const ss4MaterialItems = [
   {
     src: "/assets/ss4-material/ui-material-backplate.mp4",
@@ -1078,12 +1253,28 @@ function KeynoteMedia({ item }) {
   const containerRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(false);
   const mediaRole = item.type === "video" ? "is-video" : "is-image";
+  const mediaStyle = item.fit ? { objectFit: item.fit } : undefined;
 
   useEffect(() => {
     if (item.type !== "video") return undefined;
 
     const node = containerRef.current;
     if (!node) return undefined;
+
+    const loadIfNearViewport = () => {
+      const rect = node.getBoundingClientRect();
+      const preloadMargin = window.innerHeight * 2;
+      if (rect.top < window.innerHeight + preloadMargin && rect.bottom > -preloadMargin) {
+        setShouldLoad(true);
+        return true;
+      }
+
+      return false;
+    };
+
+    if (loadIfNearViewport()) {
+      return undefined;
+    }
 
     if (!("IntersectionObserver" in window)) {
       setShouldLoad(true);
@@ -1101,7 +1292,11 @@ function KeynoteMedia({ item }) {
     );
 
     observer.observe(node);
-    return () => observer.disconnect();
+    window.addEventListener("scroll", loadIfNearViewport, { passive: true });
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", loadIfNearViewport);
+    };
   }, [item.type]);
 
   const content = item.type === "video" ? (
@@ -1113,13 +1308,18 @@ function KeynoteMedia({ item }) {
       playsInline
       preload="none"
       aria-label={item.label}
+      style={mediaStyle}
     />
   ) : (
-    <img src={item.src} alt={item.label || ""} loading="lazy" />
+    <img src={item.src} alt={item.label || ""} loading="lazy" style={mediaStyle} />
   );
 
   return (
-    <figure ref={containerRef} className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}>
+    <figure
+      ref={containerRef}
+      className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}
+      style={item.style}
+    >
       {content}
       {item.label ? <figcaption>{item.label}</figcaption> : null}
     </figure>
@@ -1132,7 +1332,7 @@ function KeynoteSlide({ slide, title }) {
 
   const hasSlideBackground = Boolean(data.background);
   const backgroundSrc = typeof data.background === "string" ? data.background : `/assets/character-keynote/slides/page-${slide}.jpg`;
-  const mediaItems = data.media;
+  const mediaItems = [...(data.media || []), ...(keynoteSlideMedia[slide] || [])];
 
   return (
     <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
