@@ -1288,9 +1288,66 @@ function EditableText({ as: Tag = "p", className = "", value, editing, onChange 
   );
 }
 
-function LazyVideo({ src, className = "", style, poster, preload = "metadata", rootMargin = "1200px 0px", ...props }) {
+function getMediaProgressFromVideo(video) {
+  if (!video?.duration || Number.isNaN(video.duration) || !video.buffered?.length) {
+    return video?.readyState >= HTMLMediaElement.HAVE_METADATA ? 42 : 18;
+  }
+
+  const bufferedEnd = video.buffered.end(video.buffered.length - 1);
+  return Math.max(18, Math.min(96, Math.round((bufferedEnd / video.duration) * 100)));
+}
+
+function getMediaSrcLabel(src = "") {
+  const parts = src.split("/");
+  return parts[parts.length - 1] || "media";
+}
+
+function recordMediaLoadEvent(node, detail) {
+  if (typeof window === "undefined" || !node) return;
+
+  const section = node.closest?.(".hero-section, .case-section");
+  window.__suhaoMediaTimeline = window.__suhaoMediaTimeline || [];
+  window.__suhaoMediaTimeline.push({
+    time: Math.round(performance.now()),
+    page: section?.id || "unknown",
+    ...detail,
+  });
+}
+
+function MediaLoadOverlay({ status, progress = 0, label = "MEDIA" }) {
+  if (status === "ready") return null;
+
+  const safeProgress = Math.max(8, Math.min(96, progress || 8));
+  const text = status === "queued" ? "WAITING" : status === "error" ? "RETRY" : "LOADING";
+
+  return (
+    <span className={`media-load-overlay is-${status}`} aria-hidden="true">
+      <span className="media-load-copy">
+        <span>{text}</span>
+        <small>{label}</small>
+      </span>
+      <span className="media-load-track">
+        <span style={{ width: `${safeProgress}%` }} />
+      </span>
+    </span>
+  );
+}
+
+function LazyVideo({
+  src,
+  className = "",
+  style,
+  poster,
+  preload = "metadata",
+  rootMargin = "1200px 0px",
+  showLoader = true,
+  ...props
+}) {
   const videoRef = useRef(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const [loadStatus, setLoadStatus] = useState(src ? "queued" : "ready");
+  const [loadProgress, setLoadProgress] = useState(0);
+  const { onLoadedData, onCanPlay, onError, onProgress, onLoadedMetadata, onWaiting, onPlaying, ...videoProps } = props;
 
   useEffect(() => {
     const node = videoRef.current;
@@ -1333,16 +1390,217 @@ function LazyVideo({ src, className = "", style, poster, preload = "metadata", r
     };
   }, [rootMargin]);
 
+  useEffect(() => {
+    setLoadStatus(src ? (shouldLoad ? "loading" : "queued") : "ready");
+    setLoadProgress(shouldLoad ? 18 : 0);
+  }, [src, shouldLoad]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !shouldLoad) return;
+
+    recordMediaLoadEvent(video, {
+      type: "video",
+      state: "start",
+      src,
+    });
+  }, [src, shouldLoad]);
+
+  const markLoading = (event, nextProgress) => {
+    setLoadStatus("loading");
+    setLoadProgress(nextProgress ?? getMediaProgressFromVideo(event.currentTarget));
+  };
+
+  const markReady = (event) => {
+    setLoadStatus("ready");
+    setLoadProgress(100);
+    recordMediaLoadEvent(event.currentTarget, {
+      type: "video",
+      state: "ready",
+      src,
+    });
+  };
+
   return (
-    <video
-      {...props}
-      ref={videoRef}
-      className={className}
-      src={shouldLoad ? src : undefined}
-      poster={poster}
-      preload={shouldLoad ? preload : "none"}
-      style={style}
-    />
+    <>
+      <video
+        {...videoProps}
+        ref={videoRef}
+        className={className}
+        src={shouldLoad ? src : undefined}
+        poster={poster}
+        preload={shouldLoad ? preload : "none"}
+        style={style}
+        data-media-state={loadStatus}
+        onLoadedMetadata={(event) => {
+          markLoading(event, 42);
+          onLoadedMetadata?.(event);
+        }}
+        onProgress={(event) => {
+          markLoading(event);
+          onProgress?.(event);
+        }}
+        onLoadedData={(event) => {
+          markReady(event);
+          onLoadedData?.(event);
+        }}
+        onCanPlay={(event) => {
+          markReady(event);
+          onCanPlay?.(event);
+        }}
+        onPlaying={(event) => {
+          markReady(event);
+          onPlaying?.(event);
+        }}
+        onWaiting={(event) => {
+          markLoading(event);
+          onWaiting?.(event);
+        }}
+        onError={(event) => {
+          setLoadStatus("error");
+          setLoadProgress(100);
+          recordMediaLoadEvent(event.currentTarget, {
+            type: "video",
+            state: "error",
+            src,
+          });
+          onError?.(event);
+        }}
+      />
+      {showLoader ? (
+        <MediaLoadOverlay
+          status={loadStatus}
+          progress={loadProgress}
+          label={getMediaSrcLabel(src)}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function LazyImage({
+  src,
+  alt = "",
+  className = "",
+  style,
+  loading = "lazy",
+  rootMargin = "1200px 0px",
+  showLoader = true,
+  immediate = false,
+  ...props
+}) {
+  const imageRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(immediate);
+  const [loadStatus, setLoadStatus] = useState(immediate ? "loading" : "queued");
+  const [loadProgress, setLoadProgress] = useState(immediate ? 30 : 0);
+  const { onLoad, onError, ...imageProps } = props;
+
+  useEffect(() => {
+    const node = imageRef.current;
+    if (!node || shouldLoad) return undefined;
+
+    const loadIfNearViewport = () => {
+      const rect = node.getBoundingClientRect();
+      const preloadMargin = window.innerHeight * 1.7;
+      if (rect.top < window.innerHeight + preloadMargin && rect.bottom > -preloadMargin) {
+        setShouldLoad(true);
+        return true;
+      }
+
+      return false;
+    };
+
+    if (loadIfNearViewport()) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(node);
+    window.addEventListener("scroll", loadIfNearViewport, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", loadIfNearViewport);
+    };
+  }, [rootMargin, shouldLoad]);
+
+  useEffect(() => {
+    if (immediate) {
+      setShouldLoad(true);
+      setLoadStatus("loading");
+      setLoadProgress(30);
+      return;
+    }
+
+    setLoadStatus(shouldLoad ? "loading" : "queued");
+    setLoadProgress(shouldLoad ? 30 : 0);
+  }, [src, shouldLoad, immediate]);
+
+  useEffect(() => {
+    const image = imageRef.current;
+    if (!image || !shouldLoad) return;
+
+    recordMediaLoadEvent(image, {
+      type: "image",
+      state: "start",
+      src,
+    });
+  }, [src, shouldLoad]);
+
+  return (
+    <>
+      <img
+        {...imageProps}
+        ref={imageRef}
+        className={className}
+        src={shouldLoad ? src : undefined}
+        data-src={shouldLoad ? undefined : src}
+        alt={alt}
+        loading={loading}
+        decoding="async"
+        style={style}
+        data-media-state={loadStatus}
+        onLoad={(event) => {
+          setLoadStatus("ready");
+          setLoadProgress(100);
+          recordMediaLoadEvent(event.currentTarget, {
+            type: "image",
+            state: "ready",
+            src,
+          });
+          onLoad?.(event);
+        }}
+        onError={(event) => {
+          setLoadStatus("error");
+          setLoadProgress(100);
+          recordMediaLoadEvent(event.currentTarget, {
+            type: "image",
+            state: "error",
+            src,
+          });
+          onError?.(event);
+        }}
+      />
+      {showLoader ? (
+        <MediaLoadOverlay
+          status={loadStatus}
+          progress={loadProgress}
+          label={getMediaSrcLabel(src)}
+        />
+      ) : null}
+    </>
   );
 }
 
@@ -1354,7 +1612,7 @@ function PageBackdrop({ backdrop }) {
       {backdrop.type === "video" ? (
         <LazyVideo src={backdrop.src} autoPlay muted loop playsInline preload="metadata" />
       ) : (
-        <img src={backdrop.src} alt="" />
+        <LazyImage src={backdrop.src} alt="" />
       )}
     </div>
   );
@@ -1380,78 +1638,31 @@ function StoryMedia({ item, className = "", loading = "lazy" }) {
     );
   }
 
-  return <img className={mediaClassName} src={item.src} alt={item.label || ""} loading={loading} />;
+  return <LazyImage className={mediaClassName} src={item.src} alt={item.label || ""} loading={loading} />;
 }
 
 function KeynoteMedia({ item }) {
-  const containerRef = useRef(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
   const mediaRole = item.type === "video" ? "is-video" : "is-image";
   const mediaStyle = item.fit ? { objectFit: item.fit } : undefined;
 
-  useEffect(() => {
-    if (item.type !== "video") return undefined;
-
-    const node = containerRef.current;
-    if (!node) return undefined;
-
-    const loadIfNearViewport = () => {
-      const rect = node.getBoundingClientRect();
-      const preloadMargin = window.innerHeight * 2;
-      if (rect.top < window.innerHeight + preloadMargin && rect.bottom > -preloadMargin) {
-        setShouldLoad(true);
-        return true;
-      }
-
-      return false;
-    };
-
-    if (loadIfNearViewport()) {
-      return undefined;
-    }
-
-    if (!("IntersectionObserver" in window)) {
-      setShouldLoad(true);
-      return undefined;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "1400px 0px" },
-    );
-
-    observer.observe(node);
-    window.addEventListener("scroll", loadIfNearViewport, { passive: true });
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", loadIfNearViewport);
-    };
-  }, [item.type]);
-
   const content = item.type === "video" ? (
     <LazyVideo
-      src={shouldLoad ? item.src : undefined}
+      src={item.src}
       autoPlay
       muted
       loop
       playsInline
-      preload="none"
-      rootMargin="0px"
+      preload="metadata"
+      rootMargin="1800px 0px"
       aria-label={item.label}
       style={mediaStyle}
     />
   ) : (
-    <img src={item.src} alt={item.label || ""} loading="lazy" style={mediaStyle} />
+    <LazyImage src={item.src} alt={item.label || ""} loading="lazy" style={mediaStyle} />
   );
 
   return (
     <figure
-      ref={containerRef}
       className={`keynote-media-window ${mediaRole} ${item.className || ""}`.trim()}
       style={item.style}
     >
@@ -1471,7 +1682,6 @@ function flattenKeynoteMediaItems(pagesSource = []) {
 }
 
 const warmedKeynoteAssets = new Set();
-const warmedKeynoteVideos = new Map();
 
 function warmKeynoteAsset(src) {
   if (!src || warmedKeynoteAssets.has(src)) return;
@@ -1479,13 +1689,6 @@ function warmKeynoteAsset(src) {
 
   const isVideo = src.endsWith(".mp4") || src.endsWith(".mov");
   if (isVideo) {
-    const video = document.createElement("video");
-    video.preload = "metadata";
-    video.muted = true;
-    video.playsInline = true;
-    video.src = src;
-    video.load();
-    warmedKeynoteVideos.set(src, video);
     return;
   }
 
@@ -1561,13 +1764,12 @@ function KeynoteSlide({ slide, title }) {
   return (
     <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
       {hasSlideBackground ? (
-        <img
+        <LazyImage
           className="keynote-slide-background"
           src={backgroundSrc}
           alt=""
           aria-hidden="true"
           loading="lazy"
-          decoding="async"
         />
       ) : null}
 
@@ -1665,12 +1867,12 @@ function AIStreamGallery({ points, editing, onChange }) {
   const trackRef = useRef(null);
   const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
   const images = getGalleryImages(group);
-  const streamItems = [...images, ...images];
 
   useEffect(() => {
     let frameId;
     let lastTime = performance.now();
     let offset = 0;
+    let direction = 1;
     const speed = 18;
 
     const tick = (time) => {
@@ -1679,11 +1881,23 @@ function AIStreamGallery({ points, editing, onChange }) {
       lastTime = time;
 
       if (track) {
-        const loopWidth = track.scrollWidth / 2;
-        if (loopWidth > 0) {
-          offset = (offset + speed * delta) % loopWidth;
-          track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+        const viewportWidth = track.parentElement?.clientWidth || 0;
+        const maxOffset = Math.max(0, track.scrollWidth - viewportWidth);
+
+        if (maxOffset > 0) {
+          offset += speed * direction * delta;
+          if (offset >= maxOffset) {
+            offset = maxOffset;
+            direction = -1;
+          } else if (offset <= 0) {
+            offset = 0;
+            direction = 1;
+          }
+        } else {
+          offset = 0;
         }
+
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`;
       }
 
       frameId = window.requestAnimationFrame(tick);
@@ -1726,7 +1940,7 @@ function AIStreamGallery({ points, editing, onChange }) {
       </div>
       <div className="ai-stream-viewport" aria-label={`${group.label}素材浏览`}>
         <div className="ai-stream-track" ref={trackRef}>
-          {streamItems.map((item, index) => (
+          {images.map((item, index) => (
             <button
               className="ai-stream-item"
               type="button"
@@ -1734,7 +1948,7 @@ function AIStreamGallery({ points, editing, onChange }) {
               onClick={() => setPreviewImage(item)}
               aria-label={`打开${item.title}大图`}
             >
-              <img src={item.src} alt="" loading={index < 10 ? "eager" : "lazy"} />
+              <LazyImage src={item.src} alt="" loading="lazy" />
             </button>
           ))}
         </div>
@@ -1778,7 +1992,7 @@ function AIStreamGallery({ points, editing, onChange }) {
             >
               <X size={18} />
             </button>
-            <img src={previewImage.src} alt={previewImage.title} />
+            <LazyImage src={previewImage.src} alt={previewImage.title} loading="eager" immediate />
           </section>
         </div>
       ) : null}
@@ -2459,13 +2673,13 @@ function CharacterMaterialPanel({ open, onClose }) {
           }}
           onWheelCapture={blockWheel}
         >
-          <div className="character-material-track" ref={trackRef}>
-            {loopImages.map((item, index) => (
-              <figure className="character-material-frame" key={`${item.src}-${index}`}>
-                <img src={item.src} alt={`${item.label} 理想同学实体化素材`} loading="lazy" />
-              </figure>
-            ))}
-          </div>
+            <div className="character-material-track" ref={trackRef}>
+              {loopImages.map((item, index) => (
+                <figure className="character-material-frame" key={`${item.src}-${index}`}>
+                  <LazyImage src={item.src} alt={`${item.label} 理想同学实体化素材`} loading="lazy" />
+                </figure>
+              ))}
+            </div>
         </div>
         <div className="character-material-scrollbar" onWheelCapture={blockWheel}>
           <input
@@ -2580,7 +2794,7 @@ function AnimationAssetPanel({
               {items.map((item) => (
                 <article className="center-animation-card" key={item.src}>
                   {item.type === "image" ? (
-                    <img src={item.src} alt={item.label} loading="lazy" />
+                    <LazyImage src={item.src} alt={item.label} loading="lazy" />
                   ) : (
                     <LazyVideo src={item.src} muted autoPlay loop playsInline preload="metadata" />
                   )}
@@ -2933,7 +3147,7 @@ function FinalSummaryShowcase({ points, editing, onChange }) {
         ))}
       </div>
       <div className="final-summary-visual">
-        <img src="/assets/final-summary-banner.webp" alt="" />
+        <LazyImage src="/assets/final-summary-banner.webp" alt="" />
       </div>
     </div>
   );
@@ -3225,6 +3439,66 @@ function RevealPointList({ points, editing, onChange, className = "" }) {
   );
 }
 
+function useNearViewport(rootMargin = "1600px 0px") {
+  const ref = useRef(null);
+  const [isNear, setIsNear] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || isNear) return undefined;
+
+    const checkIfNear = () => {
+      const rect = node.getBoundingClientRect();
+      const preloadMargin = window.innerHeight * 1.8;
+      if (rect.top < window.innerHeight + preloadMargin && rect.bottom > -preloadMargin) {
+        setIsNear(true);
+        return true;
+      }
+
+      return false;
+    };
+
+    if (checkIfNear()) return undefined;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsNear(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin },
+    );
+
+    observer.observe(node);
+    window.addEventListener("scroll", checkIfNear, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", checkIfNear);
+    };
+  }, [isNear, rootMargin]);
+
+  return [ref, isNear];
+}
+
+function DeferredDemo({ active, children, label = "MODULE" }) {
+  const [ref, isNear] = useNearViewport("1800px 0px");
+
+  return (
+    <div className="deferred-demo-mount" ref={ref}>
+      {active || isNear ? children : (
+        <MediaLoadOverlay status="queued" progress={12} label={label} />
+      )}
+    </div>
+  );
+}
+
 function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChange }) {
   const [isMaterialPanelOpen, setMaterialPanelOpen] = useState(false);
   const [isCenterAnimationPanelOpen, setCenterAnimationPanelOpen] = useState(false);
@@ -3434,13 +3708,21 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           onChange={(path, value) => onChange(index, path, value)}
         />
       ) : page.demo === "radiance" ? (
-        <StandbyRadianceDemo />
+        <DeferredDemo active={isActive} label="RADIANCE">
+          <StandbyRadianceDemo />
+        </DeferredDemo>
       ) : page.demo === "fluidGlass" ? (
-        <SS4FluidGlassDemo />
+        <DeferredDemo active={isActive} label="SS4 MATERIAL">
+          <SS4FluidGlassDemo />
+        </DeferredDemo>
       ) : page.demo === "gaussianSplat" ? (
-        <GaussianSplatDemo />
+        <DeferredDemo active={isActive} label="GAUSSIAN SPLAT">
+          <GaussianSplatDemo />
+        </DeferredDemo>
       ) : page.demo === "scrollStack" ? (
-        <LiCenterScrollStackDemo />
+        <DeferredDemo active={isActive} label="LI CENTER">
+          <LiCenterScrollStackDemo />
+        </DeferredDemo>
       ) : page.demo === "aiMethod" ? (
         <AIMethodInteractive
           points={page.points}
@@ -3613,12 +3895,18 @@ export function App() {
       const target = document.getElementById(targetId);
       if (!target) return;
 
-      window.requestAnimationFrame(() => {
-        window.scrollTo({ top: target.offsetTop, behavior: "auto" });
+      const alignTarget = () => {
+        target.scrollIntoView({ block: "start", behavior: "auto" });
         const nextIndex = Number(targetId.replace("page-", "")) - 1;
         if (!Number.isNaN(nextIndex)) {
           setActivePageIndex(nextIndex);
         }
+      };
+
+      window.requestAnimationFrame(() => {
+        alignTarget();
+        window.setTimeout(alignTarget, 120);
+        window.setTimeout(alignTarget, 420);
       });
     };
 
