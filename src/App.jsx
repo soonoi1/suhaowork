@@ -412,13 +412,57 @@ const pages = [
   }
 ];
 
+const storyPageOrder = [
+  "01 / Intro",
+  "12 / Character",
+  "02 / Character Process",
+  "03 / Shape",
+  "04 / Fur",
+  "05 / Styling",
+  "06 / Eye Shape",
+  "07 / Model",
+  "08 / Fur Detail",
+  "09 / Birth",
+  "10 / Technical Route",
+  "11 / Delivery",
+  "13 / Collaboration",
+  "14 / Resource Delivery",
+  "15 / 4O Delivery",
+  "16 / AI Application",
+  "17 / AI Workflow",
+  "18 / Standby Prompt",
+  "19 / Light Language",
+  "20 / Standby Light",
+  "22 / SS4 Material",
+  "21 / Technical Validation",
+  "23 / Welcome Research",
+  "24 / Helping Eyes",
+  "25 / Natural Blink",
+  "26 / Tooling",
+  "27 / Binding",
+  "28 / Scenario",
+  "29 / OC Eyes",
+  "30 / Summary",
+];
+
+function orderPagesForStory(pagesToOrder = pages) {
+  const pagesByEyebrow = new Map(pagesToOrder.map((page) => [page.eyebrow, page]));
+  const orderedPages = storyPageOrder
+    .map((eyebrow) => pagesByEyebrow.get(eyebrow))
+    .filter(Boolean);
+
+  return orderedPages.length === pagesToOrder.length ? orderedPages : pagesToOrder;
+}
+
+const orderedPages = orderPagesForStory(pages);
+
 function pad(value) {
   return String(value).padStart(2, "0");
 }
 
 const NOTES_STORAGE_KEY = "suhaowork-review-notes-v2";
 const CONTENT_STORAGE_KEY = "suhaowork-page-content-v3-keynote-30";
-const CONTENT_STORAGE_VERSION = "2026-05-24-restore-original-feature-pages";
+const CONTENT_STORAGE_VERSION = "2026-05-25-story-order-v2";
 
 const activeVisualMode = {
   id: "space",
@@ -430,11 +474,11 @@ const activeVisualMode = {
 
 const pillNavItems = [
   { label: "Intro", meta: "01", href: "#page-1", ariaLabel: "Intro, page 1" },
-  { label: "Shape", meta: "02-10", href: "#page-2", ariaLabel: "Shape and character process, pages 2 to 10" },
-  { label: "Delivery", meta: "11-15", href: "#page-11", ariaLabel: "Delivery and collaboration, pages 11 to 15" },
+  { label: "Shape", meta: "02-11", href: "#page-2", ariaLabel: "Shape and character process, pages 2 to 11" },
+  { label: "Delivery", meta: "12-15", href: "#page-12", ariaLabel: "Delivery and collaboration, pages 12 to 15" },
   { label: "AI", meta: "16-17", href: "#page-16", ariaLabel: "AI workflow, pages 16 to 17" },
-  { label: "Light", meta: "18-21", href: "#page-18", ariaLabel: "Light language and SS4 validation, pages 18 to 21" },
-  { label: "SS4", meta: "22", href: "#page-22", ariaLabel: "SS4 material, page 22" },
+  { label: "Light", meta: "18-20", href: "#page-18", ariaLabel: "Light language, pages 18 to 20" },
+  { label: "SS4", meta: "21-22", href: "#page-21", ariaLabel: "SS4 material and validation, pages 21 to 22" },
   { label: "OC", meta: "23-29", href: "#page-23", ariaLabel: "OC eye project, pages 23 to 29" },
   { label: "Sum", meta: "30", href: "#page-30", ariaLabel: "Summary, page 30" },
 ];
@@ -443,11 +487,11 @@ function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
   if (pageNumber === 1) return "#page-1";
-  if (pageNumber <= 10) return "#page-2";
-  if (pageNumber <= 15) return "#page-11";
+  if (pageNumber <= 11) return "#page-2";
+  if (pageNumber <= 15) return "#page-12";
   if (pageNumber <= 17) return "#page-16";
-  if (pageNumber <= 21) return "#page-18";
-  if (pageNumber === 22) return "#page-22";
+  if (pageNumber <= 20) return "#page-18";
+  if (pageNumber <= 22) return "#page-21";
   if (pageNumber <= 29) return "#page-23";
   return "#page-30";
 }
@@ -1283,11 +1327,11 @@ function loadStoredNotes() {
 }
 
 function isCurrentPageSet(value) {
-  return Array.isArray(value) && value.length === pages.length;
+  return Array.isArray(value) && value.length === orderedPages.length;
 }
 
 function getDefaultPages() {
-  return isCurrentPageSet(savedContent.pages) ? savedContent.pages : pages;
+  return isCurrentPageSet(savedContent.pages) ? orderPagesForStory(savedContent.pages) : orderedPages;
 }
 
 function clonePages(pagesToClone = getDefaultPages()) {
@@ -3673,7 +3717,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
   const [firstColumn, secondColumn] = splitPoints(page.points);
   const pageNumber = index + 1;
   const backdrop = getPageBackdrop(page);
-  const isFinalSummaryPage = index === pages.length - 1;
+  const isFinalSummaryPage = index === orderedPages.length - 1;
   const isCharacterProjectPage = page.demo === "gaussianSplat";
   const isDeliveryProjectPage = page.demo === "deliveryPopups";
   const isCharacterStoryPage = page.detailType === "problem" || page.detailType === "process";
@@ -4062,7 +4106,7 @@ export function App() {
       if (!target) return;
 
       const alignTarget = () => {
-        target.scrollIntoView({ block: "start", behavior: "auto" });
+        window.scrollTo({ top: target.offsetTop, behavior: "auto" });
         const nextIndex = Number(targetId.replace("page-", "")) - 1;
         if (!Number.isNaN(nextIndex)) {
           setActivePageIndex(nextIndex);
