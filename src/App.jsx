@@ -979,8 +979,8 @@ const keynoteSlideMedia = {
     mediaItem(`${keynoteMediaBase}/page-02-old-li.mp4`, [41.46, 44.81, 17.81, 31.67], { fit: "contain", label: "旧版理想同学" }),
   ],
   "03": [
-    mediaItem(`${keynoteMediaBase}/page-03-original.mp4`, [39.95, 33.7, 20.36, 36.11], { fit: "contain", label: "原始形态" }),
-    mediaItem(`${keynoteMediaBase}/page-03-handmade.mp4`, [28.7, 50.74, 10.78, 19.07], { fit: "cover", label: "手搓版雏形" }),
+    mediaItem(`${keynoteMediaBase}/page-03-original.mp4`, [28.7, 50.74, 10.78, 19.07], { fit: "contain", label: "原始形态" }),
+    mediaItem(`${keynoteMediaBase}/page-03-handmade.mp4`, [39.95, 33.7, 20.36, 36.11], { fit: "cover", label: "手搓版雏形" }),
   ],
   "07": [
     mediaItem(`${keynoteMediaBase}/page-07-hat.mp4`, [30.73, 11.11, 9.9, 17.59], { fit: "cover", label: "换帽子" }),

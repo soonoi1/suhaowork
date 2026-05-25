@@ -224,11 +224,9 @@ const PillNav = ({
                   <span className="label-stack">
                     <span className="pill-label">
                       <span className="pill-label-title">{item.label}</span>
-                      {item.meta ? <span className="pill-label-meta">{item.meta}</span> : null}
                     </span>
                     <span className="pill-label-hover" aria-hidden="true">
                       <span className="pill-label-title">{item.label}</span>
-                      {item.meta ? <span className="pill-label-meta">{item.meta}</span> : null}
                     </span>
                   </span>
                 </a>
@@ -260,7 +258,6 @@ const PillNav = ({
                 onClick={() => handleNavigate(item)}
               >
                 <span>{item.label}</span>
-                {item.meta ? <small>{item.meta}</small> : null}
               </a>
             </li>
           ))}
