@@ -951,8 +951,8 @@ const keynoteSlideMedia = {
     mediaItem(`${keynoteMediaBase}/page-11-result.mp4`, [42.76, 39.35, 46.98, 47.22], { fit: "cover", label: "落地效果" }),
   ],
   "13": [
-    mediaItem(`${keynoteMediaBase}/page-13-4o-filled.mp4`, [4.48, 24.63, 55.21, 48.43], { fit: "cover", label: "4o 小同桌交付资源" }),
-    mediaItem(`${keynoteMediaBase}/page-13-center-delivery.mp4`, [61.88, 24.63, 29.38, 48.43], { fit: "cover", label: "理想同学中心交付资源" }),
+    mediaItem(`${keynoteMediaBase}/page-13-4o-filled.mp4`, [4.48, 28, 55.21, 48.43], { fit: "cover", label: "4o 小同桌交付资源" }),
+    mediaItem(`${keynoteMediaBase}/page-13-center-delivery.mp4`, [61.88, 28, 29.38, 48.43], { fit: "cover", label: "理想同学中心交付资源" }),
   ],
   "14": [
     mediaItem(`${keynoteMediaBase}/page-14-split.mp4`, [37.24, 31.11, 25.68, 31.48], { fit: "cover", label: "资源分割素材" }),
@@ -982,7 +982,7 @@ const keynoteSlideMedia = {
   "23": [
     mediaItem(`${keynoteMediaBase}/page-23-doc-1.mp4`, [12.92, 68.15, 11.3, 10.56], { fit: "contain", label: "迎宾形态" }),
     mediaItem(`${keynoteMediaBase}/page-23-eyelid.mp4`, [33.33, 68.52, 14.58, 10.56], { fit: "contain", label: "眼皮状态" }),
-    mediaItem(`${keynoteMediaBase}/page-23-welcome.mp4`, [53.96, 71.48, 13.33, 6.11], { fit: "cover", label: "迎宾视频" }),
+    mediaItem(`${keynoteMediaBase}/page-23-welcome.mp4`, [53.96, 69.95, 13.33, 7.64], { fit: "contain", label: "迎宾视频" }),
     mediaItem(`${keynoteMediaBase}/page-23-greeting.mp4`, [75.52, 68.52, 12.5, 10.56], { fit: "contain", label: "呼吸灯状态" }),
   ],
   "24": [
@@ -1067,8 +1067,8 @@ const keynoteProcessSlides = {
     textLayers: [
       textLayer("title", "同期复杂项目如何保证交付？", [24, 4.8, 52, 9.5]),
       textLayer("subtitle", "OTA7.4随着理想同学全新形象一起同期推出的产品还有  理想同学中心  和  4o小同桌\n除了加班加点还有什么方式能提效是我需要解决的", [26.2, 14.7, 47.6, 6.6], { highlightTerms: ["理想同学中心", "4o小同桌"] }),
-      textLayer("caption", "4o小同桌 可交互动画资源共计  378段动画资源", [20.1, 78.9, 33, 4.5], { highlightTerms: ["4o小同桌", "378段动画资源"] }),
-      textLayer("caption", "理想同学中心共计  214段动画资源", [66.2, 78.9, 30, 4.5], { highlightTerms: ["214段动画资源"] }),
+      textLayer("caption", "4o小同桌 可交互动画资源共计  378段动画资源", [20.1, 82.2, 33, 4.5], { highlightTerms: ["4o小同桌", "378段动画资源"] }),
+      textLayer("caption", "理想同学中心共计  214段动画资源", [66.2, 82.2, 30, 4.5], { highlightTerms: ["214段动画资源"] }),
     ],
   },
   "14": {
