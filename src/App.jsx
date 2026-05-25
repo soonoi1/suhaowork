@@ -2077,6 +2077,7 @@ function AIStreamGallery({ points, editing, onChange }) {
   const trackRef = useRef(null);
   const group = aiGalleryGroups.find((item) => item.key === activeGroup) || aiGalleryGroups[0];
   const images = getGalleryImages(group);
+  const streamImages = [...images, ...images, ...images];
 
   useEffect(() => {
     let frameId;
@@ -2150,7 +2151,7 @@ function AIStreamGallery({ points, editing, onChange }) {
       </div>
       <div className="ai-stream-viewport" aria-label={`${group.label}素材浏览`}>
         <div className="ai-stream-track" ref={trackRef}>
-          {images.map((item, index) => (
+          {streamImages.map((item, index) => (
             <button
               className="ai-stream-item"
               type="button"
