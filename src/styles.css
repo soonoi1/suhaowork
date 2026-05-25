@@ -996,7 +996,8 @@ button {
 }
 
 .case-section.backdrop-fur-close .gaussian-splat-demo {
-  margin-top: clamp(58px, 10svh, 78px);
+  height: calc(var(--gaussian-window-height) - 70px);
+  margin-top: calc(clamp(58px, 10svh, 78px) + 73px);
 }
 
 .case-section.has-character-story {
