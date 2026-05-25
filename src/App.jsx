@@ -3007,6 +3007,59 @@ function FourOAnimationPanel({ open, onClose, type }) {
   );
 }
 
+function DeliveryExpandedMediaSection() {
+  const groups = [
+    {
+      kicker: "LI CENTER ANIMATION",
+      title: "理想同学中心动画",
+      items: liCenterAnimationItems,
+    },
+    {
+      kicker: "4O CAR ANIMATION",
+      title: "4O 小同桌 · 车机端",
+      items: fourOCarAnimationItems,
+    },
+    {
+      kicker: "4O MOBILE ANIMATION",
+      title: "4O 小同桌 · 手机端",
+      items: fourOPhoneAnimationItems,
+    },
+  ];
+
+  return (
+    <div className="delivery-expanded-media" aria-label="15页展开媒体第二屏">
+      <div className="delivery-expanded-intro">
+        <span>MEDIA WALL</span>
+        <h3>所有交付素材直接展开</h3>
+        <p>保留当前页不新增章节，横向滑动查看理想同学中心、车机端和手机端的全部动画素材。</p>
+      </div>
+      {groups.map((group) => (
+        <section className="delivery-media-strip" key={group.title}>
+          <div className="delivery-media-strip-head">
+            <span>{group.kicker}</span>
+            <h4>{group.title}</h4>
+          </div>
+          <div className="delivery-media-strip-scroll" aria-label={`${group.title}横向媒体列表`}>
+            {group.items.map((item) => (
+              <article className="delivery-media-card" key={item.src}>
+                {item.type === "image" ? (
+                  <LazyImage src={item.src} alt={item.label} loading="lazy" />
+                ) : (
+                  <LazyVideo src={item.src} muted autoPlay loop playsInline preload="metadata" />
+                )}
+                <div className="delivery-media-card-copy">
+                  <span>{item.meta}</span>
+                  <strong>{item.label}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
 function SS4MaterialPanel({ open, onClose }) {
   return (
     <AnimationAssetPanel
@@ -3789,6 +3842,7 @@ function CaseSection({ page, index, note, onOpenNote, isActive, editing, onChang
           </BorderGlow>
         </div>
       ) : null}
+      {isDeliveryProjectPage ? <DeliveryExpandedMediaSection /> : null}
       {page.demo === "fluidGlass" ? (
         <BorderGlow
           as="button"
