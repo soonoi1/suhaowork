@@ -1075,10 +1075,16 @@ const keynoteProcessSlides = {
     variant: "full-slide",
     background: "notext",
     title: "如何整合资源保障交付？",
-    subtitle: "交付不是把素材丢出去，而是把命名、尺寸、版本、状态和使用路径都整理成研发能直接接入的资源系统",
+    subtitle: "随着理想同学全新形象上线，需要确保一个月内将近 600段 的资源素材产出\n我负责把控整个项目节奏，团队协作中负责 补位协调 。",
     textLayers: [
       textLayer("title", "如何整合资源保障交付？", [27, 5, 46, 9.5]),
-      textLayer("subtitle", "交付不是把素材丢出去，而是把命名、尺寸、版本、状态和使用路径都整理成研发能直接接入的资源系统", [19, 15.5, 62, 5]),
+      textLayer("subtitle", "随着理想同学全新形象上线，需要确保一个月内将近 600段 的资源素材产出\n我负责把控整个项目节奏，团队协作中负责 补位协调 。", [29, 14.2, 42, 6.4], { highlightTerms: ["一个月内", "600段", "补位协调"] }),
+      textLayer("columnTitle", "优先级", [23.4, 71.2, 15, 4.5]),
+      textLayer("columnBody", "精力分配\n节省 85%\n保证基础体验\n将精力分配至高频场景", [23.4, 76.3, 18, 13], { highlightTerms: ["节省 85%"] }),
+      textLayer("columnTitle", "流程分工", [49.2, 71.2, 18, 4.5]),
+      textLayer("columnBody", "做最擅长的事\n提速 50%\n拆解流程各司其职\n分配动画、建模、交付", [49.2, 76.3, 20, 13], { highlightTerms: ["提速 50%"] }),
+      textLayer("columnTitle", "AI提效", [77.5, 71.2, 15, 4.5]),
+      textLayer("columnBody", "数字时钟167段素材\n减少 95% 时间\n利用AI编写\n视频切分压缩脚本", [77.5, 76.3, 21, 13], { highlightTerms: ["减少 95% 时间"] }),
     ],
   },
   "15": {
