@@ -1045,6 +1045,7 @@ button {
   overflow: hidden;
   background: #000;
   color: #f5f5f0;
+  container-type: inline-size;
   font-family:
     "PingFang SC", "Microsoft YaHei", "SF Pro Display", "Helvetica Neue",
     Arial, sans-serif;
@@ -1103,19 +1104,21 @@ button {
 .keynote-html-text {
   position: absolute;
   margin: 0;
-  white-space: pre-line;
+  white-space: pre;
   color: rgba(247, 247, 242, 0.9);
   font-family:
     "Helvetica Neue", "PingFang SC", "Microsoft YaHei",
     Arial, sans-serif;
   font-weight: 300;
   letter-spacing: 0;
-  text-wrap: balance;
+  overflow-wrap: normal;
+  text-wrap: nowrap;
+  word-break: keep-all;
 }
 
 .keynote-html-title {
   color: #f7f7f2;
-  font-size: clamp(30px, 3.32vw, 64px);
+  font-size: 3.33cqw;
   font-weight: 500;
   line-height: 1.06;
   text-align: center;
@@ -1123,7 +1126,7 @@ button {
 
 .keynote-html-subtitle {
   color: rgba(247, 247, 242, 0.62);
-  font-size: clamp(12px, 1.25vw, 24px);
+  font-size: 1.25cqw;
   font-weight: 300;
   line-height: 1.42;
   text-align: center;
@@ -1132,7 +1135,7 @@ button {
 .keynote-html-caption,
 .keynote-html-label {
   color: rgba(247, 247, 242, 0.78);
-  font-size: clamp(12px, 1.25vw, 24px);
+  font-size: 1.25cqw;
   font-weight: 300;
   line-height: 1.25;
   text-align: center;
@@ -1140,35 +1143,35 @@ button {
 
 .keynote-html-columnTitle {
   color: #f7f7f2;
-  font-size: clamp(18px, 1.66vw, 32px);
+  font-size: 1.67cqw;
   font-weight: 700;
   line-height: 1.12;
 }
 
 .keynote-html-columnBody {
   color: rgba(247, 247, 242, 0.68);
-  font-size: clamp(13px, 1.25vw, 24px);
+  font-size: 1.25cqw;
   font-weight: 300;
   line-height: 1.38;
 }
 
 .keynote-html-sideTitle {
   color: #f7f7f2;
-  font-size: clamp(18px, 1.72vw, 33px);
+  font-size: 1.72cqw;
   font-weight: 700;
   line-height: 1.18;
 }
 
 .keynote-html-sideBody {
   color: rgba(247, 247, 242, 0.68);
-  font-size: clamp(13px, 1.25vw, 24px);
+  font-size: 1.25cqw;
   font-weight: 300;
   line-height: 1.42;
 }
 
 .keynote-html-sideEmphasis {
   color: #f0a94f;
-  font-size: clamp(24px, 2.6vw, 50px);
+  font-size: 2.6cqw;
   font-weight: 800;
   line-height: 1.02;
 }
@@ -5043,7 +5046,10 @@ button {
   }
 
   .keynote-html-text {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
     text-wrap: pretty;
+    word-break: normal;
   }
 
   .case-section.has-character-story {
