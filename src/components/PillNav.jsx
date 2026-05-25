@@ -222,9 +222,13 @@ const PillNav = ({
                     }}
                   />
                   <span className="label-stack">
-                    <span className="pill-label">{item.label}</span>
+                    <span className="pill-label">
+                      <span className="pill-label-title">{item.label}</span>
+                      {item.meta ? <span className="pill-label-meta">{item.meta}</span> : null}
+                    </span>
                     <span className="pill-label-hover" aria-hidden="true">
-                      {item.label}
+                      <span className="pill-label-title">{item.label}</span>
+                      {item.meta ? <span className="pill-label-meta">{item.meta}</span> : null}
                     </span>
                   </span>
                 </a>
@@ -255,7 +259,8 @@ const PillNav = ({
                 className={`mobile-menu-link${activeHref === item.href ? " is-active" : ""}`}
                 onClick={() => handleNavigate(item)}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {item.meta ? <small>{item.meta}</small> : null}
               </a>
             </li>
           ))}

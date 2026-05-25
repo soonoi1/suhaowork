@@ -429,29 +429,33 @@ const activeVisualMode = {
 };
 
 const pillNavItems = [
-  { label: "Intro", href: "#page-1" },
-  { label: "Shape", href: "#page-2" },
-  { label: "Route", href: "#page-10" },
-  { label: "Delivery", href: "#page-11" },
-  { label: "AI", href: "#page-16" },
-  { label: "Light", href: "#page-18" },
-  { label: "SS4", href: "#page-22" },
-  { label: "OC", href: "#page-23" },
-  { label: "Sum", href: "#page-30" },
+  { label: "Intro", meta: "01", href: "#page-1", ariaLabel: "Intro, page 1" },
+  { label: "Shape", meta: "02-10", href: "#page-2", ariaLabel: "Shape and character process, pages 2 to 10" },
+  { label: "Delivery", meta: "11-15", href: "#page-11", ariaLabel: "Delivery and collaboration, pages 11 to 15" },
+  { label: "AI", meta: "16-17", href: "#page-16", ariaLabel: "AI workflow, pages 16 to 17" },
+  { label: "Light", meta: "18-21", href: "#page-18", ariaLabel: "Light language and SS4 validation, pages 18 to 21" },
+  { label: "SS4", meta: "22", href: "#page-22", ariaLabel: "SS4 material, page 22" },
+  { label: "OC", meta: "23-29", href: "#page-23", ariaLabel: "OC eye project, pages 23 to 29" },
+  { label: "Sum", meta: "30", href: "#page-30", ariaLabel: "Summary, page 30" },
 ];
 
 function getActivePillHref(activePageIndex) {
   const pageNumber = activePageIndex + 1;
 
   if (pageNumber === 1) return "#page-1";
-  if (pageNumber <= 9) return "#page-2";
-  if (pageNumber === 10) return "#page-10";
+  if (pageNumber <= 10) return "#page-2";
   if (pageNumber <= 15) return "#page-11";
   if (pageNumber <= 17) return "#page-16";
   if (pageNumber <= 21) return "#page-18";
   if (pageNumber === 22) return "#page-22";
   if (pageNumber <= 29) return "#page-23";
   return "#page-30";
+}
+
+function getPageIndexFromHref(href = "") {
+  const pageNumber = Number(href.replace("#page-", ""));
+  if (Number.isNaN(pageNumber)) return null;
+  return pageNumber - 1;
 }
 
 function emphasizeText(value = "", preferredTokens) {
@@ -4321,6 +4325,10 @@ export function App() {
             if (!item?.href) return;
 
             setPendingPillHref(item.href);
+            const nextIndex = getPageIndexFromHref(item.href);
+            if (nextIndex !== null) {
+              setActivePageIndex(nextIndex);
+            }
 
             if (pendingPillTimeoutRef.current) {
               window.clearTimeout(pendingPillTimeoutRef.current);
