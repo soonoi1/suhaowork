@@ -1398,11 +1398,6 @@ function getMediaProgressFromVideo(video) {
   return Math.max(18, Math.min(96, Math.round((bufferedEnd / video.duration) * 100)));
 }
 
-function getMediaSrcLabel(src = "") {
-  const parts = src.split("/");
-  return parts[parts.length - 1] || "media";
-}
-
 function recordMediaLoadEvent(node, detail) {
   if (typeof window === "undefined" || !node) return;
 
@@ -1415,17 +1410,16 @@ function recordMediaLoadEvent(node, detail) {
   });
 }
 
-function MediaLoadOverlay({ status, progress = 0, label = "MEDIA" }) {
-  if (status === "ready") return null;
+function MediaLoadOverlay({ status, progress = 0 }) {
+  if (status === "ready" || status === "queued") return null;
 
   const safeProgress = Math.max(8, Math.min(96, progress || 8));
-  const text = status === "queued" ? "WAITING" : status === "error" ? "RETRY" : "LOADING";
+  const text = status === "error" ? "RETRY" : "LOADING";
 
   return (
     <span className={`media-load-overlay is-${status}`} aria-hidden="true">
       <span className="media-load-copy">
         <span>{text}</span>
-        <small>{label}</small>
       </span>
       <span className="media-load-track">
         <span style={{ width: `${safeProgress}%` }} />
@@ -1445,6 +1439,7 @@ function LazyVideo({
   ...props
 }) {
   const videoRef = useRef(null);
+  const isReadyRef = useRef(false);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [loadStatus, setLoadStatus] = useState(src ? "queued" : "ready");
   const [loadProgress, setLoadProgress] = useState(0);
@@ -1492,7 +1487,23 @@ function LazyVideo({
   }, [rootMargin]);
 
   useEffect(() => {
-    setLoadStatus(src ? (shouldLoad ? "loading" : "queued") : "ready");
+    const video = videoRef.current;
+    isReadyRef.current = false;
+
+    if (!src) {
+      setLoadStatus("ready");
+      setLoadProgress(100);
+      return;
+    }
+
+    if (shouldLoad && video && (video.readyState >= 2 || !video.paused)) {
+      isReadyRef.current = true;
+      setLoadStatus("ready");
+      setLoadProgress(100);
+      return;
+    }
+
+    setLoadStatus(shouldLoad ? "loading" : "queued");
     setLoadProgress(shouldLoad ? 18 : 0);
   }, [src, shouldLoad]);
 
@@ -1508,11 +1519,19 @@ function LazyVideo({
   }, [src, shouldLoad]);
 
   const markLoading = (event, nextProgress) => {
+    if (isReadyRef.current || event.currentTarget.readyState >= 2 || !event.currentTarget.paused) {
+      setLoadStatus("ready");
+      setLoadProgress(100);
+      isReadyRef.current = true;
+      return;
+    }
+
     setLoadStatus("loading");
     setLoadProgress(nextProgress ?? getMediaProgressFromVideo(event.currentTarget));
   };
 
   const markReady = (event) => {
+    isReadyRef.current = true;
     setLoadStatus("ready");
     setLoadProgress(100);
     recordMediaLoadEvent(event.currentTarget, {
@@ -1572,7 +1591,6 @@ function LazyVideo({
         <MediaLoadOverlay
           status={loadStatus}
           progress={loadProgress}
-          label={getMediaSrcLabel(src)}
         />
       ) : null}
     </>
@@ -1638,10 +1656,23 @@ function LazyImage({
   }, [rootMargin, shouldLoad]);
 
   useEffect(() => {
+    const image = imageRef.current;
+
     if (immediate) {
       setShouldLoad(true);
-      setLoadStatus("loading");
-      setLoadProgress(30);
+      if (image?.complete && image.naturalWidth > 0) {
+        setLoadStatus("ready");
+        setLoadProgress(100);
+      } else {
+        setLoadStatus("loading");
+        setLoadProgress(30);
+      }
+      return;
+    }
+
+    if (shouldLoad && image?.complete && image.naturalWidth > 0) {
+      setLoadStatus("ready");
+      setLoadProgress(100);
       return;
     }
 
@@ -1698,7 +1729,6 @@ function LazyImage({
         <MediaLoadOverlay
           status={loadStatus}
           progress={loadProgress}
-          label={getMediaSrcLabel(src)}
         />
       ) : null}
     </>
@@ -1711,9 +1741,9 @@ function PageBackdrop({ backdrop }) {
   return (
     <div className={`page-backdrop ${backdrop.className}`} aria-hidden="true">
       {backdrop.type === "video" ? (
-        <LazyVideo src={backdrop.src} autoPlay muted loop playsInline preload="metadata" />
+        <LazyVideo src={backdrop.src} autoPlay muted loop playsInline preload="metadata" showLoader={false} />
       ) : (
-        <LazyImage src={backdrop.src} alt="" />
+        <LazyImage src={backdrop.src} alt="" showLoader={false} />
       )}
     </div>
   );
@@ -1876,6 +1906,7 @@ function KeynoteSlide({ slide, title }) {
           alt=""
           aria-hidden="true"
           loading="lazy"
+          showLoader={false}
         />
       ) : null}
 
