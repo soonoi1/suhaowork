@@ -995,6 +995,10 @@ button {
   z-index: 2;
 }
 
+.case-section.backdrop-fur-close .gaussian-splat-demo {
+  margin-top: clamp(58px, 10svh, 78px);
+}
+
 .case-section.has-character-story {
   display: block;
   height: auto;
