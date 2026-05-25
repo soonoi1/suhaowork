@@ -1086,6 +1086,93 @@ button {
   letter-spacing: 0;
 }
 
+.keynote-html-text-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.keynote-html-text {
+  position: absolute;
+  margin: 0;
+  white-space: pre-line;
+  color: rgba(247, 247, 242, 0.9);
+  font-family:
+    "Helvetica Neue", "PingFang SC", "Microsoft YaHei",
+    Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.keynote-html-title {
+  color: #f7f7f2;
+  font-size: clamp(30px, 3.32vw, 64px);
+  font-weight: 500;
+  line-height: 1.06;
+  text-align: center;
+}
+
+.keynote-html-subtitle {
+  color: rgba(247, 247, 242, 0.62);
+  font-size: clamp(12px, 1.25vw, 24px);
+  font-weight: 300;
+  line-height: 1.42;
+  text-align: center;
+}
+
+.keynote-html-caption,
+.keynote-html-label {
+  color: rgba(247, 247, 242, 0.78);
+  font-size: clamp(12px, 1.25vw, 24px);
+  font-weight: 300;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.keynote-html-columnTitle {
+  color: #f7f7f2;
+  font-size: clamp(18px, 1.66vw, 32px);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.keynote-html-columnBody {
+  color: rgba(247, 247, 242, 0.68);
+  font-size: clamp(13px, 1.25vw, 24px);
+  font-weight: 300;
+  line-height: 1.38;
+}
+
+.keynote-html-sideTitle {
+  color: #f7f7f2;
+  font-size: clamp(18px, 1.72vw, 33px);
+  font-weight: 700;
+  line-height: 1.18;
+}
+
+.keynote-html-sideBody {
+  color: rgba(247, 247, 242, 0.68);
+  font-size: clamp(13px, 1.25vw, 24px);
+  font-weight: 300;
+  line-height: 1.42;
+}
+
+.keynote-html-sideEmphasis {
+  color: #f0a94f;
+  font-size: clamp(24px, 2.6vw, 50px);
+  font-weight: 800;
+  line-height: 1.02;
+}
+
+.keynote-html-text strong {
+  display: inline;
+  padding: 0 0.16em;
+  color: #f0a94f;
+  font-weight: 800;
+}
+
 .keynote-subtitle,
 .keynote-note,
 .keynote-kicker,
@@ -4810,6 +4897,32 @@ button {
 
   .keynote-slide-stage {
     width: min(100vw, calc(100svh * 16 / 9));
+  }
+
+  .keynote-html-title {
+    font-size: clamp(20px, 5vw, 34px);
+  }
+
+  .keynote-html-subtitle,
+  .keynote-html-caption,
+  .keynote-html-label,
+  .keynote-html-columnBody,
+  .keynote-html-sideBody {
+    font-size: clamp(8px, 2.1vw, 14px);
+    line-height: 1.35;
+  }
+
+  .keynote-html-columnTitle,
+  .keynote-html-sideTitle {
+    font-size: clamp(12px, 3vw, 20px);
+  }
+
+  .keynote-html-sideEmphasis {
+    font-size: clamp(16px, 4vw, 26px);
+  }
+
+  .keynote-html-text {
+    text-wrap: pretty;
   }
 
   .case-section.has-character-story {

@@ -454,8 +454,10 @@ function getActivePillHref(activePageIndex) {
   return "#page-30";
 }
 
-function emphasizeText(value = "") {
-  const highlightMap = {
+function emphasizeText(value = "", preferredTokens) {
+  const highlightMap = preferredTokens
+    ? Object.fromEntries(preferredTokens.map((token) => [token, "key"]))
+    : {
     "具象化": "key",
     "形态": "key",
     "3D化": "key",
@@ -476,7 +478,7 @@ function emphasizeText(value = "") {
     "两套方案": "key",
     "100%": "key",
     "一年": "key",
-  };
+    };
   const tokens = Object.keys(highlightMap).sort((first, second) => second.length - first.length);
   if (!tokens.length) return value;
 
@@ -912,6 +914,18 @@ function mediaItem(src, box, options = {}) {
   };
 }
 
+function textLayer(kind, text, box, options = {}) {
+  return {
+    kind,
+    text,
+    style: pctBox(...box),
+    className: options.className,
+    highlightTerms: options.highlightTerms,
+  };
+}
+
+const htmlTextSlides = new Set(["13", "14", "16", "18", "19", "21", "23", "24", "25", "26", "27"]);
+
 const keynoteSlideMedia = {
   "02": [
     mediaItem(`${keynoteMediaBase}/page-02-old-li.mp4`, [41.46, 44.81, 17.81, 31.67], { fit: "contain", label: "旧版理想同学" }),
@@ -962,8 +976,8 @@ const keynoteSlideMedia = {
     mediaItem(`${keynoteMediaBase}/page-19-dialog.mp4`, [67.76, 60.37, 25.94, 17.22], { fit: "cover", label: "进入对话" }),
   ],
   "21": [
-    mediaItem(`${keynoteMediaBase}/page-21-before.mp4`, [27.24, 55.19, 11.35, 24.81], { fit: "cover", label: "不带透镜" }),
-    mediaItem(`${keynoteMediaBase}/page-21-after.mp4`, [71.41, 60, 8.85, 20.56], { fit: "cover", label: "边缘透镜效果" }),
+    mediaItem(`${keynoteMediaBase}/page-21-before.mp4`, [1.9, 55.2, 38.9, 33], { fit: "cover", label: "不带透镜" }),
+    mediaItem(`${keynoteMediaBase}/page-21-after.mp4`, [42, 55.2, 38.2, 35.8], { fit: "contain", label: "边缘透镜效果" }),
   ],
   "23": [
     mediaItem(`${keynoteMediaBase}/page-23-doc-1.mp4`, [12.92, 68.15, 11.3, 10.56], { fit: "contain", label: "迎宾形态" }),
@@ -1047,13 +1061,25 @@ const keynoteProcessSlides = {
   },
   "13": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "同期复杂项目如何保证交付？",
+    subtitle: "OTA7.4随着理想同学全新形象一起同期推出的产品还有  理想同学中心  和  4o小同桌",
+    textLayers: [
+      textLayer("title", "同期复杂项目如何保证交付？", [24, 4.8, 52, 9.5]),
+      textLayer("subtitle", "OTA7.4随着理想同学全新形象一起同期推出的产品还有  理想同学中心  和  4o小同桌", [18, 15.2, 64, 4.8]),
+      textLayer("caption", "4o小同桌 可交互动图资源共计  378段动画资源", [21.2, 76.4, 31, 4.5]),
+      textLayer("caption", "理想同学中心共计  214段动画资源", [60.2, 76.4, 29, 4.5]),
+    ],
   },
   "14": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "如何整合资源保障交付？",
+    subtitle: "交付不是把素材丢出去，而是把命名、尺寸、版本、状态和使用路径都整理成研发能直接接入的资源系统",
+    textLayers: [
+      textLayer("title", "如何整合资源保障交付？", [27, 5, 46, 9.5]),
+      textLayer("subtitle", "交付不是把素材丢出去，而是把命名、尺寸、版本、状态和使用路径都整理成研发能直接接入的资源系统", [19, 15.5, 62, 5]),
+    ],
   },
   "15": {
     variant: "full-slide",
@@ -1062,8 +1088,13 @@ const keynoteProcessSlides = {
   },
   "16": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "AI实战怎么应用？",
+    subtitle: "AI不是替代设计判断，而是把探索、筛选、验证和批量处理放进真实项目流程里",
+    textLayers: [
+      textLayer("title", "AI实战怎么应用？", [31, 5, 38, 9.5]),
+      textLayer("subtitle", "AI不是替代设计判断，而是把探索、筛选、验证和批量处理放进真实项目流程里", [23, 15.5, 54, 5]),
+    ],
   },
   "17": {
     variant: "full-slide",
@@ -1072,13 +1103,33 @@ const keynoteProcessSlides = {
   },
   "18": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "Standby放射光怎么来的？",
+    subtitle: "从抽象氛围到可交互视觉语言，先把方向跑通，再拆解成研发能实现的参数和状态",
+    textLayers: [
+      textLayer("title", "Standby放射光怎么来的？", [25, 5, 50, 9.5]),
+      textLayer("subtitle", "从抽象氛围到可交互视觉语言，先把方向跑通，再拆解成研发能实现的参数和状态", [20, 15.5, 60, 5]),
+      textLayer("label", "方案一", [12.5, 60.3, 12, 4]),
+      textLayer("label", "方案二", [45.2, 60.3, 12, 4]),
+      textLayer("label", "方案三", [77.8, 60.3, 12, 4]),
+      textLayer("caption", "唤醒模式", [44, 91.2, 12, 4]),
+    ],
   },
   "19": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "光视觉语言的设想？",
+    subtitle: "让光不只是装饰，而是能表达注意力、温度、能见度、行驶状态和提醒的视觉语言",
+    textLayers: [
+      textLayer("title", "光视觉语言的设想？", [28, 5, 44, 9.5]),
+      textLayer("subtitle", "让光不只是装饰，而是能表达注意力、温度、能见度、行驶状态和提醒的视觉语言", [20, 15.5, 60, 5]),
+      textLayer("label", "注意力", [10.8, 45.5, 10, 4]),
+      textLayer("label", "温度感知", [42.5, 45.5, 14, 4]),
+      textLayer("label", "能见度", [76, 45.5, 10, 4]),
+      textLayer("label", "行驶状态", [9.8, 79.8, 14, 4]),
+      textLayer("label", "警告", [44.5, 79.8, 10, 4]),
+      textLayer("label", "进入对话", [75.2, 79.8, 14, 4]),
+    ],
   },
   "20": {
     variant: "full-slide",
@@ -1087,8 +1138,19 @@ const keynoteProcessSlides = {
   },
   "21": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "技术验证有用吗？",
+    subtitle: "我对SS4卡片质感材质进行了一轮视效的技术摸底，验证了一轮高斯玻璃在UI界面中效果的所有可能性",
+    textLayers: [
+      textLayer("title", "技术验证有用吗？", [31.5, 4.5, 37, 9.5]),
+      textLayer("subtitle", "我对SS4卡片质感材质进行了一轮视效的技术摸底，验证了一轮高斯玻璃在UI界面中效果的所有可能性", [17.5, 15, 65, 5]),
+      textLayer("label", "纯高斯（闪烁）", [14.6, 89.4, 18, 4]),
+      textLayer("label", "带置换（不闪）", [55.2, 91.6, 18, 4]),
+      textLayer("sideTitle", "液态玻璃", [82.5, 56.2, 13, 5]),
+      textLayer("sideBody", "透明高斯会导致边缘闪烁\n边缘置换法线的使用逻辑", [82.5, 62, 16, 9]),
+      textLayer("sideEmphasis", "解决闪烁", [82.5, 71.5, 14, 6]),
+      textLayer("sideBody", "充分了解了\n这个技术路径的选择的原因", [82.5, 79.2, 16, 8]),
+    ],
   },
   "22": {
     variant: "full-slide",
@@ -1097,33 +1159,72 @@ const keynoteProcessSlides = {
   },
   "23": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "车如果有眼睛应该长啥样？",
+    subtitle: "围绕迎宾、眼皮、呼吸灯和情绪状态，探索车端眼睛的形态边界",
+    textLayers: [
+      textLayer("title", "车如果有眼睛应该长啥样？", [22, 5, 56, 9.5]),
+      textLayer("subtitle", "OC项目是需要做一个舱外的眼睛，如果只能做一个眼睛，那这个眼睛应该长啥样？\n我需要拆解流程分步去做这件事", [26.5, 16.2, 47, 6.5]),
+      textLayer("columnTitle", "外形设计", [14, 28.9, 18, 4.5]),
+      textLayer("columnBody", "在合理的形态框架内结合\n硬件边界\n去平衡形态样式\n美式、卡通、日式、皮克斯?", [14, 33.9, 20, 11.5], { highlightTerms: ["硬件边界"] }),
+      textLayer("columnTitle", "真实感", [36.1, 28.9, 18, 4.5]),
+      textLayer("columnBody", "真实感灵动感设计需要\n面部捕捉\n做数据驱动\n加入最自然的生理状态", [36.1, 33.9, 20, 11.5], { highlightTerms: ["面部捕捉"] }),
+      textLayer("columnTitle", "情感表达", [56.1, 28.9, 18, 4.5]),
+      textLayer("columnBody", "构建一个动态驱动系统的\n原型绑定\n负责驱动控制其\n注意力、情绪、真实感", [56.1, 33.9, 20, 11.5], { highlightTerms: ["原型绑定"] }),
+      textLayer("columnTitle", "原型构建", [76.2, 28.9, 18, 4.5]),
+      textLayer("columnBody", "对话需要接入LLM\nAI驱动\n串联传感器、Agent、驱动器\n将其构建出一个prototype", [76.2, 33.9, 21, 11.5], { highlightTerms: ["AI驱动"] }),
+      textLayer("label", "demo", [47.5, 56.8, 5, 4]),
+    ],
   },
   "24": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "如何驱动眼睛？",
+    subtitle: "将注意力系统、状态判断和视觉表现串联起来，让眼睛能跟随场景自然反应",
+    textLayers: [
+      textLayer("title", "如何驱动眼睛？", [32, 5, 36, 9.5]),
+      textLayer("subtitle", "将注意力系统、状态判断和视觉表现串联起来，让眼睛能跟随场景自然反应", [22, 15.5, 56, 5]),
+    ],
   },
   "25": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "真实感如何用做？",
+    subtitle: "通过人眼捕捉和眨眼节奏分析，把真实感拆成可复用的运动规律",
+    textLayers: [
+      textLayer("title", "真实感如何用做？", [31, 5, 38, 9.5]),
+      textLayer("subtitle", "通过人眼捕捉和眨眼节奏分析，把真实感拆成可复用的运动规律", [24, 15.5, 52, 5]),
+    ],
   },
   "26": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "如何串联工作？",
+    subtitle: "把表情驱动、工具链和实时反馈串在一起，减少从设计到验证之间的断点",
+    textLayers: [
+      textLayer("title", "如何串联工作？", [32, 5, 36, 9.5]),
+      textLayer("subtitle", "把表情驱动、工具链和实时反馈串在一起，减少从设计到验证之间的断点", [22, 15.5, 56, 5]),
+    ],
   },
   "27": {
     variant: "full-slide",
-    background: true,
+    background: "notext",
     title: "眼睛都长不一样怎么驱动？",
+    subtitle: "把不同眼型抽象成统一绑定关系，让动画逻辑能迁移到不同形态",
+    textLayers: [
+      textLayer("title", "眼睛都长不一样怎么驱动？", [20, 5, 60, 9.5]),
+      textLayer("subtitle", "把不同眼型抽象成统一绑定关系，让动画逻辑能迁移到不同形态", [24, 15.5, 52, 5]),
+    ],
   },
   "28": {
     variant: "full-slide",
     background: true,
     title: "实际业务场景如何应用？",
+    subtitle: "基于实际业务中的沟通状态，把眼睛和气泡动画组合成更明确的反馈方式",
+    textLayers: [
+      textLayer("title", "实际业务场景如何应用？", [23, 5, 54, 9.5]),
+      textLayer("subtitle", "基于实际业务中的沟通状态，把眼睛和气泡动画组合成更明确的反馈方式", [22, 15.5, 56, 5]),
+    ],
   },
   "29": {
     variant: "full-slide",
@@ -1758,11 +1859,16 @@ function KeynoteSlide({ slide, title }) {
   if (!data) return null;
 
   const hasSlideBackground = Boolean(data.background);
-  const backgroundSrc = typeof data.background === "string" ? data.background : `/assets/character-keynote/slides/page-${slide}.jpg`;
+  const useHtmlTextLayer = data.background === "notext" || htmlTextSlides.has(slide);
+  const backgroundSrc = data.background === "notext"
+    ? `/assets/character-keynote/slides-notext/page-${slide}.jpg`
+    : typeof data.background === "string"
+      ? data.background
+      : `/assets/character-keynote/slides/page-${slide}.jpg`;
   const mediaItems = [...(data.media || []), ...(keynoteSlideMedia[slide] || [])];
 
   return (
-    <div className={`keynote-slide-stage keynote-${data.variant}`} aria-label={title}>
+    <div className={`keynote-slide-stage keynote-${data.variant}${useHtmlTextLayer ? " has-html-text" : ""}`} aria-label={title}>
       {hasSlideBackground ? (
         <LazyImage
           className="keynote-slide-background"
@@ -1771,6 +1877,20 @@ function KeynoteSlide({ slide, title }) {
           aria-hidden="true"
           loading="lazy"
         />
+      ) : null}
+
+      {useHtmlTextLayer ? (
+        <div className="keynote-html-text-layer" aria-hidden="true">
+          {(data.textLayers || []).map((item, index) => (
+            <p
+              className={`keynote-html-text keynote-html-${item.kind} ${item.className || ""}`.trim()}
+              style={item.style}
+              key={`${item.kind}-${item.text}-${index}`}
+            >
+              {emphasizeText(item.text, item.highlightTerms)}
+            </p>
+          ))}
+        </div>
       ) : null}
 
       {!hasSlideBackground ? (
